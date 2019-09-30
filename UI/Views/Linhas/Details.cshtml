@@ -1,0 +1,160 @@
+﻿@using UI.Properties;
+
+@model UI.Models.LinhaViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " " + Resources.LinhaViewModel;
+}
+<div class="container">
+  <br />
+  <br />
+
+  <h2>@Resources.Details</h2>
+
+  <div>
+    <h4>@Resources.LinhaViewModel</h4>
+    <hr />
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.EmpresaId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Empresa.Fantasia)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Prefixo):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Prefixo)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Denominacao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Uteis):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Uteis)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Sabados):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Sabados)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Domingos):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Domingos)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.DominioId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.EDominio.Dominio.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.OperacaoId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Operacao.OperLinha.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Classificacao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.CLinha.ClassLinha.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Captacao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Captacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Transporte):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Transporte)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Distribuicao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Distribuicao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.ExtensaoAB):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.ExtensaoAB)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.ExtensaoBA):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.ExtensaoBA)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Extensao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Extensao)
+      </div>
+    </div>
+  </div>
+
+  <div>
+    @Html.ActionLink(Resources.Update, "Edit", new { id = Model.Id }, new { @class = "btn btn-dark btn-sm" })
+    <div class="btn btn-outline-dark btn-sm">
+      @Html.ActionLink(Resources.BackToList, "Index")
+    </div>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+﻿@using UI.Properties;
+
+@model UI.Models.PontoViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " " + Resources.PontoViewModel;
+}
+<div class="container">
+  <br />
+  <br />
+
+  <h2>@Resources.Details</h2>
+
+  <div>
+    <h4>@Resources.PontoViewModel</h4>
+    <hr />
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.EmpresaId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Empresa.Fantasia)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Prefixo):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Prefixo)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Identificacao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Identificacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Endereco):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Endereco)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.EnderecoRef):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.EnderecoRef)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Cep):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Cep)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Bairro):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Bairro)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Municipio):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Municipio)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.UfId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.UfId)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Intercambio):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Intercambio)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Latitude):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Latitude)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Longitude):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Longitude)
+      </div>
+    </div>
+  </div>
+
+  <div>
+    @Html.ActionLink(Resources.Update, "Edit", new { id = Model.Id }, new { @class = "btn btn-dark btn-sm" })
+    <div class="btn btn-outline-dark btn-sm">
+      @Html.ActionLink(Resources.BackToList, "Index")
+    </div>
+  </div>
+</div>

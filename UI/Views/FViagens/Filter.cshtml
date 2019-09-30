@@ -1,0 +1,79 @@
+﻿@using UI.Properties;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IEnumerable<UI.Models.FViagemViewModel>
+
+@{
+  ViewBag.Title = Resources.Filter + " " + Resources.FViagemViewModel;
+}
+<div class="container left-widt">
+  <br />
+  <br />
+  <h2>@Resources.FViagemViewModel</h2>
+
+  <div class="btn btn-outline-dark btn-sm">
+    @Html.ActionLink(Resources.CreateNew, "Create", new { id = ViewContext.RouteData.Values["id"] })
+  </div>
+  <table class="table">
+    <tr>
+      <th>
+        @ViagemResx.LinhaId
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.ViagemId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.PontoId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Embarques)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Desembarques)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Acumulado)
+      </th>
+      <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Viagem.LnPesquisa.Linha.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.ViagemId)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.PtLinha.Ponto.Prefixo)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Embarques)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Desembarques)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Acumulado)
+        </td>
+        <td class="in-line" align="center">
+          @Html.ActionLink(Resources.Update, "Edit", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" }) |
+          @Html.ActionLink(Resources.Details, "Details", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" }) |
+          @Html.ActionLink(Resources.Delete, "Delete", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+        </td>
+      </tr>
+    }
+
+  </table>
+  @if ((Model as IPagedList).PageCount > 0) {
+    @Resources.Page@:&nbsp;@((Model as IPagedList).PageNumber) @Resources.Of @((Model as IPagedList).PageCount)
+  }
+  @Html.PagedListPager(Model as IPagedList, page => Url.Action("Filter", new { page }))
+
+  <div class="btn btn-outline-dark btn-sm">
+    @Html.ActionLink(Resources.BackToList, "Edit", controllerName: "Viagens", routeValues: new { id = ViewContext.RouteData.Values["id"] }, htmlAttributes: null)
+  </div>
+</div>

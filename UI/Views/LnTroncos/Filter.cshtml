@@ -1,0 +1,55 @@
+﻿@using UI.Properties;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IEnumerable<UI.Models.LnTroncoViewModel>
+
+@{
+  ViewBag.Title = Resources.Filter + " " + Resources.LnTerminalViewModel;
+}
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.LnTroncoViewModel</h2>
+
+  <div class="btn btn-outline-dark btn-sm">
+    @Html.ActionLink(Resources.CreateNew, "Create", new { id = ViewContext.RouteData.Values["id"] })
+  </div>
+  <table class="table">
+    <tr>
+      <th>
+        @Html.DisplayNameFor(model => model.TroncoId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.LinhaId)
+      </th>
+      <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Tronco.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Linha.Denominacao)
+        </td>
+        <td>
+          @Html.ActionLink(Resources.Update, "Edit", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" }) |
+          @Html.ActionLink(Resources.Details, "Details", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" }) |
+          @Html.ActionLink(Resources.Delete, "Delete", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+        </td>
+      </tr>
+    }
+  </table>
+
+  @if ((Model as IPagedList).PageCount > 0) {
+    @Resources.Page@:&nbsp;@((Model as IPagedList).PageNumber) @Resources.Of @((Model as IPagedList).PageCount)
+  }
+  @Html.PagedListPager(Model as IPagedList, page => Url.Action("Index", new { page }))
+
+  <div class="btn btn-outline-dark btn-sm">
+    @Html.ActionLink(Resources.BackToList, "Edit", controllerName: "Troncos", routeValues: new { id = ViewContext.RouteData.Values["id"] }, htmlAttributes: null)
+  </div>
+</div>

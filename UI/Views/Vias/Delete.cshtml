@@ -1,0 +1,40 @@
+﻿@using UI.Properties;
+
+@model UI.Models.ViaViewModel
+
+@{
+  ViewBag.Title = Resources.Delete + " " + Resources.ViaViewModel;
+}
+
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.Delete</h2>
+
+  <h3>@Resources.DeleteConfirm</h3>
+  <div>
+    <h4>@Resources.ViaViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+      <div class="row margin-top">
+        <div class="col-sm-2 font-weight-bold btns">
+          @Html.DisplayNameFor(model => model.Denominacao):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Denominacao)
+        </div>
+      </div>
+    </dl>
+
+    @using (Html.BeginForm()) {
+      @Html.AntiForgeryToken()
+
+      <div class="form-actions no-color">
+        <input type="submit" value="@Resources.Delete" class="btn btn-danger btn-sm" />
+        <div class="btn btn-outline-dark btn-sm">
+          @Html.ActionLink(Resources.BackToList, "Index")
+        </div>
+      </div>
+    }
+  </div>
+</div>

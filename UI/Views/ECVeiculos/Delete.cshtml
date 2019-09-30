@@ -1,0 +1,66 @@
+﻿@using UI.Properties;
+
+@model UI.Models.ECVeiculoViewModel
+
+@{
+  ViewBag.Title = Resources.Delete + " " + Resources.ECVeiculoViewModel;
+}
+
+<h2>@Resources.Delete</h2>
+
+<h3>@Resources.DeleteConfirm</h3>
+<div>
+  <h4>@Resources.ECVeiculoViewModel</h4>
+  <hr />
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.EmpresaId)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.Empresa.Fantasia)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.ClasseId)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.CVeiculo.Classe)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Minimo)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.Minimo)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Maximo)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.Maximo)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Passageirom2)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.Passageirom2)
+    </dd>
+
+  </dl>
+
+  @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+      <input type="submit" value="@Resources.Delete" class="btn btn-default" /> |
+      @Html.ActionLink(Resources.BackToList, "Index")
+    </div>
+  }
+</div>

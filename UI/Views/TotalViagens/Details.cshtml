@@ -1,0 +1,158 @@
+﻿@using UI.Properties;
+
+@model UI.Models.TotalViagemViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " " + Resources.TotalViagemViewModel;
+}
+
+<div class="container">
+  <br />
+  <br />
+
+  <h2>@Resources.Details</h2>
+
+  <div>
+    <h4>@Resources.TotalViagemViewModel</h4>
+    <hr />
+    <div class="dl-horizontal">
+      <div class="row margin-top">
+        <div class="col-sm-3 font-weight-bold">
+          @Html.DisplayNameFor(model => model.LinhaId):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Linha.Denominacao)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-3 font-weight-bold">
+          @Html.DisplayNameFor(model => model.DiaId):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.DiaIdName)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-3 font-weight-bold">
+          @Html.DisplayNameFor(model => model.PeriodoId):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.PrLinha.EPeriodo.Denominacao)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-3 font-weight-bold">
+          @Html.DisplayNameFor(model => model.Sentido):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Sentido)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-3 font-weight-bold">
+          @Html.DisplayNameFor(model => model.Inicio):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Inicio)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-3 font-weight-bold">
+          @Html.DisplayNameFor(model => model.Termino):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Termino)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-3 font-weight-bold">
+          @Html.DisplayNameFor(model => model.Duracao):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Duracao)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-3 font-weight-bold">
+          @Html.DisplayNameFor(model => model.Ciclo):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Ciclo)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-3 font-weight-bold">
+          @Html.DisplayNameFor(model => model.QtdViagens):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.QtdViagens)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-3 font-weight-bold">
+          @Html.DisplayNameFor(model => model.QtdAtendimentos):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.QtdAtendimentos)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-3 font-weight-bold">
+          @Html.DisplayNameFor(model => model.IntervaloP):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.IntervaloP)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-3 font-weight-bold">
+          @Html.DisplayNameFor(model => model.VeiculosP):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.VeiculosP)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-3 font-weight-bold">
+          @Html.DisplayNameFor(model => model.KmDia):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.KmDia)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-3 font-weight-bold">
+          @Html.DisplayNameFor(model => model.KmSemana):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.KmSemana)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-3 font-weight-bold">
+          @Html.DisplayNameFor(model => model.KmMes):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.KmMes)
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btn btn-outline-dark btn-sm">
+    @Html.ActionLink(Resources.BackToList, "Index")
+  </div>
+</div>

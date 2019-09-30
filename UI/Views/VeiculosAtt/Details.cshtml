@@ -1,0 +1,57 @@
+﻿@using UI.Properties;
+
+@model UI.Models.VeiculoAttViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " " + Resources.VeiculoAttViewModel;
+}
+
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.Details</h2>
+
+  <div>
+    <h4>@Resources.VeiculoAttViewModel</h4>
+    <hr />
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Classe):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.CVeiculo.Classe)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Attributo):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.CVeiculoAtt.Caracteristica)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Unidade):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.CVeiculoAtt.Unidade)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Conteudo):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Conteudo)
+      </div>
+    </div>
+  </div>
+  <div class="btn btn-outline-dark btn-sm">
+    @Html.ActionLink(Resources.BackToList, "Index")
+  </div>
+</div>

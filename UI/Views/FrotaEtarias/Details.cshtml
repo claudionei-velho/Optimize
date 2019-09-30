@@ -1,0 +1,123 @@
+﻿@using UI.Properties;
+
+@model UI.Models.FrotaEtariaViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " " + Resources.FrotaEtariaViewModel;
+}
+
+<div class="container">
+  <br />
+  <br />
+
+  <h2>@Resources.Details</h2>
+
+  <div>
+    <h4>@Resources.FrotaEtariaViewModel</h4>
+    <hr />
+    <div class="dl-horizontal">
+      <div class="row margin-top">
+        <div class="col-sm-2 font-weight-bold btns">
+          @Html.DisplayNameFor(model => model.EmpresaId):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Empresa.Fantasia)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-2 font-weight-bold btns">
+          @Html.DisplayNameFor(model => model.EtariaId):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.FxEtaria.Denominacao)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-2 font-weight-bold btns">
+          @Html.DisplayNameFor(model => model.Micro):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Micro)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-2 font-weight-bold btns">
+          @Html.DisplayNameFor(model => model.Mini):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Mini)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-2 font-weight-bold btns">
+          @Html.DisplayNameFor(model => model.Midi):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Midi)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-2 font-weight-bold btns">
+          @Html.DisplayNameFor(model => model.Basico):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Basico)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-2 font-weight-bold btns">
+          @Html.DisplayNameFor(model => model.Padron):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Padron)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-2 font-weight-bold btns">
+          @Html.DisplayNameFor(model => model.Articulado):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Articulado)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-2 font-weight-bold btns">
+          @Html.DisplayNameFor(model => model.BiArticulado):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.BiArticulado)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-2 font-weight-bold btns">
+          @Html.DisplayNameFor(model => model.Especial):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Especial)
+        </div>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-sm-2 font-weight-bold btns">
+          @Html.DisplayNameFor(model => model.Frota):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Frota)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn btn-outline-dark btn-sm">
+    @Html.ActionLink(Resources.BackToList, "Index")
+  </div>
+</div>

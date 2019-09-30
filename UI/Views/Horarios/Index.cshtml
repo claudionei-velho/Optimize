@@ -1,0 +1,116 @@
+﻿@using UI.Properties;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@using Bll.Lists;
+@using Bll.Services;
+@using UI.Security;
+
+@model IEnumerable<UI.Models.HorarioViewModel>
+
+<div class="container left-widt">
+  <br />
+  <br />
+  @{
+    ViewBag.Title = Resources.HorarioViewModel;
+
+    MvcUser user = System.Web.HttpContext.Current.User as MvcUser;
+
+    List<SelectListItem> searchFields = new List<SelectListItem>() {
+        new SelectListItem { Value = "1", Text = Resources.LinhaId },
+        new SelectListItem { Value = "2", Text = Resources.LinhaId + " + " + Resources.DiaId },
+        new SelectListItem { Value = "3", Text = Resources.LinhaId + " + " + Resources.DiaId + " + " +
+                                                 Resources.PeriodoId}
+    };
+    SelectList workDay = new SelectList(new Workday().GetAll(), "Id", "Name");
+    SelectList periodos = new SelectList(new EPeriodoService(user.ID).GetSelect(
+                                                 q => new {
+                                                   Id = q.Id.ToString(), Name = q.Empresa.Fantasia + " | " + q.Denominacao
+                                                 }), "Id", "Name");
+  }
+
+  <h2>@Resources.HorarioViewModel</h2>
+
+  <div class="btn btn-outline-dark btn-sm">
+    @Html.ActionLink(Resources.CreateNew, "Create")
+  </div>
+  @using (Html.BeginForm("Index", "Horarios", FormMethod.Get)) {
+    <p>
+      <div class="form-inline">
+        <div class="form-group filters">
+          @Html.DropDownList("CurrentFilter", searchFields, ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control form-control-sm" })
+          @Html.TextBox("search", ViewBag.SearchString as string, htmlAttributes: new { @class = "form-control form-control-sm", @placeholder = Resources.Find })
+          @Html.DropDownList("DiaId", workDay, ViewBag.DiaId as string, htmlAttributes: new { @class = "form-control form-control-sm" })
+          @Html.DropDownList("PeriodoId", periodos, ViewBag.PeriodoId as string, htmlAttributes: new { @class = "form-control form-control-sm" })
+          <input type="submit" value="@Resources.Search" class="btn btn-default btn-sm" />
+        </div>
+      </div>
+    </p>
+  }
+  <table class="table">
+    <tr>
+      <th>
+        @Resources.EmpresaId
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.LinhaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.DiaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Sentido)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Inicio)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.AtendimentoId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.PeriodoId)
+      </th>
+      <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Linha.Empresa.Fantasia)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Linha.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.DiaIdName)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Sentido)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Inicio)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Atendimento.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.PrLinha.EPeriodo.Denominacao)
+        </td>
+        <td class="in-line left-smaller">
+          @Html.ActionLink(Resources.Update, "Edit", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" }) |
+          @Html.ActionLink(Resources.Details, "Details", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" }) |
+          @Html.ActionLink(Resources.Delete, "Delete", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+        </td>
+      </tr>
+    }
+  </table>
+
+  @if ((Model as IPagedList).PageCount > 0) {
+    @Resources.Page@:&nbsp;@((Model as IPagedList).PageNumber) @Resources.Of @((Model as IPagedList).PageCount)
+  }
+  @Html.PagedListPager(Model as IPagedList, page => Url.Action("Index", new { currentFilter = ViewBag.CurrentFilter,
+                                                                              search = ViewBag.SearchString, 
+                                                                              diaId = ViewBag.DiaId, 
+                                                                              periodoId = ViewBag.PeriodoId, page }))
+</div>

@@ -1,0 +1,336 @@
+﻿@using UI.Properties;
+
+@model UI.Models.DimensionamentoViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " " + Resources.DimensionamentoViewModel;
+}
+<div class="container">
+  <br />
+  <br />
+
+  <h2>@Resources.Details</h2>
+
+  <div>
+    <h4>@Resources.DimensionamentoViewModel</h4>
+    <hr />
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.LinhaId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Linha.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.DiaId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.DiaIdName)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.PeriodoId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.PrLinha.EPeriodo.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.Sentido):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Sentido)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.QtdViagens):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.QtdViagens)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.Inicio):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Inicio)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.Termino):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Termino)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.Duracao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Duracao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.Ociosidade):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Ociosidade)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.Passageiros):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Passageiros)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.Ajustado):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Ajustado)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.Critica):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Critica)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.CriticaAjuste):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.CriticaAjuste)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.Media):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Media)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.MediaAjuste):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.MediaAjuste)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.Desvio):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Desvio)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.DesvioAjuste):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.DesvioAjuste)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.Intervalo):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Intervalo)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.Fluxo):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Fluxo)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.FluxoAjuste):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.FluxoAjuste)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.LotacaoE):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.LotacaoE)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.PrognosticoE):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.PrognosticoE)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.IntervaloE):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.IntervaloE)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.LotacaoP):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.LotacaoP)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.PrognosticoP):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.PrognosticoP)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.IntervaloP):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.IntervaloP)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.Veiculos):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Veiculos)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.CicloAB):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.CicloAB)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.CicloBA):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.CicloBA)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.VeiculosE):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.VeiculosE)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.VeiculosP):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.VeiculosP)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.Extensao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Extensao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.KmTotal):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.KmTotal)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.KmTotalE):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.KmTotalE)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold">
+        @Html.DisplayNameFor(model => model.KmTotalP):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.KmTotalP)
+      </div>
+    </div>
+  </div>
+  <div class="btn btn-outline-dark btn-sm">
+    @Html.ActionLink(Resources.BackToList, "Index")
+  </div>
+</div>

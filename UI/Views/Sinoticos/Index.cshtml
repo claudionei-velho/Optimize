@@ -1,0 +1,102 @@
+﻿@using UI.Properties;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IEnumerable<UI.Models.SinoticoViewModel>
+
+@{
+  ViewBag.Title = Resources.SinoticoViewModel;
+}
+
+<div class="container left-widt">
+  <br />
+  <br />
+  <h2>
+    @Resources.SinoticoViewModel |
+    <div class="btn btn-outline-dark btn-sm">
+      @Html.ActionLink(Resources.Export, "Export", "Sinoticos")
+    </div>
+  </h2>
+
+  <table class="table table-bordered align-title-table">
+    <tr>
+      <th>
+        @Resources.EmpresaId
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.LinhaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.DiaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Sentido)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.SinoticoId)
+      </th>
+      <th>
+        @Resources.Unidade
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.IndiceAtual)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.DimensionaE)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.EvolucaoE)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.DimensionaP)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.EvolucaoP)
+      </th>
+    </tr>
+
+    @foreach (var item in Model) {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Linha.Empresa.Fantasia)
+        </td>
+        <td width="10%">
+          @Html.DisplayFor(modelItem => item.Linha.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.DiaIdName)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.Sentido)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.ISinotico.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.ISinotico.Unidade)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.IndiceAtual)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.DimensionaE)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.EvolucaoE)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.DimensionaP)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.EvolucaoP)
+        </td>
+      </tr>
+    }
+  </table>
+
+  @if ((Model as IPagedList).PageCount > 0) {
+    @Resources.Page@:&nbsp;@((Model as IPagedList).PageNumber) @Resources.Of @((Model as IPagedList).PageCount)
+  }
+  @Html.PagedListPager(Model as IPagedList, page => Url.Action("Index", new { page }))
+</div>

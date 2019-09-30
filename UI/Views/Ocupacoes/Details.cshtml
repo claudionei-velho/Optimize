@@ -1,0 +1,53 @@
+﻿@using UI.Properties;
+
+@model UI.Models.OcupacaoViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " " + Resources.OcupacaoViewModel;
+}
+
+
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.Details</h2>
+
+  <div>
+    <h4>@Resources.OcupacaoViewModel</h4>
+    <hr />
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Denominacao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Nivel):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Nivel)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Densidade):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Densidade)
+      </div>
+    </div>
+  </div>
+
+  <div>
+    @Html.ActionLink(Resources.Update, "Edit", new { id = Model.Id }, new { @class = "btn btn-dark btn-sm" })
+    <div class="btn btn-outline-dark btn-sm">
+      @Html.ActionLink(Resources.BackToList, "Index")
+    </div>
+  </div>
+</div>

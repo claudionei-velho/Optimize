@@ -1,0 +1,120 @@
+﻿@using UI.Properties;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IEnumerable<UI.Models.TotalViagemViewModel>
+
+@{
+  ViewBag.Title = Resources.TotalViagemViewModel;
+}
+
+<div class="container left-widt">
+  <br />
+  <br />
+  <h2>
+    @Resources.TotalViagemViewModel |
+    <div class="btn btn-outline-dark btn-sm">
+      @Html.ActionLink(Resources.Export, "Export", "TotalViagens")
+    </div>
+  </h2>
+
+  <table class="table">
+    <tr>
+      <th>
+        @Resources.EmpresaId
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.LinhaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.DiaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.PeriodoId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Sentido)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Duracao)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Ciclo)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.QtdViagens)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.QtdAtendimentos)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.VeiculosP)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.KmDia)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.KmSemana)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.KmMes)
+      </th>
+      <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Linha.Empresa.Fantasia)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Linha.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.DiaIdName)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.PrLinha.EPeriodo.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Sentido)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.Duracao)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.Ciclo)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.QtdViagens)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.QtdAtendimentos)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.VeiculosP)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.KmDia)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.KmSemana)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.KmMes)
+        </td>
+        <td class="in-line left-smaller" align="right">
+          @Html.ActionLink(Resources.Details, "Details", new { id = item.LinhaId, did = item.DiaId,
+                                                               pid = item.PeriodoId, go = item.Sentido },
+                                                         new { @class = "btn btn-outline-dark btn-sm" })
+        </td>
+      </tr>
+    }
+  </table>
+
+  @if ((Model as IPagedList).PageCount > 0) {
+    @Resources.Page@:&nbsp;@((Model as IPagedList).PageNumber) @Resources.Of @((Model as IPagedList).PageCount)
+  }
+  @Html.PagedListPager(Model as IPagedList, page => Url.Action("Index", new { page }))
+</div>

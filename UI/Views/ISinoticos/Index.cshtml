@@ -1,0 +1,49 @@
+﻿@using UI.Properties;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IEnumerable<UI.Models.ISinoticoViewModel>
+
+@{
+  ViewBag.Title = Resources.ISinoticoViewModel;
+}
+<div class="container left-widt">
+  <br />
+  <br />
+  <h2>@Resources.ISinoticoViewModel</h2>
+
+  <table class="table table-bordered">
+    <tr>
+      <th>
+        @Html.DisplayNameFor(model => model.Classe)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Denominacao)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Unidade)
+      </th>
+      <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Classe)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Unidade)
+        </td>
+      </tr>
+    }
+
+  </table>
+  @if ((Model as IPagedList).PageCount > 0) {
+    @Resources.Page@:&nbsp;@((Model as IPagedList).PageNumber) @Resources.Of @((Model as IPagedList).PageCount)
+  }
+  @Html.PagedListPager(Model as IPagedList, page => Url.Action("Index", new { page }))
+</div>

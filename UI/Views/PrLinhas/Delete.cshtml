@@ -1,0 +1,112 @@
+﻿@using UI.Properties;
+
+@model UI.Models.PrLinhaViewModel
+
+@{
+  ViewBag.Title = Resources.Delete + " " + Resources.PrLinhaViewModel;
+}
+
+<div class="container">
+  <br />
+  <br />
+
+  <h2>@Resources.Delete</h2>
+
+  <h3>@Resources.DeleteConfirm</h3>
+  <div>
+    <h4>@Resources.PrLinhaViewModel</h4>
+    <hr />
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.LinhaId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Linha.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.PeriodoId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.EPeriodo.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.DiaId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.DiaIdName)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Inicio):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Inicio)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Termino):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Termino)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.CicloAB):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.CicloAB)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.CicloBA):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.CicloBA)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.CVeiculoId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.CVeiculo.Classe)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-3 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.OcupacaoId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Ocupacao.Denominacao)
+      </div>
+    </div>
+
+    @using (Html.BeginForm()) {
+      @Html.AntiForgeryToken()
+
+      <div class="form-actions no-color">
+        <input type="submit" value="@Resources.Delete" class="btn btn-danger btn-sm" />
+        <div class="btn btn-outline-dark btn-sm">
+          @Html.ActionLink(Resources.BackToList, "Index")
+        </div>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,57 @@
+﻿@using UI.Properties;
+
+@model UI.Models.PtAtendimentoViewModel
+
+@{
+  ViewBag.Title = Resources.Delete + " " + Resources.PtAtendimentoViewModel;
+}
+<div class="container">
+  <br />
+  <br />
+
+  <h2>@Resources.Delete</h2>
+
+  <h3>@Resources.DeleteConfirm</h3>
+  <div>
+    <h4>@Resources.PtAtendimentoViewModel</h4>
+    <hr />
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.AtendimentoId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Atendimento.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Sentido):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Sentido)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.PontoId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.PontoCap)
+      </div>
+    </div>
+
+    @using (Html.BeginForm()) {
+      @Html.AntiForgeryToken()
+
+      <div class="form-actions no-color">
+        <input type="submit" value="@Resources.Delete" class="btn btn-danger btn-sm" />
+        <div class="btn btn-outline-dark btn-sm">
+          @Html.ActionLink(Resources.BackToList, "Index")
+        </div>
+      </div>
+    }
+  </div>
+</div>

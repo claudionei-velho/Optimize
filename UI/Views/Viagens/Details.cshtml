@@ -1,0 +1,169 @@
+﻿@using UI.Properties;
+
+@model UI.Models.ViagemViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " " + Resources.ViagemViewModel;
+}
+
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.Details</h2>
+
+  <div>
+    <h4>@Resources.ViagemViewModel</h4>
+    <hr />
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.LinhaId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.LnPesquisa.Linha.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Item):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Item)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Data):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Data)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Sentido):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Sentido)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.HorarioId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Horario.Inicio)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.PontoId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.PtLinha.Ponto.Prefixo)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.VeiculoId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Veiculo.Numero)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Chegada):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Chegada)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Inicio):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Inicio)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Intervalo):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Intervalo)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Termino):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Termino)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Passageiros):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Passageiros)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Inicial):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Inicial)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Final):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Final)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Catraca):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Catraca)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Responsavel):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Responsavel)
+      </div>
+    </div>
+  </div>
+
+  <div>
+    @Html.ActionLink(Resources.Update, "Edit", new { id = Model.Id }, new { @class = "btn btn-dark btn-sm" })
+    <div class="btn btn-outline-dark btn-sm">
+      @Html.ActionLink(Resources.BackToList, "Index")
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+﻿@using UI.Properties;
+
+@model UI.Models.UfViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " UF";
+}
+
+<div class="container">
+  <br />
+  <br />
+
+  <h2>@Resources.Details</h2>
+
+  <div>
+    <h4>Uf</h4>
+    <hr />
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Sigla):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Sigla)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Estado):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Estado)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Capital):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Capital)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Regiao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Regiao)
+      </div>
+    </div>
+  </div>
+
+  <div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-dark btn-sm" })
+    <div class="btn btn-outline-dark btn-sm">
+      @Html.ActionLink(Resources.BackToList, "Index")
+    </div>
+  </div>
+</div>

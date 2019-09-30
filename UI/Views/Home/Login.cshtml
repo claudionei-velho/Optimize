@@ -1,0 +1,68 @@
+﻿@using Bll.Lists;
+@using UI.Properties;
+
+@model UI.Models.LoginViewModel
+
+@{
+  ViewBag.Title = Resources.Login;
+  Help help = new Help();
+}
+
+<body class="animate">
+  @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <br />
+    <br />
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm-6">
+          <br />
+          <div class="card text-white bg-secondary mb-3" style="max-width: 28rem;">
+            <div class="card-body text-dark">
+              <br />
+              <h5 class="card-title text-white font-weight-bold">Login</h5>
+              <br />
+              @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+              <div class="form-group font-weight-bold">
+
+                @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label text-white col-md-6" })
+                <div class="col-md-12">
+                  @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control form-control-sm p-3 mb-2 bg-secondary text-white" } })
+                  @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+                </div>
+              </div>
+
+              <div class="form-group font-weight-bold">
+                @Html.LabelFor(model => model.Senha, htmlAttributes: new { @class = "control-label text-white col-md-6" })
+                <div class="col-md-12">
+                  @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control form-control-sm p-3 mb-2 bg-secondary text-white" } })
+                  @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                </div>
+              </div>
+              <br />
+              <div class="form-group ">
+                <div class="col-md-offset-2 col-md-10">
+                  <input type="submit" value="Login" class="btn btn-default" />
+                  <a href="@help.HRef[2]" target="_blank" placeho>
+                    <span data-tooltip="@Resources.HelpHint">
+                      <i class="fas fa-info-circle"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+
+        </div>
+      </div>
+    </div>
+  }
+
+  @section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+  }
+</body>

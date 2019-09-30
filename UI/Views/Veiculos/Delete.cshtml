@@ -1,0 +1,111 @@
+﻿@using UI.Properties;
+
+@model UI.Models.VeiculoViewModel
+
+@{
+  ViewBag.Title = Resources.Delete + " " + Resources.VeiculoViewModel;
+}
+
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.Delete</h2>
+
+  <h3>@Resources.DeleteConfirm</h3>
+  <div>
+    <h4>@Resources.VeiculoViewModel</h4>
+    <hr />
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.EmpresaId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Empresa.Fantasia)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Numero):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Numero)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Cor):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Cor)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Classe):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.CVeiculo.Classe)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Categoria):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.CategoriaCap)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Placa):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Placa)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Renavam):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Renavam)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Antt):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Antt)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Inicio):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Inicio)
+      </div>
+    </div>
+
+    @using (Html.BeginForm()) {
+      @Html.AntiForgeryToken()
+
+      <div class="form-actions no-color">
+        <input type="submit" value="@Resources.Delete" class="btn btn-danger btn-sm" />
+        <div class="btn btn-outline-dark btn-sm">
+          @Html.ActionLink(Resources.BackToList, "Index")
+        </div>
+      </div>
+    }
+  </div>
+</div>

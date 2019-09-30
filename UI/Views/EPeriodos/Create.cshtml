@@ -1,0 +1,72 @@
+﻿@using UI.Properties;
+
+@model UI.Models.EPeriodoViewModel
+
+@{
+  ViewBag.Title = Resources.Create + " " + Resources.EPeriodoViewModel;
+}
+<div class="container">
+  <br />
+  <br />
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#PeriodoId").change(function () {
+        $.get("/Periodos/GetPeriodos", { id: $(this).val() }, function (result) {
+          if (!$("#Denominacao").val().trim()) {
+            $("#Denominacao").val(result);
+          }
+        });
+      });
+    });
+  </script>
+
+  <h2>@Resources.Create</h2>
+
+  @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+      <h4>@Resources.EPeriodoViewModel</h4>
+      <hr />
+      @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.EmpresaId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.DropDownList("EmpresaId", null, htmlAttributes: new { @class = "form-control form-control-sm" })
+          @Html.ValidationMessageFor(model => model.EmpresaId, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.PeriodoId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.DropDownList("PeriodoId", null, string.Empty, htmlAttributes: new { @class = "form-control form-control-sm" })
+          @Html.ValidationMessageFor(model => model.PeriodoId, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Denominacao, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Denominacao, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+          @Html.ValidationMessageFor(model => model.Denominacao, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-md-offset-2 col-md-10">
+          <input type="submit" value="@Resources.Create" class="btn btn-dark btn-sm" />
+          <div class="btn btn-outline-dark btn-sm">
+            @Html.ActionLink(Resources.BackToList, "Index")
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+@section Scripts {
+  @Scripts.Render("~/bundles/jqueryval")
+}

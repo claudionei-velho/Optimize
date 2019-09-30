@@ -1,0 +1,91 @@
+﻿@using UI.Properties;
+
+@model UI.Models.HorarioViewModel
+
+@{
+  ViewBag.Title = Resources.Create + " " + Resources.HorarioViewModel;
+}
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#LinhaId").change(function () {
+      $.get("/Atendimentos/GetAtendimentos", { id: $("#LinhaId").val() }, function (data) {
+        $("#AtendimentoId").empty();
+        $("#AtendimentoId").append("<option value=''></option>");
+        $.each(data, function (index, row) {
+          $("#AtendimentoId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+        });
+      });
+    });
+  });
+</script>
+
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.Create</h2>
+
+  @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+      <h4>@Resources.HorarioViewModel</h4>
+      <hr />
+      @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.LinhaId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.DropDownList("LinhaId", null, htmlAttributes: new { @class = "form-control form-control-sm" })
+          @Html.ValidationMessageFor(model => model.LinhaId, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.DiaId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.DropDownList("DiaId", null, htmlAttributes: new { @class = "form-control form-control-sm" })
+          @Html.ValidationMessageFor(model => model.DiaId, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Sentido, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.DropDownList("Sentido", null, htmlAttributes: new { @class = "form-control form-control-sm" })
+          @Html.ValidationMessageFor(model => model.Sentido, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Inicio, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Inicio, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+          @Html.ValidationMessageFor(model => model.Inicio, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.AtendimentoId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.DropDownList("AtendimentoId", null, string.Empty, htmlAttributes: new { @class = "form-control form-control-sm" })
+          @Html.ValidationMessageFor(model => model.AtendimentoId, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-md-offset-2 col-md-4">
+          <input type="submit" value="@Resources.Create" class="btn btn-default btn-sm" />
+          <div class="btn btn-outline-dark btn-sm">
+            @Html.ActionLink(Resources.BackToList, "Index")
+          </div>
+
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+@section Scripts {
+  @Scripts.Render("~/bundles/jqueryval")
+}

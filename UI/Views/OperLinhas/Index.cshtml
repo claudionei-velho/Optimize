@@ -1,0 +1,51 @@
+﻿@using UI.Properties;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IEnumerable<UI.Models.OperLinhaViewModel>
+
+@{
+  ViewBag.Title = Resources.OperLinhaViewModel;
+}
+
+<div class="container left-widt">
+  <br />
+  <br />
+  <h2>@Resources.OperLinhaViewModel</h2>
+
+  <div class="btn btn-outline-dark btn-sm">
+    @Html.ActionLink(Resources.CreateNew, "Create")
+  </div>
+  <table class="table">
+    <tr>
+      <th>
+        @Html.DisplayNameFor(model => model.Denominacao)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Descricao)
+      </th>
+      <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td class="in-line left-smaller" align="right">
+          @Html.ActionLink(Resources.Update, "Edit", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm btn-slin" })
+          @Html.ActionLink(Resources.Details, "Details", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm btn-slin" })
+        </td>
+      </tr>
+    }
+  </table>
+
+  @if ((Model as IPagedList).PageCount > 0) {
+    @Resources.Page@:&nbsp;@((Model as IPagedList).PageNumber) @Resources.Of @((Model as IPagedList).PageCount)
+  }
+  @Html.PagedListPager(Model as IPagedList, page => Url.Action("Index", new { page }))
+</div>

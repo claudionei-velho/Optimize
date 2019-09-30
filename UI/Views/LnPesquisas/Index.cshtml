@@ -1,0 +1,82 @@
+﻿@using UI.Properties;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IEnumerable<UI.Models.LnPesquisaViewModel>
+
+@{
+  ViewBag.Title = Resources.LnPesquisaViewModel;
+}
+
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.LnPesquisaViewModel</h2>
+
+  <div class="btn btn-outline-dark btn-sm">
+    @Html.ActionLink(Resources.CreateNew, "Create")
+  </div>
+  <table class="table">
+    <tr>
+      <th>
+        @Resources.EmpresaId
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.PesquisaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.LinhaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Uteis)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Sabados)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Domingos)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Responsavel)
+      </th>
+      <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Pesquisa.Empresa.Fantasia)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Pesquisa.Identificacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Linha.Denominacao)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.Uteis)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.Sabados)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.Domingos)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Responsavel)
+        </td>
+        <td class="in-line left-smaller">
+          @Html.ActionLink(Resources.Update, "Edit", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" }) |
+          @Html.ActionLink(Resources.Details, "Details", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" }) |
+          @Html.ActionLink(Resources.Delete, "Delete", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+        </td>
+      </tr>
+    }
+  </table>
+
+  @if ((Model as IPagedList).PageCount > 0) {
+    @Resources.Page@:&nbsp;@((Model as IPagedList).PageNumber) @Resources.Of @((Model as IPagedList).PageCount)
+  }
+  @Html.PagedListPager(Model as IPagedList, page => Url.Action("Index", new { page }))
+</div>

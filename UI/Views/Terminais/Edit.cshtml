@@ -1,0 +1,332 @@
+﻿@using UI.Properties;
+
+@model UI.Models.TerminalViewModel
+
+@{
+  ViewBag.Title = Resources.Update + " " + Resources.TerminalViewModel;
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#Cep").change(function () {
+      if ($(this).val().length <= 0) {
+        return;
+      }
+      $.get("http://apps.widenet.com.br/busca-cep/api/cep.json", { code: $(this).val() }, function (result) {
+        if (result.status != 1) {
+          alert(result.message);
+          return;
+        }
+        $("#Endereco").val(result.address);
+        $("#Bairro").val(result.district);
+        $("#Municipio").val(result.city);
+        $("#UfId").val(result.state);
+      });
+    });
+  });
+
+  // Mascara CPF e/ou CNPJ
+  function mascara(obj, func) {
+    valueObj = obj
+    valueFunc = func
+    setTimeout('execMascara()', 1)
+  }
+
+  function execMascara() {
+    valueObj.value = valueFunc(valueObj.value)
+  }
+
+  function mask(value) {
+    value = value.replace(/\D/g, "")
+
+    if (value.length == 10) {
+      value = value.replace(/(\d{2})(\d)/, "($1) $2")
+      value = value.replace(/(\d{4})(\d)/, "$1-$2")
+    }
+    else if (value.length == 11) {
+      value = value.replace(/(\d{2})(\d)/, "($1) $2")
+      value = value.replace(/(\d{5})(\d)/, "$1-$2")
+    }
+    else if (value.length > 12) {
+      value = value.replace(/^(\d{2})(\d)/, "$1.$2")
+      value = value.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+      value = value.replace(/\.(\d{3})(\d)/, ".$1/$2")
+      value = value.replace(/(\d{4})(\d)/, "$1-$2")
+    }
+    return value
+  }
+
+  // Validar CNPJ
+  function _valid(cnpj) {
+    cnpj = cnpj.replace(/[^\d]+/g, '')
+
+    /*if (cnpj == '') return false*/
+
+    if (cnpj.length != 14) return false
+
+    if (cnpj == "00000000000000" ||
+      cnpj == "11111111111111" ||
+      cnpj == "22222222222222" ||
+      cnpj == "33333333333333" ||
+      cnpj == "44444444444444" ||
+      cnpj == "55555555555555" ||
+      cnpj == "66666666666666" ||
+      cnpj == "77777777777777" ||
+      cnpj == "88888888888888" ||
+      cnpj == "99999999999999") return false
+
+    tamanho = cnpj.length - 2
+    numeros = cnpj.substring(0, tamanho)
+    digitos = cnpj.substring(tamanho)
+    soma = 0
+    pos = tamanho - 7
+    for (i = tamanho; i >= 1; i--) {
+      soma += numeros.charAt(tamanho - i) * pos--
+      if (pos < 2) {
+        pos = 9
+      }
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11
+    if (resultado != digitos.charAt(0)) return false
+    tamanho = tamanho + 1
+    numeros = cnpj.substring(0, tamanho)
+    soma = 0
+    pos = tamanho - 7
+    for (i = tamanho; i >= 1; i--) {
+      soma += numeros.charAt(tamanho - i) * pos--
+      if (pos < 2) {
+        pos = 9
+      }
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11
+    if (resultado != digitos.charAt(1)) return false
+
+    return true
+  }
+
+  // mensagem
+  function _message(el) {
+    if (!_valid(el.value)) {
+      $('#msg').toast('show')
+      el.value = "";
+    }
+    setTimeout(function () {
+      $('#msg').toast('hide').slideToggle(950) //.delay(5000)
+    }, 5000);
+  }
+</script>
+
+<div class="container">
+  <br />
+  <br />
+
+  <div class="row">
+    <div class="col-8">
+      <h2>@Resources.Update</h2>
+
+      @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+          <div class="in-line">
+            <h4>
+              @Resources.TerminalViewModel |
+              <div class="btn btn-outline-dark">
+                @Html.ActionLink(Resources.TServicoViewModel, "Filter", controllerName: "TServicos", routeValues: new { id = Model.Id }, htmlAttributes: null)
+              </div> |
+
+              <div class="btn btn-outline-dark">
+                @Html.ActionLink(Resources.LnTerminalViewModel, "Filter", controllerName: "LnTerminais", routeValues: new { id = Model.Id }, htmlAttributes: null)
+              </div>
+            </h4>
+          </div>
+          <hr />
+          @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+          @Html.HiddenFor(model => model.Id)
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.EmpresaId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.DropDownList("EmpresaId", null, htmlAttributes: new { @class = "form-control form-control-sm" })
+              @Html.ValidationMessageFor(model => model.EmpresaId, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.Prefixo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.Prefixo, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+              @Html.ValidationMessageFor(model => model.Prefixo, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.Denominacao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.Denominacao, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+              @Html.ValidationMessageFor(model => model.Denominacao, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.Cnpj, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.Cnpj, new { htmlAttributes = new { @class = "form-control form-control-sm", @onkeypress = "mascara(this,mask)", @onblur = "_message(this)" } })
+              @Html.ValidationMessageFor(model => model.Cnpj, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.IEstadual, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.IEstadual, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+              @Html.ValidationMessageFor(model => model.IEstadual, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.IMunicipal, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.IMunicipal, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+              @Html.ValidationMessageFor(model => model.IMunicipal, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.Cep, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.Cep, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+              @Html.ValidationMessageFor(model => model.Cep, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.Endereco, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.Endereco, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+              @Html.ValidationMessageFor(model => model.Endereco, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.EnderecoNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.EnderecoNo, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+              @Html.ValidationMessageFor(model => model.EnderecoNo, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+              @Html.ValidationMessageFor(model => model.Complemento, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+              @Html.ValidationMessageFor(model => model.Bairro, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.Municipio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.Municipio, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+              @Html.ValidationMessageFor(model => model.Municipio, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.UfId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.DropDownList("UfId", null, htmlAttributes: new { @class = "form-control form-control-sm" })
+              @Html.ValidationMessageFor(model => model.UfId, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.Telefone, new { htmlAttributes = new { @class = "form-control form-control-sm", @onkeypress = "mascara(this,mask)", @onblur = "clearTimeout()" } })
+              @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+              @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.Inicio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.Inicio, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+              @Html.ValidationMessageFor(model => model.Inicio, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row font-weight-bold">
+            @Html.LabelFor(model => model.Termino, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.Termino, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+              @Html.ValidationMessageFor(model => model.Termino, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group  row font-weight-bold">
+            @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+              @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group  row font-weight-bold">
+            @Html.LabelFor(model => model.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+              @Html.ValidationMessageFor(model => model.Longitude, "", new { @class = "text-danger" })
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-md-offset-2 col-md-10">
+              <input type="submit" value="@Resources.Update" class="btn btn-default btn-sm" />
+              <div class="btn btn-outline-dark btn-sm">
+                @Html.ActionLink(Resources.BackToList, "Index")
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="col-4">
+      <div id="msg" role="alert" aria-live="assertive" aria-atomic="true" class="toast " data-delay="5000" data-autohide="false">
+        <div class="toast-header">
+          <i class="fas fa-exclamation-circle rounded mr-2 text-danger"></i>
+          <strong class="mr-auto">@Resources.Warning</strong>
+          <small>0 seg</small>
+          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="toast-body">
+          @Resources.InvalidCnpj
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  @Scripts.Render("~/bundles/jqueryval")
+}

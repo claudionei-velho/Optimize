@@ -1,0 +1,60 @@
+﻿@using UI.Properties;
+
+@model UI.Models.OcupacaoViewModel
+
+@{
+  ViewBag.Title = Resources.Update + " " + Resources.OcupacaoViewModel;
+}
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.Update</h2>
+
+  @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+      <h4>@Resources.OcupacaoViewModel</h4>
+      <hr />
+      @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+      @Html.HiddenFor(model => model.Id)
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Denominacao, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Denominacao, new { htmlAttributes = new { @class = "form-control" } })
+          @Html.ValidationMessageFor(model => model.Denominacao, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Nivel, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Nivel, new { htmlAttributes = new { @class = "form-control" } })
+          @Html.ValidationMessageFor(model => model.Nivel, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Densidade, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Densidade, new { htmlAttributes = new { @class = "form-control" } })
+          @Html.ValidationMessageFor(model => model.Densidade, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-md-offset-2 col-md-4">
+          <input type="submit" value="@Resources.Update" class="btn btn-default btn-sm" />
+          <div class="btn btn-outline-dark btn-sm">
+            @Html.ActionLink(Resources.BackToList, "Index")
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+@section Scripts {
+  @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,174 @@
+﻿@using UI.Properties;
+
+@model UI.Models.PesquisaViewModel
+
+@{
+  ViewBag.Title = Resources.Delete + " " + Resources.PesquisaViewModel;
+}
+<div class="container">
+  <br />
+  <br />
+
+  <h2>@Resources.Delete</h2>
+
+  <h3>@Resources.DeleteConfirm</h3>
+  <div>
+    <h4>@Resources.PesquisaViewModel</h4>
+    <hr />
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.EmpresaId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Empresa.Fantasia)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Identificacao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Identificacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Inicio):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Inicio)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Termino):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Termino)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.TerminalId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Terminal.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.TroncoId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Tronco.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.CorredorId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Corredor.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.OperacaoId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Operacao.OperLinha.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Classificacao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.CLinha.ClassLinha.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Interna):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Interna)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Fornecedor):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Fornecedor)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Contrato):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Contrato)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Uteis):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Uteis)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Sabados):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Sabados)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Domingos):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Domingos)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Responsavel):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Responsavel)
+      </div>
+    </div>
+
+    @using (Html.BeginForm()) {
+      @Html.AntiForgeryToken()
+
+      <div class="form-actions no-color">
+        <input type="submit" value="@Resources.Delete" class="btn btn-danger btn-sm" />
+        <div class="btn btn-outline-dark btn-sm">
+          @Html.ActionLink(Resources.BackToList, "Index")
+        </div>
+      </div>
+    }
+  </div>
+</div>

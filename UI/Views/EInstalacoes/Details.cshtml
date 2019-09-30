@@ -1,0 +1,90 @@
+﻿@using UI.Properties;
+
+@model UI.Models.EInstalacaoViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " " + Resources.EInstalacaoViewModel;
+}
+
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.Details</h2>
+
+  <div>
+    <h4>@Resources.EInstalacaoViewModel</h4>
+    <hr />
+    <div class="dl-horizontal">
+        <div class="row margin-top">
+            <div class="col-sm-2 font-weight-bold">
+                @Html.DisplayNameFor(model => model.InstalacaoId):
+            </div>
+            <div class="col-sm">
+                @Html.DisplayFor(model => model.Instalacao.Denominacao)
+            </div>
+        </div>
+
+        <div class="row margin-top">
+            <div class="col-sm-2 font-weight-bold">
+                @Html.DisplayNameFor(model => model.PropositoId):
+            </div>
+            <div class="col-sm">
+                @Html.DisplayFor(model => model.FInstalacao.Denominacao)
+            </div>
+        </div>
+
+        <div class="row margin-top">
+            <div class="col-sm-2 font-weight-bold">
+                @Html.DisplayNameFor(model => model.AreaCoberta):
+            </div>
+            <div class="col-sm">
+                @Html.DisplayFor(model => model.AreaCoberta)
+            </div>
+        </div>
+
+        <div class="row margin-top">
+            <div class="col-sm-2 font-weight-bold">
+                @Html.DisplayNameFor(model => model.AreaTotal):
+            </div>
+            <div class="col-sm">
+                @Html.DisplayFor(model => model.AreaTotal)
+            </div>
+        </div>
+
+        <div class="row margin-top">
+            <div class="col-sm-2 font-weight-bold">
+                @Html.DisplayNameFor(model => model.QtdEmpregados):
+            </div>
+            <div class="col-sm">
+                @Html.DisplayFor(model => model.QtdEmpregados)
+            </div>
+        </div>
+
+        <div class="row margin-top">
+            <div class="col-sm-2 font-weight-bold">
+                @Html.DisplayNameFor(model => model.Horario):
+            </div>
+            <div class="col-sm">
+                @Html.DisplayFor(model => model.Horario)
+            </div>
+        </div>
+
+        <div class="row margin-top">
+            <div class="col-sm-2 font-weight-bold">
+                @Html.DisplayNameFor(model => model.Efluentes):
+            </div>
+            <div class="col-sm">
+                @Html.DisplayFor(model => model.Efluentes)
+            </div>
+        </div>
+
+    </div>
+  </div>
+
+  <div>
+        @Html.ActionLink(Resources.Update, "Edit", new { id = Model.Id }, new { @class = "btn btn-dark btn-sm" }) 
+      <div class="btn btn-outline-dark btn-sm">
+          @Html.ActionLink(Resources.BackToList, "Index")
+      </div>
+  </div>
+</div>

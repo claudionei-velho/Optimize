@@ -1,0 +1,89 @@
+﻿@using UI.Properties;
+
+@model UI.Models.LnPesquisaViewModel
+
+@{
+  ViewBag.Title = Resources.Create + " " + Resources.LnPesquisaViewModel;
+}
+<div class="container">
+  <br />
+  <br />
+
+  <h2>@Resources.Create</h2>
+
+  @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+      <h4>@Resources.LnPesquisaViewModel</h4>
+      <hr />
+      @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.PesquisaId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.DropDownList("PesquisaId", null, htmlAttributes: new { @class = "form-control" })
+          @Html.ValidationMessageFor(model => model.PesquisaId, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.LinhaId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.DropDownList("LinhaId", null, htmlAttributes: new { @class = "form-control" })
+          @Html.ValidationMessageFor(model => model.LinhaId, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Uteis, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          <div class="checkbox">
+            @Html.EditorFor(model => model.Uteis)
+            @Html.ValidationMessageFor(model => model.Uteis, "", new { @class = "text-danger" })
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Sabados, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          <div class="checkbox">
+            @Html.EditorFor(model => model.Sabados)
+            @Html.ValidationMessageFor(model => model.Sabados, "", new { @class = "text-danger" })
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Domingos, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          <div class="checkbox">
+            @Html.EditorFor(model => model.Domingos)
+            @Html.ValidationMessageFor(model => model.Domingos, "", new { @class = "text-danger" })
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Responsavel, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Responsavel, new { htmlAttributes = new { @class = "form-control" } })
+          @Html.ValidationMessageFor(model => model.Responsavel, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-md-offset-2 col-md-4">
+          <input type="submit" value="@Resources.Create" class="btn btn-default btn-sm" />
+          <div class="btn btn-outline-dark btn-sm">
+            @Html.ActionLink(Resources.BackToList, "Index")
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+@section Scripts {
+  @Scripts.Render("~/bundles/jqueryval")
+}

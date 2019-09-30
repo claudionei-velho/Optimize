@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{29350D8E-25A2-40F3-9FE5-3DEB076D0987}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dto</RootNamespace>
+    <AssemblyName>Dto</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IServices.cs" />
+    <Compile Include="Models\AAbastece.cs" />
+    <Compile Include="Models\AAdmin.cs" />
+    <Compile Include="Models\AAlmox.cs" />
+    <Compile Include="Models\AEstaciona.cs" />
+    <Compile Include="Models\AFunilaria.cs" />
+    <Compile Include="Models\AGaragem.cs" />
+    <Compile Include="Models\AInspecao.cs" />
+    <Compile Include="Models\ALavacao.cs" />
+    <Compile Include="Models\ALubrifica.cs" />
+    <Compile Include="Models\AMantem.cs" />
+    <Compile Include="Models\Atendimento.cs" />
+    <Compile Include="Models\ATrafego.cs" />
+    <Compile Include="Models\Carroceria.cs" />
+    <Compile Include="Models\Chassi.cs" />
+    <Compile Include="Models\ClassLinha.cs" />
+    <Compile Include="Models\CLinha.cs" />
+    <Compile Include="Models\Corredor.cs" />
+    <Compile Include="Models\Custo.cs" />
+    <Compile Include="Models\CustomCalendar.cs" />
+    <Compile Include="Models\CustoMod.cs" />
+    <Compile Include="Models\CVeiculo.cs" />
+    <Compile Include="Models\CVeiculoAtt.cs" />
+    <Compile Include="Models\DiaTrabalho.cs" />
+    <Compile Include="Models\Dimensionamento.cs" />
+    <Compile Include="Models\Dominio.cs" />
+    <Compile Include="Models\ECVeiculo.cs" />
+    <Compile Include="Models\EDominio.cs" />
+    <Compile Include="Models\EInstalacao.cs" />
+    <Compile Include="Models\Empresa.cs" />
+    <Compile Include="Models\EPeriodo.cs" />
+    <Compile Include="Models\ErrorField.cs" />
+    <Compile Include="Models\EUsuario.cs" />
+    <Compile Include="Models\FAjuste.cs" />
+    <Compile Include="Models\FInstalacao.cs" />
+    <Compile Include="Models\FrotaEtaria.cs" />
+    <Compile Include="Models\FViagem.cs" />
+    <Compile Include="Models\FxEtaria.cs" />
+    <Compile Include="Models\Horario.cs" />
+    <Compile Include="Models\Instalacao.cs" />
+    <Compile Include="Models\ISinotico.cs" />
+    <Compile Include="Models\ItAtendimento.cs" />
+    <Compile Include="Models\Itinerario.cs" />
+    <Compile Include="Models\ItinerarioDistinct.cs" />
+    <Compile Include="Models\ItTronco.cs" />
+    <Compile Include="Models\Linha.cs" />
+    <Compile Include="Models\LnCorredor.cs" />
+    <Compile Include="Models\LnPesquisa.cs" />
+    <Compile Include="Models\LnTerminal.cs" />
+    <Compile Include="Models\LnTronco.cs" />
+    <Compile Include="Models\MapaLinha.cs" />
+    <Compile Include="Models\Motor.cs" />
+    <Compile Include="Models\Ocupacao.cs" />
+    <Compile Include="Models\Oferta.cs" />
+    <Compile Include="Models\Operacao.cs" />
+    <Compile Include="Models\Operacional.cs" />
+    <Compile Include="Models\OperLinha.cs" />
+    <Compile Include="Models\OptimizerException.cs" />
+    <Compile Include="Models\Pais.cs" />
+    <Compile Include="Models\Periodo.cs" />
+    <Compile Include="Models\PeriodoTipico.cs" />
+    <Compile Include="Models\Pesquisa.cs" />
+    <Compile Include="Models\Ponto.cs" />
+    <Compile Include="Models\PrLinha.cs" />
+    <Compile Include="Models\PtAtendimento.cs" />
+    <Compile Include="Models\PtDestino.cs" />
+    <Compile Include="Models\PtLinha.cs" />
+    <Compile Include="Models\PtOrigem.cs" />
+    <Compile Include="Models\PtTronco.cs" />
+    <Compile Include="Models\Renovacao.cs" />
+    <Compile Include="Models\SelectBox.cs" />
+    <Compile Include="Models\Sinotico.cs" />
+    <Compile Include="Models\SpecVeiculo.cs" />
+    <Compile Include="Models\Tarifa.cs" />
+    <Compile Include="Models\TarifaMod.cs" />
+    <Compile Include="Models\TCategoria.cs" />
+    <Compile Include="Models\Terminal.cs" />
+    <Compile Include="Models\TotalViagem.cs" />
+    <Compile Include="Models\Tronco.cs" />
+    <Compile Include="Models\TServico.cs" />
+    <Compile Include="Models\Uf.cs" />
+    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\Veiculo.cs" />
+    <Compile Include="Models\VeiculoAtt.cs" />
+    <Compile Include="Models\Via.cs" />
+    <Compile Include="Models\Viagem.cs" />
+    <Compile Include="Models\ViagemHora.cs" />
+    <Compile Include="Models\ViagemLinha.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

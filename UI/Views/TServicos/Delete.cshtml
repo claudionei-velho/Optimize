@@ -1,0 +1,65 @@
+﻿@using UI.Properties;
+
+@model UI.Models.TServicoViewModel
+
+@{
+  ViewBag.Title = Resources.Delete + " " + Resources.TServicoViewModel;
+}
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.Delete</h2>
+
+  <h3>@Resources.DeleteConfirm</h3>
+  <div>
+    <h4>@Resources.TServicoViewModel</h4>
+    <hr />
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.TerminalId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Terminal.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Denominacao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Descricao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Descricao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Horario):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Horario)
+      </div>
+    </div>
+
+    @using (Html.BeginForm()) {
+      @Html.AntiForgeryToken()
+
+      <div class="form-actions no-color">
+        <input type="submit" value="@Resources.Delete" class="btn btn-danger btn-sm" />
+        <div class="btn btn-outline-dark btn-sm">
+          @Html.ActionLink(Resources.BackToList, "Index")
+        </div>
+      </div>
+    }
+  </div>
+</div>

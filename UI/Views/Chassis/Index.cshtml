@@ -1,0 +1,95 @@
+﻿@using UI.Properties;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IEnumerable<UI.Models.ChassiViewModel>
+
+@{
+  ViewBag.Title = Resources.ChassiViewModel;
+}
+
+<div class="container left-widt">
+  <br />
+  <br />
+  <h2>@Resources.ChassiViewModel</h2>
+
+  <div class="btn btn-outline-dark btn-sm">
+    @Html.ActionLink(Resources.CreateNew, "Create")
+  </div>
+
+  <table class="table">
+    <tr>
+      <th>
+        @Html.DisplayNameFor(model => model.VeiculoId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Fabricante)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Modelo)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.ChassiNo)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Ano)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.MotorId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Potencia)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.TransmiteId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.DirecaoId)
+      </th>
+      <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Veiculo.Numero)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Fabricante)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Modelo)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.ChassiNo)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Ano)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Motor.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Potencia)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.TransmiteCap)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.DirecaoCap)
+        </td>
+        <td class="in-line left-smaller">
+          @Html.ActionLink(Resources.Update, "Edit", new { id = item.VeiculoId }, new { @class = "btn btn-outline-dark btn-sm" }) |
+          @Html.ActionLink(Resources.Details, "Details", new { id = item.VeiculoId }, new { @class = "btn btn-outline-dark btn-sm" }) |
+          @Html.ActionLink(Resources.Delete, "Delete", new { id = item.VeiculoId }, new { @class = "btn btn-outline-dark btn-sm" })
+        </td>
+      </tr>
+    }
+
+  </table>
+  @if ((Model as IPagedList).PageCount > 0) {
+    @Resources.Page@:&nbsp;@((Model as IPagedList).PageNumber) @Resources.Of @((Model as IPagedList).PageCount)
+  }
+  @Html.PagedListPager(Model as IPagedList, page => Url.Action("Index", new { page }))
+</div>

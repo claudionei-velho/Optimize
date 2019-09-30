@@ -1,0 +1,65 @@
+﻿@using UI.Properties;
+
+@model UI.Models.ECVeiculoViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " " + Resources.ECVeiculoViewModel;
+}
+
+<div class="container">
+  <br />
+  <br />
+
+  <h2>@Resources.Details</h2>
+
+  <div>
+    <h4>@Resources.ECVeiculoViewModel</h4>
+    <hr />
+
+    <dl class="dl-horizontal">
+      <dt>
+        @Html.DisplayNameFor(model => model.EmpresaId)
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.Empresa.Fantasia)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.ClasseId)
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.CVeiculo.Classe)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.Minimo)
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.Minimo)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.Maximo)
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.Maximo)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.Passageirom2)
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.Passageirom2)
+      </dd>
+    </dl>
+  </div>
+  <p>
+    @Html.ActionLink(Resources.Update, "Edit", new { id = Model.Id }) |
+    @Html.ActionLink(Resources.BackToList, "Index")
+  </p>
+</div>

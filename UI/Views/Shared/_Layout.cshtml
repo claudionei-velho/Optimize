@@ -1,0 +1,309 @@
+﻿@using Bll.Lists;
+@using UI.Properties;
+
+@{
+  Help help = new Help();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@ViewBag.Title : Optimize</title>
+  @Styles.Render("~/Content/css")
+  @Scripts.Render("~/bundles/modernizr")
+  <link rel="shortcut icon" href="~/Content/static/Icon.png" />
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="navbar-brand">@Html.ActionLink("Optimize", "Index", "Home")</div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@Resources.MenuEmpresa</a>
+
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li class="row">
+            <a class="dropdown-item" href="~/Empresas/">@Resources.EmpresaViewModel</a>
+            <a class="anchor" href="@help.HRef[10]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/EUsuarios/">@Resources.EUsuarioViewModel</a>
+            <a class="anchor" href="@help.HRef[11]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li><div class="dropdown-divider"></div></li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/EPeriodos/">@Resources.EPeriodoViewModel</a>
+            <a class="anchor" href="@help.HRef[12]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/EDominios/">@Resources.EDominioViewModel</a>
+            <a class="anchor" href="@help.HRef[13]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/CLinhas/">@Resources.CLinhaViewModel</a>
+            <a class="anchor" href="@help.HRef[14]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Operacoes/">@Resources.OperacaoViewModel</a>
+            <a class="anchor" href="@help.HRef[15]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li><div class="dropdown-divider"></div></li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Tarifas/">@Resources.TarifaViewModel</a>
+            <a class="anchor" href="@help.HRef[16]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/TCategorias/">@Resources.TCategoriaViewModel</a>
+            <a class="anchor" href="@help.HRef[17]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Custos/">@Resources.CustoViewModel</a>
+            <a class="anchor" href="@help.HRef[18]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@Resources.MenuOperacoes</a>
+
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Terminais/">@Resources.TerminalViewModel</a>
+            <a class="anchor" href="@help.HRef[19]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li><div class="dropdown-divider"></div></li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Instalacoes/">@Resources.InstalacaoViewModel</a>
+            <a class="anchor" href="@help.HRef[20]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/EInstalacoes/">@Resources.EInstalacaoViewModel</a>
+            <a class="anchor" href="@help.HRef[21]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li><div class="dropdown-divider"></div></li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Troncos/">@Resources.TroncoViewModel</a>
+            <a class="anchor" href="@help.HRef[22]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/LnTroncos/">@Resources.LnTroncoViewModel</a>
+            <a class="anchor" href="@help.HRef[23]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li><div class="dropdown-divider"></div></li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Corredores/">@Resources.CorredorViewModel</a>
+            <a class="anchor" href="@help.HRef[24]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/LnCorredores/">@Resources.LnCorredorViewModel</a>
+            <a class="anchor" href="@help.HRef[25]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li><div class="dropdown-divider"></div></li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Pontos/">@Resources.PontoViewModel</a>
+            <a class="anchor" href="@help.HRef[26]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li><div class="dropdown-divider"></div></li>
+          <!-- SubMenu -->
+          <li class="dropdown-submenu">
+            <a class="dropdown-item dropdown-toggle" onclick="Show('submenu')">Frota</a>
+            <ul class="dropdown-menu" id="submenu" style="display:none">
+              <li class="row">
+                <a class="dropdown-item" href="~/Veiculos/">@Resources.VeiculoViewModel</a>
+                <a class="anchor" href="@help.HRef[27]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+              </li>
+
+              <li class="row">
+                <a class="dropdown-item" href="~/Chassis/">@Resources.ChassiViewModel</a>
+                <a class="anchor" href="@help.HRef[28]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+              </li>
+
+              <li class="row">
+                <a class="dropdown-item" href="~/Carrocerias/">@Resources.CarroceriaViewModel</a>
+                <a class="anchor" href="@help.HRef[29]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+              </li>
+
+              <li><div class="dropdown-divider"></div></li>
+
+              <li class="row">
+                <a class="dropdown-item" href="~/FrotaEtarias/">@Resources.FrotaEtariaViewModel</a>
+                <a class="anchor" href="@help.HRef[30]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+              </li>
+            </ul>
+          </li>
+
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@Resources.MenuLinhas</a>
+
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li class="row">
+            <a class="dropdown-item" href="~/Linhas/">@Resources.LinhaViewModel</a>
+            <a class="anchor" href="@help.HRef[31]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/LnTerminais/">@Resources.LnTerminalViewModel</a>
+            <a class="anchor" href="@help.HRef[32]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Atendimentos/">@Resources.AtendimentoViewModel</a>
+            <a class="anchor" href="@help.HRef[33]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Horarios/">@Resources.HorarioViewModel</a>
+            <a class="anchor" href="@help.HRef[34]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/TotalViagens/">@Resources.TotalViagemViewModel</a>
+            <a class="anchor" href="@help.HRef[35]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li><div class="dropdown-divider"></div></li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Itinerarios/">@Resources.ItinerarioViewModel</a>
+            <a class="anchor" href="@help.HRef[36]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/ItAtendimentos/">@Resources.ItAtendimentoViewModel</a>
+            <a class="anchor" href="@help.HRef[37]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/PtAtendimentos/">@Resources.PtAtendimentoViewModel</a>
+            <a class="anchor" href="@help.HRef[38]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li><div class="dropdown-divider"></div></li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/PrLinhas/">@Resources.PrLinhaViewModel</a>
+            <a class="anchor" href="@help.HRef[39]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Ofertas/">@Resources.OfertaViewModel</a>
+            <a class="anchor" href="@help.HRef[40]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/FAjustes/">@Resources.FAjusteViewModel</a>
+            <a class="anchor" href="@help.HRef[41]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Renovacoes/">@Resources.RenovacaoViewModel</a>
+            <a class="anchor" href="@help.HRef[42]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@Resources.MenuPesquisa</a>
+
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li class="row">
+            <a class="dropdown-item" href="~/Pesquisas/">@Resources.PesquisaViewModel</a>
+            <a class="anchor" href="@help.HRef[43]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/LnPesquisas/">@Resources.LnPesquisaViewModel</a>
+            <a class="anchor" href="@help.HRef[44]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Viagens/">@Resources.ViagemViewModel</a>
+            <a class="anchor" href="@help.HRef[45]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li><div class="dropdown-divider"></div></li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Dimensionamentos/">@Resources.DimensionamentoViewModel</a>
+            <a class="anchor" href="@help.HRef[46]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+          <li class="row">
+            <a class="dropdown-item" href="~/Sinoticos/">@Resources.SinoticoViewModel</a>
+            <a class="anchor" href="@help.HRef[47]" target="_blank"><span data-tooltip="@Resources.HelpHint"><i class="fas fa-anchor"></i></span></a>
+          </li>
+
+        </ul>
+      </li>
+    </ul>
+
+    <div class="nav-link">@Html.ActionLink(Resources.About, "About", "Home")</div>
+
+    <div class="nav-link">@Html.ActionLink(Resources.Contact, "Contact", "Home")</div>
+
+    <div class="nav-link">@Html.ActionLink(Resources.Logout, "Logout", "Home")</div>
+
+  </nav>
+
+  <div class="container body-content">
+    @RenderBody()
+    <hr />
+    <footer class="left-widt">
+      <p>&copy; @DateTime.Now.Year - @Resources.AppProvider</p>
+    </footer>
+  </div>
+
+  <script type="text/javascript">
+
+    function Show(element) {
+      let menu = document.getElementById(element).style.display
+      if (menu == "none")
+        document.getElementById(element).style.display = 'block';
+      else
+        document.getElementById(element).style.display = 'none';
+    }
+
+  </script>
+
+  @Scripts.Render("~/bundles/jquery")
+  @Scripts.Render("~/bundles/bootstrap")
+  @RenderSection("scripts", required: false)
+</body>
+</html>

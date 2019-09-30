@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E9E32A52-610C-454D-9826-802C00BF5DED}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dal</RootNamespace>
+    <AssemblyName>Dal</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataContext.cs" />
+    <Compile Include="Mapping\AAbasteceMap.cs" />
+    <Compile Include="Mapping\AAdminMap.cs" />
+    <Compile Include="Mapping\AAlmoxMap.cs" />
+    <Compile Include="Mapping\AEstacionaMap.cs" />
+    <Compile Include="Mapping\AFunilariaMap.cs" />
+    <Compile Include="Mapping\AGaragemMap.cs" />
+    <Compile Include="Mapping\AInspecaoMap.cs" />
+    <Compile Include="Mapping\ALavacaoMap.cs" />
+    <Compile Include="Mapping\ALubrificaMap.cs" />
+    <Compile Include="Mapping\AMantemMap.cs" />
+    <Compile Include="Mapping\AtendimentoMap.cs" />
+    <Compile Include="Mapping\ATrafegoMap.cs" />
+    <Compile Include="Mapping\CarroceriaMap.cs" />
+    <Compile Include="Mapping\ChassiMap.cs" />
+    <Compile Include="Mapping\ClassLinhaMap.cs" />
+    <Compile Include="Mapping\CLinhaMap.cs" />
+    <Compile Include="Mapping\CorredorMap.cs" />
+    <Compile Include="Mapping\CustoMap.cs" />
+    <Compile Include="Mapping\CustoModMap.cs" />
+    <Compile Include="Mapping\CVeiculoAttMap.cs" />
+    <Compile Include="Mapping\CVeiculoMap.cs" />
+    <Compile Include="Mapping\DiaTrabalhoMap.cs" />
+    <Compile Include="Mapping\DimensionamentoMap.cs" />
+    <Compile Include="Mapping\DominioMap.cs" />
+    <Compile Include="Mapping\ECVeiculoMap.cs" />
+    <Compile Include="Mapping\EDominioMap.cs" />
+    <Compile Include="Mapping\EInstalacaoMap.cs" />
+    <Compile Include="Mapping\EmpresaMap.cs" />
+    <Compile Include="Mapping\EPeriodoMap.cs" />
+    <Compile Include="Mapping\EUsuarioMap.cs" />
+    <Compile Include="Mapping\FAjusteMap.cs" />
+    <Compile Include="Mapping\FInstalacaoMap.cs" />
+    <Compile Include="Mapping\FrotaEtariaMap.cs" />
+    <Compile Include="Mapping\FViagemMap.cs" />
+    <Compile Include="Mapping\FxEtariaMap.cs" />
+    <Compile Include="Mapping\HorarioMap.cs" />
+    <Compile Include="Mapping\InstalacaoMap.cs" />
+    <Compile Include="Mapping\ISinoticoMap.cs" />
+    <Compile Include="Mapping\ItAtendimentoMap.cs" />
+    <Compile Include="Mapping\ItinerarioDistinctMap.cs" />
+    <Compile Include="Mapping\ItinerarioMap.cs" />
+    <Compile Include="Mapping\ItTroncoMap.cs" />
+    <Compile Include="Mapping\LinhaMap.cs" />
+    <Compile Include="Mapping\LnCorredorMap.cs" />
+    <Compile Include="Mapping\LnPesquisaMap.cs" />
+    <Compile Include="Mapping\LnTerminalMap.cs" />
+    <Compile Include="Mapping\LnTroncoMap.cs" />
+    <Compile Include="Mapping\MapaLinhaMap.cs" />
+    <Compile Include="Mapping\MotorMap.cs" />
+    <Compile Include="Mapping\OcupacaoMap.cs" />
+    <Compile Include="Mapping\OfertaMap.cs" />
+    <Compile Include="Mapping\OperacaoMap.cs" />
+    <Compile Include="Mapping\OperacionalMap.cs" />
+    <Compile Include="Mapping\OperLinhaMap.cs" />
+    <Compile Include="Mapping\PaisMap.cs" />
+    <Compile Include="Mapping\PeriodoMap.cs" />
+    <Compile Include="Mapping\PeriodoTipicoMap.cs" />
+    <Compile Include="Mapping\PesquisaMap.cs" />
+    <Compile Include="Mapping\PontoMap.cs" />
+    <Compile Include="Mapping\PrLinhaMap.cs" />
+    <Compile Include="Mapping\PtAtendimentoMap.cs" />
+    <Compile Include="Mapping\PtDestinoMap.cs" />
+    <Compile Include="Mapping\PtLinhaMap.cs" />
+    <Compile Include="Mapping\PtOrigemMap.cs" />
+    <Compile Include="Mapping\PtTroncoMap.cs" />
+    <Compile Include="Mapping\RenovacaoMap.cs" />
+    <Compile Include="Mapping\SinoticoMap.cs" />
+    <Compile Include="Mapping\SpecVeiculoMap.cs" />
+    <Compile Include="Mapping\TarifaMap.cs" />
+    <Compile Include="Mapping\TarifaModMap.cs" />
+    <Compile Include="Mapping\TCategoriaMap.cs" />
+    <Compile Include="Mapping\TerminalMap.cs" />
+    <Compile Include="Mapping\TotalViagemMap.cs" />
+    <Compile Include="Mapping\TroncoMap.cs" />
+    <Compile Include="Mapping\TServicoMap.cs" />
+    <Compile Include="Mapping\UfMap.cs" />
+    <Compile Include="Mapping\UsuarioMap.cs" />
+    <Compile Include="Mapping\VeiculoAttMap.cs" />
+    <Compile Include="Mapping\VeiculoMap.cs" />
+    <Compile Include="Mapping\ViagemHoraMap.cs" />
+    <Compile Include="Mapping\ViagemLinhaMap.cs" />
+    <Compile Include="Mapping\ViagemMap.cs" />
+    <Compile Include="Mapping\ViaMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dto\Dto.csproj">
+      <Project>{29350d8e-25a2-40f3-9fe5-3deb076d0987}</Project>
+      <Name>Dto</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

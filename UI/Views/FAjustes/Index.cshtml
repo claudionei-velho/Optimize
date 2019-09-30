@@ -1,0 +1,66 @@
+﻿@using UI.Properties;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IEnumerable<UI.Models.FAjusteViewModel>
+
+@{
+  ViewBag.Title = Resources.FAjusteViewModel;
+}
+
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.FAjusteViewModel</h2>
+
+  <table class="table">
+    <tr>
+      <th>@Resources.Company</th>
+      <th>
+        @Html.DisplayNameFor(model => model.LinhaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Ano)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Mes)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Passageiros)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Fator)
+      </th>
+      <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Linha.Empresa.Fantasia)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Linha.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Ano)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.MesRef)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.Passageiros)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.Fator)
+        </td>
+      </tr>
+    }
+  </table>
+
+  @if ((Model as IPagedList).PageCount > 0) {
+    @Resources.Page@:&nbsp;@((Model as IPagedList).PageNumber) @Resources.Of @((Model as IPagedList).PageCount)
+  }
+  @Html.PagedListPager(Model as IPagedList, page => Url.Action("Index", new { page }))
+</div>

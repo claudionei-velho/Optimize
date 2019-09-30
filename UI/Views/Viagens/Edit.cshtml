@@ -1,0 +1,199 @@
+﻿@using UI.Properties;
+
+@model UI.Models.ViagemViewModel
+
+@{
+  ViewBag.Title = Resources.Update + " " + Resources.ViagemViewModel;
+}
+
+<div class="container">
+  <br />
+  <br />
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var day = new Date($("#Data").val()).getDay();
+      var opDay;
+      switch (day) {
+        case 5: opDay = 2; break;    // Sabado
+        case 6: opDay = 3; break;    // Domingo
+        default: opDay = 1; break;   // Dias Uteis
+      }
+
+      $("#LinhaId").change(function () {
+        $.get("/Viagens/GetHorarios", { id: $("#LinhaId").val(), op: opDay, go: $("#Sentido").val() }, function (data) {
+          $("#HorarioId").empty();
+          $("#HorarioId").append("<option value=''></option>");
+          $.each(data, function (index, row) {
+            $("#HorarioId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+          });
+        });
+      });
+
+      $("#Data").change(function () {
+        $.get("/Viagens/GetHorarios", { id: $("#LinhaId").val(), op: opDay, go: $("#Sentido").val() }, function (data) {
+          $("#HorarioId").empty();
+          $("#HorarioId").append("<option value=''></option>");
+          $.each(data, function (index, row) {
+            $("#HorarioId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+          });
+        });
+      });
+
+      $("#Sentido").change(function () {
+        $.get("/Viagens/GetHorarios", { id: $("#LinhaId").val(), op: opDay, go: $("#Sentido").val() }, function (data) {
+          $("#HorarioId").empty();
+          $("#HorarioId").append("<option value=''></option>");
+          $.each(data, function (index, row) {
+            $("#HorarioId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+          });
+        });
+      });
+    });
+  </script>
+
+  <h2>@Resources.Update</h2>
+
+  @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+      <h4>
+        @Resources.ViagemViewModel |
+        <div class="btn btn-outline-dark ">
+          @Html.ActionLink(Resources.FViagemViewModel, "Filter", controllerName: "FViagens", routeValues: new { id = Model.Id }, htmlAttributes: null)
+        </div>
+
+      </h4>
+      <hr />
+      @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+      @Html.HiddenFor(model => model.Id)
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.LinhaId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.DropDownList("LinhaId", null, htmlAttributes: new { @class = "form-control form-control-sm" })
+          @Html.ValidationMessageFor(model => model.LinhaId, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Item, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Item, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+          @Html.ValidationMessageFor(model => model.Item, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Data, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+          @Html.ValidationMessageFor(model => model.Data, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Sentido, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.DropDownList("Sentido", null, htmlAttributes: new { @class = "form-control form-control-sm" })
+          @Html.ValidationMessageFor(model => model.Sentido, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.HorarioId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.DropDownList("HorarioId", null, string.Empty, htmlAttributes: new { @class = "form-control form-control-sm" })
+          @Html.ValidationMessageFor(model => model.HorarioId, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.PontoId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.DropDownList("PontoId", null, string.Empty, htmlAttributes: new { @class = "form-control form-control-sm" })
+          @Html.ValidationMessageFor(model => model.PontoId, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.VeiculoId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.DropDownList("VeiculoId", null, string.Empty, htmlAttributes: new { @class = "form-control form-control-sm" })
+          @Html.ValidationMessageFor(model => model.VeiculoId, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Chegada, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Chegada, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+          @Html.ValidationMessageFor(model => model.Chegada, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Inicio, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Inicio, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+          @Html.ValidationMessageFor(model => model.Inicio, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Termino, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Termino, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+          @Html.ValidationMessageFor(model => model.Termino, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Passageiros, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Passageiros, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+          @Html.ValidationMessageFor(model => model.Passageiros, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Inicial, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Inicial, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+          @Html.ValidationMessageFor(model => model.Inicial, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Final, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Final, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+          @Html.ValidationMessageFor(model => model.Final, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Responsavel, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Responsavel, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+          @Html.ValidationMessageFor(model => model.Responsavel, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-md-offset-2 col-md-4">
+          <input type="submit" value="@Resources.Update" class="btn btn-default btn-sm" />
+          <div class="btn btn-outline-dark btn-sm">
+            @Html.ActionLink(Resources.BackToList, "Index")
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+@section Scripts {
+  @Scripts.Render("~/bundles/jqueryval")
+}

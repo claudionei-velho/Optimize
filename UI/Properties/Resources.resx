@@ -1,0 +1,1329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Sobre</value>
+  </data>
+  <data name="AppProvider" xml:space="preserve">
+    <value>Profuzzy Consultoria e Sistemas Ltda.</value>
+  </data>
+  <data name="AtendimentoViewModel" xml:space="preserve">
+    <value>Atendimentos</value>
+  </data>
+  <data name="BackToList" xml:space="preserve">
+    <value>Retornar</value>
+  </data>
+  <data name="CarroceriaViewModel" xml:space="preserve">
+    <value>Carrocerias</value>
+  </data>
+  <data name="ChassiViewModel" xml:space="preserve">
+    <value>Chassis</value>
+  </data>
+  <data name="ClassLinhaViewModel" xml:space="preserve">
+    <value>Classificação das Linhas</value>
+  </data>
+  <data name="CLinhaViewModel" xml:space="preserve">
+    <value>Classificação das Linhas</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contatos</value>
+  </data>
+  <data name="CorredorViewModel" xml:space="preserve">
+    <value>Corredores de Transporte</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Incluir</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Novo Registro</value>
+  </data>
+  <data name="CustoViewModel" xml:space="preserve">
+    <value>Custos Operacionais</value>
+  </data>
+  <data name="CVeiculoViewModel" xml:space="preserve">
+    <value>Classes de Veículos</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Excluir</value>
+  </data>
+  <data name="DeleteConfirm" xml:space="preserve">
+    <value>Confirma a exclusão do registro selecionado?</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detalhar</value>
+  </data>
+  <data name="DimensionamentoViewModel" xml:space="preserve">
+    <value>Modelo de Dimensionamento</value>
+  </data>
+  <data name="DominioViewModel" xml:space="preserve">
+    <value>Jurisdições</value>
+  </data>
+  <data name="EDominioViewModel" xml:space="preserve">
+    <value>Jurisdições</value>
+  </data>
+  <data name="EmpresaViewModel" xml:space="preserve">
+    <value>Empresas</value>
+  </data>
+  <data name="EPeriodoViewModel" xml:space="preserve">
+    <value>Períodos Operacionais</value>
+  </data>
+  <data name="EUsuarioViewModel" xml:space="preserve">
+    <value>Usuários da Empresa</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Exportar</value>
+  </data>
+  <data name="FAjusteViewModel" xml:space="preserve">
+    <value>Fator de Ajuste</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Consultar</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Localizar</value>
+  </data>
+  <data name="FViagemViewModel" xml:space="preserve">
+    <value>Fluxo das Viagens</value>
+  </data>
+  <data name="HorarioViewModel" xml:space="preserve">
+    <value>Horários</value>
+  </data>
+  <data name="ISinoticoViewModel" xml:space="preserve">
+    <value>Indicadores do Quadro Sinótico</value>
+  </data>
+  <data name="ItAtendimentoViewModel" xml:space="preserve">
+    <value>Itinerários do Atendimento</value>
+  </data>
+  <data name="ItinerarioViewModel" xml:space="preserve">
+    <value>Itinerários</value>
+  </data>
+  <data name="ItTroncoViewModel" xml:space="preserve">
+    <value>Itinerários do Tronco</value>
+  </data>
+  <data name="LinhaViewModel" xml:space="preserve">
+    <value>Linhas</value>
+  </data>
+  <data name="LnCorredorViewModel" xml:space="preserve">
+    <value>Linhas nos Corredores</value>
+  </data>
+  <data name="LnPesquisaViewModel" xml:space="preserve">
+    <value>Linhas Pesquisadas</value>
+  </data>
+  <data name="LnTerminalViewModel" xml:space="preserve">
+    <value>Linhas nos Terminais</value>
+  </data>
+  <data name="LnTroncoViewModel" xml:space="preserve">
+    <value>Linhas nos Troncos</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Entrar</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="MenuEmpresa" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="MenuLinhas" xml:space="preserve">
+    <value>Linhas</value>
+  </data>
+  <data name="MenuOperacoes" xml:space="preserve">
+    <value>Operações</value>
+  </data>
+  <data name="MenuPesquisa" xml:space="preserve">
+    <value>Pesquisas</value>
+  </data>
+  <data name="OcupacaoViewModel" xml:space="preserve">
+    <value>Níveis de Ocupação de Serviço</value>
+  </data>
+  <data name="Of" xml:space="preserve">
+    <value>de</value>
+  </data>
+  <data name="OfertaViewModel" xml:space="preserve">
+    <value>Ofertas de Serviço</value>
+  </data>
+  <data name="OperacaoViewModel" xml:space="preserve">
+    <value>Operações</value>
+  </data>
+  <data name="OperLinhaViewModel" xml:space="preserve">
+    <value>Operações das Linhas</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Página: </value>
+  </data>
+  <data name="PaisViewModel" xml:space="preserve">
+    <value>Países</value>
+  </data>
+  <data name="PeriodoViewModel" xml:space="preserve">
+    <value>Períodos Operacionais</value>
+  </data>
+  <data name="PesquisaViewModel" xml:space="preserve">
+    <value>Pesquisas</value>
+  </data>
+  <data name="PontoViewModel" xml:space="preserve">
+    <value>Pontos de Parada</value>
+  </data>
+  <data name="PrLinhaViewModel" xml:space="preserve">
+    <value>Períodos Típicos</value>
+  </data>
+  <data name="PtAtendimentoViewModel" xml:space="preserve">
+    <value>Pontos do Atendimento</value>
+  </data>
+  <data name="PtLinhaViewModel" xml:space="preserve">
+    <value>Pontos da Linha</value>
+  </data>
+  <data name="PtTroncoViewModel" xml:space="preserve">
+    <value>Pontos do Tronco</value>
+  </data>
+  <data name="RenovacaoViewModel" xml:space="preserve">
+    <value>Índice de Renovação</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Procurar</value>
+  </data>
+  <data name="SinoticoViewModel" xml:space="preserve">
+    <value>Quadro Sinótico</value>
+  </data>
+  <data name="TarifaViewModel" xml:space="preserve">
+    <value>Tarifa Base</value>
+  </data>
+  <data name="TCategoriaViewModel" xml:space="preserve">
+    <value>Classes Tarifárias</value>
+  </data>
+  <data name="TerminalViewModel" xml:space="preserve">
+    <value>Terminais</value>
+  </data>
+  <data name="TotalViagemViewModel" xml:space="preserve">
+    <value>Total de Viagens</value>
+  </data>
+  <data name="TroncoViewModel" xml:space="preserve">
+    <value>Troncos</value>
+  </data>
+  <data name="TServicoViewModel" xml:space="preserve">
+    <value>Serviços do Terminal</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Alterar</value>
+  </data>
+  <data name="UsuarioViewModel" xml:space="preserve">
+    <value>Usuários</value>
+  </data>
+  <data name="VeiculoAttViewModel" xml:space="preserve">
+    <value>Características dos Veículos</value>
+  </data>
+  <data name="VeiculoViewModel" xml:space="preserve">
+    <value>Veículos</value>
+  </data>
+  <data name="ViagemViewModel" xml:space="preserve">
+    <value>Viagens</value>
+  </data>
+  <data name="ViaViewModel" xml:space="preserve">
+    <value>Pavimentação das Vias</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Aviso!</value>
+  </data>
+  <data name="Ativo" xml:space="preserve">
+    <value>Ativo?</value>
+  </data>
+  <data name="Bairro" xml:space="preserve">
+    <value>Bairro</value>
+  </data>
+  <data name="Cadastro" xml:space="preserve">
+    <value>Data de Cadastro</value>
+  </data>
+  <data name="Cep" xml:space="preserve">
+    <value>CEP</value>
+  </data>
+  <data name="Cnpj" xml:space="preserve">
+    <value>CNPJ</value>
+  </data>
+  <data name="CnpjError" xml:space="preserve">
+    <value>Informe o CNPJ</value>
+  </data>
+  <data name="Complemento" xml:space="preserve">
+    <value>Complemento</value>
+  </data>
+  <data name="ConfirmaSenha" xml:space="preserve">
+    <value>Confirme a Senha</value>
+  </data>
+  <data name="ConfirmaSenhaError" xml:space="preserve">
+    <value>As senhas informadas não conferem</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Endereco" xml:space="preserve">
+    <value>Endereço</value>
+  </data>
+  <data name="EnderecoError" xml:space="preserve">
+    <value>Informe o Endereço</value>
+  </data>
+  <data name="EnderecoNo" xml:space="preserve">
+    <value>Endereço Nº</value>
+  </data>
+  <data name="Fantasia" xml:space="preserve">
+    <value>Nome Fantasia</value>
+  </data>
+  <data name="FantasiaError" xml:space="preserve">
+    <value>Informe o Nome Fantasia</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="IEstadual" xml:space="preserve">
+    <value>Inscrição Estadual</value>
+  </data>
+  <data name="IMunicipal" xml:space="preserve">
+    <value>Inscrição Municipal</value>
+  </data>
+  <data name="Inicio" xml:space="preserve">
+    <value>Início da Operação</value>
+  </data>
+  <data name="InvalidCnpj" xml:space="preserve">
+    <value>CNPJ Inválido</value>
+  </data>
+  <data name="LoginError" xml:space="preserve">
+    <value>Informe o Login (E-mail) do Usuário</value>
+  </data>
+  <data name="Municipio" xml:space="preserve">
+    <value>Município</value>
+  </data>
+  <data name="MunicipioError" xml:space="preserve">
+    <value>Informe o Município</value>
+  </data>
+  <data name="PaisId" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="PaisIdError" xml:space="preserve">
+    <value>Informe o País</value>
+  </data>
+  <data name="Razao" xml:space="preserve">
+    <value>Razão Social</value>
+  </data>
+  <data name="RazaoError" xml:space="preserve">
+    <value>Informe a Razão Social</value>
+  </data>
+  <data name="Senha" xml:space="preserve">
+    <value>Senha</value>
+  </data>
+  <data name="SenhaError" xml:space="preserve">
+    <value>Informe a Senha do Usuário</value>
+  </data>
+  <data name="Telefone" xml:space="preserve">
+    <value>Telefone</value>
+  </data>
+  <data name="Termino" xml:space="preserve">
+    <value>Término da Operação</value>
+  </data>
+  <data name="UfId" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="UfIdError" xml:space="preserve">
+    <value>Informe a UF da Empresa</value>
+  </data>
+  <data name="UsuarioLogin" xml:space="preserve">
+    <value>Login (E-mail)</value>
+  </data>
+  <data name="UsuarioNome" xml:space="preserve">
+    <value>Nome do Usuário</value>
+  </data>
+  <data name="UsuarioNomeError" xml:space="preserve">
+    <value>Informe o Nome do Usuário</value>
+  </data>
+  <data name="Ano" xml:space="preserve">
+    <value>Ano</value>
+  </data>
+  <data name="Aquisicao" xml:space="preserve">
+    <value>Data de Aquisição</value>
+  </data>
+  <data name="Assentos" xml:space="preserve">
+    <value>Nº de Assentos</value>
+  </data>
+  <data name="AtendimentoDenominacao" xml:space="preserve">
+    <value>Atendimento</value>
+  </data>
+  <data name="AtendimentoDenominacaoError" xml:space="preserve">
+    <value>Informe a Denominação do Atendimento</value>
+  </data>
+  <data name="Capacidade" xml:space="preserve">
+    <value>Capacidade (nº de pessoas)</value>
+  </data>
+  <data name="Catraca" xml:space="preserve">
+    <value>Localização da Catraca</value>
+  </data>
+  <data name="ChassiNo" xml:space="preserve">
+    <value>Número Chassi</value>
+  </data>
+  <data name="ChassiNoError" xml:space="preserve">
+    <value>Informe o Número do Chassi</value>
+  </data>
+  <data name="ChaveNfe" xml:space="preserve">
+    <value>Chave NF-e</value>
+  </data>
+  <data name="Denominacao" xml:space="preserve">
+    <value>Denominação</value>
+  </data>
+  <data name="DenominacaoError" xml:space="preserve">
+    <value>Informe a Denominação</value>
+  </data>
+  <data name="Descricao" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="DirecaoId" xml:space="preserve">
+    <value>Sistema de Direção</value>
+  </data>
+  <data name="Domingos" xml:space="preserve">
+    <value>Domingos?</value>
+  </data>
+  <data name="EixosFrente" xml:space="preserve">
+    <value>Nº Eixos Dianteiros</value>
+  </data>
+  <data name="EixosTras" xml:space="preserve">
+    <value>Nº Eixos Traseiros</value>
+  </data>
+  <data name="Encarrocamento" xml:space="preserve">
+    <value>Data de Encarroçamento</value>
+  </data>
+  <data name="EscapeH" xml:space="preserve">
+    <value>Escapamento Horizontal?</value>
+  </data>
+  <data name="EscapeV" xml:space="preserve">
+    <value>Escapamento Vertical?</value>
+  </data>
+  <data name="ExtensaoAB" xml:space="preserve">
+    <value>Extensão AB (km)</value>
+  </data>
+  <data name="ExtensaoBA" xml:space="preserve">
+    <value>Extensão BA (km)</value>
+  </data>
+  <data name="Fabricante" xml:space="preserve">
+    <value>Fabricante</value>
+  </data>
+  <data name="Fornecedor" xml:space="preserve">
+    <value>Fornecedor</value>
+  </data>
+  <data name="LinhaId" xml:space="preserve">
+    <value>Linha</value>
+  </data>
+  <data name="LinhaIdError" xml:space="preserve">
+    <value>Informe a Linha</value>
+  </data>
+  <data name="Modelo" xml:space="preserve">
+    <value>Modelo</value>
+  </data>
+  <data name="MotorId" xml:space="preserve">
+    <value>Tipo de Motor</value>
+  </data>
+  <data name="NotaFiscal" xml:space="preserve">
+    <value>Nota Fiscal</value>
+  </data>
+  <data name="Piso" xml:space="preserve">
+    <value>Tipo de Piso</value>
+  </data>
+  <data name="PneusFrente" xml:space="preserve">
+    <value>Bitola Pneus Dianteiros</value>
+  </data>
+  <data name="PneusTras" xml:space="preserve">
+    <value>Bitola Pneus Traseiros</value>
+  </data>
+  <data name="PortaIn" xml:space="preserve">
+    <value>Porta de Embarque</value>
+  </data>
+  <data name="PortaInError" xml:space="preserve">
+    <value>Informe a Porta de Embarque</value>
+  </data>
+  <data name="Portas" xml:space="preserve">
+    <value>Nº de Portas</value>
+  </data>
+  <data name="PortasError" xml:space="preserve">
+    <value>Informe o Número de Portas</value>
+  </data>
+  <data name="PosMotor" xml:space="preserve">
+    <value>Posição do Motor</value>
+  </data>
+  <data name="Potencia" xml:space="preserve">
+    <value>Potência</value>
+  </data>
+  <data name="Prefixo" xml:space="preserve">
+    <value>Prefixo</value>
+  </data>
+  <data name="PrefixoError" xml:space="preserve">
+    <value>Informe o Prefixo</value>
+  </data>
+  <data name="Referencia" xml:space="preserve">
+    <value>Nº da Carroceria</value>
+  </data>
+  <data name="Sabados" xml:space="preserve">
+    <value>Sábados?</value>
+  </data>
+  <data name="SaidaFrente" xml:space="preserve">
+    <value>Desembarque Dianteiro?</value>
+  </data>
+  <data name="SaidaMeio" xml:space="preserve">
+    <value>Desembarque Central?</value>
+  </data>
+  <data name="SaidaTras" xml:space="preserve">
+    <value>Desembarque Traseiro?</value>
+  </data>
+  <data name="TransmiteId" xml:space="preserve">
+    <value>Transmissão</value>
+  </data>
+  <data name="Uteis" xml:space="preserve">
+    <value>Dias Úteis?</value>
+  </data>
+  <data name="Valor" xml:space="preserve">
+    <value>Valor de Aquisição R$</value>
+  </data>
+  <data name="VeiculoId" xml:space="preserve">
+    <value>Veículo</value>
+  </data>
+  <data name="Ajustado" xml:space="preserve">
+    <value>Total Ajustado</value>
+  </data>
+  <data name="Caracteristicas" xml:space="preserve">
+    <value>Caracteristicas</value>
+  </data>
+  <data name="Categoria" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
+  <data name="CategoriaError" xml:space="preserve">
+    <value>Informe a Denominação da Categoria</value>
+  </data>
+  <data name="CicloAB" xml:space="preserve">
+    <value>Tempo de Viagem AB (minutos)</value>
+  </data>
+  <data name="CicloBA" xml:space="preserve">
+    <value>Tempo de Viagem BA (minutos)</value>
+  </data>
+  <data name="Classe" xml:space="preserve">
+    <value>Classe</value>
+  </data>
+  <data name="ClasseError" xml:space="preserve">
+    <value>Informe a Denominação da Classe</value>
+  </data>
+  <data name="ClassLinhaId" xml:space="preserve">
+    <value>Classificação da Linha</value>
+  </data>
+  <data name="ClassLinhaIdError" xml:space="preserve">
+    <value>Informe a Classificação da Linha</value>
+  </data>
+  <data name="Critica" xml:space="preserve">
+    <value>Viagem Crítica</value>
+  </data>
+  <data name="CriticaAjuste" xml:space="preserve">
+    <value>Viagem Crítica Ajuste</value>
+  </data>
+  <data name="CustoTotal" xml:space="preserve">
+    <value>Custo Total R$ (km)</value>
+  </data>
+  <data name="DataReferencia" xml:space="preserve">
+    <value>Data de Referência</value>
+  </data>
+  <data name="DataReferenciaError" xml:space="preserve">
+    <value>Informe a Data de Referência</value>
+  </data>
+  <data name="Desvio" xml:space="preserve">
+    <value>Desvio Padrão</value>
+  </data>
+  <data name="DesvioAjuste" xml:space="preserve">
+    <value>Desvio Padrão Ajuste</value>
+  </data>
+  <data name="DiaId" xml:space="preserve">
+    <value>Dia de Operação</value>
+  </data>
+  <data name="DominioId" xml:space="preserve">
+    <value>Jurisdição</value>
+  </data>
+  <data name="DominioIdError" xml:space="preserve">
+    <value>Informe a Jurisdição da Empresa</value>
+  </data>
+  <data name="Duracao" xml:space="preserve">
+    <value>Duração (minutos)</value>
+  </data>
+  <data name="EmpresaId" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="EmpresaIdError" xml:space="preserve">
+    <value>Informe a Empresa</value>
+  </data>
+  <data name="Extensao" xml:space="preserve">
+    <value>Extensão Total (km)</value>
+  </data>
+  <data name="ExtensaoSentido" xml:space="preserve">
+    <value>Extensão (km)</value>
+  </data>
+  <data name="Fixo" xml:space="preserve">
+    <value>Custo Fixo R$ (km)</value>
+  </data>
+  <data name="FixoError" xml:space="preserve">
+    <value>Informe o Custo Fixo R$ (km)</value>
+  </data>
+  <data name="Fluxo" xml:space="preserve">
+    <value>Fluxo de Passageiros (minuto)</value>
+  </data>
+  <data name="FluxoAjuste" xml:space="preserve">
+    <value>Fluxo de Passageiros Ajuste (minuto)</value>
+  </data>
+  <data name="HoraInicio" xml:space="preserve">
+    <value>Hora de Início</value>
+  </data>
+  <data name="HoraTermino" xml:space="preserve">
+    <value>Hora de Término</value>
+  </data>
+  <data name="Intervalo" xml:space="preserve">
+    <value>Intervalo entre Partidas</value>
+  </data>
+  <data name="IntervaloE" xml:space="preserve">
+    <value>Intervalo (Estatístico) entre Partidas</value>
+  </data>
+  <data name="IntervaloP" xml:space="preserve">
+    <value>Intervalo (Projeto) entre Partidas</value>
+  </data>
+  <data name="KmTotal" xml:space="preserve">
+    <value>Quilometragem Total</value>
+  </data>
+  <data name="KmTotalE" xml:space="preserve">
+    <value>Quilometragem (Estatística) Total</value>
+  </data>
+  <data name="KmTotalP" xml:space="preserve">
+    <value>Quilometragem (Projeto) Total</value>
+  </data>
+  <data name="LotacaoE" xml:space="preserve">
+    <value>Lotação Estatística</value>
+  </data>
+  <data name="LotacaoP" xml:space="preserve">
+    <value>Lotação de Projeto</value>
+  </data>
+  <data name="Maximo" xml:space="preserve">
+    <value>Nº Máximo de Pessoas</value>
+  </data>
+  <data name="Media" xml:space="preserve">
+    <value>Média de Passageiros</value>
+  </data>
+  <data name="MediaAjuste" xml:space="preserve">
+    <value>Média de Passageiros Ajuste</value>
+  </data>
+  <data name="Minimo" xml:space="preserve">
+    <value>Nº Mínimo de Pessoas</value>
+  </data>
+  <data name="Ociosidade" xml:space="preserve">
+    <value>Ociosidade (min.)</value>
+  </data>
+  <data name="Passageiros" xml:space="preserve">
+    <value>Total de Passageiros</value>
+  </data>
+  <data name="PeriodoId" xml:space="preserve">
+    <value>Período Típico</value>
+  </data>
+  <data name="EPeriodoId" xml:space="preserve">
+    <value>Período Operacional</value>
+  </data>
+  <data name="EPeriodoIdError" xml:space="preserve">
+    <value>Informe o Período Operacional da Empresa</value>
+  </data>
+  <data name="PrognosticoE" xml:space="preserve">
+    <value>Prognóstico (Estatístico) de Viagens</value>
+  </data>
+  <data name="PrognosticoP" xml:space="preserve">
+    <value>Prognóstico (Projeto) de Viagens</value>
+  </data>
+  <data name="QtdViagens" xml:space="preserve">
+    <value>Viagens</value>
+  </data>
+  <data name="Sentido" xml:space="preserve">
+    <value>Sentido</value>
+  </data>
+  <data name="Variavel" xml:space="preserve">
+    <value>Custo Variável R$ (km)</value>
+  </data>
+  <data name="VariavelError" xml:space="preserve">
+    <value>Informe o Custo Variável R$ (km)</value>
+  </data>
+  <data name="Veiculos" xml:space="preserve">
+    <value>Nº Veículos</value>
+  </data>
+  <data name="VeiculosE" xml:space="preserve">
+    <value>Qtd. Veículos (Estatístico)</value>
+  </data>
+  <data name="VeiculosP" xml:space="preserve">
+    <value>Qtd. Veículos (Projeto)</value>
+  </data>
+  <data name="Abrangencia" xml:space="preserve">
+    <value>Abrangência Pavimentação (%)</value>
+  </data>
+  <data name="AtendimentoId" xml:space="preserve">
+    <value>Atendimento</value>
+  </data>
+  <data name="AtendimentoIdError" xml:space="preserve">
+    <value>Informe o Atendimento</value>
+  </data>
+  <data name="Captacao" xml:space="preserve">
+    <value>Captação?</value>
+  </data>
+  <data name="Classificacao" xml:space="preserve">
+    <value>Classificação</value>
+  </data>
+  <data name="ClassificacaoError" xml:space="preserve">
+    <value>Informe a Classificação</value>
+  </data>
+  <data name="CondicaoId" xml:space="preserve">
+    <value>Condição da Via</value>
+  </data>
+  <data name="Desembarques" xml:space="preserve">
+    <value>Passageiros Desembarcados</value>
+  </data>
+  <data name="DiaIdError" xml:space="preserve">
+    <value>Informe o Dia de Operação</value>
+  </data>
+  <data name="Distribuicao" xml:space="preserve">
+    <value>Distribuição?</value>
+  </data>
+  <data name="Embarques" xml:space="preserve">
+    <value>Passageiros Embarcados</value>
+  </data>
+  <data name="Fator" xml:space="preserve">
+    <value>Fator de Ajuste</value>
+  </data>
+  <data name="HoraInicioError" xml:space="preserve">
+    <value>Informe a Hora de Início</value>
+  </data>
+  <data name="Mes" xml:space="preserve">
+    <value>Mês de Referência</value>
+  </data>
+  <data name="OperacaoIdError" xml:space="preserve">
+    <value>Informe a Operação</value>
+  </data>
+  <data name="PavimentoId" xml:space="preserve">
+    <value>Tipo de Pavimentação</value>
+  </data>
+  <data name="Percurso" xml:space="preserve">
+    <value>Percurso</value>
+  </data>
+  <data name="PercursoError" xml:space="preserve">
+    <value>Informe o Percurso</value>
+  </data>
+  <data name="PercursoExtensao" xml:space="preserve">
+    <value>Extensão do Percurso (km)</value>
+  </data>
+  <data name="PontoId" xml:space="preserve">
+    <value>Ponto</value>
+  </data>
+  <data name="PontoIdError" xml:space="preserve">
+    <value>Informe o Ponto</value>
+  </data>
+  <data name="SentidoError" xml:space="preserve">
+    <value>Informe o Sentido</value>
+  </data>
+  <data name="Transporte" xml:space="preserve">
+    <value>Transporte?</value>
+  </data>
+  <data name="TroncoId" xml:space="preserve">
+    <value>Tronco</value>
+  </data>
+  <data name="TroncoIdError" xml:space="preserve">
+    <value>Informe o Tronco</value>
+  </data>
+  <data name="Unidade" xml:space="preserve">
+    <value>Unidade de Medida</value>
+  </data>
+  <data name="UsuarioId" xml:space="preserve">
+    <value>Usuário</value>
+  </data>
+  <data name="UsuarioIdError" xml:space="preserve">
+    <value>Informe o Usuário</value>
+  </data>
+  <data name="ViagemId" xml:space="preserve">
+    <value>Viagem</value>
+  </data>
+  <data name="ViagemIdError" xml:space="preserve">
+    <value>Informe a Viagem</value>
+  </data>
+  <data name="AnoError" xml:space="preserve">
+    <value>Informe o Ano de Referência</value>
+  </data>
+  <data name="ClasseTarifa" xml:space="preserve">
+    <value>Classe Tarifária</value>
+  </data>
+  <data name="ClasseTarifaError" xml:space="preserve">
+    <value>Infome a Classe Tarifária</value>
+  </data>
+  <data name="Contrato" xml:space="preserve">
+    <value>Nº Contrato</value>
+  </data>
+  <data name="CorredorId" xml:space="preserve">
+    <value>Corredor de Transporte</value>
+  </data>
+  <data name="CorredorIdError" xml:space="preserve">
+    <value>Informe o Corredor de Transporte</value>
+  </data>
+  <data name="DataInicio" xml:space="preserve">
+    <value>Data de Início</value>
+  </data>
+  <data name="DataInicioError" xml:space="preserve">
+    <value>Informe a Data de Início</value>
+  </data>
+  <data name="DataTermino" xml:space="preserve">
+    <value>Data de Término</value>
+  </data>
+  <data name="DataTerminoError" xml:space="preserve">
+    <value>Informe a Data de Término</value>
+  </data>
+  <data name="Densidade" xml:space="preserve">
+    <value>Índice de Ocupação</value>
+  </data>
+  <data name="DensidadeError" xml:space="preserve">
+    <value>Informe o Índice de Ocupação</value>
+  </data>
+  <data name="Identificacao" xml:space="preserve">
+    <value>Identificação</value>
+  </data>
+  <data name="IdentificacaoError" xml:space="preserve">
+    <value>Informe a Identificação (Referência)</value>
+  </data>
+  <data name="Interna" xml:space="preserve">
+    <value>Pesquisa Interna?</value>
+  </data>
+  <data name="MesError" xml:space="preserve">
+    <value>Informe o Mês de Referência</value>
+  </data>
+  <data name="Nivel" xml:space="preserve">
+    <value>Nível de Serviço</value>
+  </data>
+  <data name="NivelError" xml:space="preserve">
+    <value>Informe o Nível de Serviço</value>
+  </data>
+  <data name="OperacaoId" xml:space="preserve">
+    <value>Operação</value>
+  </data>
+  <data name="OperLinhaId" xml:space="preserve">
+    <value>Operação</value>
+  </data>
+  <data name="OperLinhaIdError" xml:space="preserve">
+    <value>Informe a Operação</value>
+  </data>
+  <data name="PassageirosError" xml:space="preserve">
+    <value>Informe o Total de Passageiros</value>
+  </data>
+  <data name="PesquisaId" xml:space="preserve">
+    <value>Pesquisa</value>
+  </data>
+  <data name="PesquisaIdError" xml:space="preserve">
+    <value>Informe a Pesquisa</value>
+  </data>
+  <data name="Responsavel" xml:space="preserve">
+    <value>Responsável</value>
+  </data>
+  <data name="TerminalId" xml:space="preserve">
+    <value>Terminal</value>
+  </data>
+  <data name="TerminalIdError" xml:space="preserve">
+    <value>Informe o Terminal</value>
+  </data>
+  <data name="EnderecoRef" xml:space="preserve">
+    <value>Ponto de Referência</value>
+  </data>
+  <data name="Horario" xml:space="preserve">
+    <value>Horário Atendimento</value>
+  </data>
+  <data name="Intercambio" xml:space="preserve">
+    <value>Ponto de Troca?</value>
+  </data>
+  <data name="Latitude" xml:space="preserve">
+    <value>Latitude</value>
+  </data>
+  <data name="Longitude" xml:space="preserve">
+    <value>Longitude</value>
+  </data>
+  <data name="CVeiculoId" xml:space="preserve">
+    <value>Classe de Veículo</value>
+  </data>
+  <data name="DestinoId" xml:space="preserve">
+    <value>Ponto de Destino</value>
+  </data>
+  <data name="HoraTerminoError" xml:space="preserve">
+    <value>Informe a Hora de Término</value>
+  </data>
+  <data name="OcupacaoId" xml:space="preserve">
+    <value>Nível de Conforto</value>
+  </data>
+  <data name="OrigemId" xml:space="preserve">
+    <value>Ponto de Origem</value>
+  </data>
+  <data name="Antt" xml:space="preserve">
+    <value>Registro ANTT</value>
+  </data>
+  <data name="Atributo" xml:space="preserve">
+    <value>Característica</value>
+  </data>
+  <data name="CatracaFinal" xml:space="preserve">
+    <value>Catraca Final</value>
+  </data>
+  <data name="CatracaInicial" xml:space="preserve">
+    <value>Catraca Inicial</value>
+  </data>
+  <data name="Chegada" xml:space="preserve">
+    <value>Chegada Veículo</value>
+  </data>
+  <data name="Conteudo" xml:space="preserve">
+    <value>Valor de Referência</value>
+  </data>
+  <data name="Cor" xml:space="preserve">
+    <value>Cor</value>
+  </data>
+  <data name="CorError" xml:space="preserve">
+    <value>Informe a Cor do Veículo</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="DataError" xml:space="preserve">
+    <value>Informe a Data</value>
+  </data>
+  <data name="Decreto" xml:space="preserve">
+    <value>Decreto</value>
+  </data>
+  <data name="DimensionaE" xml:space="preserve">
+    <value>Proposição Estatística</value>
+  </data>
+  <data name="DimensionaP" xml:space="preserve">
+    <value>Proposição Projeto</value>
+  </data>
+  <data name="EvolucaoE" xml:space="preserve">
+    <value>Variação Estatística</value>
+  </data>
+  <data name="EvolucaoP" xml:space="preserve">
+    <value>Variação Projeto</value>
+  </data>
+  <data name="Gratuidade" xml:space="preserve">
+    <value>Gratuidade?</value>
+  </data>
+  <data name="GratuidadeCap" xml:space="preserve">
+    <value>Gratuidade</value>
+  </data>
+  <data name="HorarioId" xml:space="preserve">
+    <value>Horário</value>
+  </data>
+  <data name="Inativo" xml:space="preserve">
+    <value>Inativo?</value>
+  </data>
+  <data name="Indice" xml:space="preserve">
+    <value>Índice de Renovação</value>
+  </data>
+  <data name="IndiceAtual" xml:space="preserve">
+    <value>Pesquisa</value>
+  </data>
+  <data name="IndiceError" xml:space="preserve">
+    <value>Informe o Índice de Renovação</value>
+  </data>
+  <data name="InicioOperacao" xml:space="preserve">
+    <value>Início da Operação</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>Viagem nº</value>
+  </data>
+  <data name="KmDia" xml:space="preserve">
+    <value>Total Km Dia</value>
+  </data>
+  <data name="KmMes" xml:space="preserve">
+    <value>Total Km Mês</value>
+  </data>
+  <data name="KmSemana" xml:space="preserve">
+    <value>Total Km Semana</value>
+  </data>
+  <data name="Numero" xml:space="preserve">
+    <value>Número</value>
+  </data>
+  <data name="NumeroError" xml:space="preserve">
+    <value>Informe o Número do Veículo</value>
+  </data>
+  <data name="Placa" xml:space="preserve">
+    <value>Placa</value>
+  </data>
+  <data name="PlacaError" xml:space="preserve">
+    <value>Informe a Placa do Veículo</value>
+  </data>
+  <data name="PontoFluxo" xml:space="preserve">
+    <value>Fluxo</value>
+  </data>
+  <data name="Rateio" xml:space="preserve">
+    <value>Rateio %</value>
+  </data>
+  <data name="Renavam" xml:space="preserve">
+    <value>Número Renavam</value>
+  </data>
+  <data name="RenavamError" xml:space="preserve">
+    <value>Informe o Número Renavam do Veículo</value>
+  </data>
+  <data name="SinoticoId" xml:space="preserve">
+    <value>Indicador</value>
+  </data>
+  <data name="Tarifa" xml:space="preserve">
+    <value>Tarifa R$</value>
+  </data>
+  <data name="TarifaError" xml:space="preserve">
+    <value>Informe o Valor da Tarifa R$</value>
+  </data>
+  <data name="TempoIntervalo" xml:space="preserve">
+    <value>Intervalo (min.)</value>
+  </data>
+  <data name="TotalCatraca" xml:space="preserve">
+    <value>Passageiros Catraca</value>
+  </data>
+  <data name="TotalViagens" xml:space="preserve">
+    <value>Nº de Viagens</value>
+  </data>
+  <data name="FInstalacaoViewModel" xml:space="preserve">
+    <value>Tipos de Instalações</value>
+  </data>
+  <data name="InstalacaoViewModel" xml:space="preserve">
+    <value>Instalações</value>
+  </data>
+  <data name="AreaCoberta" xml:space="preserve">
+    <value>Área Coberta (m²)</value>
+  </data>
+  <data name="AreaTotal" xml:space="preserve">
+    <value>Área Total (m²)</value>
+  </data>
+  <data name="InstalacaoId" xml:space="preserve">
+    <value>Instalação</value>
+  </data>
+  <data name="PropositoId" xml:space="preserve">
+    <value>Finalidade</value>
+  </data>
+  <data name="QtdEmpregados" xml:space="preserve">
+    <value>Nº Empregados</value>
+  </data>
+  <data name="InstalacaoIdError" xml:space="preserve">
+    <value>Informe a Instalação</value>
+  </data>
+  <data name="PropositoIdError" xml:space="preserve">
+    <value>Informe a Finalidade da Instalação</value>
+  </data>
+  <data name="EInstalacaoViewModel" xml:space="preserve">
+    <value>Finalidades das Instalações</value>
+  </data>
+  <data name="Efluentes" xml:space="preserve">
+    <value>Sistema de Escoamento e Retenção de Efluentes?</value>
+  </data>
+  <data name="MenuFrota" xml:space="preserve">
+    <value>Frota</value>
+  </data>
+  <data name="Disponivelm2" xml:space="preserve">
+    <value>Área disponível m²</value>
+  </data>
+  <data name="Disponivelm2Error" xml:space="preserve">
+    <value>Informe a Área disponível m²</value>
+  </data>
+  <data name="Frota" xml:space="preserve">
+    <value>Frota Total</value>
+  </data>
+  <data name="FrotaError" xml:space="preserve">
+    <value>Informe a Frota Total</value>
+  </data>
+  <data name="Minimom2" xml:space="preserve">
+    <value>Requisito Mínimo m²</value>
+  </data>
+  <data name="Minimom2Error" xml:space="preserve">
+    <value>Informe o Requisito Mínimo m²</value>
+  </data>
+  <data name="Necessariom2" xml:space="preserve">
+    <value>Área necessária m²</value>
+  </data>
+  <data name="Requisitom2" xml:space="preserve">
+    <value>Requisito Padrão m²</value>
+  </data>
+  <data name="Requisitom2Error" xml:space="preserve">
+    <value>Informe o Requisito Padrão m²</value>
+  </data>
+  <data name="Ciclo" xml:space="preserve">
+    <value>Tempo de Ciclo</value>
+  </data>
+  <data name="AGaragemViewModel" xml:space="preserve">
+    <value>Garagens</value>
+  </data>
+  <data name="Articulado" xml:space="preserve">
+    <value>Articulado</value>
+  </data>
+  <data name="Basico" xml:space="preserve">
+    <value>Básico</value>
+  </data>
+  <data name="BiArticulado" xml:space="preserve">
+    <value>Biarticulado</value>
+  </data>
+  <data name="EqvIdade" xml:space="preserve">
+    <value>Idade Equivalente</value>
+  </data>
+  <data name="Especial" xml:space="preserve">
+    <value>Especial</value>
+  </data>
+  <data name="EtariaId" xml:space="preserve">
+    <value>Idade</value>
+  </data>
+  <data name="FrotaEtariaViewModel" xml:space="preserve">
+    <value>Idade Média da Frota</value>
+  </data>
+  <data name="Micro" xml:space="preserve">
+    <value>Micro</value>
+  </data>
+  <data name="Midi" xml:space="preserve">
+    <value>Midi</value>
+  </data>
+  <data name="Mini" xml:space="preserve">
+    <value>Mini</value>
+  </data>
+  <data name="Padron" xml:space="preserve">
+    <value>Padron</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Anos</value>
+  </data>
+  <data name="NotaEncarroca" xml:space="preserve">
+    <value>Nota Fiscal Encarroçamento</value>
+  </data>
+  <data name="QuemEncarroca" xml:space="preserve">
+    <value>Fornecedor Encarroçamento</value>
+  </data>
+  <data name="ValorEncarroca" xml:space="preserve">
+    <value>Custo Encarroçamento R$</value>
+  </data>
+  <data name="LatitudeError" xml:space="preserve">
+    <value>A Latitude deve estar entre -90 e 90 graus</value>
+  </data>
+  <data name="LongitudeError" xml:space="preserve">
+    <value>A Longitude deve estar entre -180 e 180 graus</value>
+  </data>
+  <data name="TotalAtendimentos" xml:space="preserve">
+    <value>Nº de Atendimentos</value>
+  </data>
+  <data name="Passageirom2" xml:space="preserve">
+    <value>Passageiros por m²</value>
+  </data>
+  <data name="ClasseId" xml:space="preserve">
+    <value>Classe de Veículo</value>
+  </data>
+  <data name="ClasseIdError" xml:space="preserve">
+    <value>Informe a Classe de Veículo</value>
+  </data>
+  <data name="Passageirom2Error" xml:space="preserve">
+    <value>Informe a Quantidade Mínima de Passageiros por m²</value>
+  </data>
+  <data name="ECVeiculoViewModel" xml:space="preserve">
+    <value>Classes de Veículos da Empresa</value>
+  </data>
+  <data name="OperacionalViewModel" xml:space="preserve">
+    <value>Produção Operacional</value>
+  </data>
+  <data name="PercursoDom" xml:space="preserve">
+    <value>Percurso Domingo (km)</value>
+  </data>
+  <data name="PercursoDU" xml:space="preserve">
+    <value>Percurso Dia Útil (km)</value>
+  </data>
+  <data name="PercursoSab" xml:space="preserve">
+    <value>Percurso Sábado (km)</value>
+  </data>
+  <data name="ViagensDom" xml:space="preserve">
+    <value>Viagens Domingo</value>
+  </data>
+  <data name="ViagensDU" xml:space="preserve">
+    <value>Viagens Dia Útil</value>
+  </data>
+  <data name="ViagensSab" xml:space="preserve">
+    <value>Viagens Sábado</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>Profuzzy: Optimize</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Imprimir</value>
+  </data>
+  <data name="PrintDate" xml:space="preserve">
+    <value>Emissão: </value>
+  </data>
+  <data name="FichaTecnicaPreview" xml:space="preserve">
+    <value>Ficha Técnica da Linha</value>
+  </data>
+  <data name="Funcao" xml:space="preserve">
+    <value>Função</value>
+  </data>
+  <data name="Viagens" xml:space="preserve">
+    <value>Viagens</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Totais</value>
+  </data>
+  <data name="DuracaoPeriodo" xml:space="preserve">
+    <value>Duração do Período</value>
+  </data>
+  <data name="InicioPeriodo" xml:space="preserve">
+    <value>Início do Período</value>
+  </data>
+  <data name="TerminoPeriodo" xml:space="preserve">
+    <value>Término do Período</value>
+  </data>
+  <data name="Anual" xml:space="preserve">
+    <value>Anual</value>
+  </data>
+  <data name="Mensal" xml:space="preserve">
+    <value>Mensal</value>
+  </data>
+  <data name="Semanal" xml:space="preserve">
+    <value>Semanal</value>
+  </data>
+  <data name="ViagemLinhaViewModel" xml:space="preserve">
+    <value>Resumo das Operações da Linha</value>
+  </data>
+  <data name="MapaLinhaViewModel" xml:space="preserve">
+    <value>Mapas da Linha</value>
+  </data>
+  <data name="PontoFinalAB" xml:space="preserve">
+    <value>Ponto Final AB</value>
+  </data>
+  <data name="PontoFinalBA" xml:space="preserve">
+    <value>Ponto Final BA</value>
+  </data>
+  <data name="PontoInicialAB" xml:space="preserve">
+    <value>Ponto Inicial AB</value>
+  </data>
+  <data name="PontoInicialBA" xml:space="preserve">
+    <value>Ponto Inicial BA</value>
+  </data>
+  <data name="HelpHint" xml:space="preserve">
+    <value>Clique para mais informações!</value>
+  </data>
+  <data name="Arquivo" xml:space="preserve">
+    <value>Arquivo</value>
+  </data>
+  <data name="ArquivoError" xml:space="preserve">
+    <value>Selecione o Arquivo do Mapa</value>
+  </data>
+  <data name="PMM" xml:space="preserve">
+    <value>PMM (km)</value>
+  </data>
+  <data name="ViagemHoraViewModel" xml:space="preserve">
+    <value>Viagens por Hora</value>
+  </data>
+  <data name="FaixaHoraria" xml:space="preserve">
+    <value>Faixa Horária</value>
+  </data>
+</root>

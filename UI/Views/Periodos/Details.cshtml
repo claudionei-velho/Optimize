@@ -1,0 +1,35 @@
+﻿@using UI.Properties;
+
+@model UI.Models.PeriodoViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " " + Resources.PeriodoViewModel;
+}
+
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.Details</h2>
+
+  <div>
+    <h4>@Resources.PeriodoViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+      <div class="row margin-top">
+        <div class="col-sm-2 font-weight-bold btns">
+          @Html.DisplayNameFor(model => model.Denominacao):
+        </div>
+        <div class="col-sm">
+          @Html.DisplayFor(model => model.Denominacao)
+        </div>
+      </div>
+
+    </dl>
+  </div>
+  <div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-dark btn-sm" })
+    <div class="btn btn-outline-dark btn-sm">
+      @Html.ActionLink(Resources.BackToList, "Index")
+    </div>
+  </div>
+</div>

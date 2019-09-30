@@ -1,0 +1,78 @@
+﻿@using UI.Properties;
+
+@model UI.Models.OfertaViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " " + Resources.OfertaViewModel;
+}
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.Details</h2>
+
+  <div>
+    <h4>@Resources.OfertaViewModel</h4>
+    <hr />
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Resources.Company:
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Linha.Empresa.Fantasia)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.LinhaId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Linha.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Ano):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Ano)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Mes):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.MesCap)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Categoria):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.TCategoria.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Passageiros):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Passageiros)
+      </div>
+    </div>
+  </div>
+
+  <div>
+    @Html.ActionLink(Resources.Update, "Edit", new { id = Model.Id }, new { @class = "btn btn-dark btn-sm" })
+    <div class="btn btn-outline-dark btn-sm">
+      @Html.ActionLink(Resources.BackToList, "Index")
+    </div>
+  </div>
+</div>

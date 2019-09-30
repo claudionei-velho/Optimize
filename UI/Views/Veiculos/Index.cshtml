@@ -1,0 +1,93 @@
+﻿@using UI.Properties;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IEnumerable<UI.Models.VeiculoViewModel>
+
+@{
+  ViewBag.Title = Resources.VeiculoViewModel;
+}
+
+<div class="container left-widt">
+  <br />
+  <br />
+  <h2>
+    @Resources.VeiculoViewModel |
+    <div class="btn btn-outline-dark btn-sm">
+      @Html.ActionLink(Resources.Export, "Export", "SpecVeiculos")
+    </div>
+  </h2>
+
+  <div class="btn btn-outline-dark btn-sm">
+    @Html.ActionLink(Resources.CreateNew, "Create")
+  </div>
+  <table class="table">
+    <tr>
+      <th>
+        @Html.DisplayNameFor(model => model.EmpresaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Numero)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Cor)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Classe)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Categoria)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Placa)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Renavam)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Antt)
+      </th>
+      <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Empresa.Fantasia)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Numero)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Cor)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.CVeiculo.Classe)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.CategoriaCap)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Placa)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Renavam)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Antt)
+        </td>
+        <td class="in-line left-smaller">
+          @Html.ActionLink(Resources.Update, "Edit", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" }) |
+          @Html.ActionLink(Resources.Details, "Details", "SpecVeiculos", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" }) |
+          @Html.ActionLink(Resources.Delete, "Delete", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+        </td>
+      </tr>
+    }
+  </table>
+
+  @if ((Model as IPagedList).PageCount > 0) {
+    @Resources.Page@:&nbsp;@((Model as IPagedList).PageNumber) @Resources.Of @((Model as IPagedList).PageCount)
+  }
+  @Html.PagedListPager(Model as IPagedList, page => Url.Action("Index", new { page }))
+</div>

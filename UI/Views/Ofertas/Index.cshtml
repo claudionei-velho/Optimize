@@ -1,0 +1,74 @@
+﻿@using UI.Properties;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IEnumerable<UI.Models.OfertaViewModel>
+
+@{
+  ViewBag.Title = Resources.OfertaViewModel;
+}
+
+<div class="container left-widt">
+  <br />
+  <br />
+  <h2>@Resources.OfertaViewModel</h2>
+
+  <div class="btn btn-outline-dark btn-sm">
+    @Html.ActionLink(Resources.CreateNew, "Create")
+  </div>
+  <table class="table">
+    <tr>
+      <th>@Resources.Company</th>
+      <th>
+        @Html.DisplayNameFor(model => model.LinhaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Ano)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Mes)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Categoria)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Passageiros)
+      </th>
+      <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Linha.Empresa.Fantasia)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Linha.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Ano)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.MesCap)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.TCategoria.Denominacao)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.Passageiros)
+        </td>
+        <td class="in-line left-smaller">
+          @Html.ActionLink(Resources.Update, "Edit", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" }) |
+          @Html.ActionLink(Resources.Details, "Details", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" }) |
+          @Html.ActionLink(Resources.Delete, "Delete", new { id = item.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+        </td>
+      </tr>
+    }
+  </table>
+
+  @if ((Model as IPagedList).PageCount > 0) {
+    @Resources.Page@:&nbsp;@((Model as IPagedList).PageNumber) @Resources.Of @((Model as IPagedList).PageCount)
+  }
+  @Html.PagedListPager(Model as IPagedList, page => Url.Action("Index", new { page }))
+</div>

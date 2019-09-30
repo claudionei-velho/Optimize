@@ -1,0 +1,217 @@
+﻿@using UI.Properties;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IEnumerable<UI.Models.DimensionamentoViewModel>
+
+@{
+  ViewBag.Title = Resources.DimensionamentoViewModel;
+}
+
+<div class="container left-widt">
+  <br />
+  <br />
+
+  <h2>
+    @Resources.DimensionamentoViewModel |
+    <div class="btn btn-outline-dark btn-sm">
+      @Html.ActionLink(Resources.Export, "Export", "Dimensionamentos")
+    </div>
+  </h2>
+
+  <table class="table table-bordered">
+    <tr>
+      <th>
+        @Html.DisplayNameFor(model => model.LinhaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.DiaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.PeriodoId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Sentido)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.QtdViagens)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Inicio)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Termino)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Duracao)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Ociosidade)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Passageiros)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Critica)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Media)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Intervalo)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Fluxo)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.LotacaoE)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.PrognosticoE)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.IntervaloE)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.LotacaoP)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.PrognosticoP)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.IntervaloP)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Veiculos)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.CicloAB)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.CicloBA)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.VeiculosE)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.VeiculosP)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Extensao)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.KmTotal)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.KmTotalE)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.KmTotalP)
+      </th>
+      <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Linha.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.DiaIdName)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.PrLinha.EPeriodo.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Sentido)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.QtdViagens)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Inicio)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Termino)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.Duracao)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.Ociosidade)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.Passageiros)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.Critica)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.Media)
+        </td>
+        <td align="left">
+          @Html.DisplayFor(modelItem => item.Intervalo)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.Fluxo)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.LotacaoE)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.PrognosticoE)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.IntervaloE)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.LotacaoP)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.PrognosticoP)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.IntervaloP)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.Veiculos)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.CicloAB)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.CicloBA)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.VeiculosE)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.VeiculosP)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.Extensao)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.KmTotal)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.KmTotalE)
+        </td>
+        <td align="center">
+          @Html.DisplayFor(modelItem => item.KmTotalP)
+        </td>
+        <td>
+          @Html.ActionLink(Resources.Details, "Details", new { id = item.LinhaId, did = item.DiaId,
+                                                               pid = item.PeriodoId, go = item.Sentido },
+                                                         new { @class = "btn btn-outline-dark btn-sm" })
+        </td>
+      </tr>
+    }
+  </table>
+
+  @if ((Model as IPagedList).PageCount > 0) {
+    @Resources.Page@:&nbsp;@((Model as IPagedList).PageNumber) @Resources.Of @((Model as IPagedList).PageCount)
+  }
+  @Html.PagedListPager(Model as IPagedList, page => Url.Action("Index", new { page }))
+</div>

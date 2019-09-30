@@ -1,0 +1,32 @@
+﻿@using Bll.Lists;
+@using UI.Properties;
+
+@{
+  ViewBag.Title = Resources.About;
+  Help help = new Help();
+}
+
+<div class="col-12">
+  <br />
+  <br />
+  <div class="jumbotron">
+    <h1 class="display-4">Sobre</h1>
+    <p class="lead">Optimize é uma aplicação informatizada desenvolvida para facilitar e agilizar o dimensionamento e a racionalização da oferta de serviços de linhas de transporte público coletivo urbano de passageiros, abrangendo:</p>
+    <div class="col-sm">
+      <p>
+        1. Diagnóstico da oferta de serviços de Linha de Ônibus; <br />
+        2. Dimensionamento da oferta de serviços em Linha de ônibus; <br />
+        3. Simulação da programação operacional de Linha de Ônibus.
+      </p>
+    </div>
+    <hr class="my-4">
+
+    <p>1. Diagnóstico da oferta de serviços de Linha de Ônibus;</p>
+
+    <p>2. Dimensionamento da oferta de serviços em Linha de ônibus;</p>
+
+    <p>3. Simulação da programação operacional de Linha de Ônibus.</p>
+
+    <a href="@help.HRef[0]" target="_blank"><i class="fas fa-archive"></i>Manual de instruções do sistemas</a>
+  </div>
+</div>

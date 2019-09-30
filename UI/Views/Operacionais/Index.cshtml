@@ -1,0 +1,108 @@
+﻿@using UI.Properties;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IEnumerable<UI.Models.OperacionalViewModel>
+
+@{
+  ViewBag.Title = Resources.OperacionalViewModel;
+}
+
+<div class="container left-widt">
+  <br />
+  <br />
+  <h2>
+    @Resources.OperacionalViewModel |
+    <div class="btn btn-outline-dark btn-sm">
+      @Html.ActionLink(Resources.Export, "Export", "Operacionais")
+    </div>
+  </h2>
+
+  <table class="table">
+    <tr>
+      <th>
+        @Html.DisplayNameFor(model => model.EmpresaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Prefixo)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Denominacao)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Sentido)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.DiaOperacao)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Extensao)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.ViagensDU)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.PercursoDU)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.ViagensSab)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.PercursoSab)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.ViagensDom)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.PercursoDom)
+      </th>
+    </tr>
+
+    @foreach (var item in Model) {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Linha.Empresa.Fantasia)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Prefixo)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Denominacao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Sentido)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.DiaOperacao)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.Extensao)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.ViagensDU)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.PercursoDU)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.ViagensSab)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.PercursoSab)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.ViagensDom)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.PercursoDom)
+        </td>
+      </tr>
+    }
+  </table>
+
+  @if ((Model as IPagedList).PageCount > 0) {
+    @Resources.Page@:&nbsp;@((Model as IPagedList).PageNumber) @Resources.Of @((Model as IPagedList).PageCount)
+  }
+  @Html.PagedListPager(Model as IPagedList, page => Url.Action("Index", new { page }))
+</div>

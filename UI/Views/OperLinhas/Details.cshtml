@@ -1,0 +1,42 @@
+﻿@using UI.Properties;
+
+@model UI.Models.OperLinhaViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " " + Resources.OperLinhaViewModel;
+}
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.Details</h2>
+
+  <div>
+    <h4>@Resources.OperLinhaViewModel</h4>
+    <hr />
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Denominacao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Descricao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Descricao)
+      </div>
+    </div>
+  </div>
+
+  <div>
+    @Html.ActionLink(Resources.Update, "Edit", new { id = Model.Id }, new { @class = "btn btn-dark btn-sm" })|
+    <div class="btn btn-outline-dark btn-sm">
+      @Html.ActionLink(Resources.BackToList, "Index")
+    </div>
+  </div>
+</div>

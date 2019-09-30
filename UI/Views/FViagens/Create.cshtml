@@ -1,0 +1,66 @@
+﻿@using UI.Properties;
+
+@model UI.Models.FViagemViewModel
+
+@{
+  ViewBag.Title = Resources.Create + " " + Resources.FViagemViewModel;
+}
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.Create</h2>
+
+  @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+      <h4>@Resources.FViagemViewModel</h4>
+      <hr />
+      @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.ViagemId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.ViagemId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+          @Html.ValidationMessageFor(model => model.ViagemId, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group  row font-weight-bold">
+        @Html.LabelFor(model => model.PontoId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.DropDownList("PontoId", null, htmlAttributes: new { @class = "form-control" })
+          @Html.ValidationMessageFor(model => model.PontoId, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Embarques, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Embarques, new { htmlAttributes = new { @class = "form-control" } })
+          @Html.ValidationMessageFor(model => model.Embarques, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Desembarques, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Desembarques, new { htmlAttributes = new { @class = "form-control" } })
+          @Html.ValidationMessageFor(model => model.Desembarques, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+          <input type="submit" value="@Resources.Create" class="btn btn-default btn-sm" />
+          <div class="btn btn-outline-dark btn-sm">
+            @Html.ActionLink(Resources.BackToList, "Index")
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+@section Scripts {
+  @Scripts.Render("~/bundles/jqueryval")
+}

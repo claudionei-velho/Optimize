@@ -1,0 +1,150 @@
+﻿@using UI.Properties;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IEnumerable<UI.Models.FrotaEtariaViewModel>
+
+@{
+  ViewBag.Title = Resources.FrotaEtariaViewModel;
+}
+
+<div class="container left-widt">
+  <br />
+  <br />
+  <h2>
+    @Resources.FrotaEtariaViewModel |
+    <p class="btn btn-outline-dark btn-sm">
+      @Html.ActionLink(Resources.Export, "Export", "FrotaEtarias")
+    </p>
+  </h2>
+
+  <table class="table">
+    <tr>
+      <th>
+        @Html.DisplayNameFor(model => model.EmpresaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.EtariaId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Micro)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Mini)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Midi)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Basico)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Padron)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Especial)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Articulado)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.BiArticulado)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Frota)
+      </th>
+      <th></th>
+      <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Empresa.Fantasia)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.FxEtaria.Denominacao)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.Micro)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.Mini)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.Midi)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.Basico)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.Padron)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.Especial)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.Articulado)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.BiArticulado)
+        </td>
+        <td align="right">
+          @Html.DisplayFor(modelItem => item.Frota)
+        </td>
+        <td></td>
+        <td class="in-line left-smaller" align="right">
+          @Html.ActionLink(Resources.Details, "Details", new { id = item.EmpresaId, pid = item.EtariaId },
+                                                         new { @class = "btn btn-outline-dark btn-sm" })
+        </td>
+      </tr>
+    }
+
+    <tr class="font-weight-bold">
+      <td></td>
+      <td>Totais</td>
+      <td align="right">
+        @string.Format("{0:#,###}", Model.Sum(p => p.Micro))
+      </td>
+      <td align="right">
+        @string.Format("{0:#,###}", Model.Sum(p => p.Mini))
+      </td>
+      <td align="right">
+        @string.Format("{0:#,###}", Model.Sum(p => p.Midi))
+      </td>
+      <td align="right">
+        @string.Format("{0:#,###}", Model.Sum(p => p.Basico))
+      </td>
+      <td align="right">
+        @string.Format("{0:#,###}", Model.Sum(p => p.Padron))
+      </td>
+      <td align="right">
+        @string.Format("{0:#,###}", Model.Sum(p => p.Especial))
+      </td>
+      <td align="right">
+        @string.Format("{0:#,###}", Model.Sum(p => p.Articulado))
+      </td>
+      <td align="right">
+        @string.Format("{0:#,###}", Model.Sum(p => p.BiArticulado))
+      </td>
+      <td align="right">
+        @string.Format("{0:#,###}", Model.Sum(p => p.Frota))
+      </td>
+      @try {
+        <td align="right">
+          @string.Format("{0:#,##0.0##}", (decimal)Model.Sum(p => p.EqvIdade) / Model.Sum(p => p.Frota))
+        </td>
+      }
+      catch (DivideByZeroException) {
+        <td></td>
+      }
+      <td></td>
+    </tr>
+  </table>
+
+  @if ((Model as IPagedList).PageCount > 0) {
+    @Resources.Page@:&nbsp;@((Model as IPagedList).PageNumber) @Resources.Of @((Model as IPagedList).PageCount)
+  }
+  @Html.PagedListPager(Model as IPagedList, page => Url.Action("Index", new { page }))
+</div>

@@ -1,0 +1,175 @@
+﻿@using UI.Properties;
+
+@model UI.Models.InstalacaoViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " " + Resources.InstalacaoViewModel;
+}
+
+<h2>@Resources.Details</h2>
+
+<div>
+  <h4>@Resources.InstalacaoViewModel</h4>
+  <hr />
+  <div class="dl-horizontal">
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.EmpresaId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Empresa.Fantasia)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Prefixo):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Prefixo)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Denominacao):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Endereco):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Endereco)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.EnderecoNo):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.EnderecoNo)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Complemento):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Complemento)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Cep):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Cep)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Bairro):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Bairro)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Municipio):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Municipio)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.UfId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.UfId)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Telefone):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Telefone)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Email):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Email)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.AreaCoberta):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.AreaCoberta)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.AreaTotal):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.AreaTotal)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.QtdEmpregados):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.QtdEmpregados)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Latitude):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Latitude)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Longitude):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Longitude)
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  @Html.ActionLink(Resources.Update, "Edit", new { id = Model.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+  <div class="btn btn-outline-dark btn-sm">
+    @Html.ActionLink(Resources.BackToList, "Index")
+  </div>
+</div>

@@ -1,0 +1,78 @@
+﻿@using UI.Properties;
+
+@model UI.Models.FViagemViewModel
+
+@{
+  ViewBag.Title = Resources.Details + " " + Resources.FViagemViewModel;
+}
+<div class="container">
+  <br />
+  <br />
+  <h2>@Resources.Details</h2>
+
+  <div>
+    <h4>@Resources.FViagemViewModel</h4>
+    <hr />
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @ViagemResx.LinhaId:
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Viagem.LnPesquisa.Linha.Denominacao)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.ViagemId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.ViagemId)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.PontoId):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.PtLinha.Ponto.Prefixo)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Embarques):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Embarques)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Desembarques):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Desembarques)
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-sm-2 font-weight-bold btns">
+        @Html.DisplayNameFor(model => model.Acumulado):
+      </div>
+      <div class="col-sm">
+        @Html.DisplayFor(model => model.Acumulado)
+      </div>
+    </div>
+  </div>
+
+  <div>
+    @Html.ActionLink(Resources.Update, "Edit", new { id = Model.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+    <div class="btn btn-outline-dark btn-sm">
+      @Html.ActionLink(Resources.BackToList, "Index")
+    </div>
+  </div>
+</div>
