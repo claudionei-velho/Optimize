@@ -1,5 +1,10 @@
+using System;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 using Dto.Models;
 
@@ -100,6 +105,32 @@ namespace Dal {
     protected override void OnModelCreating(DbModelBuilder modelBuilder) {
       modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
       base.OnModelCreating(modelBuilder);
+    }
+
+    public override int SaveChanges() {
+      foreach (DbEntityEntry entry in ChangeTracker.Entries().Where(entry =>
+                                          entry.Entity.GetType().GetProperty("Cadastro") != null)) {
+        if (entry.State == EntityState.Added) {
+          entry.Property("Cadastro").CurrentValue = DateTime.Now;
+        }
+        if (entry.State == EntityState.Modified) {
+          entry.Property("Cadastro").IsModified = false;
+        }
+      }
+      return base.SaveChanges();
+    }
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
+      foreach (DbEntityEntry entry in ChangeTracker.Entries().Where(entry =>
+                                          entry.Entity.GetType().GetProperty("Cadastro") != null)) {
+        if (entry.State == EntityState.Added) {
+          entry.Property("Cadastro").CurrentValue = DateTime.Now;
+        }
+        if (entry.State == EntityState.Modified) {
+          entry.Property("Cadastro").IsModified = false;
+        }
+      }
+      return await base.SaveChangesAsync(cancellationToken);
     }
   }
 }
