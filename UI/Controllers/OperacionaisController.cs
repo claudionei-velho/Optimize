@@ -47,12 +47,15 @@ namespace UI.Controllers {
         workSheet.Cells[row, 5].Value = Resources.DiaId;
         workSheet.Cells[row, 6].Value = Resources.Funcao;
         workSheet.Cells[row, 7].Value = Resources.Extensao;
-        workSheet.Cells[row, 8].Value = Resources.ViagensDU;
-        workSheet.Cells[row, 9].Value = Resources.PercursoDU;
-        workSheet.Cells[row, 10].Value = Resources.ViagensSab;
-        workSheet.Cells[row, 11].Value = Resources.PercursoSab;
-        workSheet.Cells[row, 12].Value = Resources.ViagensDom;
-        workSheet.Cells[row, 13].Value = Resources.PercursoDom;
+        workSheet.Cells[row, 8].Value = Resources.ViagensUtil;
+        workSheet.Cells[row, 9].Value = Resources.PercursoUtil;
+        workSheet.Cells[row, 10].Value = Resources.InicioUtil;
+        workSheet.Cells[row, 11].Value = Resources.ViagensSab;
+        workSheet.Cells[row, 12].Value = Resources.PercursoSab;
+        workSheet.Cells[row, 13].Value = Resources.InicioSab;
+        workSheet.Cells[row, 14].Value = Resources.ViagensDom;
+        workSheet.Cells[row, 15].Value = Resources.PercursoDom;
+        workSheet.Cells[row, 16].Value = Resources.InicioDom;
 
         // Detail Section
         foreach (Operacional item in operacionais.GetQuery()) {
@@ -63,12 +66,15 @@ namespace UI.Controllers {
           workSheet.Cells[row, 5].Value = item.DiaOperacao;
           workSheet.Cells[row, 6].Value = item.Funcao;
           workSheet.Cells[row, 7].Value = item.Extensao;
-          workSheet.Cells[row, 8].Value = item.ViagensDU;
-          workSheet.Cells[row, 9].Value = item.PercursoDU;
-          workSheet.Cells[row, 10].Value = item.ViagensSab;
-          workSheet.Cells[row, 11].Value = item.PercursoSab;
-          workSheet.Cells[row, 12].Value = item.ViagensDom;
-          workSheet.Cells[row, 13].Value = item.PercursoDom;
+          workSheet.Cells[row, 8].Value = item.ViagensUtil;
+          workSheet.Cells[row, 9].Value = item.PercursoUtil;
+          workSheet.Cells[row, 10].Value = item.InicioUtil;
+          workSheet.Cells[row, 11].Value = item.ViagensSab;
+          workSheet.Cells[row, 12].Value = item.PercursoSab;
+          workSheet.Cells[row, 13].Value = item.InicioSab;
+          workSheet.Cells[row, 14].Value = item.ViagensDom;
+          workSheet.Cells[row, 15].Value = item.PercursoDom;
+          workSheet.Cells[row, 16].Value = item.InicioDom;
         }
 
         using (var memoryStream = new MemoryStream()) {

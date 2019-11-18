@@ -33,7 +33,7 @@ namespace Dto.Models {
           return (int)Math.Ceiling((decimal)Passageiros / QtdViagens);
         }
         catch (DivideByZeroException) {
-          return null;
+          throw;
         }
       }
     }
@@ -45,7 +45,7 @@ namespace Dto.Models {
           return (int)Math.Ceiling((decimal)Ajustado / QtdViagens);
         }
         catch (DivideByZeroException) {
-          return null;
+          throw;
         }
       }
     }
@@ -60,7 +60,7 @@ namespace Dto.Models {
           return Duracao / QtdViagens;
         }
         catch (DivideByZeroException) {
-          return null;
+          throw;
         }
       }
     }
@@ -72,7 +72,7 @@ namespace Dto.Models {
           return (decimal)Passageiros / Duracao;
         }
         catch (DivideByZeroException) {
-          return null;
+          throw;
         }
       }
     }
@@ -84,7 +84,7 @@ namespace Dto.Models {
           return (decimal)Ajustado / Duracao;
         }
         catch (DivideByZeroException) {
-          return null;
+          throw;
         }
       }
     }
@@ -103,7 +103,7 @@ namespace Dto.Models {
           return (int)Math.Ceiling((decimal)Ajustado / LotacaoE);
         }
         catch (DivideByZeroException) {
-          return null;
+          throw;
         }
       }
     }
@@ -115,7 +115,7 @@ namespace Dto.Models {
           return Duracao / PrognosticoE;
         }
         catch (DivideByZeroException) {
-          return null;
+          throw;
         }
       }
     }
@@ -129,7 +129,7 @@ namespace Dto.Models {
           return (int)Math.Ceiling((decimal)Ajustado / LotacaoP);
         }
         catch (DivideByZeroException) {
-          return null;
+          throw;
         }
       }
     }
@@ -141,7 +141,7 @@ namespace Dto.Models {
           return Duracao / PrognosticoP;
         }
         catch (DivideByZeroException) {
-          return null;
+          throw;
         }
       }
     }
@@ -158,7 +158,7 @@ namespace Dto.Models {
           return (int)Math.Ceiling((decimal)tempo / IntervaloE.Value);
         }
         catch (DivideByZeroException) {
-          return null;
+          throw;
         }
       }
     }
@@ -171,7 +171,7 @@ namespace Dto.Models {
           return (int)Math.Ceiling((decimal)tempo / IntervaloP.Value);
         }
         catch (DivideByZeroException) {
-          return null;
+          throw;
         }
       }
     }

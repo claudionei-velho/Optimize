@@ -2,8 +2,8 @@
 
 namespace Bll.Lists {
   public class Mes {
-    public Dictionary<int, string> Data;
-
+    public IDictionary<int, string> Data;
+    public IDictionary<int, string> Short;
     public Mes() {
       Data = new Dictionary<int, string> {
         { 1, "Janeiro" },
@@ -18,6 +18,21 @@ namespace Bll.Lists {
         { 10, "Outubro" },
         { 11, "Novembro" },
         { 12, "Dezembro" }
+      };
+
+      Short = new Dictionary<int, string> {
+        { 1, "Jan" },
+        { 2, "Fev" },
+        { 3, "Mar" },
+        { 4, "Abr" },
+        { 5, "Maio" },
+        { 6, "Jun" },
+        { 7, "Jul" },
+        { 8, "Ago" },
+        { 9, "Set" },
+        { 10, "Out" },
+        { 11, "Nov" },
+        { 12, "Dez" }
       };
     }
 

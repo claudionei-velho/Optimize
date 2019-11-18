@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 using Dto.Models;
@@ -43,13 +44,16 @@ namespace UI.Models {
     [DisplayFormat(DataFormatString = "{0:#,##0.0##}", ApplyFormatInEditMode = true)]
     public decimal? Extensao { get; set; }
 
-    [Display(Name = "ViagensDU", ResourceType = typeof(Properties.Resources))]
+    [Display(Name = "ViagensUtil", ResourceType = typeof(Properties.Resources))]
     [DisplayFormat(DataFormatString = "{0:#,##0}", ApplyFormatInEditMode = true)]
-    public int? ViagensDU { get; set; }
+    public int? ViagensUtil { get; set; }
 
-    [Display(Name = "PercursoDU", ResourceType = typeof(Properties.Resources))]
+    [Display(Name = "PercursoUtil", ResourceType = typeof(Properties.Resources))]
     [DisplayFormat(DataFormatString = "{0:#,##0.0##}", ApplyFormatInEditMode = true)]
-    public decimal? PercursoDU { get; set; }
+    public decimal? PercursoUtil { get; set; }
+
+    [Display(Name = "InicioUtil", ResourceType = typeof(Properties.Resources))]
+    public TimeSpan? InicioUtil { get; set; }
 
     [Display(Name = "ViagensSab", ResourceType = typeof(Properties.Resources))]
     [DisplayFormat(DataFormatString = "{0:#,##0}", ApplyFormatInEditMode = true)]
@@ -59,6 +63,9 @@ namespace UI.Models {
     [DisplayFormat(DataFormatString = "{0:#,##0.0##}", ApplyFormatInEditMode = true)]
     public decimal? PercursoSab { get; set; }
 
+    [Display(Name = "InicioSab", ResourceType = typeof(Properties.Resources))]
+    public TimeSpan? InicioSab { get; set; }
+
     [Display(Name = "ViagensDom", ResourceType = typeof(Properties.Resources))]
     [DisplayFormat(DataFormatString = "{0:#,##0}", ApplyFormatInEditMode = true)]
     public int? ViagensDom { get; set; }
@@ -66,6 +73,9 @@ namespace UI.Models {
     [Display(Name = "PercursoDom", ResourceType = typeof(Properties.Resources))]
     [DisplayFormat(DataFormatString = "{0:#,##0.0##}", ApplyFormatInEditMode = true)]
     public decimal? PercursoDom { get; set; }
+
+    [Display(Name = "InicioDom", ResourceType = typeof(Properties.Resources))]
+    public TimeSpan? InicioDom { get; set; }
 
     // Navigation Properties
     public virtual Empresa Empresa { get; set; }

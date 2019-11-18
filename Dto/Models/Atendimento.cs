@@ -50,7 +50,8 @@ namespace Dto.Models {
     [NotMapped]
     public decimal? Extensao {
       get {
-        return (this.ExtensaoAB ?? 0) + (this.ExtensaoBA ?? 0);
+        decimal? result = (this.ExtensaoAB ?? 0) + (this.ExtensaoBA ?? 0);
+        return (result != 0m) ? result : null;
       }
     }
 

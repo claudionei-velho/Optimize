@@ -1236,7 +1236,7 @@
   <data name="PercursoDom" xml:space="preserve">
     <value>Percurso Domingo (km)</value>
   </data>
-  <data name="PercursoDU" xml:space="preserve">
+  <data name="PercursoUtil" xml:space="preserve">
     <value>Percurso Dia Útil (km)</value>
   </data>
   <data name="PercursoSab" xml:space="preserve">
@@ -1245,7 +1245,7 @@
   <data name="ViagensDom" xml:space="preserve">
     <value>Viagens Domingo</value>
   </data>
-  <data name="ViagensDU" xml:space="preserve">
+  <data name="ViagensUtil" xml:space="preserve">
     <value>Viagens Dia Útil</value>
   </data>
   <data name="ViagensSab" xml:space="preserve">
@@ -1325,5 +1325,35 @@
   </data>
   <data name="FaixaHoraria" xml:space="preserve">
     <value>Faixa Horária</value>
+  </data>
+  <data name="DemandaAnoViewModel" xml:space="preserve">
+    <value>Demanda Anual da Linha</value>
+  </data>
+  <data name="DemandaMesViewModel" xml:space="preserve">
+    <value>Demanda Mensal da Linha</value>
+  </data>
+  <data name="Equivalencia" xml:space="preserve">
+    <value>Equivalência</value>
+  </data>
+  <data name="IPK" xml:space="preserve">
+    <value>IPK</value>
+  </data>
+  <data name="IPKe" xml:space="preserve">
+    <value>IPK-e</value>
+  </data>
+  <data name="InicioDom" xml:space="preserve">
+    <value>Início Domingo</value>
+  </data>
+  <data name="InicioSab" xml:space="preserve">
+    <value>Início Sábado</value>
+  </data>
+  <data name="InicioUtil" xml:space="preserve">
+    <value>Início Dia Útil</value>
+  </data>
+  <data name="Grantotal" xml:space="preserve">
+    <value>Total Geral</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Total do Grupo</value>
   </data>
 </root>

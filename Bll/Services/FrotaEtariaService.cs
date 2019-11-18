@@ -43,7 +43,7 @@ namespace Bll.Services {
         return (decimal)Get(filter).Sum(q => q.EqvIdade) / Get(filter).Sum(q => q.Frota);
       }
       catch (DivideByZeroException) {
-        return null;
+        throw;
       }
     }
   }

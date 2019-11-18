@@ -5,6 +5,8 @@ namespace Dto.Models {
   public class TCategoria {
     public TCategoria() {
       this.Ofertas = new HashSet<Oferta>();
+      this.DemandasMes = new HashSet<DemandaMes>();
+      this.DemandasAno = new HashSet<DemandaAno>();
     }
 
     public int Id { get; set; }
@@ -17,5 +19,7 @@ namespace Dto.Models {
     public virtual Empresa Empresa { get; set; }
 
     public virtual ICollection<Oferta> Ofertas { get; set; }
+    public virtual ICollection<DemandaMes> DemandasMes { get; set; }
+    public virtual ICollection<DemandaAno> DemandasAno { get; set; }
   }
 }

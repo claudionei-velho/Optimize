@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace UI.Extensions {
-  public class LatitudeAttribute : ValidationAttribute {
+  public sealed class LatitudeAttribute : ValidationAttribute {
     private readonly float MinValue;
     private readonly float MaxValue;
 

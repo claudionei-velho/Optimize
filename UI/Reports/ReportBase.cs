@@ -78,22 +78,7 @@ namespace Reports {
       }
     }
 
-    public virtual void Footer(Section section) {
-      DefaultFooter(section);
-
-      Row row = table.AddRow();
-      row.Height = "0.6 cm";
-      row.Borders.Top.Visible = true;
-
-      Paragraph paragraph = row.Cells[0].AddParagraph();
-      paragraph.AddFormattedText(Resources.PrintDate, TextFormat.Bold);
-      paragraph.AddDateField("dd.MM.yyyy HH:mm");
-
-      paragraph = row.Cells[2].AddParagraph();
-      AddPageNumber(paragraph);
-    }
-
-    public virtual void Footer(Section section, string text) {
+    public virtual void Footer(Section section, string text = null) {
       DefaultFooter(section);
 
       Row row = table.AddRow();

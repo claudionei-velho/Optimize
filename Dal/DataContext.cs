@@ -101,6 +101,9 @@ namespace Dal {
     public DbSet<PeriodoTipico> PeriodosTipicos { get; set; }
     public DbSet<ViagemLinha> ViagensLinha { get; set; }
     public DbSet<ViagemHora> ViagensHora { get; set; }
+    public DbSet<DemandaMes> DemandasMes { get; set; }
+    public DbSet<DemandaMod> DemandasMod { get; set; }
+    public DbSet<DemandaAno> DemandasAno { get; set; }
 
     protected override void OnModelCreating(DbModelBuilder modelBuilder) {
       modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());

@@ -65,6 +65,9 @@
     <Compile Include="Models\CustoMod.cs" />
     <Compile Include="Models\CVeiculo.cs" />
     <Compile Include="Models\CVeiculoAtt.cs" />
+    <Compile Include="Models\DemandaAno.cs" />
+    <Compile Include="Models\DemandaMod.cs" />
+    <Compile Include="Models\DemandaMes.cs" />
     <Compile Include="Models\DiaTrabalho.cs" />
     <Compile Include="Models\Dimensionamento.cs" />
     <Compile Include="Models\Dominio.cs" />

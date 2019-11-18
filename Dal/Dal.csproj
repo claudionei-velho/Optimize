@@ -71,6 +71,9 @@
     <Compile Include="Mapping\CustoModMap.cs" />
     <Compile Include="Mapping\CVeiculoAttMap.cs" />
     <Compile Include="Mapping\CVeiculoMap.cs" />
+    <Compile Include="Mapping\DemandaAnoMap.cs" />
+    <Compile Include="Mapping\DemandaModMap.cs" />
+    <Compile Include="Mapping\DemandaMesMap.cs" />
     <Compile Include="Mapping\DiaTrabalhoMap.cs" />
     <Compile Include="Mapping\DimensionamentoMap.cs" />
     <Compile Include="Mapping\DominioMap.cs" />

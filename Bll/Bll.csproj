@@ -81,6 +81,8 @@
     <Compile Include="Services\CLinhaService.cs" />
     <Compile Include="Services\CorredorService.cs" />
     <Compile Include="Services\CustoService.cs" />
+    <Compile Include="Services\DemandaAnoService.cs" />
+    <Compile Include="Services\DemandaMesService.cs" />
     <Compile Include="Services\DimensionamentoService.cs" />
     <Compile Include="Services\ECVeiculoService.cs" />
     <Compile Include="Services\EDominioService.cs" />

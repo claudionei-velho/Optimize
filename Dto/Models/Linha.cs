@@ -33,6 +33,9 @@ namespace Dto.Models {
       this.ViagensLinha = new HashSet<ViagemLinha>();
       this.ItinerariosDistinct = new HashSet<ItinerarioDistinct>();
       this.ViagensHora = new HashSet<ViagemHora>();
+      this.DemandasMes = new HashSet<DemandaMes>();
+      this.DemandasMod = new HashSet<DemandaMod>();
+      this.DemandasAno = new HashSet<DemandaAno>();
     }
 
     public int Id { get; set; }
@@ -90,7 +93,7 @@ namespace Dto.Models {
     [NotMapped]
     public decimal? Extensao {
       get {
-        return (this.ExtensaoAB ?? 0) + (this.ExtensaoBA ?? 0);
+        return this.ExtensaoAB + this.ExtensaoBA;
       }
     }
 
@@ -127,5 +130,8 @@ namespace Dto.Models {
     public virtual ICollection<ViagemLinha> ViagensLinha { get; set; }
     public virtual ICollection<ItinerarioDistinct> ItinerariosDistinct { get; set; }
     public virtual ICollection<ViagemHora> ViagensHora { get; set; }
+    public virtual ICollection<DemandaMes> DemandasMes { get; set; }
+    public virtual ICollection<DemandaMod> DemandasMod { get; set; }
+    public virtual ICollection<DemandaAno> DemandasAno { get; set; }
   }
 }

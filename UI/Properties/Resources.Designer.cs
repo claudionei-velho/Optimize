@@ -898,6 +898,24 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Demanda Anual da Linha.
+        /// </summary>
+        public static string DemandaAnoViewModel {
+            get {
+                return ResourceManager.GetString("DemandaAnoViewModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Demanda Mensal da Linha.
+        /// </summary>
+        public static string DemandaMesViewModel {
+            get {
+                return ResourceManager.GetString("DemandaMesViewModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Denominação.
         /// </summary>
         public static string Denominacao {
@@ -1294,6 +1312,15 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Equivalência.
+        /// </summary>
+        public static string Equivalencia {
+            get {
+                return ResourceManager.GetString("Equivalencia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Idade Equivalente.
         /// </summary>
         public static string EqvIdade {
@@ -1591,6 +1618,15 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total Geral.
+        /// </summary>
+        public static string Grantotal {
+            get {
+                return ResourceManager.GetString("Grantotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gratuidade?.
         /// </summary>
         public static string Gratuidade {
@@ -1771,6 +1807,15 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Início Domingo.
+        /// </summary>
+        public static string InicioDom {
+            get {
+                return ResourceManager.GetString("InicioDom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Início da Operação.
         /// </summary>
         public static string InicioOperacao {
@@ -1785,6 +1830,24 @@ namespace UI.Properties {
         public static string InicioPeriodo {
             get {
                 return ResourceManager.GetString("InicioPeriodo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Início Sábado.
+        /// </summary>
+        public static string InicioSab {
+            get {
+                return ResourceManager.GetString("InicioSab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Início Dia Útil.
+        /// </summary>
+        public static string InicioUtil {
+            get {
+                return ResourceManager.GetString("InicioUtil", resourceCulture);
             }
         }
         
@@ -1866,6 +1929,24 @@ namespace UI.Properties {
         public static string InvalidCnpj {
             get {
                 return ResourceManager.GetString("InvalidCnpj", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IPK.
+        /// </summary>
+        public static string IPK {
+            get {
+                return ResourceManager.GetString("IPK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IPK-e.
+        /// </summary>
+        public static string IPKe {
+            get {
+                return ResourceManager.GetString("IPKe", resourceCulture);
             }
         }
         
@@ -2599,15 +2680,6 @@ namespace UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Percurso Dia Útil (km).
-        /// </summary>
-        public static string PercursoDU {
-            get {
-                return ResourceManager.GetString("PercursoDU", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Informe o Percurso.
         /// </summary>
         public static string PercursoError {
@@ -2631,6 +2703,15 @@ namespace UI.Properties {
         public static string PercursoSab {
             get {
                 return ResourceManager.GetString("PercursoSab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Percurso Dia Útil (km).
+        /// </summary>
+        public static string PercursoUtil {
+            get {
+                return ResourceManager.GetString("PercursoUtil", resourceCulture);
             }
         }
         
@@ -3193,6 +3274,15 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total do Grupo.
+        /// </summary>
+        public static string Subtotal {
+            get {
+                return ResourceManager.GetString("Subtotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tarifa R$.
         /// </summary>
         public static string Tarifa {
@@ -3643,20 +3733,20 @@ namespace UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Viagens Dia Útil.
-        /// </summary>
-        public static string ViagensDU {
-            get {
-                return ResourceManager.GetString("ViagensDU", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Viagens Sábado.
         /// </summary>
         public static string ViagensSab {
             get {
                 return ResourceManager.GetString("ViagensSab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Viagens Dia Útil.
+        /// </summary>
+        public static string ViagensUtil {
+            get {
+                return ResourceManager.GetString("ViagensUtil", resourceCulture);
             }
         }
         
