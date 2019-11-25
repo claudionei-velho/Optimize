@@ -66,9 +66,8 @@ namespace UI.Models {
     [DisplayFormat(DataFormatString = "{0:#,##0.0##}")]
     public decimal? AreaCoberta {
       get {
-        using (EInstalacaoService instalacao = new EInstalacaoService()) {
-          return instalacao.TotalAreaCoberta(q => q.InstalacaoId == this.Id);
-        }
+        using EInstalacaoService instalacao = new EInstalacaoService();
+        return instalacao.TotalAreaCoberta(q => q.InstalacaoId == this.Id);
       }
     }
 
@@ -76,9 +75,8 @@ namespace UI.Models {
     [DisplayFormat(DataFormatString = "{0:#,##0.0##}")]
     public decimal? AreaTotal {
       get {
-        using (EInstalacaoService instalacao = new EInstalacaoService()) {
-          return instalacao.TotalArea(q => q.InstalacaoId == this.Id);
-        }
+        using EInstalacaoService instalacao = new EInstalacaoService();
+        return instalacao.TotalArea(q => q.InstalacaoId == this.Id);
       }
     }
 
@@ -86,9 +84,8 @@ namespace UI.Models {
     [DisplayFormat(DataFormatString = "{0:#,##0}")]
     public decimal? QtdEmpregados {
       get {
-        using (EInstalacaoService instalacao = new EInstalacaoService()) {
-          return instalacao.TotalEmpregados(q => q.InstalacaoId == this.Id);
-        }
+        using EInstalacaoService instalacao = new EInstalacaoService();
+        return instalacao.TotalEmpregados(q => q.InstalacaoId == this.Id);
       }
     }
 

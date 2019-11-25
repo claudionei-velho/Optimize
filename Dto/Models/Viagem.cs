@@ -18,6 +18,7 @@ namespace Dto.Models {
     public TimeSpan? Chegada { get; set; }
     public TimeSpan Inicio { get; set; }
     public TimeSpan? Termino { get; set; }
+    public int? PeriodoId { get; set; }
     public int? Passageiros { get; set; }
     public int? Inicial { get; set; }
     public int? Final { get; set; }
@@ -27,6 +28,7 @@ namespace Dto.Models {
     public virtual Horario Horario { get; set; }
     public virtual LnPesquisa LnPesquisa { get; set; }
     public virtual PtLinha PtLinha { get; set; }
+    public virtual PrLinha PrLinha { get; set; }
     public virtual Veiculo Veiculo { get; set; }
 
     public virtual ICollection<FViagem> FViagens { get; set; }

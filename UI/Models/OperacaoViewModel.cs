@@ -21,9 +21,8 @@ namespace UI.Models {
     [DataType(DataType.MultilineText), StringLength(512)]
     public string Descricao {
       get {
-        using (Services<OperLinha> operLinhas = new Services<OperLinha>()) {
-          return operLinhas.GetFirst(t => t.Id == this.OperLinhaId).Descricao;
-        }
+        using Services<OperLinha> operLinhas = new Services<OperLinha>();
+        return operLinhas.GetFirst(t => t.Id == this.OperLinhaId).Descricao;
       }
     }
 

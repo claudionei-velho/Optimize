@@ -112,11 +112,10 @@ namespace UI.Controllers {
       using (Services<Linha> linhas = new Services<Linha>()) {
         int empresaId = linhas.GetById(viewModel.LinhaId).EmpresaId;
 
-        using (Services<TCategoria> tCategorias = new Services<TCategoria>()) {
-          ViewBag.Categoria = new SelectList(await tCategorias.GetSelectAsync(
-              q => new { Id = q.Id.ToString(), Name = q.Denominacao },
-              q => q.EmpresaId == empresaId), "Id", "Name", viewModel.Categoria);
-        }
+        using Services<TCategoria> tCategorias = new Services<TCategoria>();
+        ViewBag.Categoria = new SelectList(await tCategorias.GetSelectAsync(
+                                    q => new { Id = q.Id.ToString(), Name = q.Denominacao },
+                                    q => q.EmpresaId == empresaId), "Id", "Name", viewModel.Categoria);
       }
       return View(viewModel);
     }
@@ -182,10 +181,9 @@ namespace UI.Controllers {
 
       using (Services<Linha> linhas = new Services<Linha>()) {
         int empresaId = linhas.GetById(id).EmpresaId;
-        using (Services<TCategoria> tCategorias = new Services<TCategoria>()) {
-          foreach (TCategoria item in tCategorias.GetQuery(q => q.EmpresaId == empresaId)) {
-            result.Add(new SelectBox() { Id = item.Id.ToString(), Name = item.Denominacao });
-          }
+        using Services<TCategoria> tCategorias = new Services<TCategoria>();
+        foreach (TCategoria item in tCategorias.GetQuery(q => q.EmpresaId == empresaId)) {
+          result.Add(new SelectBox() { Id = item.Id.ToString(), Name = item.Denominacao });
         }
       }
       return Json(result, JsonRequestBehavior.AllowGet);

@@ -8,10 +8,14 @@ using Dto.Models;
 namespace UI.Models {
   public class DimensionamentoViewModel {
     [Key, Column(Order = 0)]
+    [Display(Name = "PesquisaId", ResourceType = typeof(Properties.Resources))]
+    public int PesquisaId { get; set; }
+
+    [Key, Column(Order = 1)]
     [Display(Name = "LinhaId", ResourceType = typeof(Properties.Resources))]
     public int LinhaId { get; set; }
 
-    [Key, Column(Order = 1)]
+    [Key, Column(Order = 2)]
     [Display(Name = "DiaId", ResourceType = typeof(Properties.Resources))]
     public int DiaId { get; set; }
 
@@ -21,11 +25,11 @@ namespace UI.Models {
       }
     }
 
-    [Key, Column(Order = 2)]
+    [Key, Column(Order = 3)]
     [Display(Name = "PeriodoId", ResourceType = typeof(Properties.Resources))]
     public int PeriodoId { get; set; }
 
-    [Key, Column(Order = 3)]
+    [Key, Column(Order = 4)]
     [Display(Name = "Sentido", ResourceType = typeof(Properties.Resources))]
     public string Sentido { get; set; }
 
@@ -207,29 +211,47 @@ namespace UI.Models {
       }
     }
 
-    [Display(Name = "Veiculos", ResourceType = typeof(Properties.Resources))]
-    [DisplayFormat(DataFormatString = "{0:#,##0}")]
-    public int Veiculos { get; set; }
-
     [Display(Name = "CicloAB", ResourceType = typeof(Properties.Resources))]
     [DisplayFormat(DataFormatString = "{0:#,##0}")]
-    public int CicloAB { get; set; }
+    public int? CicloAB { get; set; }
 
     [Display(Name = "CicloBA", ResourceType = typeof(Properties.Resources))]
     [DisplayFormat(DataFormatString = "{0:#,##0}")]
-    public int CicloBA { get; set; }
+    public int? CicloBA { get; set; }
+
+    [Display(Name = "Veiculos", ResourceType = typeof(Properties.Resources))]
+    [DisplayFormat(DataFormatString = "{0:#,##0}")]
+    public int? Veiculos {
+      get {
+        int? result;
+        try {
+          result = (int)Math.Ceiling((decimal)Tempo / (Intervalo ?? 0));
+        }
+        catch (DivideByZeroException) {
+          result = null;
+        }
+        if ((result ?? 0) > this.QtdViagens) {
+          result = this.QtdViagens;
+        }
+        return result;
+      }
+    }
 
     [Display(Name = "VeiculosE", ResourceType = typeof(Properties.Resources))]
     [DisplayFormat(DataFormatString = "{0:#,##0}")]
     public int? VeiculosE {
       get {
-        int tempo = this.CicloAB >= this.CicloBA ? this.CicloAB : this.CicloBA;
+        int? result;
         try {
-          return (int)Math.Ceiling((decimal)tempo / IntervaloE.Value);
+          result = (int)Math.Ceiling((decimal)Tempo / (IntervaloE ?? 0));
         }
         catch (DivideByZeroException) {
-          return null;
+          result = null;
         }
+        if ((result ?? 0) > (PrognosticoE ?? 0)) {
+          result = PrognosticoE ?? 0;
+        }
+        return result;
       }
     }
 
@@ -237,13 +259,17 @@ namespace UI.Models {
     [DisplayFormat(DataFormatString = "{0:#,##0}")]
     public int? VeiculosP {
       get {
-        int tempo = this.CicloAB >= this.CicloBA ? this.CicloAB : this.CicloBA;
+        int? result;
         try {
-          return (int)Math.Ceiling((decimal)tempo / IntervaloP.Value);
+          result = (int)Math.Ceiling((decimal)Tempo / (IntervaloP ?? 0));
         }
         catch (DivideByZeroException) {
-          return null;
+          result = null;
         }
+        if ((result ?? 0) > (PrognosticoP ?? 0)) {
+          result = PrognosticoP ?? 0;
+        }
+        return result;
       }
     }
 
@@ -275,7 +301,14 @@ namespace UI.Models {
       }
     }
 
+    private int Tempo {
+      get {
+        return (this.CicloAB ?? 0) >= (this.CicloBA ?? 0) ? (this.CicloAB ?? 0) : (this.CicloBA ?? 0);
+      }
+    }
+
     // Navigation Properties
+    public virtual Pesquisa Pesquisa { get; set; }
     public virtual Linha Linha { get; set; }
     public virtual PrLinha PrLinha { get; set; }
   }

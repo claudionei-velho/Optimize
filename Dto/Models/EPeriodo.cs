@@ -14,6 +14,8 @@ namespace Dto.Models {
     public int EmpresaId { get; set; }
     public int PeriodoId { get; set; }
     public string Denominacao { get; set; }
+    public decimal? Velocidade { get; set; }
+    public bool Pico { get; set; }
     public DateTime? Cadastro { get; set; }
 
     public virtual Empresa Empresa { get; set; }

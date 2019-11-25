@@ -25,13 +25,13 @@
         @Resources.EmpresaId
       </th>
       <th>
+        @Html.DisplayNameFor(model => model.PesquisaId)
+      </th>
+      <th>
         @Html.DisplayNameFor(model => model.LinhaId)
       </th>
       <th>
         @Html.DisplayNameFor(model => model.DiaId)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.Sentido)
       </th>
       <th>
         @Html.DisplayNameFor(model => model.SinoticoId)
@@ -61,14 +61,14 @@
         <td>
           @Html.DisplayFor(modelItem => item.Linha.Empresa.Fantasia)
         </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Pesquisa.Identificacao)
+        </td>
         <td width="10%">
           @Html.DisplayFor(modelItem => item.Linha.Denominacao)
         </td>
         <td>
           @Html.DisplayFor(modelItem => item.DiaIdName)
-        </td>
-        <td align="center">
-          @Html.DisplayFor(modelItem => item.Sentido)
         </td>
         <td>
           @Html.DisplayFor(modelItem => item.ISinotico.Denominacao)

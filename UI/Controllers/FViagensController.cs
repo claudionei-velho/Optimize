@@ -55,12 +55,11 @@ namespace UI.Controllers {
       using (ViagemService viagens = new ViagemService()) {
         Viagem viagem = viagens.GetFirst(v => v.Id == id);
 
-        using (PtLinhaService pontos = new PtLinhaService(user.ID)) {
-          ViewBag.PontoId = new SelectList(pontos.GetSelect(
-              q => new {
-                Id = q.Id.ToString(), Name = q.Ponto.Prefixo + " | " + q.Ponto.Identificacao
-              }, q => q.LinhaId == viagem.LnPesquisa.LinhaId), "Id", "Name");
-        }
+        using PtLinhaService pontos = new PtLinhaService(user.ID);
+        ViewBag.PontoId = new SelectList(pontos.GetSelect(
+                                  q => new { Id = q.Id.ToString(),
+                                             Name = q.Ponto.Prefixo + " | " + q.Ponto.Identificacao }, 
+                                  q => q.LinhaId == viagem.LnPesquisa.LinhaId), "Id", "Name");
       }
       return View(viewModel);
     }
@@ -105,12 +104,11 @@ namespace UI.Controllers {
       using (ViagemService viagens = new ViagemService()) {
         Viagem viagem = viagens.GetFirst(v => v.Id == viewModel.ViagemId);
 
-        using (PtLinhaService pontos = new PtLinhaService(user.ID)) {
-          ViewBag.PontoId = new SelectList(await pontos.GetSelectAsync(
-              q => new {
-                Id = q.Id.ToString(), Name = q.Ponto.Prefixo + " | " + q.Ponto.Identificacao
-              }, q => q.LinhaId == viagem.LnPesquisa.LinhaId), "Id", "Name", viewModel.PontoId);
-        }
+        using PtLinhaService pontos = new PtLinhaService(user.ID);
+        ViewBag.PontoId = new SelectList(await pontos.GetSelectAsync(
+                                  q => new { Id = q.Id.ToString(),
+                                             Name = q.Ponto.Prefixo + " | " + q.Ponto.Identificacao }, 
+                                  q => q.LinhaId == viagem.LnPesquisa.LinhaId), "Id", "Name", viewModel.PontoId);
       }
       return View(viewModel);
     }

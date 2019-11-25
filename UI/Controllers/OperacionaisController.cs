@@ -77,14 +77,13 @@ namespace UI.Controllers {
           workSheet.Cells[row, 16].Value = item.InicioDom;
         }
 
-        using (var memoryStream = new MemoryStream()) {
-          Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-          Response.AddHeader("content-disposition", $"attachment; filename={Guid.NewGuid().ToString()}.xlsx");
-          excel.SaveAs(memoryStream);
-          memoryStream.WriteTo(Response.OutputStream);
-          Response.Flush();
-          Response.End();
-        }
+        using var memoryStream = new MemoryStream();
+        Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+        Response.AddHeader("content-disposition", $"attachment; filename={Guid.NewGuid().ToString()}.xlsx");
+        excel.SaveAs(memoryStream);
+        memoryStream.WriteTo(Response.OutputStream);
+        Response.Flush();
+        Response.End();
       }
       return View();
     }

@@ -1356,4 +1356,13 @@
   <data name="Subtotal" xml:space="preserve">
     <value>Total do Grupo</value>
   </data>
+  <data name="Velocidade" xml:space="preserve">
+    <value>Velocidade Média (km/h)</value>
+  </data>
+  <data name="Pico" xml:space="preserve">
+    <value>Pico?</value>
+  </data>
+  <data name="PicoError" xml:space="preserve">
+    <value>Informe se Período Operacional é Período de Pico</value>
+  </data>
 </root>

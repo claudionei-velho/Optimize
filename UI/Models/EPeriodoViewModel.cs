@@ -21,6 +21,14 @@ namespace UI.Models {
               ErrorMessageResourceType = typeof(Properties.Resources)), StringLength(32)]
     public string Denominacao { get; set; }
 
+    [Display(Name = "Pico", ResourceType = typeof(Properties.Resources))]
+    [Required(ErrorMessageResourceName = "PicoError",
+              ErrorMessageResourceType = typeof(Properties.Resources)), StringLength(32)]
+    public bool Pico { get; set; }
+
+    [Display(Name = "Velocidade", ResourceType = typeof(Properties.Resources))]
+    public decimal? Velocidade { get; set; }
+
     [ScaffoldColumn(false)]
     public DateTime? Cadastro { get; set; }
 

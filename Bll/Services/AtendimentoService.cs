@@ -39,27 +39,25 @@ namespace Bll.Services {
     }
 
     public string GetPontoInicial(int id, string ab) {
-      using (Services<ItAtendimento> itinerarios = new Services<ItAtendimento>()) {
-        Expression<Func<ItAtendimento, bool>> where = q => (q.AtendimentoId == id) && q.Sentido.Equals(ab);
+      using Services<ItAtendimento> itinerarios = new Services<ItAtendimento>();
+      Expression<Func<ItAtendimento, bool>> where = q => (q.AtendimentoId == id) && q.Sentido.Equals(ab);
 
-        string result = string.Empty;
-        if (itinerarios.GetQuery(where).Count() > 0) {
-          result = itinerarios.GetFirst(where).Percurso;
-        }
-        return result;
+      string result = string.Empty;
+      if (itinerarios.GetQuery(where).Count() > 0) {
+        result = itinerarios.GetFirst(where).Percurso;
       }
+      return result;
     }
 
     public string GetPontoFinal(int id, string ab) {
-      using (Services<ItAtendimento> itinerarios = new Services<ItAtendimento>()) {
-        Expression<Func<ItAtendimento, bool>> where = q => (q.AtendimentoId == id) && q.Sentido.Equals(ab);
+      using Services<ItAtendimento> itinerarios = new Services<ItAtendimento>();
+      Expression<Func<ItAtendimento, bool>> where = q => (q.AtendimentoId == id) && q.Sentido.Equals(ab);
 
-        string result = string.Empty;
-        if (itinerarios.GetQuery(where).Count() > 0) {
-          result = itinerarios.GetById(itinerarios.GetQuery(where).Max(p => p.Id)).Percurso;
-        }
-        return result;
+      string result = string.Empty;
+      if (itinerarios.GetQuery(where).Count() > 0) {
+        result = itinerarios.GetById(itinerarios.GetQuery(where).Max(p => p.Id)).Percurso;
       }
+      return result;
     }
   }
 }

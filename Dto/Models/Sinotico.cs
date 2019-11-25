@@ -2,9 +2,9 @@
 
 namespace Dto.Models {
   public class Sinotico {
+    public int PesquisaId { get; set; }
     public int LinhaId { get; set; }
     public int DiaId { get; set; }
-    public string Sentido { get; set; }
     public int SinoticoId { get; set; }
 
     [NotMapped]
@@ -23,6 +23,7 @@ namespace Dto.Models {
     public decimal? EvolucaoP { get; set; }
 
     // Navigation Properties
+    public virtual Pesquisa Pesquisa { get; set; }
     public virtual Linha Linha { get; set; }
     public virtual ISinotico ISinotico { get; set; }
   }

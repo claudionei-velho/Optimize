@@ -2761,6 +2761,24 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pico?.
+        /// </summary>
+        public static string Pico {
+            get {
+                return ResourceManager.GetString("Pico", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Informe se Período Operacional é Período de Pico.
+        /// </summary>
+        public static string PicoError {
+            get {
+                return ResourceManager.GetString("PicoError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tipo de Piso.
         /// </summary>
         public static string Piso {
@@ -3666,6 +3684,15 @@ namespace UI.Properties {
         public static string VeiculoViewModel {
             get {
                 return ResourceManager.GetString("VeiculoViewModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Velocidade Média (km/h).
+        /// </summary>
+        public static string Velocidade {
+            get {
+                return ResourceManager.GetString("Velocidade", resourceCulture);
             }
         }
         

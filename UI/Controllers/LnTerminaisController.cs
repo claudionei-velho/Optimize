@@ -194,13 +194,12 @@ namespace UI.Controllers {
       using (Services<Terminal> terminais = new Services<Terminal>()) {
         int empresaId = terminais.GetById(id).EmpresaId;
 
-        using (Services<Linha> linhas = new Services<Linha>()) {
-          foreach (Linha item in linhas.GetQuery(q => q.EmpresaId == empresaId)) {
-            result.Add(new SelectBox() {
-              Id = item.Id.ToString(),
-              Name = item.Prefixo + " | " + item.Denominacao
-            });
-          }
+        using Services<Linha> linhas = new Services<Linha>();
+        foreach (Linha item in linhas.GetQuery(q => q.EmpresaId == empresaId)) {
+          result.Add(new SelectBox() {
+            Id = item.Id.ToString(),
+            Name = item.Prefixo + " | " + item.Denominacao
+          });
         }
       }
       return Json(result, JsonRequestBehavior.AllowGet);

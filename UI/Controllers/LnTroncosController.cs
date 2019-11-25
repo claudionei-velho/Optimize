@@ -175,12 +175,12 @@ namespace UI.Controllers {
       using (Services<Tronco> troncos = new Services<Tronco>()) {
         int empresaId = troncos.GetById(id).EmpresaId;
 
-        using (Services<Linha> linhas = new Services<Linha>()) {
-          foreach (Linha item in linhas.GetQuery(q => q.EmpresaId == empresaId)) {
-            result.Add(new SelectBox() {
-              Id = item.Id.ToString(), Name = item.Prefixo + " | " + item.Denominacao
-            });
-          }
+        using Services<Linha> linhas = new Services<Linha>();
+        foreach (Linha item in linhas.GetQuery(q => q.EmpresaId == empresaId)) {
+          result.Add(new SelectBox() {
+            Id = item.Id.ToString(),
+            Name = item.Prefixo + " | " + item.Denominacao
+          });
         }
       }
       return Json(result, JsonRequestBehavior.AllowGet);

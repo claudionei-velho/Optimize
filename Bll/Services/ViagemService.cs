@@ -25,9 +25,10 @@ namespace Bll.Services {
                                     join p in context.Pesquisas on l.PesquisaId equals p.Id
                                     where companies.Contains(p.EmpresaId)
                                     orderby p.EmpresaId, v.LinhaId, v.Data, v.Item, v.Inicio, v.Sentido
-                                    select v).AsNoTracking()
-                                        .Include(v => v.LnPesquisa.Linha).Include(v => v.LnPesquisa.Pesquisa)
-                                        .Include(v => v.Horario).Include(v => v.PtLinha.Ponto).Include(v => v.Veiculo);
+                                    select v).AsNoTracking().Include(v => v.LnPesquisa.Linha)
+                                        .Include(v => v.LnPesquisa.Pesquisa)
+                                        .Include(v => v.Horario).Include(v => v.PtLinha.Ponto)
+                                        .Include(v => v.Veiculo).Include(v => v.PrLinha.EPeriodo);
         if (filter != null) {
           query = query.Where(filter);
         }

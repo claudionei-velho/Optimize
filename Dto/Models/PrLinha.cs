@@ -6,6 +6,7 @@ namespace Dto.Models {
   public class PrLinha {
     public PrLinha() {
       this.Horarios = new HashSet<Horario>();
+      this.Viagens = new HashSet<Viagem>();
       this.TotalViagens = new HashSet<TotalViagem>();
       this.Dimensionamentos = new HashSet<Dimensionamento>();
     }
@@ -47,6 +48,7 @@ namespace Dto.Models {
     public virtual Ocupacao Ocupacao { get; set; }
 
     public virtual ICollection<Horario> Horarios { get; set; }
+    public virtual ICollection<Viagem> Viagens { get; set; }
     public virtual ICollection<TotalViagem> TotalViagens { get; set; }
     public virtual ICollection<Dimensionamento> Dimensionamentos { get; set; }
   }

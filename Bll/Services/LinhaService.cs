@@ -40,27 +40,25 @@ namespace Bll.Services {
     }
 
     public string GetPontoInicial(int id, string ab) {
-      using (Services<Itinerario> itinerarios = new Services<Itinerario>()) {
-        Expression<Func<Itinerario, bool>> where = q => (q.LinhaId == id) && q.Sentido.Equals(ab);
+      using Services<Itinerario> itinerarios = new Services<Itinerario>();
+      Expression<Func<Itinerario, bool>> where = q => (q.LinhaId == id) && q.Sentido.Equals(ab);
 
-        string result = string.Empty;
-        if (itinerarios.GetQuery(where).Count() > 0) {
-          result = itinerarios.GetFirst(where).Percurso;
-        }
-        return result;
+      string result = string.Empty;
+      if (itinerarios.GetQuery(where).Count() > 0) {
+        result = itinerarios.GetFirst(where).Percurso;
       }
+      return result;
     }
 
     public string GetPontoFinal(int id, string ab) {
-      using (Services<Itinerario> itinerarios = new Services<Itinerario>()) {
-        Expression<Func<Itinerario, bool>> where = q => (q.LinhaId == id) && q.Sentido.Equals(ab);
+      using Services<Itinerario> itinerarios = new Services<Itinerario>();
+      Expression<Func<Itinerario, bool>> where = q => (q.LinhaId == id) && q.Sentido.Equals(ab);
 
-        string result = string.Empty;
-        if (itinerarios.GetQuery(where).Count() > 0) {
-          result = itinerarios.GetById(itinerarios.GetQuery(where).Max(p => p.Id)).Percurso;
-        }
-        return result;
+      string result = string.Empty;
+      if (itinerarios.GetQuery(where).Count() > 0) {
+        result = itinerarios.GetById(itinerarios.GetQuery(where).Max(p => p.Id)).Percurso;
       }
+      return result;
     }
   }
 }

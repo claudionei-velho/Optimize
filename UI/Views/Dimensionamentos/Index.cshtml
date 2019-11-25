@@ -23,6 +23,9 @@
   <table class="table table-bordered">
     <tr>
       <th>
+        @Html.DisplayNameFor(model => model.PesquisaId)
+      </th>
+      <th>
         @Html.DisplayNameFor(model => model.LinhaId)
       </th>
       <th>
@@ -109,11 +112,13 @@
       <th>
         @Html.DisplayNameFor(model => model.KmTotalP)
       </th>
-      <th></th>
     </tr>
 
     @foreach (var item in Model) {
       <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Pesquisa.Identificacao)
+        </td>
         <td>
           @Html.DisplayFor(modelItem => item.Linha.Denominacao)
         </td>
@@ -200,11 +205,6 @@
         </td>
         <td align="center">
           @Html.DisplayFor(modelItem => item.KmTotalP)
-        </td>
-        <td>
-          @Html.ActionLink(Resources.Details, "Details", new { id = item.LinhaId, did = item.DiaId,
-                                                               pid = item.PeriodoId, go = item.Sentido },
-                                                         new { @class = "btn btn-outline-dark btn-sm" })
         </td>
       </tr>
     }

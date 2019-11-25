@@ -7,10 +7,14 @@ using Dto.Models;
 namespace UI.Models {
   public class SinoticoViewModel {
     [Key, Column(Order = 0)]
+    [Display(Name = "PesquisaId", ResourceType = typeof(Properties.Resources))]
+    public int PesquisaId { get; set; }
+
+    [Key, Column(Order = 1)]
     [Display(Name = "LinhaId", ResourceType = typeof(Properties.Resources))]
     public int LinhaId { get; set; }
 
-    [Key, Column(Order = 1)]
+    [Key, Column(Order = 2)]
     [Display(Name = "DiaId", ResourceType = typeof(Properties.Resources))]
     public int DiaId { get; set; }
 
@@ -19,10 +23,6 @@ namespace UI.Models {
         return new Workday().Data[DiaId];
       }
     }
-
-    [Key, Column(Order = 2)]
-    [Display(Name = "Sentido", ResourceType = typeof(Properties.Resources))]
-    public string Sentido { get; set; }
 
     [Key, Column(Order = 3)]
     [Display(Name = "SinoticoId", ResourceType = typeof(Properties.Resources))]
@@ -46,6 +46,7 @@ namespace UI.Models {
     public decimal? EvolucaoP { get; set; }
 
     // Navigation Properties
+    public virtual Pesquisa Pesquisa { get; set; }
     public virtual Linha Linha { get; set; }
     public virtual ISinotico ISinotico { get; set; }
   }

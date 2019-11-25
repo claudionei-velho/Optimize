@@ -42,38 +42,35 @@ namespace UI.Controllers {
         int row = 1;
         workSheet.Cells[row, 1].Value = Resources.LinhaId;
         workSheet.Cells[row, 2].Value = Resources.DiaId;
-        workSheet.Cells[row, 3].Value = Resources.Sentido;
-        workSheet.Cells[row, 4].Value = Resources.SinoticoId;
-        workSheet.Cells[row, 5].Value = Resources.Unidade;
-        workSheet.Cells[row, 6].Value = Resources.IndiceAtual;
-        workSheet.Cells[row, 7].Value = Resources.DimensionaE;
-        workSheet.Cells[row, 8].Value = Resources.EvolucaoE;
-        workSheet.Cells[row, 9].Value = Resources.DimensionaP;
-        workSheet.Cells[row, 10].Value = Resources.EvolucaoP;
+        workSheet.Cells[row, 3].Value = Resources.SinoticoId;
+        workSheet.Cells[row, 4].Value = Resources.Unidade;
+        workSheet.Cells[row, 5].Value = Resources.IndiceAtual;
+        workSheet.Cells[row, 6].Value = Resources.DimensionaE;
+        workSheet.Cells[row, 7].Value = Resources.EvolucaoE;
+        workSheet.Cells[row, 8].Value = Resources.DimensionaP;
+        workSheet.Cells[row, 9].Value = Resources.EvolucaoP;
 
         // Detail Section
         Workday workDay = new Workday();
         foreach (Sinotico item in qSinotico.GetQuery()) {
           workSheet.Cells[++row, 1].Value = item.Linha.Denominacao;
           workSheet.Cells[row, 2].Value = workDay.Data[item.DiaId];
-          workSheet.Cells[row, 3].Value = item.Sentido;
-          workSheet.Cells[row, 4].Value = item.ISinotico.Denominacao;
-          workSheet.Cells[row, 5].Value = item.ISinotico.Unidade;
-          workSheet.Cells[row, 6].Value = item.IndiceAtual;
-          workSheet.Cells[row, 7].Value = item.DimensionaE;
-          workSheet.Cells[row, 8].Value = item.EvolucaoE;
-          workSheet.Cells[row, 9].Value = item.DimensionaP;
-          workSheet.Cells[row, 10].Value = item.EvolucaoP;
+          workSheet.Cells[row, 3].Value = item.ISinotico.Denominacao;
+          workSheet.Cells[row, 4].Value = item.ISinotico.Unidade;
+          workSheet.Cells[row, 5].Value = item.IndiceAtual;
+          workSheet.Cells[row, 6].Value = item.DimensionaE;
+          workSheet.Cells[row, 7].Value = item.EvolucaoE;
+          workSheet.Cells[row, 8].Value = item.DimensionaP;
+          workSheet.Cells[row, 9].Value = item.EvolucaoP;
         }
 
-        using (var memoryStream = new MemoryStream()) {
-          Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-          Response.AddHeader("content-disposition", $"attachment; filename={Guid.NewGuid().ToString()}.xlsx");
-          excel.SaveAs(memoryStream);
-          memoryStream.WriteTo(Response.OutputStream);
-          Response.Flush();
-          Response.End();
-        }
+        using var memoryStream = new MemoryStream();
+        Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+        Response.AddHeader("content-disposition", $"attachment; filename={Guid.NewGuid().ToString()}.xlsx");
+        excel.SaveAs(memoryStream);
+        memoryStream.WriteTo(Response.OutputStream);
+        Response.Flush();
+        Response.End();
       }
       return View();
     }

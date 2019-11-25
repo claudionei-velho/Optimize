@@ -6,10 +6,11 @@ namespace Dal.Mapping {
   internal class DimensionamentoMap : EntityTypeConfiguration<Dimensionamento> {
     public DimensionamentoMap() {
       // Primary Key
-      this.HasKey(t => new { t.LinhaId, t.DiaId, t.PeriodoId, t.Sentido });
+      this.HasKey(t => new { t.PesquisaId, t.LinhaId, t.DiaId, t.PeriodoId, t.Sentido });
 
       // Table, Properties & Column Mappings
       this.ToTable("Dimensionar", "opc");
+      this.Property(t => t.PesquisaId).HasColumnName("PesquisaId");
       this.Property(t => t.LinhaId).HasColumnName("LinhaId");
       this.Property(t => t.DiaId).HasColumnName("DiaId");
       this.Property(t => t.PeriodoId).HasColumnName("PeriodoId");
@@ -25,17 +26,22 @@ namespace Dal.Mapping {
       this.Property(t => t.Desvio).HasColumnName("Desvio");
       this.Property(t => t.DesvioAjuste).HasColumnName("DesvioAjuste");
       this.Property(t => t.LotacaoP).HasColumnName("LotacaoP");
-      this.Property(t => t.Veiculos).HasColumnName("Veiculos");
       this.Property(t => t.CicloAB).HasColumnName("CicloAB");
       this.Property(t => t.CicloBA).HasColumnName("CicloBA");
-      this.Property(t => t.Extensao).HasColumnName("Extensao");
+      this.Property(t => t.Extensao).HasColumnName("Extensao").HasPrecision(18, 3);
 
       // Relationships
+      this.HasRequired(t => t.Pesquisa)
+          .WithMany(t => t.Dimensionamentos).HasForeignKey(d => d.PesquisaId)
+          .WillCascadeOnDelete(false);
+
       this.HasRequired(t => t.Linha)
-          .WithMany(t => t.Dimensionamentos).HasForeignKey(d => d.LinhaId).WillCascadeOnDelete(false);
+          .WithMany(t => t.Dimensionamentos).HasForeignKey(d => d.LinhaId)
+          .WillCascadeOnDelete(false);
 
       this.HasRequired(t => t.PrLinha)
-          .WithMany(t => t.Dimensionamentos).HasForeignKey(d => d.PeriodoId).WillCascadeOnDelete(false);
+          .WithMany(t => t.Dimensionamentos).HasForeignKey(d => d.PeriodoId)
+          .WillCascadeOnDelete(false);
     }
   }
 }

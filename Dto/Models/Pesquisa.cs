@@ -5,6 +5,8 @@ namespace Dto.Models {
   public class Pesquisa {
     public Pesquisa() {
       this.LnPesquisas = new HashSet<LnPesquisa>();
+      this.Dimensionamentos = new HashSet<Dimensionamento>();
+      this.Sinoticos = new HashSet<Sinotico>();
     }
 
     public int Id { get; set; }
@@ -34,5 +36,7 @@ namespace Dto.Models {
     public virtual CLinha CLinha { get; set; }
     
     public virtual ICollection<LnPesquisa> LnPesquisas { get; set; }
+    public virtual ICollection<Dimensionamento> Dimensionamentos { get; set; }
+    public virtual ICollection<Sinotico> Sinoticos { get; set; }
   }
 }

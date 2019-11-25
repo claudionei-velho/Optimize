@@ -132,13 +132,13 @@ namespace UI.Controllers {
       int linhaId = 0;
       int diaId = new Workday().GetWorkday(viewModel.Data);
       using (Services<LnPesquisa> lnPesquisas = new Services<LnPesquisa>()) {
-        linhaId = lnPesquisas.GetById(viewModel.LinhaId).LinhaId;        
-        using (LnPesquisaService linhas = new LnPesquisaService(user.ID)) {
-          ViewBag.LinhaId = new SelectList(await linhas.GetSelectAsync(
-              q => new {
-                Id = q.Id.ToString(), Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao
-              }), "Id", "Name", viewModel.LinhaId);
-        }
+        linhaId = lnPesquisas.GetById(viewModel.LinhaId).LinhaId;
+        using LnPesquisaService linhas = new LnPesquisaService(user.ID);
+        ViewBag.LinhaId = new SelectList(
+                                  await linhas.GetSelectAsync(
+                                            q => new { Id = q.Id.ToString(), 
+                                                       Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao }
+                                        ), "Id", "Name", viewModel.LinhaId);
       }
       ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
       using (HorarioService horarios = new HorarioService(user.ID)) {
@@ -242,10 +242,9 @@ namespace UI.Controllers {
           applyFilter = q => (q.LinhaId == linhaId) && (q.DiaId == op) && q.Sentido.Equals(go);
         }
 
-        using (Services<Horario> horarios = new Services<Horario>()) {
-          foreach (Horario item in horarios.GetQuery(applyFilter, q => q.OrderBy(h => h.Inicio))) {
-            result.Add(new SelectBox() { Id = item.Id.ToString(), Name = item.Inicio.ToString(@"hh\:mm") });
-          }
+        using Services<Horario> horarios = new Services<Horario>();
+        foreach (Horario item in horarios.GetQuery(applyFilter, q => q.OrderBy(h => h.Inicio))) {
+          result.Add(new SelectBox() { Id = item.Id.ToString(), Name = item.Inicio.ToString(@"hh\:mm") });
         }
       }    
       return Json(result, JsonRequestBehavior.AllowGet);

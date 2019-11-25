@@ -35,7 +35,7 @@ namespace Dto.Models {
       get {        
         int result;
         try {
-          int tempo = ((this.CicloAB ?? 0) > (this.CicloBA ?? 0)) ? this.CicloAB.Value : this.CicloBA.Value;
+          int tempo = ((this.CicloAB ?? 0) > (this.CicloBA ?? 0)) ? (this.CicloAB ?? 0) : (this.CicloBA ?? 0);
           result = (int)Math.Ceiling(tempo * (this.QtdViagens / (decimal)this.Duracao));
         }
         catch (DivideByZeroException) {

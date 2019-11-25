@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dto.Models {
   public class Dimensionamento {
+    public int PesquisaId { get; set; }
     public int LinhaId { get; set; }
     public int DiaId { get; set; }
     public int PeriodoId { get; set; }
@@ -15,8 +16,8 @@ namespace Dto.Models {
     public int Duracao {
       get {
         return ((int)this.Termino.Subtract(this.Inicio).TotalMinutes < 0) ?
-          1440 + (int)this.Termino.Subtract(this.Inicio).TotalMinutes : 
-            (int)this.Termino.Subtract(this.Inicio).TotalMinutes;
+                   1440 + (int)this.Termino.Subtract(this.Inicio).TotalMinutes : 
+                   (int)this.Termino.Subtract(this.Inicio).TotalMinutes;
       }
     }
 
@@ -33,7 +34,7 @@ namespace Dto.Models {
           return (int)Math.Ceiling((decimal)Passageiros / QtdViagens);
         }
         catch (DivideByZeroException) {
-          throw;
+          return null;
         }
       }
     }
@@ -45,7 +46,7 @@ namespace Dto.Models {
           return (int)Math.Ceiling((decimal)Ajustado / QtdViagens);
         }
         catch (DivideByZeroException) {
-          throw;
+          return null;
         }
       }
     }
@@ -60,7 +61,7 @@ namespace Dto.Models {
           return Duracao / QtdViagens;
         }
         catch (DivideByZeroException) {
-          throw;
+          return null;
         }
       }
     }
@@ -72,7 +73,7 @@ namespace Dto.Models {
           return (decimal)Passageiros / Duracao;
         }
         catch (DivideByZeroException) {
-          throw;
+          return null;
         }
       }
     }
@@ -84,7 +85,7 @@ namespace Dto.Models {
           return (decimal)Ajustado / Duracao;
         }
         catch (DivideByZeroException) {
-          throw;
+          return null;
         }
       }
     }
@@ -92,7 +93,7 @@ namespace Dto.Models {
     [NotMapped]
     public int LotacaoE {
       get {
-        return MediaAjuste.Value + DesvioAjuste;
+        return (MediaAjuste ?? 0) + DesvioAjuste;
       }
     }
 
@@ -103,7 +104,7 @@ namespace Dto.Models {
           return (int)Math.Ceiling((decimal)Ajustado / LotacaoE);
         }
         catch (DivideByZeroException) {
-          throw;
+          return null;
         }
       }
     }
@@ -115,7 +116,7 @@ namespace Dto.Models {
           return Duracao / PrognosticoE;
         }
         catch (DivideByZeroException) {
-          throw;
+          return null;
         }
       }
     }
@@ -129,7 +130,7 @@ namespace Dto.Models {
           return (int)Math.Ceiling((decimal)Ajustado / LotacaoP);
         }
         catch (DivideByZeroException) {
-          throw;
+          return null;
         }
       }
     }
@@ -141,38 +142,63 @@ namespace Dto.Models {
           return Duracao / PrognosticoP;
         }
         catch (DivideByZeroException) {
-          throw;
+          return null;
         }
       }
     }
 
-    public int Veiculos { get; set; }
-    public int CicloAB { get; set; }
-    public int CicloBA { get; set; }
+    public int? CicloAB { get; set; }
+    public int? CicloBA { get; set; }
+
+
+    [NotMapped]
+    public int? Veiculos {
+      get {
+        int? result; 
+        try {
+          result = (int)Math.Ceiling((decimal)Tempo / (Intervalo ?? 0));
+        }
+        catch (DivideByZeroException) {
+          result = null;
+        }
+        if ((result ?? 0) > this.QtdViagens) {
+          result = this.QtdViagens;
+        }
+        return result;
+      }
+    }
 
     [NotMapped]
     public int? VeiculosE {
       get {
-        int tempo = this.CicloAB >= this.CicloBA ? this.CicloAB : this.CicloBA;
+        int? result;
         try {
-          return (int)Math.Ceiling((decimal)tempo / IntervaloE.Value);
+          result = (int)Math.Ceiling((decimal)Tempo / (IntervaloE ?? 0));
         }
         catch (DivideByZeroException) {
-          throw;
+          result = null;
         }
+        if ((result ?? 0) > (PrognosticoE ?? 0)) {
+          result = PrognosticoE ?? 0;
+        }
+        return result;
       }
     }
 
     [NotMapped]
     public int? VeiculosP {
       get {
-        int tempo = this.CicloAB >= this.CicloBA ? this.CicloAB : this.CicloBA;
+        int? result;
         try {
-          return (int)Math.Ceiling((decimal)tempo / IntervaloP.Value);
+          result = (int)Math.Ceiling((decimal)Tempo / (IntervaloP ?? 0));
         }
         catch (DivideByZeroException) {
-          throw;
+          result = null;
         }
+        if ((result ?? 0) > (PrognosticoP ?? 0)) {
+          result = PrognosticoP ?? 0;
+        }
+        return result;
       }
     }
 
@@ -199,7 +225,14 @@ namespace Dto.Models {
       }
     }
 
+    private int Tempo {
+      get {
+        return (this.CicloAB ?? 0) >= (this.CicloBA ?? 0) ? (this.CicloAB ?? 0) : (this.CicloBA ?? 0);
+      }
+    }
+
     // Navigation Properties
+    public virtual Pesquisa Pesquisa { get; set; }
     public virtual Linha Linha { get; set; }
     public virtual PrLinha PrLinha { get; set; }
   }

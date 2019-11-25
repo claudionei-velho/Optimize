@@ -64,6 +64,9 @@ namespace UI.Models {
     [DataType(DataType.Time)]
     public TimeSpan? Termino { get; set; }
 
+    [ScaffoldColumn(false)]
+    public int? PeriodoId { get; set; }
+
     [Display(Name = "Passageiros", ResourceType = typeof(Properties.Resources))]
     public int? Passageiros { get; set; }
 

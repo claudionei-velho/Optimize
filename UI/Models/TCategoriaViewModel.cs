@@ -30,9 +30,8 @@ namespace UI.Models {
     [DataType(DataType.Currency)]
     public decimal? Tarifa {
       get {
-        using (Services<TarifaMod> tarifas = new Services<TarifaMod>()) {
-          return tarifas.GetById(this.Id)?.Tarifa;
-        }
+        using Services<TarifaMod> tarifas = new Services<TarifaMod>();
+        return tarifas.GetById(this.Id)?.Tarifa;
       }
     }
 

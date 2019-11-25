@@ -35,14 +35,10 @@ namespace UI.Controllers {
 
       IEnumerable<Linha> source = await linhas.GetAllAsync();
       if (!string.IsNullOrWhiteSpace(search)) {
-        switch (int.Parse(currentFilter)) {
-          case 1:
-            source = await linhas.GetAllAsync(q => q.Prefixo.Contains(search));
-            break;
-          default:
-            source = await linhas.GetAllAsync(q => q.Denominacao.Contains(search));
-            break;
-        }
+        source = (int.Parse(currentFilter)) switch {
+          1 => await linhas.GetAllAsync(q => q.Prefixo.Contains(search)),
+          _ => await linhas.GetAllAsync(q => q.Denominacao.Contains(search)),
+        };
       }
       var viewModel = mapper.Map<IEnumerable<LinhaViewModel>>(source);
       return View(viewModel.ToPagedList(page ?? 1, 16));
@@ -246,7 +242,7 @@ namespace UI.Controllers {
     }
 
     public ActionResult PreviewFichaTecnica(int? id) {
-      Expression<Func<Linha, bool>> filter = q => q.EmpresaId == 7;
+      Expression<Func<Linha, bool>> filter = q => (q.EmpresaId == 9) && (q.EDominio.DominioId == 1);
       if (id.HasValue) {
         filter = q => q.Id == id.Value;
       }

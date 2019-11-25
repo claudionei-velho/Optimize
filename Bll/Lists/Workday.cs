@@ -32,13 +32,11 @@ namespace Bll.Lists {
     }
 
     public int GetWorkday(DateTime dateRef) {
-      int result;
-
-      switch (dateRef.DayOfWeek) {
-        case DayOfWeek.Sunday: result = 3; break;
-        case DayOfWeek.Saturday: result = 2; break;
-        default: result = 1; break;
-      }
+      int result = dateRef.DayOfWeek switch {
+        DayOfWeek.Sunday => 3,
+        DayOfWeek.Saturday => 2,
+        _ => 1,
+      };
       return result;
     }
   }
