@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\Handler.cs" />
     <Compile Include="IServices.cs" />
     <Compile Include="Models\AAbastece.cs" />
     <Compile Include="Models\AAdmin.cs" />

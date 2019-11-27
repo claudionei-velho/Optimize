@@ -16,9 +16,9 @@ namespace Bll.Services {
     protected override IQueryable<FrotaEtaria> Get(Expression<Func<FrotaEtaria, bool>> filter = null,
         Func<IQueryable<FrotaEtaria>, IOrderedQueryable<FrotaEtaria>> orderBy = null) {
       try {
-        int[] companies = (from u in context.EUsuarios
-                           where u.UsuarioId == userId && u.Ativo
-                           select u.EmpresaId).Distinct().ToArray();
+        int[] companies = context.Set<EUsuario>().AsNoTracking()
+                              .Where(u => (u.UsuarioId == userId) && u.Ativo)
+                              .Select(u => u.EmpresaId).Distinct().ToArray();
 
         IQueryable<FrotaEtaria> query = (from f in context.FrotaEtarias
                                          where companies.Contains(f.EmpresaId)

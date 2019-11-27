@@ -16,9 +16,9 @@ namespace Bll.Services {
     protected override IQueryable<Horario> Get(Expression<Func<Horario, bool>> filter = null,
         Func<IQueryable<Horario>, IOrderedQueryable<Horario>> orderBy = null) {
       try {
-        int[] companies = (from u in context.EUsuarios
-                           where u.UsuarioId == userId && u.Ativo
-                           select u.EmpresaId).Distinct().ToArray();
+        int[] companies = context.Set<EUsuario>().AsNoTracking()
+                              .Where(u => (u.UsuarioId == userId) && u.Ativo)
+                              .Select(u => u.EmpresaId).Distinct().ToArray();
 
         IQueryable<Horario> query = (from h in context.Horarios
                                      join l in context.Linhas on h.LinhaId equals l.Id

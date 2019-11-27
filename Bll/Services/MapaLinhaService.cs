@@ -16,9 +16,9 @@ namespace Bll.Services {
     protected override IQueryable<MapaLinha> Get(Expression<Func<MapaLinha, bool>> filter = null,
         Func<IQueryable<MapaLinha>, IOrderedQueryable<MapaLinha>> orderBy = null) {
       try {
-        int[] companies = (from u in context.EUsuarios
-                           where u.UsuarioId == userId && u.Ativo
-                           select u.EmpresaId).Distinct().ToArray();
+        int[] companies = context.Set<EUsuario>().AsNoTracking()
+                              .Where(u => (u.UsuarioId == userId) && u.Ativo)
+                              .Select(u => u.EmpresaId).Distinct().ToArray();
 
         IQueryable<MapaLinha> query = (from m in context.MapasLinha
                                        join l in context.Linhas on m.LinhaId equals l.Id

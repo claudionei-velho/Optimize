@@ -16,9 +16,9 @@ namespace Bll.Services {
     protected override IQueryable<Operacional> Get(Expression<Func<Operacional, bool>> filter = null,
         Func<IQueryable<Operacional>, IOrderedQueryable<Operacional>> orderBy = null) {
       try {
-        int[] companies = (from u in context.EUsuarios
-                           where u.UsuarioId == userId && u.Ativo
-                           select u.EmpresaId).Distinct().ToArray();
+        int[] companies = context.Set<EUsuario>().AsNoTracking()
+                              .Where(u => (u.UsuarioId == userId) && u.Ativo)
+                              .Select(u => u.EmpresaId).Distinct().ToArray();
 
         IQueryable<Operacional> query = (from p in context.Operacionais
                                          where companies.Contains(p.EmpresaId)

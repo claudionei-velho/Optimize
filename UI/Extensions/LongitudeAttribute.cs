@@ -21,7 +21,7 @@ namespace UI.Extensions {
       return ValidationResult.Success;
     }
 
-    public string GetMessage() {
+    public static string GetMessage() {
       return Properties.Resources.LongitudeError;
     }
   }

@@ -16,9 +16,9 @@ namespace Bll.Services {
     protected override IQueryable<Tarifa> Get(Expression<Func<Tarifa, bool>> filter = null, 
         Func<IQueryable<Tarifa>, IOrderedQueryable<Tarifa>> orderBy = null) {
       try {
-        int[] companies = (from u in context.EUsuarios
-                           where u.UsuarioId == userId && u.Ativo
-                           select u.EmpresaId).Distinct().ToArray();
+        int[] companies = context.Set<EUsuario>().AsNoTracking()
+                              .Where(u => (u.UsuarioId == userId) && u.Ativo)
+                              .Select(u => u.EmpresaId).Distinct().ToArray();
 
         IQueryable<Tarifa> query = (from t in context.Tarifas
                                     where companies.Contains(t.EmpresaId)

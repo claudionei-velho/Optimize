@@ -16,9 +16,9 @@ namespace Bll.Services {
     protected override IQueryable<Dimensionamento> Get(Expression<Func<Dimensionamento, bool>> filter = null,
         Func<IQueryable<Dimensionamento>, IOrderedQueryable<Dimensionamento>> orderBy = null) {
       try {
-        int[] companies = (from u in context.EUsuarios
-                           where u.UsuarioId == userId && u.Ativo
-                           select u.EmpresaId).Distinct().ToArray();
+        int[] companies = context.Set<EUsuario>().AsNoTracking()
+                              .Where(u => (u.UsuarioId == userId) && u.Ativo)
+                              .Select(u => u.EmpresaId).Distinct().ToArray();
 
         IQueryable<Dimensionamento> query = (from d in context.Dimensionamentos
                                              join l in context.Linhas on d.LinhaId equals l.Id
@@ -40,13 +40,13 @@ namespace Bll.Services {
     }
 
     public int? TempoViagem(Expression<Func<Dimensionamento, bool>> condition = null) {
-      var query = context.Set<Dimensionamento>().Where(condition)
+      var query = context.Set<Dimensionamento>().AsNoTracking()
+                      .Where(condition)
                       .GroupBy(d => new { d.PeriodoId, d.Sentido })
                       .Select(f => new {
-                        ab = f.Max(p => p.CicloAB),
-                        ba = f.Max(p => p.CicloBA),
-                        sum = f.Sum(p => p.QtdViagens)
-                      });
+                          ab = f.Max(p => p.CicloAB),
+                          ba = f.Max(p => p.CicloBA),
+                          sum = f.Sum(p => p.QtdViagens) });
       try {
         return (int)Math.Ceiling(query.Sum(q => q.sum * ((q.ab ?? 0) + (q.ba ?? 0))) /
                                    (decimal)query.Sum(q => q.sum));
@@ -57,14 +57,19 @@ namespace Bll.Services {
     }
 
     public int TempoTotal(Expression<Func<Dimensionamento, bool>> condition = null) {
-      var query = context.Set<Dimensionamento>().Where(condition)
-                      .Select(d => new { ab = d.CicloAB, ba = d.CicloBA, sum = d.QtdViagens });
+      var query = context.Set<Dimensionamento>().AsNoTracking()
+                      .Where(condition)
+                      .Select(d => new { ab = d.CicloAB, 
+                                         ba = d.CicloBA, 
+                                         sum = d.QtdViagens });
       return query.Sum(q => q.sum * ((q.ab ?? 0) + (q.ba ?? 0)));
     }
 
     public decimal Extensao(Expression<Func<Dimensionamento, bool>> condition = null) {
-      var query = context.Set<Dimensionamento>().Where(condition)
-                      .Select(d => new { sum = d.QtdViagens, km = d.Extensao });
+      var query = context.Set<Dimensionamento>().AsNoTracking()
+                      .Where(condition)
+                      .Select(d => new { sum = d.QtdViagens, 
+                                         km = d.Extensao });
       try {
         return query.Sum(q => q.sum * (q.km ?? 0)) / query.Sum(q => q.sum);
       }

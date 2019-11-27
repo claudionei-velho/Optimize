@@ -16,9 +16,9 @@ namespace Bll.Services {
     protected override IQueryable<Tronco> Get(Expression<Func<Tronco, bool>> filter = null, 
         Func<IQueryable<Tronco>, IOrderedQueryable<Tronco>> orderBy = null) {
       try {
-        int[] companies = (from u in context.EUsuarios
-                           where u.UsuarioId == userId && u.Ativo
-                           select u.EmpresaId).Distinct().ToArray();
+        int[] companies = context.Set<EUsuario>().AsNoTracking()
+                              .Where(u => (u.UsuarioId == userId) && u.Ativo)
+                              .Select(u => u.EmpresaId).Distinct().ToArray();
 
         IQueryable<Tronco> query = (from t in context.Troncos
                                     where companies.Contains(t.EmpresaId)

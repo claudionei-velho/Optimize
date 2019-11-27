@@ -16,9 +16,9 @@ namespace Bll.Services {
     protected override IQueryable<Terminal> Get(Expression<Func<Terminal, bool>> filter = null,
         Func<IQueryable<Terminal>, IOrderedQueryable<Terminal>> orderBy = null) {
       try {
-        int[] companies = (from u in context.EUsuarios
-                           where u.UsuarioId == userId && u.Ativo
-                           select u.EmpresaId).Distinct().ToArray();
+        int[] companies = context.Set<EUsuario>().AsNoTracking()
+                              .Where(u => (u.UsuarioId == userId) && u.Ativo)
+                              .Select(u => u.EmpresaId).Distinct().ToArray();
 
         IQueryable<Terminal> query = (from t in context.Terminais
                                       where companies.Contains(t.EmpresaId)

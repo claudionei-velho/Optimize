@@ -16,9 +16,9 @@ namespace Bll.Services {
     protected override IQueryable<Itinerario> Get(Expression<Func<Itinerario, bool>> filter = null, 
         Func<IQueryable<Itinerario>, IOrderedQueryable<Itinerario>> orderBy = null) {
       try {
-        int[] companies = (from u in context.EUsuarios
-                           where u.UsuarioId == userId && u.Ativo
-                           select u.EmpresaId).Distinct().ToArray();
+        int[] companies = context.Set<EUsuario>().AsNoTracking()
+                              .Where(u => (u.UsuarioId == userId) && u.Ativo)
+                              .Select(u => u.EmpresaId).Distinct().ToArray();
 
         IQueryable<Itinerario> query = (from i in context.Itinerarios
                                         join l in context.Linhas on i.LinhaId equals l.Id

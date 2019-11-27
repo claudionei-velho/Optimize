@@ -16,9 +16,9 @@ namespace Bll.Services {
     protected override IQueryable<Chassi> Get(Expression<Func<Chassi, bool>> filter = null,
         Func<IQueryable<Chassi>, IOrderedQueryable<Chassi>> orderBy = null) {
       try {
-        int[] companies = (from u in context.EUsuarios
-                           where u.UsuarioId == userId && u.Ativo
-                           select u.EmpresaId).Distinct().ToArray();
+        int[] companies = context.Set<EUsuario>().AsNoTracking()
+                              .Where(u => (u.UsuarioId == userId) && u.Ativo)
+                              .Select(u => u.EmpresaId).Distinct().ToArray();
 
         IQueryable<Chassi> query = (from c in context.Chassis
                                     join v in context.Veiculos on c.VeiculoId equals v.Id

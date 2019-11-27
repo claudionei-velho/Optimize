@@ -16,9 +16,9 @@ namespace Bll.Services {
     protected override IQueryable<Empresa> Get(Expression<Func<Empresa, bool>> filter = null, 
         Func<IQueryable<Empresa>, IOrderedQueryable<Empresa>> orderBy = null) {
       try {
-        int[] companies = (from u in context.EUsuarios
-                           where u.UsuarioId == userId
-                           select u.EmpresaId).Distinct().ToArray();
+        int[] companies = context.Set<EUsuario>().AsNoTracking()
+                              .Where(u => (u.UsuarioId == userId) && u.Ativo)
+                              .Select(u => u.EmpresaId).Distinct().ToArray();
 
         IQueryable<Empresa> query = (from e in context.Empresas
                                      where companies.Contains(e.Id)
