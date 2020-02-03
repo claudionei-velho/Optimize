@@ -39,6 +39,7 @@ namespace Dto.Models {
     public int? Cep { get; set; }
     public string Bairro { get; set; }
     public string Municipio { get; set; }
+    public int? MunicipioId { get; set; }
     public string UfId { get; set; }
     public string PaisId { get; set; }
     public string Telefone { get; set; }
@@ -48,6 +49,7 @@ namespace Dto.Models {
     public DateTime? Cadastro { get; set; }
 
     // Navigation Properties
+    public virtual Municipio Cidade { get; set; }
     public virtual Pais Pais { get; set; }
 
     public virtual ICollection<CLinha> CLinhas { get; set; }

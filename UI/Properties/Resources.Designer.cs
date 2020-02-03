@@ -2194,6 +2194,15 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lote.
+        /// </summary>
+        public static string LoteId {
+            get {
+                return ResourceManager.GetString("LoteId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mapas da Linha.
         /// </summary>
         public static string MapaLinhaViewModel {

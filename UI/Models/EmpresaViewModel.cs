@@ -55,6 +55,7 @@ namespace UI.Models {
     [Required(ErrorMessageResourceName = "MunicipioError",
               ErrorMessageResourceType = typeof(Properties.Resources)), StringLength(32)]
     public string Municipio { get; set; }
+    public int? MunicipioId { get; set; }
 
     [Display(Name = "UfId", ResourceType = typeof(Properties.Resources))]
     [Required(ErrorMessageResourceName = "UfIdError",
@@ -86,6 +87,7 @@ namespace UI.Models {
     public DateTime? Cadastro { get; set; }
 
     // Navigation Properties
+    public virtual Municipio Cidade { get; set; }
     public virtual Pais Pais { get; set; }
   }
 }

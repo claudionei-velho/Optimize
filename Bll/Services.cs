@@ -30,11 +30,11 @@ namespace Bll {
     }
 
     public virtual IQueryable<TEntity> GetQuery() {
-      return Get().AsQueryable();
+      return Get();
     }
 
     public virtual IQueryable<TEntity> GetQuery(int skip, int take) {
-      return Get().Skip(skip).Take(take).AsQueryable();
+      return Get().Skip(skip).Take(take);
     }
 
     public virtual IQueryable<TEntity> GetQuery(Expression<Func<TEntity, bool>> filter = null,
@@ -46,7 +46,7 @@ namespace Bll {
       if (take.HasValue) {
         query = query.Take(take.Value);
       }
-      return query.AsQueryable();
+      return query;
     }
 
     public virtual IEnumerable<TEntity> GetAll() {
@@ -124,11 +124,11 @@ namespace Bll {
     }
 
     public TEntity GetFirst(Expression<Func<TEntity, bool>> filter = null) {
-      return Get().FirstOrDefault(filter);
+      return Get().FirstOrDefault(filter ?? throw new ArgumentNullException(nameof(filter)));
     }
 
     public async Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> filter = null) {
-      return await Get().FirstOrDefaultAsync(filter);
+      return await Get().FirstOrDefaultAsync(filter ?? throw new ArgumentNullException(nameof(filter)));
     }
 
     public int GetCount(Expression<Func<TEntity, bool>> filter = null) {
@@ -193,8 +193,8 @@ namespace Bll {
     }
 
     protected virtual void Dispose(bool disposing) {
-      if (disposing && (context != null)) {
-        context.Dispose();
+      if (disposing) {
+        context?.Dispose();
       }
     }
   }

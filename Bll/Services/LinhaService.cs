@@ -23,9 +23,9 @@ namespace Bll.Services {
         IQueryable<Linha> query = (from l in context.Linhas
                                    where companies.Contains(l.EmpresaId)
                                    orderby l.EmpresaId, l.Id
-                                   select l).AsNoTracking()
-                                      .Include(l => l.Empresa).Include(l => l.EDominio.Dominio)
-                                      .Include(l => l.Operacao.OperLinha).Include(l => l.CLinha.ClassLinha);
+                                   select l).Include(l => l.Empresa)
+                                      .Include(l => l.EDominio.Dominio).Include(l => l.Operacao.OperLinha)
+                                      .Include(l => l.CLinha.ClassLinha).Include(l => l.Lote).AsNoTracking();
         if (filter != null) {
           query = query.Where(filter);
         }
@@ -40,23 +40,19 @@ namespace Bll.Services {
     }
 
     public string GetPontoInicial(int id, string ab) {
-      using Services<Itinerario> itinerarios = new Services<Itinerario>();
-      Expression<Func<Itinerario, bool>> where = q => (q.LinhaId == id) && q.Sentido.Equals(ab);
-
       string result = string.Empty;
-      if (itinerarios.GetQuery(where).Count() > 0) {
-        result = itinerarios.GetFirst(where).Percurso;
+      using (Services<Itinerario> itinerarios = new Services<Itinerario>()) {
+        result = itinerarios.GetFirst(q => (q.LinhaId == id) && q.Sentido.Equals(ab)).Percurso;
       }
       return result;
     }
 
     public string GetPontoFinal(int id, string ab) {
-      using Services<Itinerario> itinerarios = new Services<Itinerario>();
-      Expression<Func<Itinerario, bool>> where = q => (q.LinhaId == id) && q.Sentido.Equals(ab);
-
       string result = string.Empty;
-      if (itinerarios.GetQuery(where).Count() > 0) {
-        result = itinerarios.GetById(itinerarios.GetQuery(where).Max(p => p.Id)).Percurso;
+      using (Services<Itinerario> itinerarios = new Services<Itinerario>()) {
+        result = itinerarios.GetById(itinerarios.GetQuery(
+                                         q => (q.LinhaId == id) && q.Sentido.Equals(ab)
+                                     ).Max(p => p.Id)).Percurso;
       }
       return result;
     }

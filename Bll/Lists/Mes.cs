@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Bll.Lists {
   public class Mes {
-    public IDictionary<int, string> Data;
-    public IDictionary<int, string> Short;
+    public readonly IDictionary<int, string> Data;
+    public readonly IDictionary<int, string> Short;
     public Mes() {
       Data = new Dictionary<int, string> {
         { 1, "Janeiro" },
@@ -36,12 +37,8 @@ namespace Bll.Lists {
       };
     }
 
-    public IEnumerable<dynamic> GetAll() {
-      List<dynamic> result = new List<dynamic>();
-      foreach (var item in Data) {
-        result.Add(new { Id = item.Key.ToString(), Name = item.Value });
-      }
-      return result;
+    public IEnumerable<KeyValuePair<int, string>> GetAll() {
+      return Data.ToList();
     }
   }
 }

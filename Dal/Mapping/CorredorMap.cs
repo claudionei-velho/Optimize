@@ -9,36 +9,26 @@ namespace Dal.Mapping {
       // Primary Key
       this.HasKey(t => t.Id);
 
-      // Properties
-      this.Property(t => t.Prefixo)
-          .IsRequired().HasMaxLength(16);
-
-      this.Property(t => t.Denominacao)
-          .IsRequired().HasMaxLength(64);
-
-      this.Property(t => t.Caracteristicas)
-          .HasMaxLength(512);
-
-      this.Property(t => t.Municipio)
-          .IsRequired().HasMaxLength(32);
-
-      this.Property(t => t.UfId)
-          .IsRequired().IsFixedLength().HasMaxLength(2);
-
-      this.Property(t => t.Cadastro)
-          .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
-
-      // Table & Column Mappings
+      // Table, Properties & Column Mappings
       this.ToTable("Corredores", "opc");
       this.Property(t => t.Id).HasColumnName("Id");
       this.Property(t => t.EmpresaId).HasColumnName("EmpresaId");
-      this.Property(t => t.Prefixo).HasColumnName("Prefixo");
-      this.Property(t => t.Denominacao).HasColumnName("Denominacao");
-      this.Property(t => t.Caracteristicas).HasColumnName("Caracteristicas");
-      this.Property(t => t.Municipio).HasColumnName("Municipio");
-      this.Property(t => t.UfId).HasColumnName("UfId");
+      this.Property(t => t.Prefixo).HasColumnName("Prefixo")
+          .IsRequired().HasMaxLength(16);
+
+      this.Property(t => t.Denominacao).HasColumnName("Denominacao")
+          .IsRequired().HasMaxLength(64);
+
+      this.Property(t => t.Caracteristicas).HasColumnName("Caracteristicas").HasMaxLength(512);
+      this.Property(t => t.Municipio).HasColumnName("Municipio")
+          .IsRequired().HasMaxLength(32);
+
+      this.Property(t => t.UfId).HasColumnName("UfId")
+          .IsRequired().IsFixedLength().HasMaxLength(2);
+
       this.Property(t => t.Extensao).HasColumnName("Extensao");
-      this.Property(t => t.Cadastro).HasColumnName("Cadastro");
+      this.Property(t => t.Cadastro).HasColumnName("Cadastro")
+          .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
 
       // Relationships
       this.HasRequired(t => t.Empresa)

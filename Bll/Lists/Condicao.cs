@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Bll.Lists {
   public class Condicao {
-    public Dictionary<int, string> Data;
+    public readonly Dictionary<int, string> Data;
 
     public Condicao() {
       Data = new Dictionary<int, string> {
@@ -16,14 +17,8 @@ namespace Bll.Lists {
       };
     }
 
-    public IEnumerable<dynamic> GetAll() {
-      List<dynamic> result = new List<dynamic>();
-      foreach (var item in Data) {
-        if (item.Key > 0) {
-          result.Add(new { Id = item.Key.ToString(), Name = item.Value });
-        }
-      }
-      return result;
+    public IEnumerable<KeyValuePair<int, string>> GetAll() {
+      return Data.Where(p => p.Key > 0).ToList();
     }
   }
 }

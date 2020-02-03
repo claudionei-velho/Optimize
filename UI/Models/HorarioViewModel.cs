@@ -36,6 +36,10 @@ namespace UI.Models {
     [Display(Name = "AtendimentoId", ResourceType = typeof(Properties.Resources))]
     public int? AtendimentoId { get; set; }
 
+    [Display(Name = "Extensao", ResourceType = typeof(Properties.Resources))]
+    [DisplayFormat(DataFormatString = "{0:#,##0.0##}", ApplyFormatInEditMode = true)]
+    public decimal? Extensao { get; set; }
+
     [Display(Name = "PeriodoId", ResourceType = typeof(Properties.Resources))]
     public int? PeriodoId { get; set; }
 

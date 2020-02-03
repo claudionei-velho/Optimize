@@ -1365,4 +1365,7 @@
   <data name="PicoError" xml:space="preserve">
     <value>Informe se Período Operacional é Período de Pico</value>
   </data>
+  <data name="LoteId" xml:space="preserve">
+    <value>Lote</value>
+  </data>
 </root>

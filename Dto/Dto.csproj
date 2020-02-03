@@ -59,6 +59,7 @@
     <Compile Include="Models\AMantem.cs" />
     <Compile Include="Models\Atendimento.cs" />
     <Compile Include="Models\ATrafego.cs" />
+    <Compile Include="Models\Bacia.cs" />
     <Compile Include="Models\Carroceria.cs" />
     <Compile Include="Models\Chassi.cs" />
     <Compile Include="Models\ClassLinha.cs" />
@@ -99,8 +100,10 @@
     <Compile Include="Models\LnPesquisa.cs" />
     <Compile Include="Models\LnTerminal.cs" />
     <Compile Include="Models\LnTronco.cs" />
+    <Compile Include="Models\Lote.cs" />
     <Compile Include="Models\MapaLinha.cs" />
     <Compile Include="Models\Motor.cs" />
+    <Compile Include="Models\Municipio.cs" />
     <Compile Include="Models\Ocupacao.cs" />
     <Compile Include="Models\Oferta.cs" />
     <Compile Include="Models\Operacao.cs" />

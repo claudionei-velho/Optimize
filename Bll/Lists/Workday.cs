@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace Bll.Lists {
   public class Workday {
-    public Dictionary<int, string> Data;
-    public Dictionary<int, string> Short;
+    public readonly Dictionary<int, string> Data;
+    public readonly Dictionary<int, string> Short;
 
     public Workday() {
       Data = new Dictionary<int, string> {

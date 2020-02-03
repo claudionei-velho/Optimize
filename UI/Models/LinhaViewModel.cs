@@ -69,6 +69,9 @@ namespace UI.Models {
       }
     }
 
+    [Display(Name = "LoteId", ResourceType = typeof(Properties.Resources))]
+    public int? LoteId { get; set; }
+
     [ScaffoldColumn(false)]
     public DateTime? Cadastro { get; set; }
 
@@ -77,5 +80,6 @@ namespace UI.Models {
     public virtual EDominio EDominio { get; set; }
     public virtual Operacao Operacao { get; set; }
     public virtual CLinha CLinha { get; set; }
+    public virtual Lote Lote { get; set; }
   }
 }

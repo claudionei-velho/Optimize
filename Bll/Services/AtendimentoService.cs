@@ -24,7 +24,7 @@ namespace Bll.Services {
                                          join l in context.Linhas on a.LinhaId equals l.Id
                                          where companies.Contains(l.EmpresaId)
                                          orderby l.EmpresaId, a.LinhaId, a.Id
-                                         select a).AsNoTracking().Include(a => a.Linha.Empresa);
+                                         select a).Include(a => a.Linha.Empresa).AsNoTracking();
         if (filter != null) {
           query = query.Where(filter);
         }
@@ -39,23 +39,19 @@ namespace Bll.Services {
     }
 
     public string GetPontoInicial(int id, string ab) {
-      using Services<ItAtendimento> itinerarios = new Services<ItAtendimento>();
-      Expression<Func<ItAtendimento, bool>> where = q => (q.AtendimentoId == id) && q.Sentido.Equals(ab);
-
       string result = string.Empty;
-      if (itinerarios.GetQuery(where).Count() > 0) {
-        result = itinerarios.GetFirst(where).Percurso;
+      using (Services<ItAtendimento> itinerarios = new Services<ItAtendimento>()) {
+        result = itinerarios.GetFirst(q => (q.AtendimentoId == id) && q.Sentido.Equals(ab)).Percurso;
       }
       return result;
     }
 
     public string GetPontoFinal(int id, string ab) {
-      using Services<ItAtendimento> itinerarios = new Services<ItAtendimento>();
-      Expression<Func<ItAtendimento, bool>> where = q => (q.AtendimentoId == id) && q.Sentido.Equals(ab);
-
       string result = string.Empty;
-      if (itinerarios.GetQuery(where).Count() > 0) {
-        result = itinerarios.GetById(itinerarios.GetQuery(where).Max(p => p.Id)).Percurso;
+      using (Services<ItAtendimento> itinerarios = new Services<ItAtendimento>()) {
+        result = itinerarios.GetById(itinerarios.GetQuery(
+                                         q => (q.AtendimentoId == id) && q.Sentido.Equals(ab)
+                                     ).Max(p => p.Id)).Percurso;
       }
       return result;
     }

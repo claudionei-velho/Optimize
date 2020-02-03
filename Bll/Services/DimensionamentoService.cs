@@ -39,7 +39,7 @@ namespace Bll.Services {
       }
     }
 
-    public int? TempoViagem(Expression<Func<Dimensionamento, bool>> condition = null) {
+    public int? TempoViagem(Expression<Func<Dimensionamento, bool>> condition) {
       var query = context.Set<Dimensionamento>().AsNoTracking()
                       .Where(condition)
                       .GroupBy(d => new { d.PeriodoId, d.Sentido })
@@ -56,7 +56,7 @@ namespace Bll.Services {
       }
     }
 
-    public int TempoTotal(Expression<Func<Dimensionamento, bool>> condition = null) {
+    public int TempoTotal(Expression<Func<Dimensionamento, bool>> condition) {
       var query = context.Set<Dimensionamento>().AsNoTracking()
                       .Where(condition)
                       .Select(d => new { ab = d.CicloAB, 
@@ -65,7 +65,7 @@ namespace Bll.Services {
       return query.Sum(q => q.sum * ((q.ab ?? 0) + (q.ba ?? 0)));
     }
 
-    public decimal Extensao(Expression<Func<Dimensionamento, bool>> condition = null) {
+    public decimal Extensao(Expression<Func<Dimensionamento, bool>> condition) {
       var query = context.Set<Dimensionamento>().AsNoTracking()
                       .Where(condition)
                       .Select(d => new { sum = d.QtdViagens, 

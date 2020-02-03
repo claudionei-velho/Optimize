@@ -10,7 +10,7 @@ namespace Bll.Services {
     private readonly int userId;
 
     public FrotaEtariaService(int? _userId = null) {
-      this.userId = _userId ?? 1;
+      userId = _userId ?? 1;
     }
 
     protected override IQueryable<FrotaEtaria> Get(Expression<Func<FrotaEtaria, bool>> filter = null,
@@ -43,7 +43,7 @@ namespace Bll.Services {
         return (decimal)Get(filter).Sum(q => q.EqvIdade) / Get(filter).Sum(q => q.Frota);
       }
       catch (DivideByZeroException) {
-        throw;
+        return null;
       }
     }
   }

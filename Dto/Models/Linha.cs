@@ -97,6 +97,7 @@ namespace Dto.Models {
       }
     }
 
+    public int? LoteId { get; set; }
     public DateTime? Cadastro { get; set; }
 
     // Navigation Properties
@@ -104,6 +105,7 @@ namespace Dto.Models {
     public virtual EDominio EDominio { get; set; }
     public virtual Operacao Operacao { get; set; }
     public virtual CLinha CLinha { get; set; }
+    public virtual Lote Lote { get; set; }
 
     public virtual ICollection<Atendimento> Atendimentos { get; set; }
     public virtual ICollection<FAjuste> FAjustes { get; set; }

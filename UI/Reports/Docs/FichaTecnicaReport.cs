@@ -29,7 +29,6 @@ namespace UI.Reports.Docs {
       Sentido sentido = new Sentido();
       Workday workDay = new Workday();
       Dictionary<int, int> listAtt = new Dictionary<int, int>();
-      int[] tabelas;
 
       DefineStyles();
 
@@ -38,22 +37,18 @@ namespace UI.Reports.Docs {
        */
       StringBuilder concat = new StringBuilder();
       using (LinhaService linhas = new LinhaService()) {
-        IQueryable<dynamic> classId = linhas.GetQuery(this.filter).Select(
-                                          p => new { p.EmpresaId, p.Classificacao } 
-                                      ).Distinct();
+        var classId = linhas.GetQuery(this.filter)
+                          .Select(p => new { p.EmpresaId, p.Classificacao } ).Distinct();
         decimal?[,] values = new decimal?[3, 4] { { 0, 0, 0, 0 },
                                                   { 0, 0, 0, 0 },
                                                   { 0, 0, 0, 0 } };
 
-        foreach (dynamic groupItem in classId) {
-          int coId = (int)groupItem.EmpresaId;
-          int catId = (int)groupItem.Classificacao;
-
+        foreach (var groupItem in classId) {
           using Services<Empresa> empresa = new Services<Empresa>();
-          string companyName = empresa.GetById(coId)?.Razao;
+          string companyName = empresa.GetById(groupItem.EmpresaId)?.Razao;
 
           using CLinhaService cLinha = new CLinhaService();
-          string catName = cLinha.GetById(catId)?.ClassLinha.Denominacao;
+          string catName = cLinha.GetById(groupItem.Classificacao)?.ClassLinha.Denominacao;
 
           AddSection(Orientation.Landscape);
           Header(this.section, new List<string>() { companyName, document.Info.Title });
@@ -104,7 +99,7 @@ namespace UI.Reports.Docs {
           row.Cells[0].Format.Font.Bold = true;
 
           foreach (Linha item in linhas.GetQuery(this.filter)
-                                     .Where(p => p.Classificacao == catId)
+                                     .Where(p => p.Classificacao == groupItem.Classificacao)
                                      .OrderBy(p => p.Id)) {
             row = table.AddRow();
             row.Height = "0.8 cm";
@@ -169,7 +164,8 @@ namespace UI.Reports.Docs {
           }
 
           // Subtotais do Grupo
-          if (linhas.GetQuery(this.filter).Where(p => p.Classificacao == catId).Count() > 1) {
+          if (linhas.GetQuery(this.filter)
+                  .Where(p => p.Classificacao == groupItem.Classificacao).Count() > 1) {
             row = table.AddRow();
             row.Height = "0.8 cm";
             row.Format.Font.Bold = true;
@@ -520,7 +516,7 @@ namespace UI.Reports.Docs {
 
               // Totais
               Expression<Func<ViagemHora, bool>> condition = q => q.LinhaId == item.Id;
-              int[] totais = {
+              int[] totais = new int[3] {
                   (viagens.GetQuery(condition).Sum(p => p.UteisAB) ?? 0) +
                     (viagens.GetQuery(condition).Sum(p => p.UteisBA) ?? 0),
                   (viagens.GetQuery(condition).Sum(p => p.SabadosAB) ?? 0) +
@@ -555,10 +551,11 @@ namespace UI.Reports.Docs {
           paragraph.Format.SpaceBefore = "0.4 cm";
           paragraph.AddFormattedText(Resources.HorarioViewModel, TextFormat.Bold);
 
-          using (Services<Horario> horarios = new Services<Horario>()) {
-            tabelas = horarios.GetQuery(q => q.LinhaId == item.Id, q => q.OrderBy(h => h.DiaId))
-                          .Select(h => h.DiaId).Distinct().ToArray();
-          }
+          using Services<Horario> horarios = new Services<Horario>();
+          int[] tabelas = horarios.GetQuery(
+                              q => q.LinhaId == item.Id, q => q.OrderBy(h => h.DiaId)
+                          ).Select(h => h.DiaId).Distinct().ToArray();
+          
           if (tabelas.Length > 0) {
             int aux = 0;
             int size = 6;
@@ -588,7 +585,6 @@ namespace UI.Reports.Docs {
               row.Cells[7].MergeRight = 5;
               row.Cells[7].AddParagraph(concat.ToString());
 
-              using Services<Horario> horarios = new Services<Horario>();
               int[] rows = {
                   horarios.GetCount(q => (q.LinhaId == item.Id) && (q.DiaId == hr) && q.Sentido.Equals("AB")),
                   horarios.GetCount(q => (q.LinhaId == item.Id) && (q.DiaId == hr) && q.Sentido.Equals("BA"))
@@ -597,7 +593,6 @@ namespace UI.Reports.Docs {
               int page = ((aux % size) == 0) ? aux / size : (aux / size) + 1;
 
               Expression<Func<Horario, bool>> where = null;
-
               static IOrderedQueryable<Horario> order(IQueryable<Horario> q) => q.OrderBy(e => e.Sentido).ThenBy(e => e.Inicio);
               for (int i = 0; i < page; i++) {
                 row = table.AddRow();
@@ -664,8 +659,9 @@ namespace UI.Reports.Docs {
               foreach (int hr in tabelas) {
                 int j = 0;
                 int[] total = { 0, 0, 0 };
-                foreach (PeriodoTipico pItem in pTipicos.GetQuery(q => (q.LinhaId == item.Id) && (q.DiaId == hr),
-                                                                  q => q.OrderBy(e => e.PeriodoId))) {
+                foreach (PeriodoTipico pItem in pTipicos.GetQuery(
+                                                    q => (q.LinhaId == item.Id) && (q.DiaId == hr),
+                                                    q => q.OrderBy(e => e.PeriodoId))) {
                   row = table.AddRow();
                   row.Height = "0.55 cm";
                   row.Format.Alignment = ParagraphAlignment.Center;
@@ -803,15 +799,13 @@ namespace UI.Reports.Docs {
 
               // Totais
               Expression<Func<Operacional, bool>> condition = q => q.LinhaId == item.Id;
-              int?[] vgTotal = {
-                  operacionais.GetQuery(condition).Sum(p => p.ViagensUtil),
-                  operacionais.GetQuery(condition).Sum(p => p.ViagensSab),
-                  operacionais.GetQuery(condition).Sum(p => p.ViagensDom)
-              };
-              decimal?[] kmTotal = {
-                  operacionais.GetQuery(condition).Sum(p => p.PercursoUtil),
-                  operacionais.GetQuery(condition).Sum(p => p.PercursoSab),
-                  operacionais.GetQuery(condition).Sum(p => p.PercursoDom)
+              decimal?[,] totais = new decimal?[3, 2] { 
+                  { operacionais.GetQuery(condition).Sum(p => p.ViagensUtil),
+                    operacionais.GetQuery(condition).Sum(p => p.PercursoUtil) },
+                  { operacionais.GetQuery(condition).Sum(p => p.ViagensSab),
+                    operacionais.GetQuery(condition).Sum(p => p.PercursoSab) },
+                  { operacionais.GetQuery(condition).Sum(p => p.ViagensDom),
+                    operacionais.GetQuery(condition).Sum(p => p.PercursoDom) }
               };
 
               row = table.AddRow();
@@ -822,19 +816,24 @@ namespace UI.Reports.Docs {
 
               row.Cells[2].AddParagraph(Resources.Total);
               try {
-                decimal result = ((kmTotal[0] ?? 0) + (kmTotal[1] ?? 0) + (kmTotal[2] ?? 0)) /
-                                   ((vgTotal[0] ?? 0) + (vgTotal[1] ?? 0) + (vgTotal[2] ?? 0));
-                row.Cells[3].AddParagraph($"{result:#,##0.00}");
+                decimal[] result = new decimal[2] { (totais[0, 0] ?? 0) * 5,
+                                                    (totais[0, 1] ?? 0) * 5 };
+
+                for (int k = 1; k < totais.GetLength(0); k++) {
+                  result[0] += totais[k, 0] ?? 0;
+                  result[1] += totais[k, 1] ?? 0;
+                }
+                row.Cells[3].AddParagraph($"{result[1] / result[0]:#,##0.00}");
               }
               catch (DivideByZeroException ex) {
                 row.Cells[3].AddParagraph(ex.Message);
               }
-              row.Cells[4].AddParagraph($"{vgTotal[0]:#,##0}");
-              row.Cells[5].AddParagraph($"{kmTotal[0]:#,##0.0}");
-              row.Cells[6].AddParagraph($"{vgTotal[1]:#,##0}");
-              row.Cells[7].AddParagraph($"{kmTotal[1]:#,##0.0}");
-              row.Cells[8].AddParagraph($"{vgTotal[2]:#,##0}");
-              row.Cells[9].AddParagraph($"{kmTotal[2]:#,##0.0}");
+              row.Cells[4].AddParagraph($"{totais[0, 0]:#,##0}");
+              row.Cells[5].AddParagraph($"{totais[0, 1]:#,##0.0}");
+              row.Cells[6].AddParagraph($"{totais[1, 0]:#,##0}");
+              row.Cells[7].AddParagraph($"{totais[1, 1]:#,##0.0}");
+              row.Cells[8].AddParagraph($"{totais[2, 0]:#,##0}");
+              row.Cells[9].AddParagraph($"{totais[2, 1]:#,##0.0}");
             }
           }
 
@@ -1150,17 +1149,13 @@ namespace UI.Reports.Docs {
               row.Cells[++j].AddParagraph(Resources.IPK);
               row.Cells[++j].AddParagraph(Resources.IPKe);
 
-              IQueryable<dynamic> records = demanda.GetQuery(
-                                                d => d.LinhaId == item.Id
-                                            ).Select(q => new { q.Ano, q.Mes }).Distinct()
-                                             .OrderBy(q => q.Ano).ThenBy(q => q.Mes);
+              var records = demanda.GetQuery(d => d.LinhaId == item.Id)
+                                .Select(q => new { q.Ano, q.Mes }).Distinct()
+                                .OrderBy(q => q.Ano).ThenBy(q => q.Mes);
               Expression<Func<DemandaMes, bool>> whereAs;
 
               decimal[] total = new decimal[2] { 0, 0 };
-              foreach (dynamic dItem in records) {
-                int ano = dItem.Ano;
-                int mes = dItem.Mes;
-
+              foreach (var dItem in records) {
                 row = table.AddRow();
                 row.Height = "0.55 cm";
                 row.Format.Alignment = ParagraphAlignment.Right;
@@ -1171,8 +1166,8 @@ namespace UI.Reports.Docs {
 
                 total = new decimal[2] { 0, 0 };
                 foreach (TCategoria modal in categorias.GetQuery(t => t.EmpresaId == item.EmpresaId)) {
-                  whereAs = q => (q.LinhaId == item.Id) && (q.Ano == ano) &&
-                                 (q.Mes == mes) && (q.Categoria == modal.Id);
+                  whereAs = q => (q.LinhaId == item.Id) && (q.Ano == dItem.Ano) &&
+                                 (q.Mes == dItem.Mes) && (q.Categoria == modal.Id);
                   int?[] values = new int?[2] {
                         demanda.GetFirst(whereAs)?.Passageiros,
                         demanda.GetFirst(whereAs)?.Equivalente
@@ -1221,7 +1216,7 @@ namespace UI.Reports.Docs {
                   int?[] values = new int?[2] {
                         demanda.GetQuery(whereAs)?.Sum(p => p.Passageiros),
                         demanda.GetQuery(whereAs)?.Sum(p => p.Equivalente)
-                    };
+                  };
                   total[0] += values[0] ?? 0;
                   total[1] += values[1] ?? 0;
 
@@ -1249,7 +1244,7 @@ namespace UI.Reports.Docs {
                   decimal?[] values = new decimal?[2] {
                         (decimal?)demanda.GetQuery(whereAs)?.Average(p => p.Passageiros),
                         (decimal?)demanda.GetQuery(whereAs)?.Average(p => p.Equivalente)
-                    };
+                  };
                   total[0] += values[0] ?? 0;
                   total[1] += values[1] ?? 0;
 
@@ -1410,7 +1405,7 @@ namespace UI.Reports.Docs {
                   decimal?[] values = new decimal?[2] {
                         (decimal?)demanda.GetQuery(whereAs)?.Average(p => p.Passageiros),
                         (decimal?)demanda.GetQuery(whereAs)?.Average(p => p.Equivalente)
-                    };
+                  };
                   total[0] += values[0] ?? 0;
                   total[1] += values[1] ?? 0;
 

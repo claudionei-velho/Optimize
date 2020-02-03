@@ -12,7 +12,7 @@ namespace Bll.Services {
     private readonly int userId;
 
     public SinoticoService(int? _userId = null) {
-      this.userId = _userId ?? 1;
+      userId = _userId ?? 1;
     }
 
     protected override IQueryable<Sinotico> Get(Expression<Func<Sinotico, bool>> filter = null,
@@ -77,9 +77,9 @@ namespace Bll.Services {
                                                               (d.LinhaId == current.LinhaId) && (d.DiaId == current.DiaId);
         IQueryable<Dimensionamento> query = dimensionamento.GetQuery(filter);
 
-        int[] prognostic = new int[3] { 0, 0, 0 };
-        int[] duracao = new int[2] { 0, 0 };
-        int[,] vehicles = new int[2, 3] { { 0, 0, 0 }, { 0, 0, 0 } };
+        int[] prognostic = { 0, 0, 0 };
+        int[] duracao = { 0, 0 };
+        int[,] vehicles = { { 0, 0, 0 }, { 0, 0, 0 } };
 
         int passageiros = query.Sum(q => q.Ajustado);
         prognostic[0] = query.Sum(q => q.QtdViagens);
@@ -137,19 +137,18 @@ namespace Bll.Services {
         }
 
         decimal velocidade = 22.5m;
-        try {
+        if (duracao[0] > 0) { 
           velocidade = prognostic[0] * extensao / duracao[0] * 60;
         }
-        catch (DivideByZeroException) {
-          throw;
-        }
-        
-        using Services<Linha> linhas = new Services<Linha>();
-        int empresaId = linhas.GetById(current.LinhaId).EmpresaId;
 
-        using Services<CustoMod> custosMod = new Services<CustoMod>();
-        CustoMod custos = custosMod.GetFirst(q => q.EmpresaId == empresaId);
-        decimal? custo = (custos?.Fixo + custos?.Variavel) * extensao;
+        decimal? custo;
+        using (Services<Linha> linhas = new Services<Linha>()) {
+          int empresaId = linhas.GetById(current.LinhaId).EmpresaId;
+
+          using Services<CustoMod> custosMod = new Services<CustoMod>();
+          custo = (custosMod.GetFirst(q => q.EmpresaId == empresaId)?.Fixo +
+                     custosMod.GetFirst(q => q.EmpresaId == empresaId)?.Variavel) * extensao;
+        }
 
         int? total;
         switch (current.SinoticoId) {

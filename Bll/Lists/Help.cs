@@ -4,9 +4,9 @@ namespace Bll.Lists {
   public class Help {
     private const string link = "https://optimize-manual.herokuapp.com/";
 
-    public Dictionary<int, string> HRef;
+    public readonly Dictionary<int, string> HRef;
     public Help() {
-      this.HRef = new Dictionary<int, string> {
+      HRef = new Dictionary<int, string> {
         { 0, link },
         { 1, $"{link}#conceito" },
         { 2, $"{link}#login" },

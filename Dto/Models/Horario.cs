@@ -13,6 +13,7 @@ namespace Dto.Models {
     public string Sentido { get; set; }
     public TimeSpan Inicio { get; set; }
     public int? AtendimentoId { get; set; }
+    public decimal? Extensao { get; set; }
     public int? PeriodoId { get; set; }
     public DateTime? Cadastro { get; set; }
 

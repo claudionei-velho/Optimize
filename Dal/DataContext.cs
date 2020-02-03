@@ -16,6 +16,7 @@ namespace Dal {
 
     public DataContext() : base("Name=DataContext") { }
 
+    public DbSet<Bacia> Bacias { get; set; }
     public DbSet<ClassLinha> ClassLinhas { get; set; }
     public DbSet<Dominio> Dominios { get; set; }
     public DbSet<Empresa> Empresas { get; set; }
@@ -45,7 +46,9 @@ namespace Dal {
     public DbSet<Linha> Linhas { get; set; }
     public DbSet<LnCorredor> LnCorredores { get; set; }
     public DbSet<LnPesquisa> LnPesquisas { get; set; }
+    public DbSet<Lote> Lotes { get; set; }
     public DbSet<Motor> Motores { get; set; }
+    public DbSet<Municipio> Municipios { get; set; }
     public DbSet<Ocupacao> Ocupacoes { get; set; }
     public DbSet<Oferta> Ofertas { get; set; }
     public DbSet<Operacao> Operacoes { get; set; }

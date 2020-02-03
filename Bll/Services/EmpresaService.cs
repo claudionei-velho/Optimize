@@ -22,8 +22,9 @@ namespace Bll.Services {
 
         IQueryable<Empresa> query = (from e in context.Empresas
                                      where companies.Contains(e.Id)
-                                     orderby e.Id
-                                     select e).AsNoTracking().Include(e => e.Pais);
+                                     orderby e.Fantasia
+                                     select e).Include(e => e.Cidade)
+                                         .Include(e => e.Pais).AsNoTracking();
         if (filter != null) {
           query = query.Where(filter);
         }
