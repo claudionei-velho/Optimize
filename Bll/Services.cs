@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
@@ -137,6 +138,24 @@ namespace Bll {
 
     public async Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null) {
       return await Get(filter).CountAsync();
+    }
+
+    public bool Exists(Expression<Func<TEntity, bool>> condition) {
+      try {
+        return context.Set<TEntity>().Any(condition);
+      }
+      catch (DbException ex) {
+        throw new Exception(ex.Message);
+      }
+    }
+
+    public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> condition) {
+      try {
+        return await context.Set<TEntity>().AnyAsync(condition);
+      }
+      catch (DbException ex) {
+        throw new Exception(ex.Message);
+      }
     }
 
     public async Task Insert(TEntity obj) {

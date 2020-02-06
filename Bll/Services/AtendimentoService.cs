@@ -13,7 +13,7 @@ namespace Bll.Services {
       this.userId = _userId ?? 1;
     }
 
-    protected override IQueryable<Atendimento> Get(Expression<Func<Atendimento, bool>> filter = null, 
+    protected override IQueryable<Atendimento> Get(Expression<Func<Atendimento, bool>> filter = null,
         Func<IQueryable<Atendimento>, IOrderedQueryable<Atendimento>> orderBy = null) {
       try {
         int[] companies = context.Set<EUsuario>().AsNoTracking()
@@ -39,21 +39,23 @@ namespace Bll.Services {
     }
 
     public string GetPontoInicial(int id, string ab) {
-      string result = string.Empty;
+      Expression<Func<ItAtendimento, bool>> filter = q => (q.AtendimentoId == id) && q.Sentido.Equals(ab);
       using (Services<ItAtendimento> itinerarios = new Services<ItAtendimento>()) {
-        result = itinerarios.GetFirst(q => (q.AtendimentoId == id) && q.Sentido.Equals(ab)).Percurso;
+        if (itinerarios.Exists(filter)) {
+          return itinerarios.GetFirst(filter).Percurso;
+        }
       }
-      return result;
+      return string.Empty;
     }
 
     public string GetPontoFinal(int id, string ab) {
-      string result = string.Empty;
+      Expression<Func<ItAtendimento, bool>> filter = q => (q.AtendimentoId == id) && q.Sentido.Equals(ab);
       using (Services<ItAtendimento> itinerarios = new Services<ItAtendimento>()) {
-        result = itinerarios.GetById(itinerarios.GetQuery(
-                                         q => (q.AtendimentoId == id) && q.Sentido.Equals(ab)
-                                     ).Max(p => p.Id)).Percurso;
+        if (itinerarios.Exists(filter)) {
+          return itinerarios.GetById(itinerarios.GetQuery(filter).Max(p => p.Id)).Percurso;
+        }
       }
-      return result;
+      return string.Empty;
     }
   }
 }

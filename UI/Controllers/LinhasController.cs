@@ -242,7 +242,7 @@ namespace UI.Controllers {
     }
 
     public ActionResult PreviewFichaTecnica(int? id) {
-      Expression<Func<Linha, bool>> filter = q => (q.EmpresaId == 9) && (q.EDominio.DominioId == 1);
+      Expression<Func<Linha, bool>> filter = q => (q.EmpresaId == 16) && (q.EDominio.DominioId == 1);
       if (id.HasValue) {
         filter = q => q.Id == id.Value;
       }

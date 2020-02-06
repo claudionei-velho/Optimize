@@ -40,21 +40,23 @@ namespace Bll.Services {
     }
 
     public string GetPontoInicial(int id, string ab) {
-      string result = string.Empty;
+      Expression<Func<Itinerario, bool>> filter = q => (q.LinhaId == id) && q.Sentido.Equals(ab);
       using (Services<Itinerario> itinerarios = new Services<Itinerario>()) {
-        result = itinerarios.GetFirst(q => (q.LinhaId == id) && q.Sentido.Equals(ab)).Percurso;
+        if (itinerarios.Exists(filter)) {
+          return itinerarios.GetFirst(filter).Percurso;
+        }
       }
-      return result;
+      return string.Empty;
     }
 
     public string GetPontoFinal(int id, string ab) {
-      string result = string.Empty;
+      Expression<Func<Itinerario, bool>> filter = q => (q.LinhaId == id) && q.Sentido.Equals(ab);
       using (Services<Itinerario> itinerarios = new Services<Itinerario>()) {
-        result = itinerarios.GetById(itinerarios.GetQuery(
-                                         q => (q.LinhaId == id) && q.Sentido.Equals(ab)
-                                     ).Max(p => p.Id)).Percurso;
+        if (itinerarios.Exists(filter)) {
+          return itinerarios.GetById(itinerarios.GetQuery(filter).Max(p => p.Id)).Percurso;
+        }
       }
-      return result;
+      return string.Empty;
     }
   }
 }

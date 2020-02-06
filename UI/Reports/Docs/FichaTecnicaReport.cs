@@ -37,13 +37,12 @@ namespace UI.Reports.Docs {
        */
       StringBuilder concat = new StringBuilder();
       using (LinhaService linhas = new LinhaService()) {
-        var classId = linhas.GetQuery(this.filter)
-                          .Select(p => new { p.EmpresaId, p.Classificacao } ).Distinct();
         decimal?[,] values = new decimal?[3, 4] { { 0, 0, 0, 0 },
                                                   { 0, 0, 0, 0 },
                                                   { 0, 0, 0, 0 } };
 
-        foreach (var groupItem in classId) {
+        foreach (var groupItem in linhas.GetQuery(this.filter).Select(
+                                      p => new { p.EmpresaId, p.Classificacao }).Distinct()) {
           using Services<Empresa> empresa = new Services<Empresa>();
           string companyName = empresa.GetById(groupItem.EmpresaId)?.Razao;
 
@@ -210,7 +209,8 @@ namespace UI.Reports.Docs {
         }
 
         // Totais Gerais
-        if (classId.Count() > 1) {
+        if (linhas.GetQuery(this.filter).Select(
+                p => new { p.EmpresaId, p.Classificacao }).Distinct().Count() > 1) {
           Row row = table.AddRow();
           row.Height = "0.8 cm";
           row.Format.Font.Bold = true;
@@ -396,7 +396,7 @@ namespace UI.Reports.Docs {
           paragraph.AddFormattedText(Resources.AtendimentoViewModel, TextFormat.Bold);
 
           using (Services<Atendimento> atendimentos = new Services<Atendimento>()) {
-            if (atendimentos.GetCount(q => q.LinhaId == item.Id) > 0) {
+            if (atendimentos.Exists(q => q.LinhaId == item.Id)) {
               AddTable(this.section);
 
               colSize = new Unit[6] { "1 cm", "2 cm", "7.5 cm", "2.5 cm", "2.5 cm", "2.5 cm" };
@@ -449,7 +449,7 @@ namespace UI.Reports.Docs {
           paragraph.AddFormattedText(Resources.ViagemHoraViewModel, TextFormat.Bold);
 
           using (Services<ViagemHora> viagens = new Services<ViagemHora>()) {
-            if (viagens.GetCount(q => q.LinhaId == item.Id) > 0) {
+            if (viagens.Exists(q => q.LinhaId == item.Id)) {
               AddTable(this.section);
 
               colSize = new Unit[10];
@@ -593,7 +593,8 @@ namespace UI.Reports.Docs {
               int page = ((aux % size) == 0) ? aux / size : (aux / size) + 1;
 
               Expression<Func<Horario, bool>> where = null;
-              static IOrderedQueryable<Horario> order(IQueryable<Horario> q) => q.OrderBy(e => e.Sentido).ThenBy(e => e.Inicio);
+              static IOrderedQueryable<Horario> order(IQueryable<Horario> q) => q.OrderBy(e => e.Sentido)
+                                                                                 .ThenBy(e => e.Inicio);
               for (int i = 0; i < page; i++) {
                 row = table.AddRow();
                 row.Height = "0.525 cm";
@@ -633,7 +634,7 @@ namespace UI.Reports.Docs {
           paragraph.AddFormattedText(Resources.PrLinhaViewModel, TextFormat.Bold);
 
           using (PeriodoTipicoService pTipicos = new PeriodoTipicoService()) {
-            if (pTipicos.GetCount(q => q.LinhaId == item.Id) > 0) {
+            if (pTipicos.Exists(q => q.LinhaId == item.Id)) {
               AddTable(this.section);
 
               colSize = new Unit[7] { "3 cm", "3 cm", "2.2 cm", "2.4 cm", "1.8 cm", "3.5 cm", "2.1 cm" };
@@ -725,7 +726,7 @@ namespace UI.Reports.Docs {
           paragraph.AddFormattedText(Resources.OperacionalViewModel, TextFormat.Bold);
 
           using (Services<Operacional> operacionais = new Services<Operacional>()) {
-            if (operacionais.GetCount(q => q.LinhaId == item.Id) > 0) {
+            if (operacionais.Exists(q => q.LinhaId == item.Id)) {
               AddTable(this.section);
 
               colSize = new Unit[4] { "1.5 cm", "1.3 cm", "2.2 cm", "2.2 cm" };
@@ -847,7 +848,7 @@ namespace UI.Reports.Docs {
           paragraph.AddFormattedText(Resources.ViagemLinhaViewModel, TextFormat.Bold);
 
           using (Services<ViagemLinha> viagens = new Services<ViagemLinha>()) {
-            if (viagens.GetCount(q => q.LinhaId == item.Id) > 0) {
+            if (viagens.Exists(q => q.LinhaId == item.Id)) {
               AddTable(this.section);
 
               colSize = new Unit[3] { "1.75 cm", "1.75 cm", "2.5 cm" };
@@ -974,7 +975,7 @@ namespace UI.Reports.Docs {
                                                              (q.AtendimentoId == pItem.AtendimentoId) &&
                                                              q.Sentido.Equals(pItem.Sentido);
               using MapaLinhaService mapas = new MapaLinhaService();
-              if (mapas.GetCount(where) > 0) {
+              if (mapas.Exists(where)) {
                 foreach (MapaLinha mapa in mapas.GetQuery(where, q => q.OrderBy(m => m.AtendimentoId)
                                                                        .ThenBy(m => m.Sentido))) {
                   string fileName = $@"C:\Temp\Mapas\{mapa.Arquivo}";
@@ -1015,7 +1016,7 @@ namespace UI.Reports.Docs {
                     Expression<Func<Itinerario, bool>> condition = q => (q.LinhaId == pItem.LinhaId) &&
                                                                         q.Sentido.Equals(pItem.Sentido);
                     using Services<Itinerario> itinerarios = new Services<Itinerario>();
-                    if (itinerarios.GetCount(condition) > 0) {
+                    if (itinerarios.Exists(condition)) {
                       AddTable(this.section);
                       column = table.AddColumn("18 cm");
 
@@ -1034,7 +1035,7 @@ namespace UI.Reports.Docs {
                     Expression<Func<ItAtendimento, bool>> condition = q => (q.AtendimentoId == pItem.AtendimentoId) &&
                                                                            q.Sentido.Equals(pItem.Sentido);
                     using Services<ItAtendimento> itAtendimentos = new Services<ItAtendimento>();
-                    if (itAtendimentos.GetCount(condition) > 0) {
+                    if (itAtendimentos.Exists(condition)) {
                       AddTable(this.section);
                       column = table.AddColumn("18 cm");
 
@@ -1062,8 +1063,8 @@ namespace UI.Reports.Docs {
                     $"{Resources.ItinerarioViewModel} {pItem.Prefixo} - {pItem.Linha.Denominacao}", TextFormat.Bold);
 
                   using Services<Itinerario> itinerarios = new Services<Itinerario>();
-                  if (itinerarios.GetCount(q => (q.LinhaId == pItem.LinhaId) &&
-                                                 q.Sentido.Equals(pItem.Sentido)) > 0) {
+                  if (itinerarios.Exists(q => (q.LinhaId == pItem.LinhaId) &&
+                                               q.Sentido.Equals(pItem.Sentido))) {
                     paragraph = document.LastSection.AddParagraph();
                     paragraph.Format.SpaceBefore = "0.4 cm";
                     paragraph.Format.SpaceAfter = "0.2 in";
@@ -1085,8 +1086,8 @@ namespace UI.Reports.Docs {
                     $"{Resources.ItAtendimentoViewModel} {pItem.Prefixo} - {pItem.Atendimento.Denominacao}", TextFormat.Bold);
 
                   using Services<ItAtendimento> itAtendimentos = new Services<ItAtendimento>();
-                  if (itAtendimentos.GetCount(q => (q.AtendimentoId == pItem.AtendimentoId) &&
-                                                    q.Sentido.Equals(pItem.Sentido)) > 0) {
+                  if (itAtendimentos.Exists(q => (q.AtendimentoId == pItem.AtendimentoId) &&
+                                                  q.Sentido.Equals(pItem.Sentido))) {
                     paragraph = document.LastSection.AddParagraph();
                     paragraph.Format.SpaceBefore = "0.4 cm";
                     paragraph.Format.SpaceAfter = "0.2 in";
@@ -1115,7 +1116,7 @@ namespace UI.Reports.Docs {
             concat = new StringBuilder($"{Resources.LinhaId}: {item.Prefixo} - {item.Denominacao}");
 
             // Demanda Mensal
-            if (demanda.GetCount(d => d.LinhaId == item.Id) > 0) {
+            if (demanda.Exists(d => d.LinhaId == item.Id)) {
               AddSection(Orientation.Landscape);
               Footer(this.section, concat.ToString());
               paragraph = document.LastSection.AddParagraph();
@@ -1278,7 +1279,7 @@ namespace UI.Reports.Docs {
 
           // Demanda Anual
           using (DemandaAnoService demanda = new DemandaAnoService()) {
-            if (demanda.GetCount(d => d.LinhaId == item.Id) > 0) {
+            if (demanda.Exists(d => d.LinhaId == item.Id)) {
               int[] records = demanda.GetQuery(
                                   d => d.LinhaId == item.Id
                               ).Select(q => q.Ano).Distinct().ToArray();

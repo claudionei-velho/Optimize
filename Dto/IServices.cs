@@ -35,6 +35,8 @@ namespace Dto {
     Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> filter = null);
     int GetCount(Expression<Func<TEntity, bool>> filter = null);
     Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
+    bool Exists(Expression<Func<TEntity, bool>> condition);
+    Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> condition);
 
     Task Insert(TEntity obj);
     Task Update(TEntity obj);
