@@ -22,8 +22,7 @@ namespace UI.Models {
     public string Denominacao { get; set; }
 
     [Display(Name = "Pico", ResourceType = typeof(Properties.Resources))]
-    [Required(ErrorMessageResourceName = "PicoError",
-              ErrorMessageResourceType = typeof(Properties.Resources)), StringLength(32)]
+    [Required(ErrorMessageResourceName = "PicoError", ErrorMessageResourceType = typeof(Properties.Resources))]
     public bool Pico { get; set; }
 
     [Display(Name = "Velocidade", ResourceType = typeof(Properties.Resources))]

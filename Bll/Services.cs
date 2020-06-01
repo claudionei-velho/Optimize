@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using Dal;
 using Dto;
+using Dto.Extensions;
 
 namespace Bll {
   public class Services<TEntity> : IDisposable, IServices<TEntity> where TEntity : class {
@@ -194,27 +195,39 @@ namespace Bll {
       }
     }
 
-    public async Task ClearAll(TEntity obj) {
-      using (context) {
-        try {
-          context.Set<TEntity>().RemoveRange(context.Set<TEntity>());
-          await context.SaveChangesAsync();
+    public Expression<Func<TEntity, bool>> AndAlso(Expression<Func<TEntity, bool>> left, Expression<Func<TEntity, bool>> right) => 
+      Expression.Lambda<Func<TEntity, bool>>(Expression.AndAlso(
+          left.Body,
+          new ExpressionParameterReplacer(right.Parameters, left.Parameters).Visit(right.Body)
+      ), left.Parameters);
+
+    public Expression<Func<TEntity, bool>> OrElse(Expression<Func<TEntity, bool>> left, Expression<Func<TEntity, bool>> right) => 
+      Expression.Lambda<Func<TEntity, bool>>(Expression.OrElse(
+          left.Body,
+          new ExpressionParameterReplacer(right.Parameters, left.Parameters).Visit(right.Body)
+      ), left.Parameters);
+
+    #region IDisposable Support
+    private bool disposedValue = false;    // To detect redundant calls
+
+    protected virtual void Dispose(bool disposing) {
+      if (!disposedValue) {
+        if (disposing) {
+          context.Dispose();
         }
-        catch (Exception ex) {
-          throw new Exception(ex.Message);
-        }
+        disposedValue = true;
       }
     }
 
+    ~Services() {
+      Dispose(false);
+    }
+
+    // This code added to correctly implement the disposable pattern.
     public void Dispose() {
       Dispose(true);
       GC.SuppressFinalize(this);
     }
-
-    protected virtual void Dispose(bool disposing) {
-      if (disposing) {
-        context?.Dispose();
-      }
-    }
+    #endregion
   }
 }

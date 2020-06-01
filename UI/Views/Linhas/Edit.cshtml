@@ -90,6 +90,15 @@
       </div>
 
       <div class="form-group row font-weight-bold">
+        @Html.LabelFor(model => model.Viagem, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+          @Html.EditorFor(model => model.Viagem, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+          @Html.ValidationMessageFor(model => model.Viagem, "", new { @class = "text-danger" })
+        </div>
+      </div>
+
+
+      <div class="form-group row font-weight-bold">
         @Html.LabelFor(model => model.Uteis, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
           <div class="checkbox">

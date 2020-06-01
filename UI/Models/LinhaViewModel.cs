@@ -19,8 +19,12 @@ namespace UI.Models {
 
     [Display(Name = "Denominacao", ResourceType = typeof(Properties.Resources))]
     [Required(ErrorMessageResourceName = "DenominacaoError", 
-              ErrorMessageResourceType = typeof(Properties.Resources)), StringLength(64)]
+              ErrorMessageResourceType = typeof(Properties.Resources)), StringLength(128)]
     public string Denominacao { get; set; }
+
+    [Display(Name = "Viagem", ResourceType = typeof(Properties.Resources))]
+    [DataType(DataType.MultilineText), StringLength(256)]
+    public string Viagem { get; set; }
 
     [Display(Name = "Uteis", ResourceType = typeof(Properties.Resources))]
     public bool Uteis { get; set; }

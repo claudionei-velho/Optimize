@@ -13,6 +13,7 @@ namespace Dto.Models {
 
       // Reports (Database Views)
       this.Operacionais = new HashSet<Operacional>();
+      this.PlanOperacionais = new HashSet<PlanOperacional>();
       this.ViagensLinha = new HashSet<ViagemLinha>();
       this.ItinerariosDistinct = new HashSet<ItinerarioDistinct>();
     }
@@ -67,6 +68,7 @@ namespace Dto.Models {
 
     // Reports (Database Views)
     public virtual ICollection<Operacional> Operacionais { get; set; }
+    public virtual ICollection<PlanOperacional> PlanOperacionais { get; set; }
     public virtual ICollection<ViagemLinha> ViagensLinha { get; set; }
     public virtual ICollection<ItinerarioDistinct> ItinerariosDistinct { get; set; }
   }

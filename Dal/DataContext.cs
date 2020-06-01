@@ -101,6 +101,7 @@ namespace Dal {
 
     // Reports (Database Views)
     public DbSet<Operacional> Operacionais { get; set; }
+    public DbSet<PlanOperacional> PlanOperacionais { get; set; }
     public DbSet<PeriodoTipico> PeriodosTipicos { get; set; }
     public DbSet<ViagemLinha> ViagensLinha { get; set; }
     public DbSet<ViagemHora> ViagensHora { get; set; }

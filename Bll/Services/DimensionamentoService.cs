@@ -48,8 +48,7 @@ namespace Bll.Services {
                           ba = f.Max(p => p.CicloBA),
                           sum = f.Sum(p => p.QtdViagens) });
       try {
-        return (int)Math.Ceiling(query.Sum(q => q.sum * ((q.ab ?? 0) + (q.ba ?? 0))) /
-                                   (decimal)query.Sum(q => q.sum));
+        return (int)Math.Ceiling(query.Sum(q => q.sum * ((q.ab ?? 0) + (q.ba ?? 0))) / (decimal)query.Sum(q => q.sum));
       }
       catch (DivideByZeroException) {
         return null;

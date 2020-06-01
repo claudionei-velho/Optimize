@@ -1620,9 +1620,9 @@ namespace UI.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Total Geral.
         /// </summary>
-        public static string Grantotal {
+        public static string GranTotal {
             get {
-                return ResourceManager.GetString("Grantotal", resourceCulture);
+                return ResourceManager.GetString("GranTotal", resourceCulture);
             }
         }
         
@@ -3702,6 +3702,15 @@ namespace UI.Properties {
         public static string Velocidade {
             get {
                 return ResourceManager.GetString("Velocidade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descrição da Viagem.
+        /// </summary>
+        public static string Viagem {
+            get {
+                return ResourceManager.GetString("Viagem", resourceCulture);
             }
         }
         

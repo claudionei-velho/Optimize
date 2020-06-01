@@ -6,13 +6,16 @@ using System.Linq.Expressions;
 using System.Text;
 
 using MigraDoc.DocumentObjectModel;
-using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.DocumentObjectModel.Shapes;
+using MigraDoc.DocumentObjectModel.Tables;
 
 using Bll;
 using Bll.Lists;
 using Bll.Services;
+
+using Dto.Extensions;
 using Dto.Models;
+
 using Reports;
 using UI.Properties;
 
@@ -29,13 +32,13 @@ namespace UI.Reports.Docs {
       Sentido sentido = new Sentido();
       Workday workDay = new Workday();
       Dictionary<int, int> listAtt = new Dictionary<int, int>();
+      StringBuilder concat = new StringBuilder();
 
       DefineStyles();
 
       /*
        * Resumo Executivo do Sistema
        */
-      StringBuilder concat = new StringBuilder();
       using (LinhaService linhas = new LinhaService()) {
         decimal?[,] values = new decimal?[3, 4] { { 0, 0, 0, 0 },
                                                   { 0, 0, 0, 0 },
@@ -54,12 +57,13 @@ namespace UI.Reports.Docs {
           Footer(this.section);
           AddTable(this.section);
 
-          Unit[] colSize = new Unit[10];
+          Unit[] colSize = new Unit[7] { "0.8 cm", "7.5 cm", "2 cm", "9 cm", "2.5 cm", "2.5 cm", "2.5 cm" }; 
+          /* Unit[] colSize = new Unit[10];
           colSize[0] = "0.8 cm";
           colSize[1] = "8 cm";
           for (int k = 2; k < colSize.Length; k++) {
             colSize[k] = "2.25 cm";
-          }
+          } */
 
           Column column;
           for (int k = 0; k < colSize.Length; k++) {
@@ -78,17 +82,19 @@ namespace UI.Reports.Docs {
           row.Cells[0].MergeRight = 1;
           row.Cells[0].AddParagraph(Resources.LinhaId);
 
-          row.Cells[2].AddParagraph(Resources.Extensao);
-          row.Cells[3].AddParagraph(Resources.Viagens);
-          row.Cells[4].AddParagraph(Resources.Percurso);
-          row.Cells[5].AddParagraph(Resources.Passageiros);
+          row.Cells[2].AddParagraph(Resources.Prefixo);
+          row.Cells[3].AddParagraph(Resources.Viagem);
+          row.Cells[4].AddParagraph(Resources.Extensao);
+          row.Cells[5].AddParagraph($"{Resources.Viagens} {Resources.Mensal}");
+          row.Cells[6].AddParagraph($"{Resources.Percurso} {Resources.Mensal}");
+/*          row.Cells[5].AddParagraph(Resources.Passageiros);
 
           row.Cells[6].MergeRight = 1;
           row.Cells[6].AddParagraph(Resources.Equivalencia);
 
           row.Cells[8].AddParagraph(Resources.IPK);
           row.Cells[9].AddParagraph(Resources.IPKe);
-      
+*/      
           row = table.AddRow();
           row.Height = "0.8 cm";
 
@@ -97,39 +103,41 @@ namespace UI.Reports.Docs {
           row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
           row.Cells[0].Format.Font.Bold = true;
 
-          foreach (Linha item in linhas.GetQuery(this.filter)
-                                     .Where(p => p.Classificacao == groupItem.Classificacao)
-                                     .OrderBy(p => p.Id)) {
+          string linx = string.Empty;
+          foreach (Linha item in linhas.GetQuery(linhas.AndAlso(
+                                                     this.filter, 
+                                                     p => p.Classificacao == groupItem.Classificacao))
+                                                 .OrderBy(p => p.Prefixo)) { 
             row = table.AddRow();
             row.Height = "0.8 cm";
 
-            row.Cells[1].AddParagraph($"{item.Prefixo} - {item.Denominacao}");
-            row.Cells[1].Format.Alignment = ParagraphAlignment.Left;
+            if (linx != item.Denominacao) {
+              row.Cells[1].AddParagraph(item.Denominacao);
+              row.Cells[1].Format.Alignment = ParagraphAlignment.Left;
+              row.Cells[1].Format.Font.Bold = true;
+            }
+            row.Cells[2].AddParagraph(item.Prefixo);
+            row.Cells[2].Format.Alignment = ParagraphAlignment.Center;
 
-            // Total de Viagens e Percurso Medio Mensal
+            row.Cells[3].AddParagraph(item.Viagem);
+            row.Cells[3].Format.Alignment = ParagraphAlignment.Left;
+
+            // Total de Viagens e Percurso Medio Mensal            
             using Services<ViagemLinha> viagens = new Services<ViagemLinha>();
-            Expression<Func<ViagemLinha, bool>> condition = q => q.LinhaId == item.Id;
-            try {
-              values[0, 0] = (viagens.GetQuery(condition).Sum(p => p.ViagensAno) ?? 0) / CustomCalendar.MonthsPerYear;
-              values[0, 1] = (viagens.GetQuery(condition).Sum(p => p.PercursoAno) ?? 0) / CustomCalendar.MonthsPerYear;
-            }
-            catch (DivideByZeroException) {
-              throw;
-            }
+            values[0, 0] = viagens.GetQuery(q => q.LinhaId == item.Id).Sum(p => p.ViagensAno);
+            values[0, 1] = viagens.GetQuery(q => q.LinhaId == item.Id).Sum(p => p.PercursoAno);
 
             try {
-              row.Cells[2].AddParagraph($"{values[0, 1] / values[0, 0]:#,##0.00}");
+              row.Cells[4].AddParagraph($"{values[0, 1] / values[0, 0]:#,##0.00}");
             }
             catch (DivideByZeroException) {
-              row.Cells[2].AddParagraph();
+              row.Cells[4].AddParagraph();
             }
-            row.Cells[3].AddParagraph($"{values[0, 0]:#,#}");
-            if (values[0, 1] > 0) {
-              row.Cells[4].AddParagraph($"{values[0, 1]:#,##0.0}");
-            }
+            row.Cells[5].AddParagraph($"{NumericExtensions.SafeDivision(values[0, 0] ?? 0, CustomCalendar.MonthsPerYear):#,#}");
+            row.Cells[6].AddParagraph($"{NumericExtensions.SafeDivision(values[0, 1] ?? 0, CustomCalendar.MonthsPerYear):#,##0.0}");
 
             // Demanda Mensal da Linha
-            using Services<DemandaMod> demanda = new Services<DemandaMod>();
+/*            using Services<DemandaMod> demanda = new Services<DemandaMod>();
             Expression<Func<DemandaMod, bool>> filter = q => q.LinhaId == item.Id;
             values[0, 2] = (decimal)(demanda.GetQuery(filter)?.Average(p => p.Passageiros) ?? 0);
             values[0, 3] = (decimal)(demanda.GetQuery(filter)?.Average(p => p.Equivalente) ?? 0);
@@ -155,30 +163,30 @@ namespace UI.Reports.Docs {
             }
             catch (DivideByZeroException) {
               row.Cells[9].AddParagraph();
-            }
+            } */
 
             for (int j = 0; j < values.GetLength(1); j++) {
               values[1, j] += values[0, j] ?? 0;
             }
+            linx = item.Denominacao;
           }
 
           // Subtotais do Grupo
-          if (linhas.GetQuery(this.filter)
-                  .Where(p => p.Classificacao == groupItem.Classificacao).Count() > 1) {
+          if (linhas.GetQuery(this.filter).Where(p => p.Classificacao == groupItem.Classificacao).Count() > 1) {
             row = table.AddRow();
             row.Height = "0.8 cm";
             row.Format.Font.Bold = true;
 
-            row.Cells[1].AddParagraph($"{Resources.Subtotal}: {catName}");
+            row.Cells[3].AddParagraph($"{Resources.Subtotal}: {catName}");
             try {
-              row.Cells[2].AddParagraph($"{values[1, 1] / values[1, 0]:#,##0.00}");
+              row.Cells[4].AddParagraph($"{values[1, 1] / values[1, 0]:#,##0.00}");
             }
             catch (DivideByZeroException) {
-              row.Cells[2].AddParagraph();
+              row.Cells[4].AddParagraph();
             }
-            row.Cells[3].AddParagraph($"{values[1, 0]:#,#}");
-            row.Cells[4].AddParagraph($"{values[1, 1]:#,##0.0}");
-            row.Cells[5].AddParagraph($"{values[1, 2]:#,#}");
+            row.Cells[5].AddParagraph($"{NumericExtensions.SafeDivision(values[1, 0] ?? 0, CustomCalendar.MonthsPerYear):#,#}");
+            row.Cells[6].AddParagraph($"{NumericExtensions.SafeDivision(values[1, 1] ?? 0, CustomCalendar.MonthsPerYear):#,##0.0}");
+            /* row.Cells[5].AddParagraph($"{values[1, 2]:#,#}");
             row.Cells[6].AddParagraph($"{values[1, 3]:#,#}");
             try {
               row.Cells[7].AddParagraph($"{(decimal)values[1, 3] / values[1, 2]:P1}");
@@ -199,9 +207,8 @@ namespace UI.Reports.Docs {
             }
             catch (DivideByZeroException) {
               row.Cells[9].AddParagraph();
-            }
+            } */          
           }
-
           for (int j = 0; j < values.GetLength(1); j++) {
             values[2, j] += values[1, j] ?? 0;
             values[1, j] = 0;
@@ -215,17 +222,16 @@ namespace UI.Reports.Docs {
           row.Height = "0.8 cm";
           row.Format.Font.Bold = true;
 
-          row.Cells[0].MergeRight = 1;
-          row.Cells[0].AddParagraph(Resources.Grantotal);
+          row.Cells[3].AddParagraph(Resources.GranTotal);
           try {
-            row.Cells[2].AddParagraph($"{values[2, 1] / values[2, 0]:#,##0.00}");
+            row.Cells[4].AddParagraph($"{values[2, 1] / values[2, 0]:#,##0.00}");
           }
           catch (DivideByZeroException) {
-            row.Cells[2].AddParagraph();
+            row.Cells[4].AddParagraph();
           }
-          row.Cells[3].AddParagraph($"{values[2, 0]:#,#}");
-          row.Cells[4].AddParagraph($"{values[2, 1]:#,##0.0}");
-          row.Cells[5].AddParagraph($"{values[2, 2]:#,#}");
+          row.Cells[5].AddParagraph($"{NumericExtensions.SafeDivision(values[2, 0] ?? 0, CustomCalendar.MonthsPerYear):#,#}");
+          row.Cells[6].AddParagraph($"{NumericExtensions.SafeDivision(values[2, 1] ?? 0, CustomCalendar.MonthsPerYear):#,##0.0}");
+          /* row.Cells[5].AddParagraph($"{values[2, 2]:#,#}");
           row.Cells[6].AddParagraph($"{values[2, 3]:#,#}");
           try {
             row.Cells[7].AddParagraph($"{(decimal)values[2, 3] / values[2, 2]:P1}");
@@ -246,7 +252,7 @@ namespace UI.Reports.Docs {
           }
           catch (DivideByZeroException) {
             row.Cells[9].AddParagraph();
-          }
+          } */
         }
       }
 
@@ -254,8 +260,8 @@ namespace UI.Reports.Docs {
        * Identificacao e Qualificacao da Linha
        */
       using (LinhaService linhas = new LinhaService()) {
-        foreach (Linha item in linhas.GetQuery(this.filter)) {
-          concat = new StringBuilder($"{Resources.LinhaId}: {item.Prefixo} - {item.Denominacao}");
+        foreach (Linha item in linhas.GetQuery(this.filter, q => q.OrderBy(p => p.Prefixo))) {
+          concat = new StringBuilder($"{Resources.LinhaId}: {item.Prefixo} - {item.Viagem}");
 
           AddSection(Orientation.Portrait);
           Header(this.section, new List<string>() { item.Empresa.Razao, document.Info.Title });
@@ -286,6 +292,16 @@ namespace UI.Reports.Docs {
 
           row.Cells[1].MergeRight = 2;
           row.Cells[1].AddParagraph(item.Denominacao);
+          row.Cells[1].Format.Font.Bold = false;
+
+          row = table.AddRow();
+          row.Height = "0.6 cm";
+          row.Format.Font.Bold = true;
+
+          row.Cells[0].AddParagraph(Resources.Viagem);
+
+          row.Cells[1].MergeRight = 2;
+          row.Cells[1].AddParagraph(item.Viagem);
           row.Cells[1].Format.Font.Bold = false;
 
           // Dias de Operacao e Funcoes da Linha
@@ -341,13 +357,10 @@ namespace UI.Reports.Docs {
           row.Cells[3].Format.Font.Bold = false;
 
           // Pontos Inicial e Final, AB e BA
-          for (int j = 0; j < sentido.Data.Count; j++) {
-            string ab = (j == 0) ? "AB" : "BA";
-
+          /* for (int j = 0; j < sentido.Data.Count; j++) {            
             row = table.AddRow();
             row.Height = "0.8 cm";
             row.Format.Font.Bold = true;
-
             if (j == 0) {
               row.Cells[0].AddParagraph(Resources.PontoInicialAB);
               row.Cells[2].AddParagraph(Resources.PontoFinalAB);
@@ -356,13 +369,14 @@ namespace UI.Reports.Docs {
               row.Cells[0].AddParagraph(Resources.PontoInicialBA);
               row.Cells[2].AddParagraph(Resources.PontoFinalBA);
             }
+            string ab = (j == 0) ? "AB" : "BA";
 
             row.Cells[1].AddParagraph(linhas.GetPontoInicial(item.Id, ab));
             row.Cells[1].Format.Font.Bold = false;
 
             row.Cells[3].AddParagraph(linhas.GetPontoFinal(item.Id, ab));
             row.Cells[3].Format.Font.Bold = false;
-          }
+          } */
 
           // PMM (Percurso Medio Mensal) da Linha
           decimal?[] pmmKm;
@@ -375,24 +389,18 @@ namespace UI.Reports.Docs {
             Expression<Func<ViagemLinha, bool>> condition = q => q.LinhaId == item.Id;
             pmmKm = new decimal?[2] {
                 viagens.GetQuery(condition).Sum(q => q.PercursoAno),
-                viagens.GetQuery(condition).Sum(q => q.PercursoAno) / CustomCalendar.MonthsPerYear
+                NumericExtensions.SafeDivision(viagens.GetQuery(condition).Sum(q => q.PercursoAno) ?? 0, CustomCalendar.MonthsPerYear)
             };
-            try {
-              concat = new StringBuilder($"{pmmKm[1]:#,###.#}");
-            }
-            catch (DivideByZeroException) {
-              throw;
-            }
+            concat = new StringBuilder($"{pmmKm[1]:#,##0.0}");
             row.Cells[1].AddParagraph(concat.ToString());
           }
 
           /*
            * Atendimentos da Linha
-           */
+           *//*
           Paragraph paragraph = document.LastSection.AddParagraph();
           paragraph.Format.Alignment = ParagraphAlignment.Left;
           paragraph.Format.SpaceBefore = "0.4 cm";
-          paragraph.Format.SpaceAfter = "0.25 cm";
           paragraph.AddFormattedText(Resources.AtendimentoViewModel, TextFormat.Bold);
 
           using (Services<Atendimento> atendimentos = new Services<Atendimento>()) {
@@ -438,11 +446,11 @@ namespace UI.Reports.Docs {
                 row.Cells[5].AddParagraph($"{aItem.Extensao:#,##0.00}");
               }
             }
-          }
+          } */
 
           /*
            * Quadro de Viagens/Hora da Linha
-           */
+           *//*
           paragraph = document.LastSection.AddParagraph();
           paragraph.Format.Alignment = ParagraphAlignment.Left;
           paragraph.Format.SpaceBefore = "0.4 cm";
@@ -541,12 +549,12 @@ namespace UI.Reports.Docs {
               row.Cells[8].AddParagraph($"{viagens.GetQuery(condition).Sum(p => p.DomingosBA):#,#}");
               row.Cells[9].AddParagraph($"{totais[2]:#,#}");
             }
-          }
+          } */
 
           /*
            * Horarios da Linha
            */
-          paragraph = document.LastSection.AddParagraph();
+          Paragraph paragraph = document.LastSection.AddParagraph();
           paragraph.Format.Alignment = ParagraphAlignment.Left;
           paragraph.Format.SpaceBefore = "0.4 cm";
           paragraph.AddFormattedText(Resources.HorarioViewModel, TextFormat.Bold);
@@ -555,7 +563,7 @@ namespace UI.Reports.Docs {
           int[] tabelas = horarios.GetQuery(
                               q => q.LinhaId == item.Id, q => q.OrderBy(h => h.DiaId)
                           ).Select(h => h.DiaId).Distinct().ToArray();
-          
+                    
           if (tabelas.Length > 0) {
             int aux = 0;
             int size = 6;
@@ -626,7 +634,7 @@ namespace UI.Reports.Docs {
 
           /*
            * Periodos Tipicos da Linha
-           */
+           *//*
           paragraph = document.LastSection.AddParagraph();
           paragraph.Format.Alignment = ParagraphAlignment.Left;
           paragraph.Format.SpaceBefore = "0.4 cm";
@@ -714,10 +722,10 @@ namespace UI.Reports.Docs {
                 }
               }
             }
-          }
+          } */
 
           /*
-           * Plano Operacional da Linha
+           * Plano Operacional da Linha (Horarios)
            */
           paragraph = document.LastSection.AddParagraph();
           paragraph.Format.Alignment = ParagraphAlignment.Left;
@@ -816,19 +824,14 @@ namespace UI.Reports.Docs {
               row.Format.Font.Bold = true;
 
               row.Cells[2].AddParagraph(Resources.Total);
-              try {
-                decimal[] result = new decimal[2] { (totais[0, 0] ?? 0) * 5,
-                                                    (totais[0, 1] ?? 0) * 5 };
+              decimal[] result = new decimal[2] { (totais[0, 0] ?? 0) * 5,
+                                                  (totais[0, 1] ?? 0) * 5 };
 
-                for (int k = 1; k < totais.GetLength(0); k++) {
-                  result[0] += totais[k, 0] ?? 0;
-                  result[1] += totais[k, 1] ?? 0;
-                }
-                row.Cells[3].AddParagraph($"{result[1] / result[0]:#,##0.00}");
+              for (int k = 1; k < totais.GetLength(0); k++) {
+                result[0] += totais[k, 0] ?? 0;
+                result[1] += totais[k, 1] ?? 0;
               }
-              catch (DivideByZeroException ex) {
-                row.Cells[3].AddParagraph(ex.Message);
-              }
+              row.Cells[3].AddParagraph($"{NumericExtensions.SafeDivision(result[1], result[0]):#,##0.00}");
               row.Cells[4].AddParagraph($"{totais[0, 0]:#,##0}");
               row.Cells[5].AddParagraph($"{totais[0, 1]:#,##0.0}");
               row.Cells[6].AddParagraph($"{totais[1, 0]:#,##0}");
@@ -837,6 +840,123 @@ namespace UI.Reports.Docs {
               row.Cells[9].AddParagraph($"{totais[2, 1]:#,##0.0}");
             }
           }
+
+          /*
+           * Plano Operacional da Linha (Info)
+           *//*
+          paragraph = document.LastSection.AddParagraph();
+          paragraph.Format.Alignment = ParagraphAlignment.Left;
+          paragraph.Format.SpaceBefore = "0.4 cm";
+          paragraph.Format.SpaceAfter = "0.25 cm";
+          paragraph.AddFormattedText(Resources.OperacionalViewModel, TextFormat.Bold);
+
+          using (Services<PlanOperacional> operacionais = new Services<PlanOperacional>()) {
+            if (operacionais.Exists(q => q.LinhaId == item.Id)) {
+              AddTable(this.section);
+
+              colSize = new Unit[4] { "1.5 cm", "1.3 cm", "2.2 cm", "2.2 cm" };
+              for (int k = 0; k < colSize.Length; k++) {
+                column = table.AddColumn(colSize[k]);
+              }
+              for (int j = 0; j < 6; j++) {
+                Unit _colSize = ((j % 2) == 0) ? "1.5 cm" : "2.1 cm";
+                column = table.AddColumn(_colSize);
+              }
+
+              row = table.AddRow();
+              row.Height = "0.8 cm";
+              row.Format.Alignment = ParagraphAlignment.Center;
+              row.VerticalAlignment = VerticalAlignment.Center;
+              row.Format.Font.Bold = true;
+
+              row.Cells[0].AddParagraph(Resources.Prefixo);
+              row.Cells[2].AddParagraph(Resources.Sentido);
+              row.Cells[3].AddParagraph(Resources.ExtensaoSentido);
+
+              row.Cells[4].MergeRight = 1;
+              row.Cells[4].AddParagraph(workDay.Data[1]);
+
+              row.Cells[6].MergeRight = 1;
+              row.Cells[6].AddParagraph(workDay.Data[2]);
+
+              row.Cells[8].MergeRight = 1;
+              row.Cells[8].AddParagraph(workDay.Data[3]);
+
+              row = table.AddRow();
+              row.Height = "0.8 cm";
+              row.Format.Alignment = ParagraphAlignment.Center;
+              row.VerticalAlignment = VerticalAlignment.Center;
+              row.Format.Font.Bold = true;
+
+              for (int j = 0; j < 6; j += 2) {
+                row.Cells[4 + j].AddParagraph(Resources.Viagens);
+                row.Cells[5 + j].AddParagraph(Resources.Percurso);
+              }
+
+              string prefixo = string.Empty;
+              foreach (PlanOperacional opItem in operacionais.GetQuery(q => q.LinhaId == item.Id)) {
+                row = table.AddRow();
+                row.Height = "0.55 cm";
+                row.Format.Alignment = ParagraphAlignment.Right;
+
+                if (!opItem.Prefixo.Equals(prefixo)) {
+                  row.Cells[0].AddParagraph(opItem.Prefixo);
+                  row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
+
+                  if (opItem.AtendimentoId.HasValue) {
+                    row.Cells[1].AddParagraph("Atend.");
+                    row.Cells[1].Format.Alignment = ParagraphAlignment.Left;
+                  }
+                }
+
+                row.Cells[2].AddParagraph(sentido.Data[opItem.Sentido]);
+                row.Cells[2].Format.Alignment = ParagraphAlignment.Center;
+
+                row.Cells[3].AddParagraph($"{opItem.Extensao:#,##0.00}");
+                row.Cells[4].AddParagraph($"{opItem.ViagensUtil:#,###}");
+                row.Cells[5].AddParagraph($"{opItem.PercursoUtil:#,##0.0}");
+                row.Cells[6].AddParagraph($"{opItem.ViagensSab:#,###}");
+                row.Cells[7].AddParagraph($"{opItem.PercursoSab:#,##0.0}");
+                row.Cells[8].AddParagraph($"{opItem.ViagensDom:#,###}");
+                row.Cells[9].AddParagraph($"{opItem.PercursoDom:#,##0.0}");
+
+                prefixo = opItem.Prefixo;
+              }
+
+              // Totais
+              Expression<Func<PlanOperacional, bool>> condition = q => q.LinhaId == item.Id;
+              decimal?[,] totais = new decimal?[3, 2] {
+                  { operacionais.GetQuery(condition).Sum(p => p.ViagensUtil),
+                    operacionais.GetQuery(condition).Sum(p => p.PercursoUtil) },
+                  { operacionais.GetQuery(condition).Sum(p => p.ViagensSab),
+                    operacionais.GetQuery(condition).Sum(p => p.PercursoSab) },
+                  { operacionais.GetQuery(condition).Sum(p => p.ViagensDom),
+                    operacionais.GetQuery(condition).Sum(p => p.PercursoDom) }
+              };
+
+              row = table.AddRow();
+              row.Height = "0.25 in";
+              row.Format.Alignment = ParagraphAlignment.Right;
+              row.VerticalAlignment = VerticalAlignment.Center;
+              row.Format.Font.Bold = true;
+
+              row.Cells[2].AddParagraph(Resources.Total);
+              decimal[] result = new decimal[2] { (totais[0, 0] ?? 0) * 5,
+                                                  (totais[0, 1] ?? 0) * 5 };
+
+              for (int k = 1; k < totais.GetLength(0); k++) {
+                result[0] += totais[k, 0] ?? 0;
+                result[1] += totais[k, 1] ?? 0;
+              }
+              row.Cells[3].AddParagraph($"{NumericExtensions.SafeDivision(result[1], result[0]):#,##0.00}");
+              row.Cells[4].AddParagraph($"{totais[0, 0]:#,##0}");
+              row.Cells[5].AddParagraph($"{totais[0, 1]:#,##0.0}");
+              row.Cells[6].AddParagraph($"{totais[1, 0]:#,##0}");
+              row.Cells[7].AddParagraph($"{totais[1, 1]:#,##0.0}");
+              row.Cells[8].AddParagraph($"{totais[2, 0]:#,##0}");
+              row.Cells[9].AddParagraph($"{totais[2, 1]:#,##0.0}");
+            }
+          } */
 
           /*
            * Resumo das Operacoes da Linha
@@ -931,17 +1051,17 @@ namespace UI.Reports.Docs {
                 row.Cells[3].AddParagraph($"{vgTotal.Value / CustomCalendar.WeeksPerYear:#,###}");
                 row.Cells[4].AddParagraph($"{kmTotal.Value / CustomCalendar.WeeksPerYear:#,##0.0}");
               }
-              catch (DivideByZeroException ex) {
+              catch (DivideByZeroException) {
                 row.Cells[3].MergeRight = 1;
-                row.Cells[3].AddParagraph(ex.Message);
+                row.Cells[3].AddParagraph();
               }
               try {
                 row.Cells[5].AddParagraph($"{vgTotal.Value / CustomCalendar.MonthsPerYear:#,###}");
                 row.Cells[6].AddParagraph($"{kmTotal.Value / CustomCalendar.MonthsPerYear:#,##0.0}");
               }
-              catch (DivideByZeroException ex) {
+              catch (DivideByZeroException) {
                 row.Cells[5].MergeRight = 1;
-                row.Cells[5].AddParagraph(ex.Message);
+                row.Cells[5].AddParagraph();
               }
               row.Cells[7].AddParagraph($"{vgTotal.Value:#,###}");
               row.Cells[8].AddParagraph($"{kmTotal.Value:#,##0.0}");
@@ -966,7 +1086,7 @@ namespace UI.Reports.Docs {
 
           /*
            * Mapas e Itinerarios da Linha e dos Atendimentos
-           */
+           */          
           using (Services<ItinerarioDistinct> roteiros = new Services<ItinerarioDistinct>()) {
             foreach (ItinerarioDistinct pItem in roteiros.GetQuery(q => q.LinhaId == item.Id)) {
               section.AddPageBreak();
@@ -978,18 +1098,18 @@ namespace UI.Reports.Docs {
               if (mapas.Exists(where)) {
                 foreach (MapaLinha mapa in mapas.GetQuery(where, q => q.OrderBy(m => m.AtendimentoId)
                                                                        .ThenBy(m => m.Sentido))) {
-                  string fileName = $@"C:\Temp\Mapas\{mapa.Arquivo}";
+                  string fileName = $@"C:\Temp\Mapas\{mapa.Arquivo}";                 
                   if (File.Exists(fileName)) {
                     Image image = section.AddImage(fileName);
-                    image.Height = "14 cm";
-                    image.Width = "14 cm";
+                    image.Height = "13 cm";
+                    image.Width = "17.5 cm";
                     image.Top = ShapePosition.Top;
                     image.Left = ShapePosition.Center;
                     image.WrapFormat.Style = WrapStyle.Through;
                   }
                   paragraph = document.LastSection.AddParagraph();
                   paragraph.Style = "Normal";
-                  paragraph.Format.SpaceBefore = "14.75 cm";
+                  paragraph.Format.SpaceBefore = "13.75 cm";
                   paragraph.Format.SpaceAfter = "0.2 in";
 
                   if (!string.IsNullOrWhiteSpace(mapa.Descricao)) {
@@ -1018,36 +1138,56 @@ namespace UI.Reports.Docs {
                     using Services<Itinerario> itinerarios = new Services<Itinerario>();
                     if (itinerarios.Exists(condition)) {
                       AddTable(this.section);
-                      column = table.AddColumn("18 cm");
 
-                      StringBuilder percurso = new StringBuilder();
-                      foreach (Itinerario iItem in itinerarios.GetQuery(condition, q => q.OrderBy(e => e.Id))) {
-                        percurso.Append($"{iItem.Percurso}; ");
+                      colSize = new Unit[4] { "1 cm", "8 cm", "1 cm", "8 cm" };
+                      for (int k = 0; k < colSize.Length; k++) {
+                        column = table.AddColumn(colSize[k]);
+                        column.Format.Alignment = (k % 2) == 0 ? ParagraphAlignment.Right : ParagraphAlignment.Left;
                       }
+                      string[] percurso = itinerarios.GetQuery(condition, q => q.OrderBy(e => e.Id))
+                                              .Select(p => p.Percurso).ToArray();
+                      
+                      int index = percurso.Length / 2 + percurso.Length % 2;
+                      for (int i = 0; i < (percurso.Length / 2 + percurso.Length % 2); i++) {
+                        row = table.AddRow();
+                        row.Height = "0.55 cm";
 
-                      row = table.AddRow();
-                      row.Height = "0.8 cm";
-                      row.Format.Alignment = ParagraphAlignment.Left;
-                      row.Cells[0].AddParagraph(percurso.ToString().Trim(charsToTrim));
+                        row.Cells[0].AddParagraph($"{i + 1}.");
+                        row.Cells[1].AddParagraph(percurso[i]);
+                        if (index < percurso.Length) {
+                          row.Cells[2].AddParagraph($"{index + 1}.");
+                          row.Cells[3].AddParagraph(percurso[index++]);
+                        }
+                      }
                     }
                   }
                   else {
                     Expression<Func<ItAtendimento, bool>> condition = q => (q.AtendimentoId == pItem.AtendimentoId) &&
-                                                                           q.Sentido.Equals(pItem.Sentido);
+                                                                            q.Sentido.Equals(pItem.Sentido);
                     using Services<ItAtendimento> itAtendimentos = new Services<ItAtendimento>();
                     if (itAtendimentos.Exists(condition)) {
                       AddTable(this.section);
-                      column = table.AddColumn("18 cm");
 
-                      StringBuilder percurso = new StringBuilder();
-                      foreach (ItAtendimento itItem in itAtendimentos.GetQuery(condition, q => q.OrderBy(e => e.Id))) {
-                        percurso.Append($"{itItem.Percurso}; ");
+                      colSize = new Unit[4] { "1 cm", "8 cm", "1 cm", "8 cm" };
+                      for (int k = 0; k < colSize.Length; k++) {
+                        column = table.AddColumn(colSize[k]);
+                        column.Format.Alignment = (k % 2) == 0 ? ParagraphAlignment.Right : ParagraphAlignment.Left;
                       }
+                      string[] percurso = itAtendimentos.GetQuery(condition, q => q.OrderBy(e => e.Id))
+                                              .Select(p => p.Percurso).ToArray();
 
-                      row = table.AddRow();
-                      row.Height = "0.8 cm";
-                      row.Format.Alignment = ParagraphAlignment.Left;
-                      row.Cells[0].AddParagraph(percurso.ToString().Trim(charsToTrim));
+                      int index = percurso.Length / 2 + percurso.Length % 2;
+                      for (int i = 0; i < (percurso.Length / 2 + percurso.Length % 2); i++) {
+                        row = table.AddRow();
+                        row.Height = "0.55 cm";
+
+                        row.Cells[0].AddParagraph($"{i + 1}.");
+                        row.Cells[1].AddParagraph(percurso[i]);
+                        if (index < percurso.Length) {
+                          row.Cells[2].AddParagraph($"{index + 1}.");
+                          row.Cells[3].AddParagraph(percurso[index++]);
+                        }
+                      }
                     }
                   }
                 }
@@ -1059,8 +1199,7 @@ namespace UI.Reports.Docs {
                 paragraph.Format.SpaceAfter = "0.25 cm";
 
                 if (!pItem.AtendimentoId.HasValue) {
-                  paragraph.AddFormattedText(
-                    $"{Resources.ItinerarioViewModel} {pItem.Prefixo} - {pItem.Linha.Denominacao}", TextFormat.Bold);
+                  paragraph.AddFormattedText($"{Resources.ItinerarioViewModel} {pItem.Prefixo} - {pItem.Linha.Denominacao}", TextFormat.Bold);
 
                   using Services<Itinerario> itinerarios = new Services<Itinerario>();
                   if (itinerarios.Exists(q => (q.LinhaId == pItem.LinhaId) &&
@@ -1070,20 +1209,33 @@ namespace UI.Reports.Docs {
                     paragraph.Format.SpaceAfter = "0.2 in";
                     paragraph.AddFormattedText($"{Resources.Sentido}: {sentido.Data[pItem.Sentido]}", TextFormat.Bold);
 
-                    foreach (Itinerario iItem in itinerarios.GetQuery(q => (q.LinhaId == pItem.LinhaId) &&
-                                                                           q.Sentido.Equals(pItem.Sentido),
-                                                                      q => q.OrderBy(e => e.Id))) {
-                      paragraph = document.LastSection.AddParagraph();
-                      paragraph.Style = "Table";
-                      paragraph.Format.SpaceAfter = "0.25 cm";
-                      paragraph.Format.LeftIndent = "0.55 cm";
-                      paragraph.AddText(iItem.Percurso);
+                    AddTable(this.section);
+                    colSize = new Unit[4] { "1 cm", "8 cm", "1 cm", "8 cm" };
+                    for (int k = 0; k < colSize.Length; k++) {
+                      column = table.AddColumn(colSize[k]);
+                      column.Format.Alignment = (k % 2) == 0 ? ParagraphAlignment.Right : ParagraphAlignment.Left;
+                    }
+                    string[] percurso = itinerarios.GetQuery(q => (q.LinhaId == pItem.LinhaId) &&
+                                                                   q.Sentido.Equals(pItem.Sentido),
+                                                             q => q.OrderBy(e => e.Id))
+                                            .Select(p => p.Percurso).ToArray();
+
+                    int index = percurso.Length / 2 + percurso.Length % 2;
+                    for (int i = 0; i < (percurso.Length / 2 + percurso.Length % 2); i++) {
+                      row = table.AddRow();
+                      row.Height = "0.55 cm";
+
+                      row.Cells[0].AddParagraph($"{i + 1}.");
+                      row.Cells[1].AddParagraph(percurso[i]);
+                      if (index < percurso.Length) {
+                        row.Cells[2].AddParagraph($"{index + 1}.");
+                        row.Cells[3].AddParagraph(percurso[index++]);
+                      }
                     }
                   }
                 }
                 else {
-                  paragraph.AddFormattedText(
-                    $"{Resources.ItAtendimentoViewModel} {pItem.Prefixo} - {pItem.Atendimento.Denominacao}", TextFormat.Bold);
+                  paragraph.AddFormattedText($"{Resources.ItAtendimentoViewModel} {pItem.Prefixo} - {pItem.Atendimento.Denominacao}", TextFormat.Bold);
 
                   using Services<ItAtendimento> itAtendimentos = new Services<ItAtendimento>();
                   if (itAtendimentos.Exists(q => (q.AtendimentoId == pItem.AtendimentoId) &&
@@ -1093,14 +1245,28 @@ namespace UI.Reports.Docs {
                     paragraph.Format.SpaceAfter = "0.2 in";
                     paragraph.AddFormattedText($"{Resources.Sentido}: {sentido.Data[pItem.Sentido]}", TextFormat.Bold);
 
-                    foreach (ItAtendimento itItem in itAtendimentos.GetQuery(
-                        q => (q.AtendimentoId == pItem.AtendimentoId) && q.Sentido.Equals(pItem.Sentido),
-                        q => q.OrderBy(e => e.Id))) {
-                      paragraph = document.LastSection.AddParagraph();
-                      paragraph.Style = "Table";
-                      paragraph.Format.SpaceAfter = "0.25 cm";
-                      paragraph.Format.LeftIndent = "0.55 cm";
-                      paragraph.AddText(itItem.Percurso);
+                    AddTable(this.section);
+                    colSize = new Unit[4] { "1 cm", "8 cm", "1 cm", "8 cm" };
+                    for (int k = 0; k < colSize.Length; k++) {
+                      column = table.AddColumn(colSize[k]);
+                      column.Format.Alignment = (k % 2) == 0 ? ParagraphAlignment.Right : ParagraphAlignment.Left;
+                    }
+                    string[] percurso = itAtendimentos.GetQuery(q => (q.AtendimentoId == pItem.AtendimentoId) && 
+                                                                      q.Sentido.Equals(pItem.Sentido),
+                                                                q => q.OrderBy(e => e.Id))
+                                            .Select(p => p.Percurso).ToArray();
+
+                    int index = percurso.Length / 2 + percurso.Length % 2;
+                    for (int i = 0; i < (percurso.Length / 2 + percurso.Length % 2); i++) {
+                      row = table.AddRow();
+                      row.Height = "0.55 cm";
+
+                      row.Cells[0].AddParagraph($"{i + 1}.");
+                      row.Cells[1].AddParagraph(percurso[i]);
+                      if (index < percurso.Length) {
+                        row.Cells[2].AddParagraph($"{index + 1}.");
+                        row.Cells[3].AddParagraph(percurso[index++]);
+                      }
                     }
                   }
                 }
@@ -1162,7 +1328,7 @@ namespace UI.Reports.Docs {
                 row.Format.Alignment = ParagraphAlignment.Right;
 
                 j = 0;
-                row.Cells[j].AddParagraph($"{new Mes().Short[dItem.Mes]}/{dItem.Ano.ToString()}");
+                row.Cells[j].AddParagraph($"{new Mes().Short[dItem.Mes]}/{dItem.Ano}");
                 row.Cells[j].Format.Alignment = ParagraphAlignment.Left;
 
                 total = new decimal[2] { 0, 0 };
@@ -1172,7 +1338,7 @@ namespace UI.Reports.Docs {
                   int?[] values = new int?[2] {
                         demanda.GetFirst(whereAs)?.Passageiros,
                         demanda.GetFirst(whereAs)?.Equivalente
-                    };
+                  };
                   total[0] += values[0] ?? 0;
                   total[1] += values[1] ?? 0;
 
@@ -1180,26 +1346,9 @@ namespace UI.Reports.Docs {
                 }
                 row.Cells[++j].AddParagraph($"{total[0]:#,##0}");
                 row.Cells[++j].AddParagraph($"{total[1]:#,##0}");
-                try {
-                  row.Cells[++j].AddParagraph($"{total[1] / total[0]:P1}");
-                }
-                catch (DivideByZeroException) {
-                  throw;
-                }
-
-                try {
-                  row.Cells[++j].AddParagraph($"{total[0] / pmmKm[1]:0.0000}");
-                }
-                catch (DivideByZeroException) {
-                  throw;
-                }
-
-                try {
-                  row.Cells[++j].AddParagraph($"{total[1] / pmmKm[1]:0.0000}");
-                }
-                catch (DivideByZeroException) {
-                  throw;
-                }
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], total[0]):P1}");
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[0], (decimal)pmmKm[1]):0.0000}");
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], (decimal)pmmKm[1]):0.0000}");
               }
 
               // Totais Mensais
@@ -1225,12 +1374,7 @@ namespace UI.Reports.Docs {
                 }
                 row.Cells[++j].AddParagraph($"{total[0]:#,##0}");
                 row.Cells[++j].AddParagraph($"{total[1]:#,##0}");
-                try {
-                  row.Cells[++j].AddParagraph($"{total[1] / total[0]:P1}");
-                }
-                catch (DivideByZeroException) {
-                  throw;
-                }
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], total[0]):P1}");
 
                 // Medias Mensais
                 row = table.AddRow();
@@ -1253,26 +1397,9 @@ namespace UI.Reports.Docs {
                 }
                 row.Cells[++j].AddParagraph($"{total[0]:#,##0}");
                 row.Cells[++j].AddParagraph($"{total[1]:#,##0}");
-                try {
-                  row.Cells[++j].AddParagraph($"{total[1] / total[0]:P1}");
-                }
-                catch (DivideByZeroException) {
-                  throw;
-                }
-
-                try {
-                  row.Cells[++j].AddParagraph($"{total[0] / pmmKm[1]:0.0000}");
-                }
-                catch (DivideByZeroException) {
-                  throw;
-                }
-
-                try {
-                  row.Cells[++j].AddParagraph($"{total[1] / pmmKm[1]:0.0000}");
-                }
-                catch (DivideByZeroException) {
-                  throw;
-                }
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], total[0]):P1}");
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[0], (decimal)pmmKm[1]):0.0000}");
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], (decimal)pmmKm[1]):0.0000}");
               }
             }
           }
@@ -1341,26 +1468,9 @@ namespace UI.Reports.Docs {
                 }
                 row.Cells[++j].AddParagraph($"{total[0]:#,##0}");
                 row.Cells[++j].AddParagraph($"{total[1]:#,##0}");
-                try {
-                  row.Cells[++j].AddParagraph($"{total[1] / total[0]:P1}");
-                }
-                catch (DivideByZeroException) {
-                  throw;
-                }
-
-                try {
-                  row.Cells[++j].AddParagraph($"{total[0] / pmmKm[0]:0.0000}");
-                }
-                catch (DivideByZeroException) {
-                  throw;
-                }
-
-                try {
-                  row.Cells[++j].AddParagraph($"{total[1] / pmmKm[0]:0.0000}");
-                }
-                catch (DivideByZeroException) {
-                  throw;
-                }
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], total[0]):P1}");
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[0], (decimal)pmmKm[0]):0.0000}");
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], (decimal)pmmKm[0]):0.0000}");
               }
 
               // Totais Anuais
@@ -1378,7 +1488,7 @@ namespace UI.Reports.Docs {
                   int?[] values = new int?[2] {
                         demanda.GetQuery(whereAs)?.Sum(p => p.Passageiros),
                         demanda.GetQuery(whereAs)?.Sum(p => p.Equivalente)
-                    };
+                  };
                   total[0] += values[0] ?? 0;
                   total[1] += values[1] ?? 0;
 
@@ -1386,12 +1496,7 @@ namespace UI.Reports.Docs {
                 }
                 row.Cells[++j].AddParagraph($"{total[0]:#,##0}");
                 row.Cells[++j].AddParagraph($"{total[1]:#,##0}");
-                try {
-                  row.Cells[++j].AddParagraph($"{total[1] / total[0]:P1}");
-                }
-                catch (DivideByZeroException) {
-                  throw;
-                }
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], total[0]):P1}");
 
                 // Medias Anuais
                 row = table.AddRow();
@@ -1414,26 +1519,9 @@ namespace UI.Reports.Docs {
                 }
                 row.Cells[++j].AddParagraph($"{total[0]:#,##0}");
                 row.Cells[++j].AddParagraph($"{total[1]:#,##0}");
-                try {
-                  row.Cells[++j].AddParagraph($"{total[1] / total[0]:P1}");
-                }
-                catch (DivideByZeroException) {
-                  throw;
-                }
-
-                try {
-                  row.Cells[++j].AddParagraph($"{total[0] / pmmKm[0]:0.0000}");
-                }
-                catch (DivideByZeroException) {
-                  throw;
-                }
-
-                try {
-                  row.Cells[++j].AddParagraph($"{total[1] / pmmKm[0]:0.0000}");
-                }
-                catch (DivideByZeroException) {
-                  throw;
-                }
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], total[0]):P1}");
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[0], (decimal)pmmKm[0]):0.0000}");
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], (decimal)pmmKm[0]):0.0000}");
               }
             }
           }

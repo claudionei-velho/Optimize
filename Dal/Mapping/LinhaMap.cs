@@ -17,8 +17,9 @@ namespace Dal.Mapping {
           .IsRequired().HasMaxLength(16);
 
       this.Property(t => t.Denominacao).HasColumnName("Denominacao")
-          .IsRequired().HasMaxLength(64);
+          .IsRequired().HasMaxLength(128);
 
+      this.Property(t => t.Viagem).HasColumnName("Viagem").HasMaxLength(256);
       this.Property(t => t.Uteis).HasColumnName("Uteis");
       this.Property(t => t.Sabados).HasColumnName("Sabados");
       this.Property(t => t.Domingos).HasColumnName("Domingos");

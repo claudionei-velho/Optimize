@@ -114,6 +114,7 @@
     <Compile Include="Mapping\OcupacaoMap.cs" />
     <Compile Include="Mapping\OfertaMap.cs" />
     <Compile Include="Mapping\OperacaoMap.cs" />
+    <Compile Include="Mapping\PlanOperacionalMap.cs" />
     <Compile Include="Mapping\OperacionalMap.cs" />
     <Compile Include="Mapping\OperLinhaMap.cs" />
     <Compile Include="Mapping\PaisMap.cs" />

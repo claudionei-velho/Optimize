@@ -45,7 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ExpressionParameterReplacer.cs" />
     <Compile Include="Extensions\Handler.cs" />
+    <Compile Include="Extensions\LatitudeAttribute.cs" />
+    <Compile Include="Extensions\LongitudeAttribute.cs" />
+    <Compile Include="Extensions\NumericExtensions.cs" />
     <Compile Include="IServices.cs" />
     <Compile Include="Models\AAbastece.cs" />
     <Compile Include="Models\AAdmin.cs" />
@@ -107,6 +111,7 @@
     <Compile Include="Models\Ocupacao.cs" />
     <Compile Include="Models\Oferta.cs" />
     <Compile Include="Models\Operacao.cs" />
+    <Compile Include="Models\PlanOperacional.cs" />
     <Compile Include="Models\Operacional.cs" />
     <Compile Include="Models\OperLinha.cs" />
     <Compile Include="Models\OptimizerException.cs" />

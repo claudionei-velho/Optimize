@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
+using Dto.Extensions;
 using Dto.Models;
-using UI.Extensions;
 
 namespace UI.Models {
   public class PontoViewModel {

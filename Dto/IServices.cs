@@ -12,10 +12,10 @@ namespace Dto {
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, int? skip = null, int? take = null);
 
     IEnumerable<TEntity> GetAll();
-    IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null, 
+    IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
     Task<IEnumerable<TEntity>> GetAllAsync();
-    Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter = null, 
+    Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
 
     IEnumerable<dynamic> GetSelect(Expression<Func<TEntity, dynamic>> columns);
@@ -29,7 +29,7 @@ namespace Dto {
 
     TEntity GetById(int id);
     TEntity GetById(object id);
-    Task<TEntity> GetByIdAsync(int id);    
+    Task<TEntity> GetByIdAsync(int id);
     Task<TEntity> GetByIdAsync(object id);
     TEntity GetFirst(Expression<Func<TEntity, bool>> filter = null);
     Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> filter = null);
@@ -41,6 +41,8 @@ namespace Dto {
     Task Insert(TEntity obj);
     Task Update(TEntity obj);
     Task Delete(TEntity obj);
-    Task ClearAll(TEntity obj);
+
+    Expression<Func<TEntity, bool>> AndAlso(Expression<Func<TEntity, bool>> left, Expression<Func<TEntity, bool>> right);
+    Expression<Func<TEntity, bool>> OrElse(Expression<Func<TEntity, bool>> left, Expression<Func<TEntity, bool>> right);
   }
 }

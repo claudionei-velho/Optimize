@@ -161,13 +161,9 @@ namespace Bll.Services {
             current.IndiceAtual = $"{prognostic[0]:#,##0}";
             current.DimensionaE = $"{prognostic[1]:#,##0}";
             current.DimensionaP = $"{prognostic[2]:#,##0}";
-            try {
-              current.EvolucaoE = Handler.NullIf(-(1 - ((decimal)prognostic[1] / prognostic[0])), 0);
-              current.EvolucaoP = Handler.NullIf(-(1 - ((decimal)prognostic[2] / prognostic[0])), 0);
-            }
-            catch (DivideByZeroException ex) {
-              throw new Exception(ex.Message);
-            }
+
+            current.EvolucaoE = Handler.NullIf(-(1 - NumericExtensions.SafeDivision((decimal)prognostic[1], prognostic[0])), 0);
+            current.EvolucaoP = Handler.NullIf(-(1 - NumericExtensions.SafeDivision((decimal)prognostic[2], prognostic[0])), 0);
             break;
           case 3:      // Extensao das Viagens (km)
             current.IndiceAtual = $"{extensao:#,##0.0}";
@@ -178,15 +174,9 @@ namespace Bll.Services {
             current.IndiceAtual = $"{prognostic[0] * extensao:#,##0.0}";
             current.DimensionaE = $"{prognostic[1] * extensao:#,##0.0}";
             current.DimensionaP = $"{prognostic[2] * extensao:#,##0.0}";
-            try {
-              current.EvolucaoE = Handler.NullIf(-(1 - (prognostic[1] * extensao / 
-                                                         (prognostic[0] * extensao))), 0);
-              current.EvolucaoP = Handler.NullIf(-(1 - (prognostic[2] * extensao / 
-                                                         (prognostic[0] * extensao))), 0);
-            }
-            catch (DivideByZeroException ex) {
-              throw new Exception(ex.Message);
-            }
+
+            current.EvolucaoE = Handler.NullIf(-(1 - NumericExtensions.SafeDivision(prognostic[1] * extensao, prognostic[0] * extensao)), 0);
+            current.EvolucaoP = Handler.NullIf(-(1 - NumericExtensions.SafeDivision(prognostic[2] * extensao, prognostic[0] * extensao)), 0);
             break;
           case 5:      // Pontos de Parada
             using (Services<PtLinha> pontos = new Services<PtLinha>()) {
@@ -202,34 +192,25 @@ namespace Bll.Services {
             current.DimensionaP = current.IndiceAtual;
             break;
           case 7:      // Ociosidade (%)
-            try {
-              current.IndiceAtual = $"{(decimal?)query.Sum(q => q.Ociosidade) / duracao[0]:P1}";
-            }
-            catch (DivideByZeroException ex) {
-              throw new Exception(ex.Message);
-            }
+            current.IndiceAtual = $"{NumericExtensions.SafeDivision((decimal?)query.Sum(q => q.Ociosidade), duracao[0]):P1}";
             try {
               current.DimensionaE = $"{Handler.NullIf(1 - prognostic[1] * extensao * 60 / velocidade / duracao[0], 0):P1}";
             }
-            catch (DivideByZeroException ex) {
-              throw new Exception(ex.Message);
+            catch (DivideByZeroException) {
+              current.DimensionaE = null;
             }
             try {
               current.DimensionaP = $"{Handler.NullIf(1 - prognostic[2] * extensao * 60 / velocidade / duracao[0], 0):P1}";
             }
-            catch (DivideByZeroException ex) {
-              throw new Exception(ex.Message);
+            catch (DivideByZeroException) {
+              current.DimensionaP = null;
             }
             break;
           case 8:      // Velocidade Comercial (Pico) (km/h)
             if (periodoId > 0) {
               total = query.Where(d => d.PeriodoId == periodoId).Sum(d => d.QtdViagens);
-              try {
-                current.IndiceAtual = $"{total * extensao / duracao[1] * 60:#,##0.0}";
-              }
-              catch (DivideByZeroException ex) {
-                throw new Exception(ex.Message);
-              }              
+
+              current.IndiceAtual = $"{NumericExtensions.SafeDivision(total * extensao, duracao[1]) * 60:#,##0.0}";
             }
             current.DimensionaE = current.IndiceAtual;
             current.DimensionaP = current.IndiceAtual;
@@ -244,111 +225,92 @@ namespace Bll.Services {
               current.IndiceAtual = $"{vehicles[0, 0]:#,##0}";
               current.DimensionaE = $"{vehicles[0, 1]:#,##0}";
               current.DimensionaP = $"{vehicles[0, 2]:#,##0}";
-              try {
-                current.EvolucaoE = Handler.NullIf(-(1 - (decimal)vehicles[0, 1] / vehicles[0, 0]), 0);
-                current.EvolucaoP = Handler.NullIf(-(1 - (decimal)vehicles[0, 2] / vehicles[0, 0]), 0);
-              }
-              catch (DivideByZeroException ex) {
-                throw new Exception(ex.Message);
-              }
+
+              current.EvolucaoE = Handler.NullIf(-(1 - NumericExtensions.SafeDivision((decimal)vehicles[0, 1], vehicles[0, 0])), 0);
+              current.EvolucaoP = Handler.NullIf(-(1 - NumericExtensions.SafeDivision((decimal)vehicles[0, 2], vehicles[0, 0])), 0);
             }
             break;
           case 11:     // Frota Total (Media)
             current.IndiceAtual = $"{vehicles[1, 0]:#,##0}";
             current.DimensionaE = $"{vehicles[1, 1]:#,##0}";
             current.DimensionaP = $"{vehicles[1, 2]:#,##0}";
-            try {
-              current.EvolucaoE = Handler.NullIf(-(1 - (decimal)vehicles[1, 1] / vehicles[1, 0]), 0);
-              current.EvolucaoP = Handler.NullIf(-(1 - (decimal)vehicles[1, 2] / vehicles[1, 0]), 0);
-            }
-            catch (DivideByZeroException ex) {
-              throw new Exception(ex.Message);
-            }
+
+            current.EvolucaoE = Handler.NullIf(-(1 - NumericExtensions.SafeDivision((decimal)vehicles[1, 1], vehicles[1, 0])), 0);
+            current.EvolucaoP = Handler.NullIf(-(1 - NumericExtensions.SafeDivision((decimal)vehicles[1, 2], vehicles[1, 0])), 0);
             break;
           case 12:     // Custo Operacional (R$)           
             current.IndiceAtual = $"{prognostic[0] * custo:C2}";
             current.DimensionaE = $"{prognostic[1] * custo:C2}";
             current.DimensionaP = $"{prognostic[2] * custo:C2}";
-            try {
-              current.EvolucaoE = Handler.NullIf(-(1 - ((decimal)prognostic[1] / prognostic[0])), 0);
-              current.EvolucaoP = Handler.NullIf(-(1 - ((decimal)prognostic[2] / prognostic[0])), 0);
-            }
-            catch (DivideByZeroException ex) {
-              throw new Exception(ex.Message);
-            }
+
+            current.EvolucaoE = Handler.NullIf(-(1 - NumericExtensions.SafeDivision((decimal)prognostic[1], prognostic[0])), 0);
+            current.EvolucaoP = Handler.NullIf(-(1 - NumericExtensions.SafeDivision((decimal)prognostic[2], prognostic[0])), 0);
             break;
           case 13:     // Taxa de Utilizacao (IPK) (Pass/km)
-            try {
-              current.IndiceAtual = $"{passageiros / (prognostic[0] * extensao):#,##0.000}";
-              current.DimensionaE = $"{passageiros / (prognostic[1] * extensao):#,##0.000}";
-              current.DimensionaP = $"{passageiros / (prognostic[2] * extensao):#,##0.000}";
-            }
-            catch (DivideByZeroException ex) {
-              throw new Exception(ex.Message);
-            }
+            current.IndiceAtual = $"{NumericExtensions.SafeDivision(passageiros, prognostic[0] * extensao):#,##0.000}";
+            current.DimensionaE = $"{NumericExtensions.SafeDivision(passageiros, prognostic[1] * extensao):#,##0.000}";
+            current.DimensionaP = $"{NumericExtensions.SafeDivision(passageiros, prognostic[2] * extensao):#,##0.000}";
+
             try {
               current.EvolucaoE = Handler.NullIf(-(1 - passageiros / (prognostic[1] * extensao) /
                                                          (passageiros / (prognostic[0] * extensao))), 0);
               current.EvolucaoP = Handler.NullIf(-(1 - passageiros / (prognostic[2] * extensao) /
                                                          (passageiros / (prognostic[0] * extensao))), 0);
             }
-            catch (DivideByZeroException ex) {
-              throw new Exception(ex.Message);
+            catch (DivideByZeroException) {
+              current.EvolucaoE = null;
+              current.EvolucaoP = null;
             }
             break;
           case 14:     // Uso da Frota	(km/veic)
             try {
-              current.IndiceAtual = $"{prognostic[0] * extensao / vehicles[1, 0]:#,##0.0}";
-              current.DimensionaE = $"{prognostic[1] * extensao / vehicles[1, 1]:#,##0.0}";
-              current.DimensionaP = $"{prognostic[2] * extensao / vehicles[1, 2]:#,##0.0}";
+              current.IndiceAtual = $"{NumericExtensions.SafeDivision(prognostic[0] * extensao, vehicles[1, 0]):#,##0.0}";
+              current.DimensionaE = $"{NumericExtensions.SafeDivision(prognostic[1] * extensao, vehicles[1, 1]):#,##0.0}";
+              current.DimensionaP = $"{NumericExtensions.SafeDivision(prognostic[2] * extensao, vehicles[1, 2]):#,##0.0}";
             }
             catch (DivideByZeroException ex) {
               throw new Exception(ex.Message);
             }
+
             try {
               current.EvolucaoE = Handler.NullIf(-(1 - prognostic[1] * extensao / vehicles[1, 1] /
                                                          (prognostic[0] * extensao / vehicles[1, 0])), 0);
               current.EvolucaoP = Handler.NullIf(-(1 - prognostic[2] * extensao / vehicles[1, 2] /
                                                          (prognostic[0] * extensao / vehicles[1, 0])), 0);
             }
-            catch (DivideByZeroException ex) {
-              throw new Exception(ex.Message);
+            catch (DivideByZeroException) {
+              current.EvolucaoE = null;
+              current.EvolucaoP = null;
             }
             break;
           case 15:     // Rendimento da Frota (Pass/veic)
-            try {
-              current.IndiceAtual = $"{passageiros / vehicles[1, 0]:#,##0}";
-              current.DimensionaE = $"{passageiros / vehicles[1, 1]:#,##0}";
-              current.DimensionaP = $"{passageiros / vehicles[1, 2]:#,##0}";
-            }
-            catch (DivideByZeroException ex) {
-              throw new Exception(ex.Message);
-            }
+            current.IndiceAtual = $"{NumericExtensions.SafeDivision(passageiros, vehicles[1, 0]):#,##0}";
+            current.DimensionaE = $"{NumericExtensions.SafeDivision(passageiros, vehicles[1, 1]):#,##0}";
+            current.DimensionaP = $"{NumericExtensions.SafeDivision(passageiros, vehicles[1, 2]):#,##0}";
+
             try {
               current.EvolucaoE = Handler.NullIf(-(1 - passageiros / vehicles[1, 1] /
                                                          (passageiros / vehicles[1, 0])), 0);
               current.EvolucaoP = Handler.NullIf(-(1 - passageiros / vehicles[1, 2] /
                                                          (passageiros / vehicles[1, 0])), 0);
             }
-            catch (DivideByZeroException ex) {
-              throw new Exception(ex.Message);
+            catch (DivideByZeroException) {
+              current.EvolucaoE = null;
+              current.EvolucaoP = null;
             }
             break;
           case 16:     // Custo do Transporte (R$/pass)
-            try {
-              current.IndiceAtual = $"{prognostic[0] * custo / passageiros:C2}";
-              current.DimensionaE = $"{prognostic[1] * custo / passageiros:C2}";
-              current.DimensionaP = $"{prognostic[2] * custo / passageiros:C2}";
-            }
-            catch (DivideByZeroException ex) {
-              throw new Exception(ex.Message);
-            }
+            current.IndiceAtual = $"{NumericExtensions.SafeDivision(prognostic[0] * custo, passageiros):C2}";
+            current.DimensionaE = $"{NumericExtensions.SafeDivision(prognostic[1] * custo, passageiros):C2}";
+            current.DimensionaP = $"{NumericExtensions.SafeDivision(prognostic[2] * custo, passageiros):C2}";
+
             try {                
               current.EvolucaoE = Handler.NullIf(-(1 - (prognostic[1] * aux / (prognostic[0] * aux))), 0);
               current.EvolucaoP = Handler.NullIf(-(1 - (prognostic[2] * aux / (prognostic[0] * aux))), 0);
             }
-            catch (DivideByZeroException ex) {
-              throw new Exception(ex.Message);
+            catch (DivideByZeroException) {
+              current.EvolucaoE = null;
+              current.EvolucaoP = null;
             }            
             break;
           }

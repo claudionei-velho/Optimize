@@ -1350,7 +1350,7 @@
   <data name="InicioUtil" xml:space="preserve">
     <value>Início Dia Útil</value>
   </data>
-  <data name="Grantotal" xml:space="preserve">
+  <data name="GranTotal" xml:space="preserve">
     <value>Total Geral</value>
   </data>
   <data name="Subtotal" xml:space="preserve">
@@ -1367,5 +1367,8 @@
   </data>
   <data name="LoteId" xml:space="preserve">
     <value>Lote</value>
+  </data>
+  <data name="Viagem" xml:space="preserve">
+    <value>Descrição da Viagem</value>
   </data>
 </root>

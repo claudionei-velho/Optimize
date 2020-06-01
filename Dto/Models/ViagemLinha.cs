@@ -16,7 +16,7 @@ namespace Dto.Models {
           return (this.PercursoAno ?? 0) / this.ViagensAno.Value;
         }
         catch (DivideByZeroException) {
-          throw;
+          return null;
         }
       }
     }
@@ -28,7 +28,7 @@ namespace Dto.Models {
           return this.ViagensAno.Value / CustomCalendar.WeeksPerYear;
         }
         catch (DivideByZeroException) {
-          throw;
+          return null;
         }
       }
     }
@@ -40,7 +40,7 @@ namespace Dto.Models {
           return this.PercursoAno.Value / CustomCalendar.WeeksPerYear;
         }
         catch (DivideByZeroException) {
-          throw;
+          return null;
         }
       }
     }
@@ -52,7 +52,7 @@ namespace Dto.Models {
           return this.ViagensAno.Value / CustomCalendar.MonthsPerYear;
         }
         catch (DivideByZeroException) {
-          throw;
+          return null;
         }
       }
     }
@@ -64,7 +64,7 @@ namespace Dto.Models {
           return this.PercursoAno.Value / CustomCalendar.MonthsPerYear;
         }
         catch (DivideByZeroException) {
-          throw;
+          return null;
         }
       }
     }

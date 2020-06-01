@@ -29,6 +29,7 @@ namespace Dto.Models {
 
       // Reports (Database Views)
       this.Operacionais = new HashSet<Operacional>();
+      this.PlanOperacionais = new HashSet<PlanOperacional>();
       this.PeriodosTipicos = new HashSet<PeriodoTipico>();
       this.ViagensLinha = new HashSet<ViagemLinha>();
       this.ItinerariosDistinct = new HashSet<ItinerarioDistinct>();
@@ -42,6 +43,7 @@ namespace Dto.Models {
     public int EmpresaId { get; set; }
     public string Prefixo { get; set; }
     public string Denominacao { get; set; }
+    public string Viagem { get; set; }
     public bool Uteis { get; set; }
     public bool Sabados { get; set; }
     public bool Domingos { get; set; }
@@ -128,6 +130,7 @@ namespace Dto.Models {
 
     // Reports (Database Views)
     public virtual ICollection<Operacional> Operacionais { get; set; }
+    public virtual ICollection<PlanOperacional> PlanOperacionais { get; set; }
     public virtual ICollection<PeriodoTipico> PeriodosTipicos { get; set; }
     public virtual ICollection<ViagemLinha> ViagensLinha { get; set; }
     public virtual ICollection<ItinerarioDistinct> ItinerariosDistinct { get; set; }

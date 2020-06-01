@@ -242,7 +242,7 @@ namespace UI.Controllers {
     }
 
     public ActionResult PreviewFichaTecnica(int? id) {
-      Expression<Func<Linha, bool>> filter = q => (q.EmpresaId == 16) && (q.EDominio.DominioId == 1);
+      Expression<Func<Linha, bool>> filter = q => (q.EmpresaId == 18) && (q.EDominio.DominioId == 1);
       if (id.HasValue) {
         filter = q => q.Id == id.Value;
       }
@@ -251,7 +251,7 @@ namespace UI.Controllers {
         Document = new FichaTecnicaReport(filter).CreateDocument()
       };
 
-      string fileName = Path.GetTempPath() + Guid.NewGuid().ToString() + ".pdf";
+      string fileName = $"{Path.GetTempPath()}{Guid.NewGuid()}.pdf";
       pdfRenderer.RenderDocument();
       pdfRenderer.PdfDocument.Save(fileName);
 
