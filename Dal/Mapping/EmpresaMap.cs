@@ -44,6 +44,7 @@ namespace Dal.Mapping {
       this.Property(t => t.Email).HasColumnName("Email").HasMaxLength(256);
       this.Property(t => t.Inicio).HasColumnName("Inicio");
       this.Property(t => t.Termino).HasColumnName("Termino");
+      this.Property(t => t.Logo).HasColumnName("Logo").HasMaxLength(256);
       this.Property(t => t.Cadastro).HasColumnName("Cadastro")
           .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
 

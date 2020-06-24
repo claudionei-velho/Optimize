@@ -50,6 +50,8 @@
     <Compile Include="Extensions\LatitudeAttribute.cs" />
     <Compile Include="Extensions\LongitudeAttribute.cs" />
     <Compile Include="Extensions\NumericExtensions.cs" />
+    <Compile Include="Extensions\Predicate.cs" />
+    <Compile Include="Extensions\ReplaceParameterVisitor.cs" />
     <Compile Include="IServices.cs" />
     <Compile Include="Models\AAbastece.cs" />
     <Compile Include="Models\AAdmin.cs" />

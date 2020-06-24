@@ -20,17 +20,17 @@ using Reports;
 using UI.Properties;
 
 namespace UI.Reports.Docs {
-  public class FichaTecnicaReport : ReportBase {
+  public class FichaTecnica_v2 : ReportBase {
     private readonly Expression<Func<Linha, bool>> filter;
 
-    public FichaTecnicaReport(Expression<Func<Linha, bool>> _filter) : base(Resources.FichaTecnicaPreview) {
+    public FichaTecnica_v2(Expression<Func<Linha, bool>> _filter) : base(Resources.FichaTecnicaPreview) {
       this.filter = _filter;
     }
 
     public Document CreateDocument() {
       char[] charsToTrim = new char[] { ' ', ';', '/' };
       Sentido sentido = new Sentido();
-      Workday workDay = new Workday();      
+      Workday workDay = new Workday();
       Dictionary<int, int> listAtt = new Dictionary<int, int>();
       StringBuilder concat = new StringBuilder();
 
@@ -40,33 +40,30 @@ namespace UI.Reports.Docs {
        * Resumo Executivo do Sistema
        */
       using (LinhaService linhas = new LinhaService()) {
-        int companyId = linhas.GetFirst(this.filter).EmpresaId;
-        decimal?[,] values = new decimal?[3, 6] { { 0, 0, 0, 0, 0, 0 },
-                                                  { 0, 0, 0, 0, 0, 0 },
-                                                  { 0, 0, 0, 0, 0, 0 } };
+        decimal?[,] values = new decimal?[3, 4] { { 0, 0, 0, 0 },
+                                                  { 0, 0, 0, 0 },
+                                                  { 0, 0, 0, 0 } };
 
         foreach (var groupItem in linhas.GetQuery(this.filter).Select(
                                       p => new { p.EmpresaId, p.Classificacao }).Distinct()) {
-          using Services<Empresa> empresa = new Services<Empresa>();          
+          using Services<Empresa> empresa = new Services<Empresa>();
           string companyName = empresa.GetById(groupItem.EmpresaId)?.Razao;
-          string companyLogo = empresa.GetById(groupItem.EmpresaId)?.Logo;
 
           using CLinhaService cLinha = new CLinhaService();
           string catName = cLinha.GetById(groupItem.Classificacao)?.ClassLinha.Denominacao;
 
-          List<string> header = new List<string>();
-          if (companyLogo == null) {
-            header.Add(companyName);
-          }
-          header.Add(document.Info.Title);
-
           AddSection(Orientation.Landscape);
-          Header(this.section, header, companyLogo);
+          Header(this.section, new List<string>() { companyName, document.Info.Title });
           Footer(this.section);
           AddTable(this.section);
 
-          Unit[] colSize = new Unit[12] { "0.8 cm", "6.5 cm", "2.1 cm", "2 cm", "2.35 cm", "2.1 cm", 
-                                          "1.75 cm", "2.1 cm", "1.75 cm", "1.75 cm", "1.8 cm", "1.8 cm" };
+          Unit[] colSize = new Unit[7] { "0.8 cm", "7.5 cm", "2 cm", "9 cm", "2.5 cm", "2.5 cm", "2.5 cm" }; 
+          /* Unit[] colSize = new Unit[10];
+          colSize[0] = "0.8 cm";
+          colSize[1] = "8 cm";
+          for (int k = 2; k < colSize.Length; k++) {
+            colSize[k] = "2.25 cm";
+          } */
 
           Column column;
           for (int k = 0; k < colSize.Length; k++) {
@@ -85,19 +82,19 @@ namespace UI.Reports.Docs {
           row.Cells[0].MergeRight = 1;
           row.Cells[0].AddParagraph(Resources.LinhaId);
 
-          row.Cells[2].AddParagraph(Resources.Extensao);
-          row.Cells[3].AddParagraph($"{Resources.Viagens} {Resources.Mensal}");
-          row.Cells[4].AddParagraph($"{Resources.Percurso} {Resources.Mensal}");
+          row.Cells[2].AddParagraph(Resources.Prefixo);
+          row.Cells[3].AddParagraph(Resources.Viagem);
+          row.Cells[4].AddParagraph(Resources.Extensao);
+          row.Cells[5].AddParagraph($"{Resources.Viagens} {Resources.Mensal}");
+          row.Cells[6].AddParagraph($"{Resources.Percurso} {Resources.Mensal}");
+/*          row.Cells[5].AddParagraph(Resources.Passageiros);
 
-          row.Cells[5].MergeRight = 1;
-          row.Cells[5].AddParagraph($"{Resources.Passageiros}*");
+          row.Cells[6].MergeRight = 1;
+          row.Cells[6].AddParagraph(Resources.Equivalencia);
 
-          row.Cells[7].MergeRight = 2;
-          row.Cells[7].AddParagraph(Resources.Equivalencia);
-
-          row.Cells[10].AddParagraph(Resources.IPK);
-          row.Cells[11].AddParagraph(Resources.IPKe);
-       
+          row.Cells[8].AddParagraph(Resources.IPK);
+          row.Cells[9].AddParagraph(Resources.IPKe);
+*/      
           row = table.AddRow();
           row.Height = "0.8 cm";
 
@@ -106,15 +103,26 @@ namespace UI.Reports.Docs {
           row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
           row.Cells[0].Format.Font.Bold = true;
 
+          string linx = string.Empty;
           foreach (Linha item in linhas.GetQuery(Predicate.And(
                                                      this.filter, 
-                                                     p => p.Classificacao == groupItem.Classificacao)
-                                                 ).OrderBy(p => p.Id)) {
+                                                     p => p.Classificacao == groupItem.Classificacao))
+                                                 .OrderBy(p => p.Prefixo)) { 
             row = table.AddRow();
             row.Height = "0.8 cm";
 
-            row.Cells[1].AddParagraph($"{item.Prefixo} - {item.Denominacao}");
-            row.Cells[1].Format.Alignment = ParagraphAlignment.Left;
+            if (linx != item.Denominacao) {
+              row.Cells[1].AddParagraph(item.Denominacao);
+              row.Cells[1].Format.Alignment = ParagraphAlignment.Left;
+              row.Cells[1].Format.Font.Bold = true;
+            }
+            row.Cells[2].AddParagraph(item.Prefixo);
+            row.Cells[2].Format.Alignment = ParagraphAlignment.Center;
+
+            if (item.Viagem != null) {
+              row.Cells[3].AddParagraph(item.Viagem);
+              row.Cells[3].Format.Alignment = ParagraphAlignment.Left;
+            }
 
             // Total de Viagens e Percurso Medio Mensal            
             using Services<ViagemLinha> viagens = new Services<ViagemLinha>();
@@ -122,86 +130,86 @@ namespace UI.Reports.Docs {
             values[0, 1] = viagens.GetQuery(q => q.LinhaId == item.Id).Sum(p => p.PercursoAno);
 
             try {
-              row.Cells[2].AddParagraph($"{values[0, 1] / values[0, 0]:#,##0.00}");
+              row.Cells[4].AddParagraph($"{values[0, 1] / values[0, 0]:#,##0.00}");
             }
-            catch (DivideByZeroException) { }
-
-            row.Cells[3].AddParagraph($"{NumericExtensions.SafeDivision(values[0, 0] ?? 0, CustomCalendar.MonthsPerYear):#,#}");
-            row.Cells[4].AddParagraph($"{NumericExtensions.SafeDivision(values[0, 1] ?? 0, CustomCalendar.MonthsPerYear):#,##0.0}");
+            catch (DivideByZeroException) {
+              row.Cells[4].AddParagraph();
+            }
+            row.Cells[5].AddParagraph($"{NumericExtensions.SafeDivision(values[0, 0] ?? 0, CustomCalendar.MonthsPerYear):#,#}");
+            row.Cells[6].AddParagraph($"{NumericExtensions.SafeDivision(values[0, 1] ?? 0, CustomCalendar.MonthsPerYear):#,##0.0}");
 
             // Demanda Mensal da Linha
-            using Services<DemandaMod> demanda = new Services<DemandaMod>();
+/*            using Services<DemandaMod> demanda = new Services<DemandaMod>();
             Expression<Func<DemandaMod, bool>> filter = q => q.LinhaId == item.Id;
             values[0, 2] = (decimal)(demanda.GetQuery(filter)?.Average(p => p.Passageiros) ?? 0);
             values[0, 3] = (decimal)(demanda.GetQuery(filter)?.Average(p => p.Equivalente) ?? 0);
-            values[0, 4] = demanda.GetQuery(filter)?.Sum(p => p.Passageiros) ?? 0;
-            values[0, 5] = demanda.GetQuery(filter)?.Sum(p => p.Equivalente) ?? 0;
 
             row.Cells[5].AddParagraph($"{values[0, 2]:#,#}");
-            row.Cells[6].AddParagraph($"{NumericExtensions.SafeDivision(values[0, 2], NumericExtensions.SafeDivision(values[0, 0], CustomCalendar.MonthsPerYear)):#,#}");
-            row.Cells[7].AddParagraph($"{values[0, 3]:#,#}");
-            row.Cells[8].AddParagraph($"{NumericExtensions.SafeDivision(values[0, 3], NumericExtensions.SafeDivision(values[0, 0], CustomCalendar.MonthsPerYear)):#,#}");
-
-            decimal aux = NumericExtensions.SafeDivision((decimal)values[0, 3], (decimal)values[0, 2]);
-            if (aux != 0) {
-              row.Cells[9].AddParagraph($"{aux:P1}");
+            row.Cells[6].AddParagraph($"{values[0, 3]:#,#}");
+            try {
+              row.Cells[7].AddParagraph($"{(decimal)values[0, 3] / values[0, 2]:P1}");
+            }
+            catch (DivideByZeroException) {
+              row.Cells[7].AddParagraph();
             }
 
-            aux = NumericExtensions.SafeDivision(values[0, 2], NumericExtensions.SafeDivision(values[0, 1], CustomCalendar.MonthsPerYear));
-            if (aux != 0) {
-              row.Cells[10].AddParagraph($"{aux:0.000}");
+            try {
+              row.Cells[8].AddParagraph($"{values[0, 2] / values[0, 1]:0.0000}");
+            }
+            catch (DivideByZeroException) {
+              row.Cells[8].AddParagraph();
             }
 
-            aux = NumericExtensions.SafeDivision(values[0, 3], NumericExtensions.SafeDivision(values[0, 1], CustomCalendar.MonthsPerYear));
-            if (aux != 0) {
-              row.Cells[11].AddParagraph($"{aux:0.000}");
+            try {
+              row.Cells[9].AddParagraph($"{values[0, 3] / values[0, 1]:0.0000}");
             }
+            catch (DivideByZeroException) {
+              row.Cells[9].AddParagraph();
+            } */
 
             for (int j = 0; j < values.GetLength(1); j++) {
               values[1, j] += values[0, j] ?? 0;
             }
+            linx = item.Denominacao;
           }
 
           // Subtotais do Grupo
-          using Services<DemandaMod> pass = new Services<DemandaMod>();
-          int month = pass.GetQuery(d => d.EmpresaId == companyId).Select(p => new { p.Ano, p.Mes }).Distinct().Count();
-          
-          if (linhas.GetQuery(Predicate.And(this.filter, p => p.Classificacao == groupItem.Classificacao)).Count() > 1) {
+          if (linhas.GetQuery(this.filter).Where(p => p.Classificacao == groupItem.Classificacao).Count() > 1) {
             row = table.AddRow();
             row.Height = "0.8 cm";
             row.Format.Font.Bold = true;
 
-            row.Cells[1].AddParagraph($"{Resources.Subtotal}: {catName}");
+            row.Cells[3].AddParagraph($"{Resources.Subtotal}: {catName}");
             try {
-              row.Cells[2].AddParagraph($"{values[1, 1] / values[1, 0]:#,##0.00}");
+              row.Cells[4].AddParagraph($"{values[1, 1] / values[1, 0]:#,##0.00}");
             }
-            catch (DivideByZeroException) { }
-
-            row.Cells[3].AddParagraph($"{NumericExtensions.SafeDivision(values[1, 0] ?? 0, CustomCalendar.MonthsPerYear):#,#}");
-            row.Cells[4].AddParagraph($"{NumericExtensions.SafeDivision(values[1, 1] ?? 0, CustomCalendar.MonthsPerYear):#,##0.0}");
-
-            values[1, 2] = NumericExtensions.SafeDivision(values[1, 4], month);
-            row.Cells[5].AddParagraph($"{values[1, 2]:#,#}");
-            row.Cells[6].AddParagraph($"{NumericExtensions.SafeDivision(values[1, 2], NumericExtensions.SafeDivision(values[1, 0], CustomCalendar.MonthsPerYear)):#,#}");
-
-            values[1, 3] = NumericExtensions.SafeDivision(values[1, 5], month);
-            row.Cells[7].AddParagraph($"{values[1, 3]:#,#}");
-            row.Cells[8].AddParagraph($"{NumericExtensions.SafeDivision(values[1, 3], NumericExtensions.SafeDivision(values[1, 0], CustomCalendar.MonthsPerYear)):#,#}");
-
-            decimal aux = NumericExtensions.SafeDivision((decimal)values[1, 3], (decimal)values[1, 2]);
-            if (aux != 0) {
-              row.Cells[9].AddParagraph($"{aux:P1}");
+            catch (DivideByZeroException) {
+              row.Cells[4].AddParagraph();
+            }
+            row.Cells[5].AddParagraph($"{NumericExtensions.SafeDivision(values[1, 0] ?? 0, CustomCalendar.MonthsPerYear):#,#}");
+            row.Cells[6].AddParagraph($"{NumericExtensions.SafeDivision(values[1, 1] ?? 0, CustomCalendar.MonthsPerYear):#,##0.0}");
+            /* row.Cells[5].AddParagraph($"{values[1, 2]:#,#}");
+            row.Cells[6].AddParagraph($"{values[1, 3]:#,#}");
+            try {
+              row.Cells[7].AddParagraph($"{(decimal)values[1, 3] / values[1, 2]:P1}");
+            }
+            catch (DivideByZeroException) {
+              row.Cells[7].AddParagraph();
             }
 
-            aux = NumericExtensions.SafeDivision(values[1, 2], NumericExtensions.SafeDivision(values[1, 1], CustomCalendar.MonthsPerYear));
-            if (aux != 0) {
-              row.Cells[10].AddParagraph($"{aux:0.000}");
+            try {
+              row.Cells[8].AddParagraph($"{values[1, 2] / values[1, 1]:0.0000}");
+            }
+            catch (DivideByZeroException) {
+              row.Cells[8].AddParagraph();
             }
 
-            aux = NumericExtensions.SafeDivision(values[1, 3], NumericExtensions.SafeDivision(values[1, 1], CustomCalendar.MonthsPerYear));
-            if (aux != 0) {
-              row.Cells[11].AddParagraph($"{aux:0.000}");
+            try {
+              row.Cells[9].AddParagraph($"{values[1, 3] / values[1, 1]:0.0000}");
             }
+            catch (DivideByZeroException) {
+              row.Cells[9].AddParagraph();
+            } */          
           }
           for (int j = 0; j < values.GetLength(1); j++) {
             values[2, j] += values[1, j] ?? 0;
@@ -210,78 +218,55 @@ namespace UI.Reports.Docs {
         }
 
         // Totais Gerais
-        using Services<DemandaMod> demands = new Services<DemandaMod>();
-        int months = demands.GetQuery(d => d.EmpresaId == companyId).Select(p => new { p.Ano, p.Mes }).Distinct().Count();
-
-        if (linhas.GetQuery(this.filter).Select(p => new { p.EmpresaId, p.Classificacao }).Distinct().Count() > 1) {
+        if (linhas.GetQuery(this.filter).Select(
+                p => new { p.EmpresaId, p.Classificacao }).Distinct().Count() > 1) {
           Row row = table.AddRow();
           row.Height = "0.8 cm";
           row.Format.Font.Bold = true;
 
-          row.Cells[1].AddParagraph(Resources.GranTotal);
+          row.Cells[3].AddParagraph(Resources.GranTotal);
           try {
-            row.Cells[2].AddParagraph($"{values[2, 1] / values[2, 0]:#,##0.00}");
+            row.Cells[4].AddParagraph($"{values[2, 1] / values[2, 0]:#,##0.00}");
           }
-          catch (DivideByZeroException) { }
-
-          row.Cells[3].AddParagraph($"{NumericExtensions.SafeDivision(values[2, 0] ?? 0, CustomCalendar.MonthsPerYear):#,#}");
-          row.Cells[4].AddParagraph($"{NumericExtensions.SafeDivision(values[2, 1] ?? 0, CustomCalendar.MonthsPerYear):#,##0.0}");
-
-          values[2, 2] = NumericExtensions.SafeDivision(values[2, 4], months);
-          row.Cells[5].AddParagraph($"{values[2, 2]:#,#}");
-          row.Cells[6].AddParagraph($"{NumericExtensions.SafeDivision(values[2, 2], NumericExtensions.SafeDivision(values[2, 0], CustomCalendar.MonthsPerYear)):#,#}");
-
-          values[2, 3] = NumericExtensions.SafeDivision(values[2, 5], months);
-          row.Cells[7].AddParagraph($"{values[2, 3]:#,#}");
-          row.Cells[8].AddParagraph($"{NumericExtensions.SafeDivision(values[2, 3], NumericExtensions.SafeDivision(values[2, 0], CustomCalendar.MonthsPerYear)):#,#}");
-
-          decimal aux = NumericExtensions.SafeDivision((decimal)values[2, 3], (decimal)values[2, 2]);
-          if (aux != 0) {
-            row.Cells[9].AddParagraph($"{aux:P1}");
+          catch (DivideByZeroException) {
+            row.Cells[4].AddParagraph();
+          }
+          row.Cells[5].AddParagraph($"{NumericExtensions.SafeDivision(values[2, 0] ?? 0, CustomCalendar.MonthsPerYear):#,#}");
+          row.Cells[6].AddParagraph($"{NumericExtensions.SafeDivision(values[2, 1] ?? 0, CustomCalendar.MonthsPerYear):#,##0.0}");
+          /* row.Cells[5].AddParagraph($"{values[2, 2]:#,#}");
+          row.Cells[6].AddParagraph($"{values[2, 3]:#,#}");
+          try {
+            row.Cells[7].AddParagraph($"{(decimal)values[2, 3] / values[2, 2]:P1}");
+          }
+          catch (DivideByZeroException) {
+            row.Cells[7].AddParagraph();
           }
 
-          aux = NumericExtensions.SafeDivision(values[2, 2], NumericExtensions.SafeDivision(values[2, 1], CustomCalendar.MonthsPerYear));
-          if (aux != 0) {
-            row.Cells[10].AddParagraph($"{aux:0.000}");
+          try {
+            row.Cells[8].AddParagraph($"{values[2, 2] / values[2, 1]:0.0000}");
+          }
+          catch (DivideByZeroException) {
+            row.Cells[8].AddParagraph();
           }
 
-          aux = NumericExtensions.SafeDivision(values[2, 3], NumericExtensions.SafeDivision(values[2, 1], CustomCalendar.MonthsPerYear));
-          if (aux != 0) {
-            row.Cells[11].AddParagraph($"{aux:0.000}");
+          try {
+            row.Cells[9].AddParagraph($"{values[2, 3] / values[2, 1]:0.0000}");
           }
+          catch (DivideByZeroException) {
+            row.Cells[9].AddParagraph();
+          } */
         }
-
-        int minYear = demands.GetQuery(d => d.EmpresaId == companyId).Min(p => p.Ano);
-        int maxYear = demands.GetQuery(d => d.EmpresaId == companyId).Max(p => p.Ano);
-        int[] times = new int[2] {
-            demands.GetQuery(d => d.EmpresaId == companyId && d.Ano == minYear).Min(p => p.Mes),
-            demands.GetQuery(d => d.EmpresaId == companyId && d.Ano == maxYear).Max(p => p.Mes)
-        };
-
-        Paragraph paragraph = document.LastSection.AddParagraph();
-        paragraph.Format.Alignment = ParagraphAlignment.Left;
-        paragraph.Format.SpaceBefore = "0.1 in";
-        paragraph.Format.Font.Name = "Lucida Console";
-        paragraph.Format.Font.Size = 9;
-        paragraph.Format.LeftIndent = "0.8 cm";
-        paragraph.AddFormattedText($"(*) {Resources.FooterNote} {$"{times[0]:00}"}/{minYear} e {$"{times[1]:00}"}/{maxYear}", TextFormat.Italic);
       }
 
       /*
        * Identificacao e Qualificacao da Linha
        */
       using (LinhaService linhas = new LinhaService()) {
-        foreach (Linha item in linhas.GetQuery(this.filter, q => q.OrderBy(p => p.Id))) {
-          concat = new StringBuilder($"{Resources.LinhaId}: {item.Prefixo} - {item.Denominacao}");
-
-          List<string> header = new List<string>();
-          if (item.Empresa.Logo == null) {
-            header.Add(item.Empresa.Razao);
-          }
-          header.Add(document.Info.Title);
+        foreach (Linha item in linhas.GetQuery(this.filter, q => q.OrderBy(p => p.Prefixo))) {
+          concat = new StringBuilder($"{Resources.LinhaId}: {item.Prefixo} - {item.Viagem}");
 
           AddSection(Orientation.Portrait);
-          Header(this.section, header, item.Empresa.Logo);
+          Header(this.section, new List<string>() { item.Empresa.Razao, document.Info.Title });
           Footer(this.section, concat.ToString());
           AddTable(this.section);
 
@@ -306,30 +291,35 @@ namespace UI.Reports.Docs {
           row.Format.Font.Bold = true;
 
           row.Cells[0].AddParagraph(Resources.Denominacao);
+
           row.Cells[1].MergeRight = 2;
           row.Cells[1].AddParagraph(item.Denominacao);
           row.Cells[1].Format.Font.Bold = false;
 
+          row = table.AddRow();
+          row.Height = "0.6 cm";
+          row.Format.Font.Bold = true;
+
+          row.Cells[0].AddParagraph(Resources.Viagem);
+
           if (item.Viagem != null) {
-            row = table.AddRow();
-            row.Height = "0.6 cm";
-            row.Format.Font.Bold = true;
-          
-            row.Cells[0].AddParagraph(Resources.Viagem);
             row.Cells[1].MergeRight = 2;
             row.Cells[1].AddParagraph(item.Viagem);
             row.Cells[1].Format.Font.Bold = false;
           }
 
-          // Dias de Operacao
+          // Dias de Operacao e Funcoes da Linha
           row = table.AddRow();
-          row.Height = "0.6 cm";
+          row.Height = "0.8 cm";
           row.Format.Font.Bold = true;
 
           row.Cells[0].AddParagraph(Resources.DiaId);
-          row.Cells[1].MergeRight = 2;
           row.Cells[1].AddParagraph(item.DiasOp);
           row.Cells[1].Format.Font.Bold = false;
+
+          row.Cells[2].AddParagraph(Resources.Funcao);
+          row.Cells[3].AddParagraph(item.Funcoes);
+          row.Cells[3].Format.Font.Bold = false;
 
           // Jurisdicao (Dominio) e Extensao AB
           row = table.AddRow();
@@ -371,9 +361,9 @@ namespace UI.Reports.Docs {
           row.Cells[3].Format.Font.Bold = false;
 
           // Pontos Inicial e Final, AB e BA
-          for (int j = 0; j < sentido.Data.Count; j++) {            
+          /* for (int j = 0; j < sentido.Data.Count; j++) {            
             row = table.AddRow();
-            row.Height = "0.6 cm";
+            row.Height = "0.8 cm";
             row.Format.Font.Bold = true;
             if (j == 0) {
               row.Cells[0].AddParagraph(Resources.PontoInicialAB);
@@ -390,7 +380,7 @@ namespace UI.Reports.Docs {
 
             row.Cells[3].AddParagraph(linhas.GetPontoFinal(item.Id, ab));
             row.Cells[3].Format.Font.Bold = false;
-          }
+          } */
 
           // PMM (Percurso Medio Mensal) da Linha
           decimal?[] pmmKm;
@@ -411,7 +401,7 @@ namespace UI.Reports.Docs {
 
           /*
            * Atendimentos da Linha
-           */
+           *//*
           Paragraph paragraph = document.LastSection.AddParagraph();
           paragraph.Format.Alignment = ParagraphAlignment.Left;
           paragraph.Format.SpaceBefore = "0.4 cm";
@@ -460,11 +450,11 @@ namespace UI.Reports.Docs {
                 row.Cells[5].AddParagraph($"{aItem.Extensao:#,##0.00}");
               }
             }
-          }
+          } */
 
           /*
            * Quadro de Viagens/Hora da Linha
-           */
+           *//*
           paragraph = document.LastSection.AddParagraph();
           paragraph.Format.Alignment = ParagraphAlignment.Left;
           paragraph.Format.SpaceBefore = "0.4 cm";
@@ -563,12 +553,12 @@ namespace UI.Reports.Docs {
               row.Cells[8].AddParagraph($"{viagens.GetQuery(condition).Sum(p => p.DomingosBA):#,#}");
               row.Cells[9].AddParagraph($"{totais[2]:#,#}");
             }
-          }
+          } */
 
           /*
            * Horarios da Linha
            */
-          paragraph = document.LastSection.AddParagraph();
+          Paragraph paragraph = document.LastSection.AddParagraph();
           paragraph.Format.Alignment = ParagraphAlignment.Left;
           paragraph.Format.SpaceBefore = "0.4 cm";
           paragraph.AddFormattedText(Resources.HorarioViewModel, TextFormat.Bold);
@@ -1065,13 +1055,18 @@ namespace UI.Reports.Docs {
                 row.Cells[3].AddParagraph($"{vgTotal.Value / CustomCalendar.WeeksPerYear:#,###}");
                 row.Cells[4].AddParagraph($"{kmTotal.Value / CustomCalendar.WeeksPerYear:#,##0.0}");
               }
-              catch (DivideByZeroException) { }
-
+              catch (DivideByZeroException) {
+                row.Cells[3].MergeRight = 1;
+                row.Cells[3].AddParagraph();
+              }
               try {
                 row.Cells[5].AddParagraph($"{vgTotal.Value / CustomCalendar.MonthsPerYear:#,###}");
                 row.Cells[6].AddParagraph($"{kmTotal.Value / CustomCalendar.MonthsPerYear:#,##0.0}");
               }
-              catch (DivideByZeroException) { }
+              catch (DivideByZeroException) {
+                row.Cells[5].MergeRight = 1;
+                row.Cells[5].AddParagraph();
+              }
               row.Cells[7].AddParagraph($"{vgTotal.Value:#,###}");
               row.Cells[8].AddParagraph($"{kmTotal.Value:#,##0.0}");
 
@@ -1287,134 +1282,133 @@ namespace UI.Reports.Docs {
            * Demanda Mensal e Anual da Linha
            */
           using TCategoriaService categorias = new TCategoriaService();
-          using DemandaMesService demanda = new DemandaMesService();
-          concat = new StringBuilder($"{Resources.LinhaId}: {item.Prefixo} - {item.Denominacao}");
+          using (DemandaMesService demanda = new DemandaMesService()) {
+            concat = new StringBuilder($"{Resources.LinhaId}: {item.Prefixo} - {item.Denominacao}");
 
-          // Demanda Mensal
-          if (demanda.Exists(d => d.LinhaId == item.Id)) {
-            AddSection(Orientation.Landscape);
-            Footer(this.section, concat.ToString());
-            paragraph = document.LastSection.AddParagraph();
-            paragraph.Format.Alignment = ParagraphAlignment.Left;
-            paragraph.Format.SpaceAfter = "0.25 cm";
-            paragraph.AddFormattedText(Resources.DemandaMesViewModel, TextFormat.Bold);
-            AddTable(this.section);
+            // Demanda Mensal
+            if (demanda.Exists(d => d.LinhaId == item.Id)) {
+              AddSection(Orientation.Landscape);
+              Footer(this.section, concat.ToString());
+              paragraph = document.LastSection.AddParagraph();
+              paragraph.Format.Alignment = ParagraphAlignment.Left;
+              paragraph.Format.SpaceAfter = "0.25 cm";
+              paragraph.AddFormattedText(Resources.DemandaMesViewModel, TextFormat.Bold);
+              AddTable(this.section);
 
-            colSize = new Unit[categorias.GetCount(t => t.EmpresaId == item.EmpresaId) + 6];
-            for (int k = 0; k < colSize.Length; k++) {
-              colSize[k].Centimeter = 26.8 / (categorias.GetCount(t => t.EmpresaId == item.EmpresaId) + 6);
-              column = table.AddColumn(colSize[k]);
-            }
-
-            row = table.AddRow();
-            row.Height = "1.6 cm";
-            row.Format.Alignment = ParagraphAlignment.Center;
-            row.VerticalAlignment = VerticalAlignment.Center;
-            row.Format.Font.Bold = true;
-
-            int j = 0;
-            row.Cells[j].AddParagraph(Resources.DataReferencia);
-            foreach (TCategoria modal in categorias.GetQuery(t => t.EmpresaId == item.EmpresaId)) {
-              row.Cells[++j].AddParagraph(modal.Denominacao);
-            }
-            row.Cells[++j].AddParagraph(Resources.Total);
-
-            row.Cells[++j].MergeRight = 1;
-            row.Cells[j++].AddParagraph(Resources.Equivalencia);
-
-            row.Cells[++j].AddParagraph(Resources.IPK);
-            row.Cells[++j].AddParagraph(Resources.IPKe);
-
-            var records = demanda.GetQuery(d => d.LinhaId == item.Id)
-                              .Select(q => new { q.Ano, q.Mes }).Distinct()
-                              .OrderBy(q => q.Ano).ThenBy(q => q.Mes);
-            Expression<Func<DemandaMes, bool>> whereAs;
-
-            decimal[] total = new decimal[2] { 0, 0 };
-            foreach (var dItem in records) {
-              row = table.AddRow();
-              row.Height = "0.55 cm";
-              row.Format.Alignment = ParagraphAlignment.Right;
-
-              j = 0;
-              row.Cells[j].AddParagraph($"{new Mes().Short[dItem.Mes]}/{dItem.Ano}");
-              row.Cells[j].Format.Alignment = ParagraphAlignment.Left;
-
-              total = new decimal[2] { 0, 0 };
-              foreach (TCategoria modal in categorias.GetQuery(t => t.EmpresaId == item.EmpresaId)) {
-                whereAs = q => (q.LinhaId == item.Id) && (q.Ano == dItem.Ano) &&
-                               (q.Mes == dItem.Mes) && (q.Categoria == modal.Id);
-                int?[] values = new int?[2] {
-                        demanda.GetFirst(whereAs)?.Passageiros,
-                        demanda.GetFirst(whereAs)?.Equivalente
-                };
-                total[0] += values[0] ?? 0;
-                total[1] += values[1] ?? 0;
-
-                row.Cells[++j].AddParagraph($"{values[0]:#,##0}");
+              colSize = new Unit[categorias.GetCount(t => t.EmpresaId == item.EmpresaId) + 6];
+              for (int k = 0; k < colSize.Length; k++) {
+                colSize[k].Centimeter = 26.8 / (categorias.GetCount(t => t.EmpresaId == item.EmpresaId) + 6);
+                column = table.AddColumn(colSize[k]);
               }
-              row.Cells[++j].AddParagraph($"{total[0]:#,##0}");
-              row.Cells[++j].AddParagraph($"{total[1]:#,##0}");
-              row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], total[0]):P1}");
-              row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[0], (decimal)pmmKm[1]):0.000}");
-              row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], (decimal)pmmKm[1]):0.000}");
-            }
 
-            // Totais Mensais
-            if (records.Count() > 1) {
               row = table.AddRow();
-              row.Height = "0.8 cm";
-              row.Format.Alignment = ParagraphAlignment.Right;
+              row.Height = "1.6 cm";
+              row.Format.Alignment = ParagraphAlignment.Center;
               row.VerticalAlignment = VerticalAlignment.Center;
               row.Format.Font.Bold = true;
 
-              j = 0;
-              total = new decimal[2] { 0, 0 };
+              int j = 0;
+              row.Cells[j].AddParagraph(Resources.DataReferencia);
               foreach (TCategoria modal in categorias.GetQuery(t => t.EmpresaId == item.EmpresaId)) {
-                whereAs = q => (q.LinhaId == item.Id) && (q.Categoria == modal.Id);
-                int?[] values = new int?[2] {
+                row.Cells[++j].AddParagraph(modal.Denominacao);
+              }
+              row.Cells[++j].AddParagraph(Resources.Total);
+
+              row.Cells[++j].MergeRight = 1;
+              row.Cells[j++].AddParagraph(Resources.Equivalencia);
+
+              row.Cells[++j].AddParagraph(Resources.IPK);
+              row.Cells[++j].AddParagraph(Resources.IPKe);
+
+              var records = demanda.GetQuery(d => d.LinhaId == item.Id)
+                                .Select(q => new { q.Ano, q.Mes }).Distinct()
+                                .OrderBy(q => q.Ano).ThenBy(q => q.Mes);
+              Expression<Func<DemandaMes, bool>> whereAs;
+
+              decimal[] total = new decimal[2] { 0, 0 };
+              foreach (var dItem in records) {
+                row = table.AddRow();
+                row.Height = "0.55 cm";
+                row.Format.Alignment = ParagraphAlignment.Right;
+
+                j = 0;
+                row.Cells[j].AddParagraph($"{new Mes().Short[dItem.Mes]}/{dItem.Ano}");
+                row.Cells[j].Format.Alignment = ParagraphAlignment.Left;
+
+                total = new decimal[2] { 0, 0 };
+                foreach (TCategoria modal in categorias.GetQuery(t => t.EmpresaId == item.EmpresaId)) {
+                  whereAs = q => (q.LinhaId == item.Id) && (q.Ano == dItem.Ano) &&
+                                 (q.Mes == dItem.Mes) && (q.Categoria == modal.Id);
+                  int?[] values = new int?[2] {
+                        demanda.GetFirst(whereAs)?.Passageiros,
+                        demanda.GetFirst(whereAs)?.Equivalente
+                  };
+                  total[0] += values[0] ?? 0;
+                  total[1] += values[1] ?? 0;
+
+                  row.Cells[++j].AddParagraph($"{values[0]:#,##0}");
+                }
+                row.Cells[++j].AddParagraph($"{total[0]:#,##0}");
+                row.Cells[++j].AddParagraph($"{total[1]:#,##0}");
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], total[0]):P1}");
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[0], (decimal)pmmKm[1]):0.0000}");
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], (decimal)pmmKm[1]):0.0000}");
+              }
+
+              // Totais Mensais
+              if (records.Count() > 1) {
+                row = table.AddRow();
+                row.Height = "0.8 cm";
+                row.Format.Alignment = ParagraphAlignment.Right;
+                row.VerticalAlignment = VerticalAlignment.Center;
+                row.Format.Font.Bold = true;
+
+                j = 0;
+                total = new decimal[2] { 0, 0 };
+                foreach (TCategoria modal in categorias.GetQuery(t => t.EmpresaId == item.EmpresaId)) {
+                  whereAs = q => (q.LinhaId == item.Id) && (q.Categoria == modal.Id);
+                  int?[] values = new int?[2] {
                         demanda.GetQuery(whereAs)?.Sum(p => p.Passageiros),
                         demanda.GetQuery(whereAs)?.Sum(p => p.Equivalente)
-                };
-                total[0] += values[0] ?? 0;
-                total[1] += values[1] ?? 0;
+                  };
+                  total[0] += values[0] ?? 0;
+                  total[1] += values[1] ?? 0;
 
-                row.Cells[++j].AddParagraph($"{values[0]:#,##0}");
+                  row.Cells[++j].AddParagraph($"{values[0]:#,##0}");
+                }
+                row.Cells[++j].AddParagraph($"{total[0]:#,##0}");
+                row.Cells[++j].AddParagraph($"{total[1]:#,##0}");
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], total[0]):P1}");
+
+                // Medias Mensais
+                row = table.AddRow();
+                row.Height = "0.6 cm";
+                row.Format.Alignment = ParagraphAlignment.Right;
+                row.Format.Font.Bold = true;
+
+                j = 0;
+                total = new decimal[2] { 0, 0 };
+                foreach (TCategoria modal in categorias.GetQuery(t => t.EmpresaId == item.EmpresaId)) {
+                  whereAs = q => (q.LinhaId == item.Id) && (q.Categoria == modal.Id);
+                  decimal?[] values = new decimal?[2] {
+                        (decimal?)demanda.GetQuery(whereAs)?.Average(p => p.Passageiros),
+                        (decimal?)demanda.GetQuery(whereAs)?.Average(p => p.Equivalente)
+                  };
+                  total[0] += values[0] ?? 0;
+                  total[1] += values[1] ?? 0;
+
+                  row.Cells[++j].AddParagraph($"{values[0]:#,##0}");
+                }
+                row.Cells[++j].AddParagraph($"{total[0]:#,##0}");
+                row.Cells[++j].AddParagraph($"{total[1]:#,##0}");
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], total[0]):P1}");
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[0], (decimal)pmmKm[1]):0.0000}");
+                row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], (decimal)pmmKm[1]):0.0000}");
               }
-              row.Cells[++j].AddParagraph($"{total[0]:#,##0}");
-              row.Cells[++j].AddParagraph($"{total[1]:#,##0}");
-              row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], total[0]):P1}");
-
-              // Medias Mensais
-              row = table.AddRow();
-              row.Height = "0.6 cm";
-              row.Format.Alignment = ParagraphAlignment.Right;
-              row.Format.Font.Bold = true;
-
-              j = 0;
-              foreach (TCategoria modal in categorias.GetQuery(t => t.EmpresaId == item.EmpresaId)) {
-                whereAs = q => (q.LinhaId == item.Id) && (q.Categoria == modal.Id);
-
-                row.Cells[++j].AddParagraph($"{(decimal?)demanda.GetQuery(whereAs)?.Average(p => p.Passageiros):#,##0}");
-              }
-
-              int months = demanda.GetQuery(q => q.LinhaId == item.Id).Select(p => new { p.Ano, p.Mes } ).Distinct().Count();
-              total = new decimal[2] {
-                    Math.Round(NumericExtensions.SafeDivision(
-                                   (decimal)(demanda.GetQuery(q => q.LinhaId == item.Id)?.Sum(p => p.Passageiros) ?? 0), months), 0),
-                    Math.Round(NumericExtensions.SafeDivision(
-                                   (decimal)(demanda.GetQuery(q => q.LinhaId == item.Id)?.Sum(p => p.Equivalente) ?? 0), months), 0)
-              };
-
-              row.Cells[++j].AddParagraph($"{total[0]:#,##0}");
-              row.Cells[++j].AddParagraph($"{total[1]:#,##0}");
-              row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], total[0]):P1}");
-              row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[0], (decimal)pmmKm[1]):0.000}");
-              row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], (decimal)pmmKm[1]):0.000}");
             }
           }
 
-          /* // Demanda Anual
+          // Demanda Anual
           using (DemandaAnoService demanda = new DemandaAnoService()) {
             if (demanda.Exists(d => d.LinhaId == item.Id)) {
               int[] records = demanda.GetQuery(
@@ -1470,7 +1464,7 @@ namespace UI.Reports.Docs {
                   int?[] values = new int?[2] {
                         demanda.GetFirst(whereAs)?.Passageiros,
                         demanda.GetFirst(whereAs)?.Equivalente
-                  };
+                    };
                   total[0] += values[0] ?? 0;
                   total[1] += values[1] ?? 0;
 
@@ -1515,24 +1509,18 @@ namespace UI.Reports.Docs {
                 row.Format.Font.Bold = true;
 
                 j = 0;
+                total = new decimal[2] { 0, 0 };
                 foreach (TCategoria modal in categorias.GetQuery(t => t.EmpresaId == item.EmpresaId)) {
-                  decimal? aux = (decimal?)demanda.GetQuery(
-                                             q => (q.LinhaId == item.Id) && (q.Categoria == modal.Id)
-                                           )?.Average(p => p.Passageiros);
+                  whereAs = q => (q.LinhaId == item.Id) && (q.Categoria == modal.Id);
+                  decimal?[] values = new decimal?[2] {
+                        (decimal?)demanda.GetQuery(whereAs)?.Average(p => p.Passageiros),
+                        (decimal?)demanda.GetQuery(whereAs)?.Average(p => p.Equivalente)
+                  };
+                  total[0] += values[0] ?? 0;
+                  total[1] += values[1] ?? 0;
 
-                  row.Cells[++j].AddParagraph($"{aux:#,##0}");
+                  row.Cells[++j].AddParagraph($"{values[0]:#,##0}");
                 }
-
-                using Services<DemandaMod> totais = new Services<DemandaMod>();
-                total = new decimal[2] {
-                    Math.Round(NumericExtensions.SafeDivision(
-                                   (decimal)(totais.GetQuery(q => q.LinhaId == item.Id)?.Sum(p => p.Passageiros) ?? 0),
-                                   CustomCalendar.MonthsPerYear), 0),
-                    Math.Round(NumericExtensions.SafeDivision(
-                                   (decimal)(totais.GetQuery(q => q.LinhaId == item.Id)?.Sum(p => p.Equivalente) ?? 0),
-                                   CustomCalendar.MonthsPerYear), 0)
-                };
-
                 row.Cells[++j].AddParagraph($"{total[0]:#,##0}");
                 row.Cells[++j].AddParagraph($"{total[1]:#,##0}");
                 row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], total[0]):P1}");
@@ -1540,32 +1528,11 @@ namespace UI.Reports.Docs {
                 row.Cells[++j].AddParagraph($"{NumericExtensions.SafeDivision(total[1], (decimal)pmmKm[0]):0.0000}");
               }
             }
-          } */
+          }
+
         }
       }
       return this.document;
-    }
-
-    public override void Header(Section section, List<string> text, string image = null) {
-      Style style = document.Styles[StyleNames.Header];
-      style.ParagraphFormat.Font.Name = "Verdana";
-      style.ParagraphFormat.Font.Size = 10;
-      
-      string fileName = $@"C:\Temp\OptCo\{image}";
-      if (File.Exists(fileName)) {
-        Image logo = section.Headers.Primary.AddImage(fileName);
-        logo.Height = "0.4 in"; // "0.5 in";
-        logo.Width = "1.6 in"; // "0.625 in";
-        logo.Top = ShapePosition.Top;
-        logo.Left = ShapePosition.Left;
-        logo.WrapFormat.Style = WrapStyle.Through;
-      }
-
-      for (int i = 0; i < text.Count; i++) {
-        Paragraph paragraph = section.Headers.Primary.AddParagraph();
-        paragraph.AddFormattedText(text[i], TextFormat.Bold);
-        paragraph.Format.Alignment = ParagraphAlignment.Center;
-      }
     }
   }
 }

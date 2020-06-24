@@ -65,14 +65,13 @@ namespace Reports {
       this.section = AddSection(orientation);
     }
 
-    public virtual void Header(Section section, List<string> text) {
+    public virtual void Header(Section section, List<string> text, string image = null) {
       Style style = document.Styles[StyleNames.Header];
       style.ParagraphFormat.Font.Name = "Verdana";
       style.ParagraphFormat.Font.Size = 10;
 
-      Paragraph paragraph;
       for (int i = 0; i < text.Count; i++) {
-        paragraph = section.Headers.Primary.AddParagraph();
+        Paragraph paragraph = section.Headers.Primary.AddParagraph();
         paragraph.AddFormattedText(text[i], TextFormat.Bold);
         paragraph.Format.Alignment = ParagraphAlignment.Center;
       }

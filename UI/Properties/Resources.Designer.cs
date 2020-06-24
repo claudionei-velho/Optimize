@@ -1402,7 +1402,7 @@ namespace UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extensão Total (km).
+        ///   Looks up a localized string similar to Extensão (km).
         /// </summary>
         public static string Extensao {
             get {
@@ -1560,6 +1560,15 @@ namespace UI.Properties {
         public static string FluxoAjuste {
             get {
                 return ResourceManager.GetString("FluxoAjuste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passageiros transportados entre.
+        /// </summary>
+        public static string FooterNote {
+            get {
+                return ResourceManager.GetString("FooterNote", resourceCulture);
             }
         }
         

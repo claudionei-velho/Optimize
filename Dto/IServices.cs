@@ -41,8 +41,5 @@ namespace Dto {
     Task Insert(TEntity obj);
     Task Update(TEntity obj);
     Task Delete(TEntity obj);
-
-    Expression<Func<TEntity, bool>> AndAlso(Expression<Func<TEntity, bool>> left, Expression<Func<TEntity, bool>> right);
-    Expression<Func<TEntity, bool>> OrElse(Expression<Func<TEntity, bool>> left, Expression<Func<TEntity, bool>> right);
   }
 }

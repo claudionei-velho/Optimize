@@ -7,7 +7,8 @@ namespace Dto.Models {
       this.CLinhas = new HashSet<CLinha>();
       this.Corredores = new HashSet<Corredor>();
       this.Custos = new HashSet<Custo>();
-      this.CustoMods = new HashSet<CustoMod>();
+      this.CustosMod = new HashSet<CustoMod>();
+      this.DemandasMod = new HashSet<DemandaMod>();
       this.ECVeiculos = new HashSet<ECVeiculo>();
       this.EDominios = new HashSet<EDominio>();
       this.EPeriodos = new HashSet<EPeriodo>();
@@ -46,6 +47,7 @@ namespace Dto.Models {
     public string Email { get; set; }
     public TimeSpan? Inicio { get; set; }
     public TimeSpan? Termino { get; set; }
+    public string Logo { get; set; }
     public DateTime? Cadastro { get; set; }
 
     // Navigation Properties
@@ -55,7 +57,8 @@ namespace Dto.Models {
     public virtual ICollection<CLinha> CLinhas { get; set; }
     public virtual ICollection<Corredor> Corredores { get; set; }
     public virtual ICollection<Custo> Custos { get; set; }
-    public virtual ICollection<CustoMod> CustoMods { get; set; }
+    public virtual ICollection<CustoMod> CustosMod { get; set; }
+    public virtual ICollection<DemandaMod> DemandasMod { get; set; }
     public virtual ICollection<ECVeiculo> ECVeiculos { get; set; }
     public virtual ICollection<EDominio> EDominios { get; set; }
     public virtual ICollection<EPeriodo> EPeriodos { get; set; }

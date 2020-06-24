@@ -667,7 +667,7 @@
     <value>Informe a Empresa</value>
   </data>
   <data name="Extensao" xml:space="preserve">
-    <value>Extensão Total (km)</value>
+    <value>Extensão (km)</value>
   </data>
   <data name="ExtensaoSentido" xml:space="preserve">
     <value>Extensão (km)</value>
@@ -1370,5 +1370,8 @@
   </data>
   <data name="Viagem" xml:space="preserve">
     <value>Descrição da Viagem</value>
+  </data>
+  <data name="FooterNote" xml:space="preserve">
+    <value>Passageiros transportados entre</value>
   </data>
 </root>

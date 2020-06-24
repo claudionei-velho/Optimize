@@ -84,6 +84,9 @@ namespace UI.Models {
     public TimeSpan? Termino { get; set; }
 
     [ScaffoldColumn(false)]
+    public string Logo { get; set; }
+
+    [ScaffoldColumn(false)]
     public DateTime? Cadastro { get; set; }
 
     // Navigation Properties

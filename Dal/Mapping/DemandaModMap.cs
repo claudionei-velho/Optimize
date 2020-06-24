@@ -6,10 +6,11 @@ namespace Dal.Mapping {
   internal class DemandaModMap : EntityTypeConfiguration<DemandaMod> {
     public DemandaModMap() {
       // Primary Key
-      this.HasKey(t => new { t.LinhaId, t.Ano, t.Mes });
+      this.HasKey(t => new { t.EmpresaId, t.LinhaId, t.Ano, t.Mes });
 
       // Table, Properties & Column Mappings
       this.ToTable("DemandaMod", "opc");
+      this.Property(t => t.EmpresaId).HasColumnName("EmpresaId").IsRequired();
       this.Property(t => t.LinhaId).HasColumnName("LinhaId").IsRequired();
       this.Property(t => t.Ano).HasColumnName("Ano").IsRequired();
       this.Property(t => t.Mes).HasColumnName("Mes").IsRequired();
@@ -17,6 +18,10 @@ namespace Dal.Mapping {
       this.Property(t => t.Equivalente).HasColumnName("Equivalente");
 
       // Foreign Keys (Relationships)
+      this.HasRequired(t => t.Empresa)
+          .WithMany(f => f.DemandasMod).HasForeignKey(k => k.EmpresaId)
+          .WillCascadeOnDelete(false);
+
       this.HasRequired(t => t.Linha)
           .WithMany(f => f.DemandasMod).HasForeignKey(k => k.LinhaId)
           .WillCascadeOnDelete(false);

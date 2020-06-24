@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 using Dal;
 using Dto;
-using Dto.Extensions;
 
 namespace Bll {
   public class Services<TEntity> : IDisposable, IServices<TEntity> where TEntity : class {
@@ -194,18 +193,6 @@ namespace Bll {
         }
       }
     }
-
-    public Expression<Func<TEntity, bool>> AndAlso(Expression<Func<TEntity, bool>> left, Expression<Func<TEntity, bool>> right) => 
-      Expression.Lambda<Func<TEntity, bool>>(Expression.AndAlso(
-          left.Body,
-          new ExpressionParameterReplacer(right.Parameters, left.Parameters).Visit(right.Body)
-      ), left.Parameters);
-
-    public Expression<Func<TEntity, bool>> OrElse(Expression<Func<TEntity, bool>> left, Expression<Func<TEntity, bool>> right) => 
-      Expression.Lambda<Func<TEntity, bool>>(Expression.OrElse(
-          left.Body,
-          new ExpressionParameterReplacer(right.Parameters, left.Parameters).Visit(right.Body)
-      ), left.Parameters);
 
     #region IDisposable Support
     private bool disposedValue = false;    // To detect redundant calls

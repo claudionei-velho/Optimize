@@ -18,7 +18,7 @@ namespace Dal.Mapping {
 
       // Relationships
       this.HasRequired(t => t.Empresa)
-          .WithMany(t => t.CustoMods).HasForeignKey(d => d.EmpresaId);
+          .WithMany(t => t.CustosMod).HasForeignKey(d => d.EmpresaId);
     }
   }
 }
