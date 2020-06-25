@@ -10,8 +10,8 @@ using AutoMapper;
 using PagedList;
 
 using Bll;
-using Bll.Lists;
 using Bll.Services;
+using Dto.Lists;
 using Dto.Models;
 using UI.Models;
 using UI.Security;
@@ -62,7 +62,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao
             }), "Id", "Name");
       }
-      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name");
+      ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value");
       using (HorarioService horarios = new HorarioService(user.ID)) {
         ViewBag.HorarioId = new SelectList(horarios.GetSelect(
             q => new { Id = q.Id.ToString(), Name = q.Inicio }, 
@@ -90,7 +90,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value", viewModel.Sentido);
       using (HorarioService horarios = new HorarioService(user.ID)) {
         ViewBag.HorarioId = new SelectList(await horarios.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Inicio },
@@ -140,7 +140,7 @@ namespace UI.Controllers {
                                                        Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao }
                                         ), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value", viewModel.Sentido);
       using (HorarioService horarios = new HorarioService(user.ID)) {
         ViewBag.HorarioId = new SelectList(await horarios.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Inicio },
@@ -172,7 +172,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value", viewModel.Sentido);
       using (HorarioService horarios = new HorarioService(user.ID)) {
         int linhaId;
         using (Services<LnPesquisa> lPesquisas = new Services<LnPesquisa>()) {

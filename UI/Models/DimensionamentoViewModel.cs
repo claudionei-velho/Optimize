@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-using Bll.Lists;
+using Dto.Lists;
 using Dto.Models;
 
 namespace UI.Models {
@@ -21,7 +21,7 @@ namespace UI.Models {
 
     public string DiaIdName {
       get {
-        return Workday.Data[DiaId];
+        return Workday.Items[DiaId];
       }
     }
 

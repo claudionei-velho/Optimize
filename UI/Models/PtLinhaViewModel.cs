@@ -37,7 +37,7 @@ namespace UI.Models {
 
     public string FluxoCap {
       get {
-        return Bll.Lists.Fluxo.Data[Fluxo ?? 0];
+        return Dto.Lists.Fluxo.Items[Fluxo ?? 0];
       }
     }
 

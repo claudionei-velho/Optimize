@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-using Bll.Lists;
+using Dto.Lists;
 using Dto.Models;
 
 namespace UI.Models {
@@ -23,7 +23,7 @@ namespace UI.Models {
     public int? UteisFluxo { get; set; }
     public string UteisFluxoCap {
       get {
-        return Fluxo.Data[UteisFluxo ?? 0];
+        return Fluxo.Items[UteisFluxo ?? 0];
       }
     }
 
@@ -33,7 +33,7 @@ namespace UI.Models {
     public int? SabadosFluxo { get; set; }
     public string SabadosFluxoCap {
       get {
-        return Fluxo.Data[SabadosFluxo ?? 0];
+        return Fluxo.Items[SabadosFluxo ?? 0];
       }
     }
 
@@ -43,7 +43,7 @@ namespace UI.Models {
     public int? DomingosFluxo { get; set; }
     public string DomingosFluxoCap {
       get {
-        return Fluxo.Data[DomingosFluxo ?? 0];
+        return Fluxo.Items[DomingosFluxo ?? 0];
       }
     }
 

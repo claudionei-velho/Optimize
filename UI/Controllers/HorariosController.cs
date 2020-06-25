@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -7,8 +8,8 @@ using AutoMapper;
 using PagedList;
 
 using Bll;
-using Bll.Lists;
 using Bll.Services;
+using Dto.Lists;
 using Dto.Models;
 using UI.Models;
 using UI.Security;
@@ -103,8 +104,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name");
       }
-      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name");
-      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name");
+      ViewBag.DiaId = new SelectList(Workday.Items.Where(p => p.Key > 0).ToList(), "Key", "Value");
+      ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value");
       using (AtendimentoService atendimentos = new AtendimentoService(user.ID)) {
         ViewBag.AtendimentoId = new SelectList(atendimentos.GetSelect(
             q => new {
@@ -125,8 +126,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name", viewModel.DiaId);
-      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.DiaId = new SelectList(Workday.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.DiaId);
+      ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value", viewModel.Sentido);
       using (AtendimentoService atendimentos = new AtendimentoService(user.ID)) {
         ViewBag.AtendimentoId = new SelectList(await atendimentos.GetSelectAsync(
             q => new {
@@ -164,8 +165,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name", viewModel.DiaId);
-      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.DiaId = new SelectList(Workday.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.DiaId);
+      ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value", viewModel.Sentido);
       using (AtendimentoService atendimentos = new AtendimentoService(user.ID)) {
         ViewBag.AtendimentoId = new SelectList(await atendimentos.GetSelectAsync(
             q => new {
@@ -187,8 +188,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name", viewModel.DiaId);
-      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.DiaId = new SelectList(Workday.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.DiaId);
+      ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value", viewModel.Sentido);
       using (AtendimentoService atendimentos = new AtendimentoService(user.ID)) {
         ViewBag.AtendimentoId = new SelectList(await atendimentos.GetSelectAsync(
             q => new {

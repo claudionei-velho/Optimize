@@ -9,8 +9,8 @@ using AutoMapper;
 using OfficeOpenXml;
 using PagedList;
 
-using Bll.Lists;
 using Bll.Services;
+using Dto.Lists;
 using Dto.Models;
 using UI.Models;
 using UI.Properties;
@@ -76,7 +76,7 @@ namespace UI.Controllers {
         foreach (TotalViagem item in totalViagens.GetQuery()) {
           workSheet.Cells[++row, 1].Value = item.Linha.Empresa.Fantasia; 
           workSheet.Cells[row, 2].Value = item.Linha.Denominacao;
-          workSheet.Cells[row, 3].Value = Workday.Data[item.DiaId];
+          workSheet.Cells[row, 3].Value = Workday.Items[item.DiaId];
           workSheet.Cells[row, 4].Value = item.PrLinha.EPeriodo.Denominacao;
           workSheet.Cells[row, 5].Value = item.Sentido;
           workSheet.Cells[row, 6].Value = string.Format("{0:t}", item.Inicio);

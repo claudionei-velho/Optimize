@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -6,8 +7,8 @@ using System.Web.Mvc;
 using AutoMapper;
 using PagedList;
 
-using Bll.Lists;
 using Bll.Services;
+using Dto.Lists;
 using Dto.Models;
 using UI.Models;
 using UI.Security;
@@ -58,8 +59,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name");
       }
-      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name");
-      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name");
+      ViewBag.Mes = new SelectList(Mes.Items.ToList(), "Key", "Value");
+      ViewBag.DiaId = new SelectList(Workday.Items.Where(p => p.Key > 0).ToList(), "Key", "Value");
 
       return View();
     }
@@ -75,8 +76,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name", viewModel.Mes);
-      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name", viewModel.DiaId);
+      ViewBag.Mes = new SelectList(Mes.Items.ToList(), "Key", "Value", viewModel.Mes);
+      ViewBag.DiaId = new SelectList(Workday.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.DiaId);
 
       try {
         if (ModelState.IsValid) {
@@ -108,8 +109,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name", viewModel.Mes);
-      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name", viewModel.DiaId);
+      ViewBag.Mes = new SelectList(Mes.Items.ToList(), "Key", "Value", viewModel.Mes);
+      ViewBag.DiaId = new SelectList(Workday.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.DiaId);
 
       return View(viewModel);
     }
@@ -125,8 +126,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name", viewModel.Mes);
-      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name", viewModel.DiaId);
+      ViewBag.Mes = new SelectList(Mes.Items.ToList(), "Key", "Value", viewModel.Mes);
+      ViewBag.DiaId = new SelectList(Workday.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.DiaId);
 
       try {
         if (ModelState.IsValid) {

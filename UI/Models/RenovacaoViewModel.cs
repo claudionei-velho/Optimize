@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-using Bll.Lists;
+using Dto.Lists;
 using Dto.Models;
 
 namespace UI.Models {
@@ -23,7 +23,7 @@ namespace UI.Models {
 
     public string MesCap {
       get {
-        return Bll.Lists.Mes.Data[Mes];
+        return Dto.Lists.Mes.Items[Mes];
       }
     }
 
@@ -32,7 +32,7 @@ namespace UI.Models {
 
     public string DiaIdName {
       get {
-        return Workday.Data[DiaId ?? 0];
+        return Workday.Items[DiaId ?? 0];
       }
     }
 

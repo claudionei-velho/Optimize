@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-using Bll.Lists;
+using Dto.Lists;
 using Dto.Models;
 
 namespace UI.Models {
@@ -40,7 +40,7 @@ namespace UI.Models {
 
     public string CondicaoCap {
       get {
-        return Condicao.Data[CondicaoId ?? 0];
+        return Condicao.Items[CondicaoId ?? 0];
       }
     }
 

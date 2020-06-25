@@ -16,7 +16,7 @@ namespace UI.Models {
 
     public string MesRef {
       get {
-        return Bll.Lists.Mes.Data[Mes];
+        return Dto.Lists.Mes.Items[Mes];
       }
     }
 

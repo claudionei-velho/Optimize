@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -7,8 +8,8 @@ using AutoMapper;
 using PagedList;
 
 using Bll;
-using Bll.Lists;
 using Bll.Services;
+using Dto.Lists;
 using Dto.Models;
 using UI.Models;
 using UI.Security;
@@ -41,7 +42,7 @@ namespace UI.Controllers {
         ViewBag.Classe = new SelectList(cVeiculos.GetSelect(
             q => new { Id = q.Id.ToString(), Name = q.Classe }), "Id", "Name");
       }
-      ViewBag.Categoria = new SelectList(Categoria.GetAll(), "Id", "Name");
+      ViewBag.Categoria = new SelectList(Categoria.Items.Where(p => p.Key > 0).ToList(), "Key", "Value");
 
       return View();
     }
@@ -59,7 +60,7 @@ namespace UI.Controllers {
         ViewBag.Classe = new SelectList(await cVeiculos.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Classe }), "Id", "Name", viewModel.Classe);
       }
-      ViewBag.Categoria = new SelectList(Categoria.GetAll(), "Id", "Name", viewModel.Categoria);
+      ViewBag.Categoria = new SelectList(Categoria.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.Categoria);
 
       try {
         if (ModelState.IsValid) {
@@ -93,7 +94,7 @@ namespace UI.Controllers {
         ViewBag.Classe = new SelectList(await cVeiculos.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Classe }), "Id", "Name", viewModel.Classe);
       }
-      ViewBag.Categoria = new SelectList(Categoria.GetAll(), "Id", "Name", viewModel.Categoria);
+      ViewBag.Categoria = new SelectList(Categoria.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.Categoria);
 
       return View(viewModel);
     }
@@ -111,7 +112,7 @@ namespace UI.Controllers {
         ViewBag.Classe = new SelectList(await cVeiculos.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Classe }), "Id", "Name", viewModel.Classe);
       }
-      ViewBag.Categoria = new SelectList(Categoria.GetAll(), "Id", "Name", viewModel.Categoria);
+      ViewBag.Categoria = new SelectList(Categoria.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.Categoria);
 
       try {
         if (ModelState.IsValid) {

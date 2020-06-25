@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -7,8 +8,8 @@ using AutoMapper;
 using PagedList;
 
 using Bll;
-using Bll.Lists;
 using Bll.Services;
+using Dto.Lists;
 using Dto.Models;
 using UI.Models;
 using UI.Security;
@@ -54,9 +55,9 @@ namespace UI.Controllers {
         ViewBag.MotorId = new SelectList(motores.GetSelect(
             q => new { Id = q.Id.ToString(), Name = q.Denominacao }), "Id", "Name");
       }
-      ViewBag.PosMotor = new SelectList(Posicao.GetAll(), "Id", "Name");
-      ViewBag.TransmiteId = new SelectList(Transmissao.GetAll(), "Id", "Name");
-      ViewBag.DirecaoId = new SelectList(Direcao.GetAll(), "Id", "Name");
+      ViewBag.PosMotor = new SelectList(Posicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value");
+      ViewBag.TransmiteId = new SelectList(Transmissao.Items.ToList(), "Key", "Value");
+      ViewBag.DirecaoId = new SelectList(Direcao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value");
 
       return View();
     }
@@ -74,9 +75,9 @@ namespace UI.Controllers {
         ViewBag.MotorId = new SelectList(await motores.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Denominacao }), "Id", "Name", viewModel.MotorId);
       }
-      ViewBag.PosMotor = new SelectList(Posicao.GetAll(), "Id", "Name", viewModel.PosMotor);
-      ViewBag.TransmiteId = new SelectList(Transmissao.GetAll(), "Id", "Name", viewModel.TransmiteId);
-      ViewBag.DirecaoId = new SelectList(Direcao.GetAll(), "Id", "Name", viewModel.DirecaoId);
+      ViewBag.PosMotor = new SelectList(Posicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.PosMotor);
+      ViewBag.TransmiteId = new SelectList(Transmissao.Items.ToList(), "Key", "Value", viewModel.TransmiteId);
+      ViewBag.DirecaoId = new SelectList(Direcao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.DirecaoId);
 
       try {
         if (ModelState.IsValid) {
@@ -105,9 +106,9 @@ namespace UI.Controllers {
         ViewBag.MotorId = new SelectList(await motores.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Denominacao }), "Id", "Name", viewModel.MotorId);
       }
-      ViewBag.PosMotor = new SelectList(Posicao.GetAll(), "Id", "Name", viewModel.PosMotor);
-      ViewBag.TransmiteId = new SelectList(Transmissao.GetAll(), "Id", "Name", viewModel.TransmiteId);
-      ViewBag.DirecaoId = new SelectList(Direcao.GetAll(), "Id", "Name", viewModel.DirecaoId);
+      ViewBag.PosMotor = new SelectList(Posicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.PosMotor);
+      ViewBag.TransmiteId = new SelectList(Transmissao.Items.ToList(), "Key", "Value", viewModel.TransmiteId);
+      ViewBag.DirecaoId = new SelectList(Direcao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.DirecaoId);
 
       return View(viewModel);
     }
@@ -120,9 +121,9 @@ namespace UI.Controllers {
         ViewBag.MotorId = new SelectList(await motores.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Denominacao }), "Id", "Name", viewModel.MotorId);
       }
-      ViewBag.PosMotor = new SelectList(Posicao.GetAll(), "Id", "Name", viewModel.PosMotor);
-      ViewBag.TransmiteId = new SelectList(Transmissao.GetAll(), "Id", "Name", viewModel.TransmiteId);
-      ViewBag.DirecaoId = new SelectList(Direcao.GetAll(), "Id", "Name", viewModel.DirecaoId);
+      ViewBag.PosMotor = new SelectList(Posicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.PosMotor);
+      ViewBag.TransmiteId = new SelectList(Transmissao.Items.ToList(), "Key", "Value", viewModel.TransmiteId);
+      ViewBag.DirecaoId = new SelectList(Direcao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.DirecaoId);
 
       try {
         if (ModelState.IsValid) {

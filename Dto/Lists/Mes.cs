@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
-namespace Bll.Lists {
+namespace Dto.Lists {
   public static class Mes {
-    public static IDictionary<int, string> Data = new Dictionary<int, string> {
+    public static IDictionary<int, string> Items = new Dictionary<int, string> {
         { 1, "Janeiro" },
         { 2, "Fevereiro" },
         { 3, "Março" },
@@ -32,9 +31,5 @@ namespace Bll.Lists {
         { 11, "Nov" },
         { 12, "Dez" }
     };
-
-    public static IEnumerable<KeyValuePair<int, string>> GetAll() {
-      return Data.ToList();
-    }
   }
 }

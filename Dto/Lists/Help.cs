@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace Bll.Lists {
+namespace Dto.Lists {
   public static class Help {
     private const string link = "https://optimize-manual.herokuapp.com/";
 
-    public static Dictionary<int, string> HRef = new Dictionary<int, string> {
+    public static IDictionary<int, string> HRef = new Dictionary<int, string> {
         { 0, link },
         { 1, $"{link}#conceito" },
         { 2, $"{link}#login" },

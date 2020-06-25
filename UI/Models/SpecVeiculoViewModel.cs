@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-using Bll.Lists;
+using Dto.Lists;
 using Dto.Models;
 
 namespace UI.Models {
@@ -32,7 +32,7 @@ namespace UI.Models {
 
     public string CategoriaCap {
       get {
-        return Bll.Lists.Categoria.Data[this.Categoria ?? 0];
+        return Dto.Lists.Categoria.Items[this.Categoria ?? 0];
       }
     }
 
@@ -101,7 +101,7 @@ namespace UI.Models {
 
     public string PosMotorCap {
       get {
-        return Posicao.Data[this.PosMotor ?? 0];
+        return Posicao.Items[this.PosMotor ?? 0];
       }
     }
 
@@ -124,7 +124,7 @@ namespace UI.Models {
 
     public string TransmiteCap {
       get {
-        return Transmissao.Data[this.TransmiteId ?? 1];
+        return Transmissao.Items[this.TransmiteId ?? 1];
       }
     }
 
@@ -133,7 +133,7 @@ namespace UI.Models {
 
     public string DirecaoCap {
       get {
-        return Direcao.Data[this.DirecaoId ?? 1];
+        return Direcao.Items[this.DirecaoId ?? 1];
       }
     }
 
@@ -213,7 +213,7 @@ namespace UI.Models {
 
     public string CatracaCap {
       get {
-        return Posicao.Data[this.Catraca ?? 0];
+        return Posicao.Items[this.Catraca ?? 0];
       }
     }
 
@@ -223,7 +223,7 @@ namespace UI.Models {
 
     public string PortaInCap {
       get {
-        return Posicao.Data[this.PortaIn];
+        return Posicao.Items[this.PortaIn];
       }
     }
 

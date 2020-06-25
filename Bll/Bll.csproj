@@ -55,19 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseValidator.cs" />
-    <Compile Include="Lists\Categoria.cs" />
-    <Compile Include="Lists\Condicao.cs" />
-    <Compile Include="Lists\Conforme.cs" />
-    <Compile Include="Lists\Direcao.cs" />
-    <Compile Include="Lists\Fluxo.cs" />
-    <Compile Include="Lists\Mes.cs" />
-    <Compile Include="Lists\Posicao.cs" />
-    <Compile Include="Lists\Profile.cs" />
-    <Compile Include="Lists\Help.cs" />
-    <Compile Include="Lists\Semana.cs" />
-    <Compile Include="Lists\Sentido.cs" />
-    <Compile Include="Lists\Transmissao.cs" />
-    <Compile Include="Lists\Workday.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services.cs" />
     <Compile Include="Services\AAbasteceService.cs" />
@@ -154,6 +141,7 @@
       <Name>Dto</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

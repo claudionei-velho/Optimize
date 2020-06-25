@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
-namespace Bll.Lists {
+namespace Dto.Lists {
   public static class Condicao {
-    public static Dictionary<int, string> Data = new Dictionary<int, string> {
+    public static IDictionary<int, string> Items = new Dictionary<int, string> {
         { 0, string.Empty },
         { 1, "Excelente" },
         { 2, "Ótimo(a)" },
@@ -12,9 +11,5 @@ namespace Bll.Lists {
         { 5, "Ruim" },
         { 6, "Péssimo(a)" }
     };
-
-    public static IEnumerable<KeyValuePair<int, string>> GetAll() {
-      return Data.Where(p => p.Key > 0).ToList();
-    }
   }
 }

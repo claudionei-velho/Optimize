@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-using Bll.Lists;
+using Dto.Lists;
 using Dto.Models;
 
 namespace UI.Models {
@@ -86,7 +86,7 @@ namespace UI.Models {
 
     public string CatracaCap {
       get {
-        return Posicao.Data[this.Catraca ?? 0];
+        return Posicao.Items[this.Catraca ?? 0];
       }
     }
 
@@ -96,7 +96,7 @@ namespace UI.Models {
 
     public string PortaInCap {
       get {
-        return Posicao.Data[this.PortaIn];
+        return Posicao.Items[this.PortaIn];
       }
     }
 

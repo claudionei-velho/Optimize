@@ -1,11 +1,10 @@
-﻿@using Bll.Lists;
+﻿@using Dto.Lists;
 @using UI.Properties;
 
 @model UI.Models.LoginViewModel
 
 @{
   ViewBag.Title = Resources.Login;
-  Help help = new Help();
 }
 
 <body class="animate">
@@ -45,7 +44,7 @@
               <div class="form-group ">
                 <div class="col-md-offset-2 col-md-10">
                   <input type="submit" value="Login" class="btn btn-default" />
-                  <a href="@help.HRef[2]" target="_blank" placeho>
+                  <a href="@Help.HRef[2]" target="_blank" placeho>
                     <span data-tooltip="@Resources.HelpHint">
                       <i class="fas fa-info-circle"></i>
                     </span>

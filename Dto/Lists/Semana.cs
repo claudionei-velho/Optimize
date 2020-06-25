@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
-namespace Bll.Lists {
+namespace Dto.Lists {
   public static class Semana {
-    public static Dictionary<int, string> Data = new Dictionary<int, string> {
+    public static IDictionary<int, string> Items = new Dictionary<int, string> {
         { 1, "Domingo" },
         { 2, "Segunda-feira" },
         { 3, "Terça-feira" },
@@ -12,9 +11,5 @@ namespace Bll.Lists {
         { 6, "Sexta-feira" },
         { 7, "Sábado" }
     };
-
-    public static IEnumerable<KeyValuePair<int, string>> GetAll() {
-      return Data.ToList();
-    }
   }
 }

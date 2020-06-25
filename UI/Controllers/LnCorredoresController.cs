@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -7,8 +8,8 @@ using AutoMapper;
 using PagedList;
 
 using Bll;
-using Bll.Lists;
 using Bll.Services;
+using Dto.Lists;
 using Dto.Models;
 using UI.Models;
 using UI.Security;
@@ -63,7 +64,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name");
       }
-      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name");
+      ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value");
 
       return View();
     }
@@ -83,7 +84,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value", viewModel.Sentido);
 
       try {
         if (ModelState.IsValid) {
@@ -123,7 +124,7 @@ namespace UI.Controllers {
               },
               q => q.EmpresaId == empresaId), "Id", "Name", viewModel.LinhaId);
         }
-        ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
+        ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value", viewModel.Sentido);
       }
       return View(viewModel);
     }
@@ -148,7 +149,7 @@ namespace UI.Controllers {
             },
             q => q.EmpresaId == empresaId), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value", viewModel.Sentido);
 
       try {
         if (ModelState.IsValid) {

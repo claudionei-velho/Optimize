@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -6,8 +7,8 @@ using System.Web.Mvc;
 using AutoMapper;
 using PagedList;
 
-using Bll.Lists;
 using Bll.Services;
+using Dto.Lists;
 using Dto.Models;
 using UI.Models;
 using UI.Security;
@@ -49,8 +50,8 @@ namespace UI.Controllers {
         ViewBag.VeiculoId = new SelectList(veiculos.AddCarrocerias(
             q => new { Id = q.Id.ToString(), Name = q.Numero }), "Id", "Name");
       }
-      ViewBag.Catraca = new SelectList(Posicao.GetAll(), "Id", "Name");
-      ViewBag.PortaIn = new SelectList(Posicao.GetAll(), "Id", "Name");
+      ViewBag.Catraca = new SelectList(Posicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value");
+      ViewBag.PortaIn = new SelectList(Posicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value");
 
       return View();
     }
@@ -64,8 +65,8 @@ namespace UI.Controllers {
         ViewBag.VeiculoId = new SelectList(await veiculos.AddCarroceriasAsync(
             q => new { Id = q.Id.ToString(), Name = q.Numero }), "Id", "Name", viewModel.VeiculoId);
       }
-      ViewBag.Catraca = new SelectList(Posicao.GetAll(), "Id", "Name", viewModel.Catraca);
-      ViewBag.PortaIn = new SelectList(Posicao.GetAll(), "Id", "Name", viewModel.PortaIn);
+      ViewBag.Catraca = new SelectList(Posicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.Catraca);
+      ViewBag.PortaIn = new SelectList(Posicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.PortaIn);
 
       try {
         if (ModelState.IsValid) {
@@ -90,8 +91,8 @@ namespace UI.Controllers {
       }
       var viewModel = mapper.Map<CarroceriaViewModel>(carroceria);
 
-      ViewBag.Catraca = new SelectList(Posicao.GetAll(), "Id", "Name", viewModel.Catraca);
-      ViewBag.PortaIn = new SelectList(Posicao.GetAll(), "Id", "Name", viewModel.PortaIn);
+      ViewBag.Catraca = new SelectList(Posicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.Catraca);
+      ViewBag.PortaIn = new SelectList(Posicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.PortaIn);
 
       return View(viewModel);
     }
@@ -100,8 +101,8 @@ namespace UI.Controllers {
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<ActionResult> Edit(CarroceriaViewModel viewModel) {
-      ViewBag.Catraca = new SelectList(Posicao.GetAll(), "Id", "Name", viewModel.Catraca);
-      ViewBag.PortaIn = new SelectList(Posicao.GetAll(), "Id", "Name", viewModel.PortaIn);
+      ViewBag.Catraca = new SelectList(Posicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.Catraca);
+      ViewBag.PortaIn = new SelectList(Posicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.PortaIn);
 
       try {
         if (ModelState.IsValid) {

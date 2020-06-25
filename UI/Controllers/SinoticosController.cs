@@ -7,8 +7,8 @@ using AutoMapper;
 using OfficeOpenXml;
 using PagedList;
 
-using Bll.Lists;
 using Bll.Services;
+using Dto.Lists;
 using Dto.Models;
 using UI.Models;
 using UI.Properties;
@@ -53,7 +53,7 @@ namespace UI.Controllers {
         // Detail Section
         foreach (Sinotico item in qSinotico.GetQuery()) {
           workSheet.Cells[++row, 1].Value = item.Linha.Denominacao;
-          workSheet.Cells[row, 2].Value = Workday.Data[item.DiaId];
+          workSheet.Cells[row, 2].Value = Workday.Items[item.DiaId];
           workSheet.Cells[row, 3].Value = item.ISinotico.Denominacao;
           workSheet.Cells[row, 4].Value = item.ISinotico.Unidade;
           workSheet.Cells[row, 5].Value = item.IndiceAtual;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -7,8 +8,8 @@ using AutoMapper;
 using PagedList;
 
 using Bll;
-using Bll.Lists;
 using Bll.Services;
+using Dto.Lists;
 using Dto.Models;
 using UI.Models;
 using UI.Security;
@@ -52,7 +53,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name");
       }
-      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name");
+      ViewBag.Mes = new SelectList(Mes.Items.ToList(), "Key", "Value");
       using (TCategoriaService tCategorias = new TCategoriaService(user.ID)) {
         ViewBag.Categoria = new SelectList(tCategorias.GetSelect(
             q => new { Id = q.Id.ToString(), Name = q.Denominacao}), "Id", "Name");
@@ -71,7 +72,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name", viewModel.Mes);
+      ViewBag.Mes = new SelectList(Mes.Items.ToList(), "Key", "Value", viewModel.Mes);
       using (TCategoriaService tCategorias = new TCategoriaService(user.ID)) {
         ViewBag.Categoria = new SelectList(await tCategorias.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Denominacao}), "Id", "Name", viewModel.Categoria);
@@ -107,7 +108,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name", viewModel.Mes);
+      ViewBag.Mes = new SelectList(Mes.Items.ToList(), "Key", "Value", viewModel.Mes);
 
       using (Services<Linha> linhas = new Services<Linha>()) {
         int empresaId = linhas.GetById(viewModel.LinhaId).EmpresaId;
@@ -131,7 +132,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name", viewModel.Mes);
+      ViewBag.Mes = new SelectList(Mes.Items.ToList(), "Key", "Value", viewModel.Mes);
 
       int empresaId = new Services<Linha>().GetById(viewModel.LinhaId).EmpresaId;
       using (Services<TCategoria> tCategorias = new Services<TCategoria>()) {

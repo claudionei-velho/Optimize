@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-using Bll.Lists;
 using Dto.Models;
 
 namespace UI.Models {
@@ -32,7 +31,7 @@ namespace UI.Models {
 
     public string CategoriaCap {
       get {
-        return Bll.Lists.Categoria.Data[this.Categoria ?? 0];
+        return Dto.Lists.Categoria.Items[this.Categoria ?? 0];
       }
     }
 
