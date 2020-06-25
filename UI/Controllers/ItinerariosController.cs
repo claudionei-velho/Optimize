@@ -59,12 +59,12 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name");
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name");
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name");
       using (Services<Via> vias = new Services<Via>()) {
         ViewBag.PavimentoId = new SelectList(vias.GetSelect(
             q => new { Id = q.Id.ToString(), Name = q.Denominacao }), "Id", "Name");
       }
-      ViewBag.CondicaoId = new SelectList(new Condicao().GetAll(), "Id", "Name");
+      ViewBag.CondicaoId = new SelectList(Condicao.GetAll(), "Id", "Name");
 
       return View();
     }
@@ -80,12 +80,12 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (Services<Via> vias = new Services<Via>()) {
         ViewBag.PavimentoId = new SelectList(await vias.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Denominacao }), "Id", "Name", viewModel.PavimentoId);
       }
-      ViewBag.CondicaoId = new SelectList(new Condicao().GetAll(), "Id", "Name", viewModel.CondicaoId);
+      ViewBag.CondicaoId = new SelectList(Condicao.GetAll(), "Id", "Name", viewModel.CondicaoId);
 
       try {
         if (ModelState.IsValid) {
@@ -117,12 +117,12 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (Services<Via> vias = new Services<Via>()) {
         ViewBag.PavimentoId = new SelectList(await vias.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Denominacao }), "Id", "Name", viewModel.PavimentoId);
       }
-      ViewBag.CondicaoId = new SelectList(new Condicao().GetAll(), "Id", "Name", viewModel.CondicaoId);
+      ViewBag.CondicaoId = new SelectList(Condicao.GetAll(), "Id", "Name", viewModel.CondicaoId);
 
       return View(viewModel);
     }
@@ -138,12 +138,12 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (Services<Via> vias = new Services<Via>()) {
         ViewBag.PavimentoId = new SelectList(await vias.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Denominacao }), "Id", "Name", viewModel.PavimentoId);
       }
-      ViewBag.CondicaoId = new SelectList(new Condicao().GetAll(), "Id", "Name", viewModel.CondicaoId);
+      ViewBag.CondicaoId = new SelectList(Condicao.GetAll(), "Id", "Name", viewModel.CondicaoId);
 
       try {
         if (ModelState.IsValid) {

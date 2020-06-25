@@ -32,7 +32,7 @@ namespace UI.Models {
 
     public string CategoriaCap {
       get {
-        return new Categoria().Data[this.Categoria ?? 0];
+        return Bll.Lists.Categoria.Data[this.Categoria ?? 0];
       }
     }
 
@@ -101,7 +101,7 @@ namespace UI.Models {
 
     public string PosMotorCap {
       get {
-        return new Posicao().Data[this.PosMotor ?? 0];
+        return Posicao.Data[this.PosMotor ?? 0];
       }
     }
 
@@ -124,7 +124,7 @@ namespace UI.Models {
 
     public string TransmiteCap {
       get {
-        return new Transmissao().Data[this.TransmiteId ?? 1];
+        return Transmissao.Data[this.TransmiteId ?? 1];
       }
     }
 
@@ -133,7 +133,7 @@ namespace UI.Models {
 
     public string DirecaoCap {
       get {
-        return new Direcao().Data[this.DirecaoId ?? 1];
+        return Direcao.Data[this.DirecaoId ?? 1];
       }
     }
 
@@ -213,7 +213,7 @@ namespace UI.Models {
 
     public string CatracaCap {
       get {
-        return new Posicao().Data[this.Catraca ?? 0];
+        return Posicao.Data[this.Catraca ?? 0];
       }
     }
 
@@ -223,7 +223,7 @@ namespace UI.Models {
 
     public string PortaInCap {
       get {
-        return new Posicao().Data[this.PortaIn];
+        return Posicao.Data[this.PortaIn];
       }
     }
 

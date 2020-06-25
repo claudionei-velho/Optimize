@@ -1,26 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Bll.Lists {
-  public class Direcao {
-    public Dictionary<int, string> Data;
-
-    public Direcao() {
-      this.Data = new Dictionary<int, string> {
+  public static class Direcao {
+    public static Dictionary<int, string> Data = new Dictionary<int, string> {
         { 0, string.Empty },
         { 1, "Manual" },
         { 2, "Hidráulica" },
         { 3, "Elétrica" }
-      };
-    }
+    };
 
-    public IEnumerable<dynamic> GetAll() {
-      List<dynamic> result = new List<dynamic>();
-      foreach (var item in this.Data) {
-        if (item.Key > 0) {
-          result.Add(new { Id = item.Key.ToString(), Name = item.Value });
-        }
-      }
-      return result;
+    public static IEnumerable<KeyValuePair<int, string>> GetAll() {
+      return Data.Where(p => p.Key > 0).ToList();
     }
   }
 }

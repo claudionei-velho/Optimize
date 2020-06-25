@@ -63,9 +63,9 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name");
       }
-      ViewBag.UteisFluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name");
-      ViewBag.SabadosFluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name");
-      ViewBag.DomingosFluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name");
+      ViewBag.UteisFluxo = new SelectList(Fluxo.GetAll(), "Id", "Name");
+      ViewBag.SabadosFluxo = new SelectList(Fluxo.GetAll(), "Id", "Name");
+      ViewBag.DomingosFluxo = new SelectList(Fluxo.GetAll(), "Id", "Name");
 
       return View();
     }
@@ -85,9 +85,9 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.UteisFluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name", viewModel.UteisFluxo);
-      ViewBag.SabadosFluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name", viewModel.SabadosFluxo);
-      ViewBag.DomingosFluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name", viewModel.DomingosFluxo);
+      ViewBag.UteisFluxo = new SelectList(Fluxo.GetAll(), "Id", "Name", viewModel.UteisFluxo);
+      ViewBag.SabadosFluxo = new SelectList(Fluxo.GetAll(), "Id", "Name", viewModel.SabadosFluxo);
+      ViewBag.DomingosFluxo = new SelectList(Fluxo.GetAll(), "Id", "Name", viewModel.DomingosFluxo);
 
       try {
         if (ModelState.IsValid) {
@@ -123,9 +123,9 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.UteisFluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name", viewModel.UteisFluxo);
-      ViewBag.SabadosFluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name", viewModel.SabadosFluxo);
-      ViewBag.DomingosFluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name", viewModel.DomingosFluxo);
+      ViewBag.UteisFluxo = new SelectList(Fluxo.GetAll(), "Id", "Name", viewModel.UteisFluxo);
+      ViewBag.SabadosFluxo = new SelectList(Fluxo.GetAll(), "Id", "Name", viewModel.SabadosFluxo);
+      ViewBag.DomingosFluxo = new SelectList(Fluxo.GetAll(), "Id", "Name", viewModel.DomingosFluxo);
 
       return View(viewModel);
     }
@@ -149,9 +149,9 @@ namespace UI.Controllers {
             q => new { Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao },
             q => q.EmpresaId == empresaId), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.UteisFluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name", viewModel.UteisFluxo);
-      ViewBag.SabadosFluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name", viewModel.SabadosFluxo);
-      ViewBag.DomingosFluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name", viewModel.DomingosFluxo);
+      ViewBag.UteisFluxo = new SelectList(Fluxo.GetAll(), "Id", "Name", viewModel.UteisFluxo);
+      ViewBag.SabadosFluxo = new SelectList(Fluxo.GetAll(), "Id", "Name", viewModel.SabadosFluxo);
+      ViewBag.DomingosFluxo = new SelectList(Fluxo.GetAll(), "Id", "Name", viewModel.DomingosFluxo);
 
       try {
         if (ModelState.IsValid) {

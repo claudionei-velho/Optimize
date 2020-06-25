@@ -69,7 +69,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Empresa.Fantasia + " | " + q.Denominacao
             }), "Id", "Name");
       }
-      ViewBag.DiaId = new SelectList(new Workday().GetAll(), "Id", "Name");
+      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name");
       using (Services<CVeiculo> cVeiculos = new Services<CVeiculo>()) {
         ViewBag.CVeiculoId = new SelectList(cVeiculos.GetSelect(
             q => new { Id = q.Id.ToString(), Name = q.Classe }), "Id", "Name");
@@ -98,7 +98,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Empresa.Fantasia + " | " + q.Denominacao
             }), "Id", "Name", viewModel.PeriodoId);
       }
-      ViewBag.DiaId = new SelectList(new Workday().GetAll(), "Id", "Name", viewModel.DiaId);
+      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name", viewModel.DiaId);
       using (Services<CVeiculo> cVeiculos = new Services<CVeiculo>()) {
         ViewBag.CVeiculoId = new SelectList(await cVeiculos.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Classe }), "Id", "Name", viewModel.CVeiculoId);
@@ -144,7 +144,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Empresa.Fantasia + " | " + q.Denominacao
             }), "Id", "Name", viewModel.PeriodoId);
       }
-      ViewBag.DiaId = new SelectList(new Workday().GetAll(), "Id", "Name", viewModel.DiaId);
+      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name", viewModel.DiaId);
       using (Services<CVeiculo> cVeiculos = new Services<CVeiculo>()) {
         ViewBag.CVeiculoId = new SelectList(await cVeiculos.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Classe }), "Id", "Name", viewModel.CVeiculoId);
@@ -173,7 +173,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Empresa.Fantasia + " | " + q.Denominacao
             }), "Id", "Name", viewModel.PeriodoId);
       }
-      ViewBag.DiaId = new SelectList(new Workday().GetAll(), "Id", "Name", viewModel.DiaId);
+      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name", viewModel.DiaId);
       using (Services<CVeiculo> cVeiculos = new Services<CVeiculo>()) {
         ViewBag.CVeiculoId = new SelectList(await cVeiculos.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Classe }), "Id", "Name", viewModel.CVeiculoId);

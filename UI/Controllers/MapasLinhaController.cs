@@ -49,7 +49,7 @@ namespace UI.Controllers {
         ViewBag.LinhaId = new SelectList(linhas.GetSelect(
             q => new { Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao }), "Id", "Name");
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name");
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name");
       using (AtendimentoService atendimentos = new AtendimentoService(user.ID)) {
         ViewBag.AtendimentoId = new SelectList(atendimentos.GetSelect(
             q => new { Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao }), "Id", "Name");
@@ -67,7 +67,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (AtendimentoService atendimentos = new AtendimentoService(user.ID)) {
         ViewBag.AtendimentoId = new SelectList(await atendimentos.GetSelectAsync(
             q => new {
@@ -105,7 +105,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (AtendimentoService atendimentos = new AtendimentoService(user.ID)) {
         ViewBag.AtendimentoId = new SelectList(await atendimentos.GetSelectAsync(
             q => new {
@@ -126,7 +126,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (AtendimentoService atendimentos = new AtendimentoService(user.ID)) {
         ViewBag.AtendimentoId = new SelectList(await atendimentos.GetSelectAsync(
             q => new {

@@ -23,7 +23,7 @@ namespace UI.Models {
 
     public string MesCap {
       get {
-        return new Mes().Data[Mes];
+        return Bll.Lists.Mes.Data[Mes];
       }
     }
 
@@ -32,7 +32,7 @@ namespace UI.Models {
 
     public string DiaIdName {
       get {
-        return new Workday().Data[DiaId ?? 0];
+        return Workday.Data[DiaId ?? 0];
       }
     }
 

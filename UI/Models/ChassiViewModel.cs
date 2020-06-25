@@ -57,7 +57,7 @@ namespace UI.Models {
 
     public string PosMotorCap {
       get {
-        return new Posicao().Data[this.PosMotor ?? 0];
+        return Posicao.Data[this.PosMotor ?? 0];
       }
     }
 
@@ -80,7 +80,7 @@ namespace UI.Models {
 
     public string TransmiteCap {
       get {
-        return new Transmissao().Data[this.TransmiteId ?? 1];
+        return Transmissao.Data[this.TransmiteId ?? 1];
       }
     }
 
@@ -89,7 +89,7 @@ namespace UI.Models {
 
     public string DirecaoCap {
       get {
-        return new Direcao().Data[this.DirecaoId ?? 1];
+        return Direcao.Data[this.DirecaoId ?? 1];
       }
     }
 

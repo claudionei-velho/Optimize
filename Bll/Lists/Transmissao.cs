@@ -1,22 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Bll.Lists {
-  public class Transmissao {
-    public Dictionary<int, string> Data;
-
-    public Transmissao() {
-      Data = new Dictionary<int, string> {
+  public static class Transmissao {
+    public static Dictionary<int, string> Data = new Dictionary<int, string> {
         { 1, "Manual" },
         { 2, "Automática" }
-      };
-    }
+    };
 
-    public IEnumerable<dynamic> GetAll() {
-      List<dynamic> result = new List<dynamic>();
-      foreach (var item in Data) {
-        result.Add(new { Id = item.Key.ToString(), Name = item.Value });
-      }
-      return result;
+    public static IEnumerable<KeyValuePair<int, string>> GetAll() {
+      return Data.ToList();
     }
   }
 }

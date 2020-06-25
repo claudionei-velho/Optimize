@@ -29,8 +29,6 @@ namespace UI.Reports.Docs {
 
     public Document CreateDocument() {
       char[] charsToTrim = new char[] { ' ', ';', '/' };
-      Sentido sentido = new Sentido();
-      Workday workDay = new Workday();      
       Dictionary<int, int> listAtt = new Dictionary<int, int>();
       StringBuilder concat = new StringBuilder();
 
@@ -67,7 +65,6 @@ namespace UI.Reports.Docs {
 
           Unit[] colSize = new Unit[12] { "0.8 cm", "6.5 cm", "2.1 cm", "2 cm", "2.35 cm", "2.1 cm", 
                                           "1.75 cm", "2.1 cm", "1.75 cm", "1.75 cm", "1.8 cm", "1.8 cm" };
-
           Column column;
           for (int k = 0; k < colSize.Length; k++) {
             column = table.AddColumn(colSize[k]);
@@ -146,12 +143,10 @@ namespace UI.Reports.Docs {
             if (aux != 0) {
               row.Cells[9].AddParagraph($"{aux:P1}");
             }
-
             aux = NumericExtensions.SafeDivision(values[0, 2], NumericExtensions.SafeDivision(values[0, 1], CustomCalendar.MonthsPerYear));
             if (aux != 0) {
               row.Cells[10].AddParagraph($"{aux:0.000}");
             }
-
             aux = NumericExtensions.SafeDivision(values[0, 3], NumericExtensions.SafeDivision(values[0, 1], CustomCalendar.MonthsPerYear));
             if (aux != 0) {
               row.Cells[11].AddParagraph($"{aux:0.000}");
@@ -264,7 +259,7 @@ namespace UI.Reports.Docs {
         paragraph.Format.Font.Name = "Lucida Console";
         paragraph.Format.Font.Size = 9;
         paragraph.Format.LeftIndent = "0.8 cm";
-        paragraph.AddFormattedText($"(*) {Resources.FooterNote} {$"{times[0]:00}"}/{minYear} e {$"{times[1]:00}"}/{maxYear}", TextFormat.Italic);
+        paragraph.AddFormattedText($"(*) {Resources.FooterNote} {Mes.Short[times[0]].ToLower()}/{minYear} e {Mes.Short[times[1]].ToLower()}/{maxYear}", TextFormat.Italic);
       }
 
       /*
@@ -371,7 +366,7 @@ namespace UI.Reports.Docs {
           row.Cells[3].Format.Font.Bold = false;
 
           // Pontos Inicial e Final, AB e BA
-          for (int j = 0; j < sentido.Data.Count; j++) {            
+          for (int j = 0; j < Sentido.Data.Count; j++) {            
             row = table.AddRow();
             row.Height = "0.6 cm";
             row.Format.Font.Bold = true;
@@ -489,13 +484,13 @@ namespace UI.Reports.Docs {
               row.Cells[0].AddParagraph(Resources.FaixaHoraria);
 
               row.Cells[1].MergeRight = 2;
-              row.Cells[1].AddParagraph(workDay.Data[1]);
+              row.Cells[1].AddParagraph(Workday.Data[1]);
 
               row.Cells[4].MergeRight = 2;
-              row.Cells[4].AddParagraph(workDay.Data[2]);
+              row.Cells[4].AddParagraph(Workday.Data[2]);
 
               row.Cells[7].MergeRight = 2;
-              row.Cells[7].AddParagraph(workDay.Data[3]);
+              row.Cells[7].AddParagraph(Workday.Data[3]);
 
               row = table.AddRow();
               row.Height = "0.8 cm";
@@ -504,13 +499,13 @@ namespace UI.Reports.Docs {
               row.Format.Font.Bold = true;
 
               int[,] cols = new int[,] { { 1, 2 }, { 4, 5 }, { 7, 8 } };
-              for (int j = 0; j <= sentido.Data.Count; j++) {
-                for (int k = 0; k < sentido.Data.Count; k++) {
+              for (int j = 0; j <= Sentido.Data.Count; j++) {
+                for (int k = 0; k < Sentido.Data.Count; k++) {
                   if ((k % 2) == 0) {
-                    row.Cells[cols[j, k]].AddParagraph(sentido.Data["AB"]);
+                    row.Cells[cols[j, k]].AddParagraph(Sentido.Data["AB"]);
                   }
                   else {
-                    row.Cells[cols[j, k]].AddParagraph(sentido.Data["BA"]);
+                    row.Cells[cols[j, k]].AddParagraph(Sentido.Data["BA"]);
                   }
                 }
               }
@@ -583,7 +578,7 @@ namespace UI.Reports.Docs {
             int size = 6;
 
             AddTable(this.section);
-            for (int i = 0; i < sentido.Data.Count; i++) {
+            for (int i = 0; i < Sentido.Data.Count; i++) {
               for (int j = 0; j < size; j++) {
                 column = table.AddColumn("1.45 cm");
               }
@@ -599,11 +594,11 @@ namespace UI.Reports.Docs {
               row.VerticalAlignment = VerticalAlignment.Center;
               row.Format.Font.Bold = true;
 
-              concat = new StringBuilder($"{workDay.Data[hr]} ({sentido.Data["AB"]})");
+              concat = new StringBuilder($"{Workday.Data[hr]} ({Sentido.Data["AB"]})");
               row.Cells[0].MergeRight = 5;
               row.Cells[0].AddParagraph(concat.ToString());
 
-              concat = new StringBuilder($"{workDay.Data[hr]} ({sentido.Data["BA"]})");
+              concat = new StringBuilder($"{Workday.Data[hr]} ({Sentido.Data["BA"]})");
               row.Cells[7].MergeRight = 5;
               row.Cells[7].AddParagraph(concat.ToString());
 
@@ -621,7 +616,7 @@ namespace UI.Reports.Docs {
                 row = table.AddRow();
                 row.Height = "0.525 cm";
 
-                for (int j = 0; j < sentido.Data.Count; j++) {
+                for (int j = 0; j < Sentido.Data.Count; j++) {
                   int cell = (j == 0) ? 0 : 7;
                   string ab = (j == 0) ? "AB" : "BA";
 
@@ -690,7 +685,7 @@ namespace UI.Reports.Docs {
                   row.Format.Alignment = ParagraphAlignment.Center;
 
                   if (j++ == 0) {
-                    row.Cells[0].AddParagraph(workDay.Data[pItem.DiaId]);
+                    row.Cells[0].AddParagraph(Workday.Data[pItem.DiaId]);
                     row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
                   }
 
@@ -771,13 +766,13 @@ namespace UI.Reports.Docs {
               row.Cells[3].AddParagraph(Resources.ExtensaoSentido);
 
               row.Cells[4].MergeRight = 1;
-              row.Cells[4].AddParagraph(workDay.Data[1]);
+              row.Cells[4].AddParagraph(Workday.Data[1]);
 
               row.Cells[6].MergeRight = 1;
-              row.Cells[6].AddParagraph(workDay.Data[2]);
+              row.Cells[6].AddParagraph(Workday.Data[2]);
 
               row.Cells[8].MergeRight = 1;
-              row.Cells[8].AddParagraph(workDay.Data[3]);
+              row.Cells[8].AddParagraph(Workday.Data[3]);
 
               row = table.AddRow();
               row.Height = "0.8 cm";
@@ -806,7 +801,7 @@ namespace UI.Reports.Docs {
                   }
                 }
 
-                row.Cells[2].AddParagraph(sentido.Data[opItem.Sentido]);
+                row.Cells[2].AddParagraph(Sentido.Data[opItem.Sentido]);
                 row.Cells[2].Format.Alignment = ParagraphAlignment.Center;
 
                 row.Cells[3].AddParagraph($"{opItem.Extensao:#,##0.00}");
@@ -888,13 +883,13 @@ namespace UI.Reports.Docs {
               row.Cells[3].AddParagraph(Resources.ExtensaoSentido);
 
               row.Cells[4].MergeRight = 1;
-              row.Cells[4].AddParagraph(workDay.Data[1]);
+              row.Cells[4].AddParagraph(Workday.Data[1]);
 
               row.Cells[6].MergeRight = 1;
-              row.Cells[6].AddParagraph(workDay.Data[2]);
+              row.Cells[6].AddParagraph(Workday.Data[2]);
 
               row.Cells[8].MergeRight = 1;
-              row.Cells[8].AddParagraph(workDay.Data[3]);
+              row.Cells[8].AddParagraph(Workday.Data[3]);
 
               row = table.AddRow();
               row.Height = "0.8 cm";
@@ -923,7 +918,7 @@ namespace UI.Reports.Docs {
                   }
                 }
 
-                row.Cells[2].AddParagraph(sentido.Data[opItem.Sentido]);
+                row.Cells[2].AddParagraph(Sentido.Data[opItem.Sentido]);
                 row.Cells[2].Format.Alignment = ParagraphAlignment.Center;
 
                 row.Cells[3].AddParagraph($"{opItem.Extensao:#,##0.00}");
@@ -1039,7 +1034,7 @@ namespace UI.Reports.Docs {
                   }
                 }
 
-                row.Cells[2].AddParagraph(workDay.Data[qItem.DiaId]);
+                row.Cells[2].AddParagraph(Workday.Data[qItem.DiaId]);
                 row.Cells[2].Format.Alignment = ParagraphAlignment.Left;
 
                 row.Cells[3].AddParagraph($"{qItem.ViagensSemana:#,###}");
@@ -1076,9 +1071,9 @@ namespace UI.Reports.Docs {
               row.Cells[8].AddParagraph($"{kmTotal.Value:#,##0.0}");
 
               concat = new StringBuilder();
-              using (Services<DiaTrabalho> workDays = new Services<DiaTrabalho>()) {
+              using (Services<DiaTrabalho> Workdays = new Services<DiaTrabalho>()) {
                 foreach (int hr in tabelas) {
-                  concat.Append($"{workDay.Data[hr]} = {$"{workDays.GetById(hr).Dias:#,##0}"}; ");
+                  concat.Append($"{Workday.Data[hr]} = {$"{Workdays.GetById(hr).Dias:#,##0}"}; ");
                 }
               }
 
@@ -1128,13 +1123,13 @@ namespace UI.Reports.Docs {
                   else {
                     if (!mapa.AtendimentoId.HasValue) {
                       using LinhaService pontos = new LinhaService();
-                      concat = new StringBuilder($"{item.Prefixo} ({sentido.Data[mapa.Sentido]})");
+                      concat = new StringBuilder($"{item.Prefixo} ({Sentido.Data[mapa.Sentido]})");
                       paragraph.AddFormattedText(concat.ToString(), TextFormat.Bold);
                       paragraph.Format.Alignment = ParagraphAlignment.Center;
                     }
                     else {
                       using AtendimentoService pontos = new AtendimentoService();
-                      concat = new StringBuilder($"{mapa.Atendimento.Prefixo} ({sentido.Data[mapa.Sentido]})");
+                      concat = new StringBuilder($"{mapa.Atendimento.Prefixo} ({Sentido.Data[mapa.Sentido]})");
                       paragraph.AddFormattedText(concat.ToString(), TextFormat.Bold);
                       paragraph.Format.Alignment = ParagraphAlignment.Center;
                     }
@@ -1216,7 +1211,7 @@ namespace UI.Reports.Docs {
                     paragraph = document.LastSection.AddParagraph();
                     paragraph.Format.SpaceBefore = "0.4 cm";
                     paragraph.Format.SpaceAfter = "0.2 in";
-                    paragraph.AddFormattedText($"{Resources.Sentido}: {sentido.Data[pItem.Sentido]}", TextFormat.Bold);
+                    paragraph.AddFormattedText($"{Resources.Sentido}: {Sentido.Data[pItem.Sentido]}", TextFormat.Bold);
 
                     AddTable(this.section);
                     colSize = new Unit[4] { "1 cm", "8 cm", "1 cm", "8 cm" };
@@ -1252,7 +1247,7 @@ namespace UI.Reports.Docs {
                     paragraph = document.LastSection.AddParagraph();
                     paragraph.Format.SpaceBefore = "0.4 cm";
                     paragraph.Format.SpaceAfter = "0.2 in";
-                    paragraph.AddFormattedText($"{Resources.Sentido}: {sentido.Data[pItem.Sentido]}", TextFormat.Bold);
+                    paragraph.AddFormattedText($"{Resources.Sentido}: {Sentido.Data[pItem.Sentido]}", TextFormat.Bold);
 
                     AddTable(this.section);
                     colSize = new Unit[4] { "1 cm", "8 cm", "1 cm", "8 cm" };
@@ -1337,7 +1332,7 @@ namespace UI.Reports.Docs {
               row.Format.Alignment = ParagraphAlignment.Right;
 
               j = 0;
-              row.Cells[j].AddParagraph($"{new Mes().Short[dItem.Mes]}/{dItem.Ano}");
+              row.Cells[j].AddParagraph($"{Mes.Short[dItem.Mes]}/{dItem.Ano}");
               row.Cells[j].Format.Alignment = ParagraphAlignment.Left;
 
               total = new decimal[2] { 0, 0 };

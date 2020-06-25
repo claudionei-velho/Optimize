@@ -32,7 +32,7 @@ namespace UI.Models {
 
     public string CategoriaCap {
       get {
-        return new Categoria().Data[this.Categoria ?? 0];
+        return Bll.Lists.Categoria.Data[this.Categoria ?? 0];
       }
     }
 

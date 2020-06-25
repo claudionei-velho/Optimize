@@ -1,22 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Bll.Lists {
-  public class Sentido {
-    public Dictionary<string, string> Data;
-
-    public Sentido() {
-      Data = new Dictionary<string, string> {
+  public static class Sentido {
+    public static Dictionary<string, string> Data = new Dictionary<string, string> {
         { "AB", "A -> B" },
         { "BA", "B -> A" }
-      };
-    }
+    };
 
-    public IEnumerable<dynamic> GetAll() {
-      List<dynamic> result = new List<dynamic>();
-      foreach (var item in Data) {
-        result.Add(new { Id = item.Key, Name = item.Value });
-      }
-      return result;
+    public static IEnumerable<KeyValuePair<string, string>> GetAll() {
+      return Data.ToList();
     }
   }
 }

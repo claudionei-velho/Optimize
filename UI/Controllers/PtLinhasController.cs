@@ -66,7 +66,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name");
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name");
       using (PontoService pontos = new PontoService(user.ID)) {
         ViewBag.PontoId = new SelectList(pontos.GetSelect(
             q => new {
@@ -85,7 +85,7 @@ namespace UI.Controllers {
             q => (q.LinhaId == viewModel.LinhaId) && q.Sentido.Equals("AB"),
             q => q.OrderBy(p => p.Id)), "Id", "Name");
       }
-      ViewBag.Fluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name");
+      ViewBag.Fluxo = new SelectList(Fluxo.GetAll(), "Id", "Name");
 
       return View(viewModel);
     }
@@ -101,7 +101,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (PontoService pontos = new PontoService(user.ID)) {
         ViewBag.PontoId = new SelectList(await pontos.GetSelectAsync(
             q => new {
@@ -120,7 +120,7 @@ namespace UI.Controllers {
             q => (q.LinhaId == viewModel.LinhaId) && q.Sentido.Equals("AB"),
             q => q.OrderBy(p => p.Id)), "Id", "Name", viewModel.DestinoId);
       }
-      ViewBag.Fluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name", viewModel.Fluxo);
+      ViewBag.Fluxo = new SelectList(Fluxo.GetAll(), "Id", "Name", viewModel.Fluxo);
 
       try {
         if (ModelState.IsValid) {
@@ -152,7 +152,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (PontoService pontos = new PontoService(user.ID)) {
         ViewBag.PontoId = new SelectList(await pontos.GetSelectAsync(
             q => new { 
@@ -171,7 +171,7 @@ namespace UI.Controllers {
             q => (q.LinhaId == viewModel.LinhaId) && q.Sentido.Equals(viewModel.Sentido) && (q.Id != viewModel.Id),
             q => q.OrderBy(p => p.Id)), "Id", "Name", viewModel.DestinoId);
       }
-      ViewBag.Fluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name", viewModel.Fluxo);
+      ViewBag.Fluxo = new SelectList(Fluxo.GetAll(), "Id", "Name", viewModel.Fluxo);
 
       return View(viewModel);
     }
@@ -187,7 +187,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (PontoService pontos = new PontoService(user.ID)) {
         ViewBag.PontoId = new SelectList(await pontos.GetSelectAsync(
             q => new { 
@@ -206,7 +206,7 @@ namespace UI.Controllers {
             q => (q.LinhaId == viewModel.LinhaId) && q.Sentido.Equals(viewModel.Sentido) && (q.Id != viewModel.Id),
             q => q.OrderBy(p => p.Id)), "Id", "Name", viewModel.DestinoId);
       }
-      ViewBag.Fluxo = new SelectList(new Fluxo().GetAll(), "Id", "Name", viewModel.Fluxo);
+      ViewBag.Fluxo = new SelectList(Fluxo.GetAll(), "Id", "Name", viewModel.Fluxo);
 
       try {
         if (ModelState.IsValid) {

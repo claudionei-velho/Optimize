@@ -17,7 +17,7 @@ namespace UI.Models {
 
     public string DiaIdName {
       get {
-        return new Workday().Data[DiaId];
+        return Workday.Data[DiaId];
       }
     }
 

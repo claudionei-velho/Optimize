@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-using Bll.Lists;
 using Dto.Models;
 
 namespace UI.Models {
@@ -17,7 +16,7 @@ namespace UI.Models {
 
     public string MesRef {
       get {
-        return new Mes().Data[Mes];
+        return Bll.Lists.Mes.Data[Mes];
       }
     }
 

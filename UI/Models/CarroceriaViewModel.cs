@@ -86,7 +86,7 @@ namespace UI.Models {
 
     public string CatracaCap {
       get {
-        return new Posicao().Data[this.Catraca ?? 0];
+        return Posicao.Data[this.Catraca ?? 0];
       }
     }
 
@@ -96,7 +96,7 @@ namespace UI.Models {
 
     public string PortaInCap {
       get {
-        return new Posicao().Data[this.PortaIn];
+        return Posicao.Data[this.PortaIn];
       }
     }
 

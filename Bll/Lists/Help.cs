@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 
 namespace Bll.Lists {
-  public class Help {
+  public static class Help {
     private const string link = "https://optimize-manual.herokuapp.com/";
 
-    public readonly Dictionary<int, string> HRef;
-    public Help() {
-      HRef = new Dictionary<int, string> {
+    public static Dictionary<int, string> HRef = new Dictionary<int, string> {
         { 0, link },
         { 1, $"{link}#conceito" },
         { 2, $"{link}#login" },
@@ -56,8 +54,7 @@ namespace Bll.Lists {
         { 49, $"{link}#" },
         { 50, $"{link}#" },
         { 51, $"{link}#" },
-        { 52, $"{link}#" },
-      };
-    }
+        { 52, $"{link}#" }
+    };
   }
 }

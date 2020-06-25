@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Bll.Lists {
-  public class Semana {
-    public Dictionary<int, string> Data;
-
-    public Semana() {
-      Data = new Dictionary<int, string> {
+  public static class Semana {
+    public static Dictionary<int, string> Data = new Dictionary<int, string> {
         { 1, "Domingo" },
         { 2, "Segunda-feira" },
         { 3, "Terça-feira" },
@@ -13,15 +11,10 @@ namespace Bll.Lists {
         { 5, "Quinta-feira" },
         { 6, "Sexta-feira" },
         { 7, "Sábado" }
-      };
-    }
+    };
 
-    public IEnumerable<dynamic> GetAll() {
-      List<dynamic> result = new List<dynamic>();
-      foreach (var item in Data) {
-        result.Add(new { Id = item.Key.ToString(), Name = item.Value });
-      }
-      return result;
+    public static IEnumerable<KeyValuePair<int, string>> GetAll() {
+      return Data.ToList();
     }
   }
 }

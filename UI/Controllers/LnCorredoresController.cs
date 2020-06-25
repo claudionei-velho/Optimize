@@ -63,7 +63,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name");
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name");
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name");
 
       return View();
     }
@@ -83,7 +83,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
 
       try {
         if (ModelState.IsValid) {
@@ -123,7 +123,7 @@ namespace UI.Controllers {
               },
               q => q.EmpresaId == empresaId), "Id", "Name", viewModel.LinhaId);
         }
-        ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+        ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       }
       return View(viewModel);
     }
@@ -148,7 +148,7 @@ namespace UI.Controllers {
             },
             q => q.EmpresaId == empresaId), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
 
       try {
         if (ModelState.IsValid) {

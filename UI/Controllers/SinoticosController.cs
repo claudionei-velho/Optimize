@@ -51,10 +51,9 @@ namespace UI.Controllers {
         workSheet.Cells[row, 9].Value = Resources.EvolucaoP;
 
         // Detail Section
-        Workday workDay = new Workday();
         foreach (Sinotico item in qSinotico.GetQuery()) {
           workSheet.Cells[++row, 1].Value = item.Linha.Denominacao;
-          workSheet.Cells[row, 2].Value = workDay.Data[item.DiaId];
+          workSheet.Cells[row, 2].Value = Workday.Data[item.DiaId];
           workSheet.Cells[row, 3].Value = item.ISinotico.Denominacao;
           workSheet.Cells[row, 4].Value = item.ISinotico.Unidade;
           workSheet.Cells[row, 5].Value = item.IndiceAtual;
@@ -66,7 +65,7 @@ namespace UI.Controllers {
 
         using var memoryStream = new MemoryStream();
         Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-        Response.AddHeader("content-disposition", $"attachment; filename={Guid.NewGuid().ToString()}.xlsx");
+        Response.AddHeader("content-disposition", $"attachment; filename={Guid.NewGuid()}.xlsx");
         excel.SaveAs(memoryStream);
         memoryStream.WriteTo(Response.OutputStream);
         Response.Flush();

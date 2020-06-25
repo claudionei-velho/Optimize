@@ -2,11 +2,8 @@
 using System.Linq;
 
 namespace Bll.Lists {
-  public class Mes {
-    public readonly IDictionary<int, string> Data;
-    public readonly IDictionary<int, string> Short;
-    public Mes() {
-      Data = new Dictionary<int, string> {
+  public static class Mes {
+    public static IDictionary<int, string> Data = new Dictionary<int, string> {
         { 1, "Janeiro" },
         { 2, "Fevereiro" },
         { 3, "Março" },
@@ -19,9 +16,9 @@ namespace Bll.Lists {
         { 10, "Outubro" },
         { 11, "Novembro" },
         { 12, "Dezembro" }
-      };
+    };
 
-      Short = new Dictionary<int, string> {
+    public static IDictionary<int, string> Short = new Dictionary<int, string> {
         { 1, "Jan" },
         { 2, "Fev" },
         { 3, "Mar" },
@@ -34,10 +31,9 @@ namespace Bll.Lists {
         { 10, "Out" },
         { 11, "Nov" },
         { 12, "Dez" }
-      };
-    }
+    };
 
-    public IEnumerable<KeyValuePair<int, string>> GetAll() {
+    public static IEnumerable<KeyValuePair<int, string>> GetAll() {
       return Data.ToList();
     }
   }

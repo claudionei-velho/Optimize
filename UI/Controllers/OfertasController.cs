@@ -52,7 +52,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name");
       }
-      ViewBag.Mes = new SelectList(new Mes().GetAll(), "Id", "Name");
+      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name");
       using (TCategoriaService tCategorias = new TCategoriaService(user.ID)) {
         ViewBag.Categoria = new SelectList(tCategorias.GetSelect(
             q => new { Id = q.Id.ToString(), Name = q.Denominacao}), "Id", "Name");
@@ -71,7 +71,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Mes = new SelectList(new Mes().GetAll(), "Id", "Name", viewModel.Mes);
+      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name", viewModel.Mes);
       using (TCategoriaService tCategorias = new TCategoriaService(user.ID)) {
         ViewBag.Categoria = new SelectList(await tCategorias.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Denominacao}), "Id", "Name", viewModel.Categoria);
@@ -107,7 +107,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Mes = new SelectList(new Mes().GetAll(), "Id", "Name", viewModel.Mes);
+      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name", viewModel.Mes);
 
       using (Services<Linha> linhas = new Services<Linha>()) {
         int empresaId = linhas.GetById(viewModel.LinhaId).EmpresaId;
@@ -131,7 +131,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Mes = new SelectList(new Mes().GetAll(), "Id", "Name", viewModel.Mes);
+      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name", viewModel.Mes);
 
       int empresaId = new Services<Linha>().GetById(viewModel.LinhaId).EmpresaId;
       using (Services<TCategoria> tCategorias = new Services<TCategoria>()) {

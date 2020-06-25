@@ -62,7 +62,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao
             }), "Id", "Name");
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name");
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name");
       using (HorarioService horarios = new HorarioService(user.ID)) {
         ViewBag.HorarioId = new SelectList(horarios.GetSelect(
             q => new { Id = q.Id.ToString(), Name = q.Inicio }, 
@@ -90,7 +90,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (HorarioService horarios = new HorarioService(user.ID)) {
         ViewBag.HorarioId = new SelectList(await horarios.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Inicio },
@@ -130,7 +130,7 @@ namespace UI.Controllers {
 
       MvcUser user = System.Web.HttpContext.Current.User as MvcUser;
       int linhaId = 0;
-      int diaId = new Workday().GetWorkday(viewModel.Data);
+      int diaId = Workday.GetWorkday(viewModel.Data);
       using (Services<LnPesquisa> lnPesquisas = new Services<LnPesquisa>()) {
         linhaId = lnPesquisas.GetById(viewModel.LinhaId).LinhaId;
         using LnPesquisaService linhas = new LnPesquisaService(user.ID);
@@ -140,7 +140,7 @@ namespace UI.Controllers {
                                                        Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao }
                                         ), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (HorarioService horarios = new HorarioService(user.ID)) {
         ViewBag.HorarioId = new SelectList(await horarios.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Inicio },
@@ -163,7 +163,7 @@ namespace UI.Controllers {
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<ActionResult> Edit(ViagemViewModel viewModel) {      
-      int diaId = new Workday().GetWorkday(viewModel.Data);
+      int diaId = Workday.GetWorkday(viewModel.Data);
 
       MvcUser user = System.Web.HttpContext.Current.User as MvcUser;
       using (LnPesquisaService linhas = new LnPesquisaService(user.ID)) {
@@ -172,7 +172,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (HorarioService horarios = new HorarioService(user.ID)) {
         int linhaId;
         using (Services<LnPesquisa> lPesquisas = new Services<LnPesquisa>()) {

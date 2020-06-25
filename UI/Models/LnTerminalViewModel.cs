@@ -23,7 +23,7 @@ namespace UI.Models {
     public int? UteisFluxo { get; set; }
     public string UteisFluxoCap {
       get {
-        return new Fluxo().Data[UteisFluxo ?? 0];
+        return Fluxo.Data[UteisFluxo ?? 0];
       }
     }
 
@@ -33,7 +33,7 @@ namespace UI.Models {
     public int? SabadosFluxo { get; set; }
     public string SabadosFluxoCap {
       get {
-        return new Fluxo().Data[SabadosFluxo ?? 0];
+        return Fluxo.Data[SabadosFluxo ?? 0];
       }
     }
 
@@ -43,7 +43,7 @@ namespace UI.Models {
     public int? DomingosFluxo { get; set; }
     public string DomingosFluxoCap {
       get {
-        return new Fluxo().Data[DomingosFluxo ?? 0];
+        return Fluxo.Data[DomingosFluxo ?? 0];
       }
     }
 

@@ -62,7 +62,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.TroncoId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name");
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name");
       using (PontoService pontos = new PontoService(user.ID)) {
         ViewBag.PontoId = new SelectList(pontos.GetSelect(
             q => new {
@@ -83,7 +83,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.TroncoId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (PontoService pontos = new PontoService(user.ID)) {
         ViewBag.PontoId = new SelectList(await pontos.GetSelectAsync(
             q => new {
@@ -121,7 +121,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.TroncoId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (PontoService pontos = new PontoService(user.ID)) {
         ViewBag.PontoId = new SelectList(await pontos.GetSelectAsync(
             q => new {
@@ -142,7 +142,7 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.TroncoId);
       }
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (PontoService pontos = new PontoService(user.ID)) {
         ViewBag.PontoId = new SelectList(await pontos.GetSelectAsync(
             q => new {

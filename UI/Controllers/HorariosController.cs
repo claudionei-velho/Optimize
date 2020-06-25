@@ -103,8 +103,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name");
       }
-      ViewBag.DiaId = new SelectList(new Workday().GetAll(), "Id", "Name");
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name");
+      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name");
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name");
       using (AtendimentoService atendimentos = new AtendimentoService(user.ID)) {
         ViewBag.AtendimentoId = new SelectList(atendimentos.GetSelect(
             q => new {
@@ -125,8 +125,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.DiaId = new SelectList(new Workday().GetAll(), "Id", "Name", viewModel.DiaId);
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name", viewModel.DiaId);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (AtendimentoService atendimentos = new AtendimentoService(user.ID)) {
         ViewBag.AtendimentoId = new SelectList(await atendimentos.GetSelectAsync(
             q => new {
@@ -164,8 +164,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.DiaId = new SelectList(new Workday().GetAll(), "Id", "Name", viewModel.DiaId);
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name", viewModel.DiaId);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (AtendimentoService atendimentos = new AtendimentoService(user.ID)) {
         ViewBag.AtendimentoId = new SelectList(await atendimentos.GetSelectAsync(
             q => new {
@@ -187,8 +187,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.DiaId = new SelectList(new Workday().GetAll(), "Id", "Name", viewModel.DiaId);
-      ViewBag.Sentido = new SelectList(new Sentido().GetAll(), "Id", "Name", viewModel.Sentido);
+      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name", viewModel.DiaId);
+      ViewBag.Sentido = new SelectList(Sentido.GetAll(), "Id", "Name", viewModel.Sentido);
       using (AtendimentoService atendimentos = new AtendimentoService(user.ID)) {
         ViewBag.AtendimentoId = new SelectList(await atendimentos.GetSelectAsync(
             q => new {

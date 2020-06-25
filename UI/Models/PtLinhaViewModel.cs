@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-using Bll.Lists;
 using Dto.Models;
 
 namespace UI.Models {
@@ -38,7 +37,7 @@ namespace UI.Models {
 
     public string FluxoCap {
       get {
-        return new Fluxo().Data[Fluxo ?? 0];
+        return Bll.Lists.Fluxo.Data[Fluxo ?? 0];
       }
     }
 

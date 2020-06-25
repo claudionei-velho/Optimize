@@ -58,8 +58,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name");
       }
-      ViewBag.Mes = new SelectList(new Mes().GetAll(), "Id", "Name");
-      ViewBag.DiaId = new SelectList(new Workday().GetAll(), "Id", "Name");
+      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name");
+      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name");
 
       return View();
     }
@@ -75,8 +75,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Mes = new SelectList(new Mes().GetAll(), "Id", "Name", viewModel.Mes);
-      ViewBag.DiaId = new SelectList(new Workday().GetAll(), "Id", "Name", viewModel.DiaId);
+      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name", viewModel.Mes);
+      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name", viewModel.DiaId);
 
       try {
         if (ModelState.IsValid) {
@@ -108,8 +108,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Mes = new SelectList(new Mes().GetAll(), "Id", "Name", viewModel.Mes);
-      ViewBag.DiaId = new SelectList(new Workday().GetAll(), "Id", "Name", viewModel.DiaId);
+      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name", viewModel.Mes);
+      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name", viewModel.DiaId);
 
       return View(viewModel);
     }
@@ -125,8 +125,8 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
-      ViewBag.Mes = new SelectList(new Mes().GetAll(), "Id", "Name", viewModel.Mes);
-      ViewBag.DiaId = new SelectList(new Workday().GetAll(), "Id", "Name", viewModel.DiaId);
+      ViewBag.Mes = new SelectList(Mes.GetAll(), "Id", "Name", viewModel.Mes);
+      ViewBag.DiaId = new SelectList(Workday.GetAll(), "Id", "Name", viewModel.DiaId);
 
       try {
         if (ModelState.IsValid) {

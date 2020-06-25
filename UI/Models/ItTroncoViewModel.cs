@@ -38,7 +38,7 @@ namespace UI.Models {
 
     public string CondicaoCap {
       get {
-        return new Condicao().Data[CondicaoId ?? 0];
+        return Condicao.Data[CondicaoId ?? 0];
       }
     }
 
