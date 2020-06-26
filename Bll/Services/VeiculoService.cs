@@ -18,7 +18,7 @@ namespace Bll.Services {
     protected override IQueryable<Veiculo> Get(Expression<Func<Veiculo, bool>> filter = null,
         Func<IQueryable<Veiculo>, IOrderedQueryable<Veiculo>> orderBy = null) {
       try {
-        int[] companies = context.Set<EUsuario>().AsNoTracking()
+        int[] companies = context.EUsuarios.AsNoTracking()
                               .Where(u => (u.UsuarioId == userId) && u.Ativo)
                               .Select(u => u.EmpresaId).Distinct().ToArray();
 
@@ -42,7 +42,7 @@ namespace Bll.Services {
 
     public IEnumerable<dynamic> AddCarrocerias(Expression<Func<Veiculo, dynamic>> columns) {
       try {
-        int[] usedId = context.Set<Carroceria>().AsNoTracking()
+        int[] usedId = context.Carrocerias.AsNoTracking()
                            .Select(c => c.VeiculoId).Distinct().ToArray();
 
         IQueryable<Veiculo> query = (from v in Get()
@@ -57,7 +57,7 @@ namespace Bll.Services {
 
     public async Task<IEnumerable<dynamic>> AddCarroceriasAsync(Expression<Func<Veiculo, dynamic>> columns) {
       try {
-        int[] usedId = context.Set<Carroceria>().AsNoTracking()
+        int[] usedId = context.Carrocerias.AsNoTracking()
                            .Select(c => c.VeiculoId).Distinct().ToArray();
 
         IQueryable<Veiculo> query = (from v in Get()
@@ -72,7 +72,7 @@ namespace Bll.Services {
 
     public IEnumerable<dynamic> AddChassis(Expression<Func<Veiculo, dynamic>> columns) {
       try {
-        int[] usedId = context.Set<Chassi>().AsNoTracking()
+        int[] usedId = context.Chassis.AsNoTracking()
                            .Select(c => c.VeiculoId).Distinct().ToArray();
 
         IQueryable<Veiculo> query = (from v in Get()
@@ -87,7 +87,7 @@ namespace Bll.Services {
 
     public async Task<IEnumerable<dynamic>> AddChassisAsync(Expression<Func<Veiculo, dynamic>> columns) {
       try {
-        int[] usedId = context.Set<Chassi>().AsNoTracking()
+        int[] usedId = context.Chassis.AsNoTracking()
                            .Select(c => c.VeiculoId).Distinct().ToArray();
 
         IQueryable<Veiculo> query = (from v in Get()
