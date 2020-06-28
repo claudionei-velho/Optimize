@@ -7,6 +7,5 @@
 
     // Navigation Properties
     public virtual EInstalacao EInstalacao { get; set; }
-    public virtual Via Via { get; set; }
   }
 }

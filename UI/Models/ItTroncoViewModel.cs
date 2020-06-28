@@ -29,6 +29,12 @@ namespace UI.Models {
     [Display(Name = "PavimentoId", ResourceType = typeof(Properties.Resources))]
     public int? PavimentoId { get; set; }
 
+    public string PavimentoCap {
+      get {
+        return Via.Items[PavimentoId ?? 0];
+      }
+    }
+
     [Display(Name = "Abrangencia", ResourceType = typeof(Properties.Resources))]
     [DisplayFormat(DataFormatString = "{0:##0.00}", ApplyFormatInEditMode = true), Range(0, 100)]
     public decimal? Abrangencia { get; set; }
@@ -47,6 +53,5 @@ namespace UI.Models {
 
     // Navigation Properties
     public virtual Tronco Tronco { get; set; }
-    public virtual Via Via { get; set; }
   }
 }

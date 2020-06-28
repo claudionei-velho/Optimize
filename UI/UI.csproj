@@ -224,7 +224,6 @@
     <Compile Include="Controllers\VeiculosAttController.cs" />
     <Compile Include="Controllers\VeiculosController.cs" />
     <Compile Include="Controllers\ViagensController.cs" />
-    <Compile Include="Controllers\ViasController.cs" />
     <Compile Include="Extensions\WebExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

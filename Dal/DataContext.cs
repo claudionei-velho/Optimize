@@ -66,7 +66,6 @@ namespace Dal {
     public DbSet<Veiculo> Veiculos { get; set; }
     public DbSet<VeiculoAtt> VeiculosAtt { get; set; }
     public DbSet<Viagem> Viagens { get; set; }
-    public DbSet<Via> Vias { get; set; }
     public DbSet<FAjuste> FAjustes { get; set; }
     public DbSet<TotalViagem> TotalViagens { get; set; }
     public DbSet<Dimensionamento> Dimensionamentos { get; set; }

@@ -11,13 +11,11 @@ using MigraDoc.DocumentObjectModel.Tables;
 
 using Bll;
 using Bll.Services;
-
 using Dto.Extensions;
+using Dto.Lists;
 using Dto.Models;
-
 using Reports;
 using UI.Properties;
-using Dto.Lists;
 
 namespace UI.Reports.Docs {
   public class FichaTecnicaReport : ReportBase {
@@ -45,7 +43,7 @@ namespace UI.Reports.Docs {
 
         foreach (var groupItem in linhas.GetQuery(this.filter).Select(
                                       p => new { p.EmpresaId, p.Classificacao }).Distinct()) {
-          using Services<Empresa> empresa = new Services<Empresa>();          
+          using Services<Empresa> empresa = new Services<Empresa>();
           string companyName = empresa.GetById(groupItem.EmpresaId)?.Razao;
           string companyLogo = empresa.GetById(groupItem.EmpresaId)?.Logo;
 
@@ -63,7 +61,7 @@ namespace UI.Reports.Docs {
           Footer(this.section);
           AddTable(this.section);
 
-          Unit[] colSize = new Unit[12] { "0.8 cm", "6.5 cm", "2.1 cm", "2 cm", "2.35 cm", "2.1 cm", 
+          Unit[] colSize = new Unit[12] { "0.8 cm", "6.5 cm", "2.1 cm", "2 cm", "2.35 cm", "2.1 cm",
                                           "1.75 cm", "2.1 cm", "1.75 cm", "1.75 cm", "1.8 cm", "1.8 cm" };
           Column column;
           for (int k = 0; k < colSize.Length; k++) {
@@ -94,7 +92,7 @@ namespace UI.Reports.Docs {
 
           row.Cells[10].AddParagraph(Resources.IPK);
           row.Cells[11].AddParagraph(Resources.IPKe);
-       
+
           row = table.AddRow();
           row.Height = "0.8 cm";
 
@@ -104,7 +102,7 @@ namespace UI.Reports.Docs {
           row.Cells[0].Format.Font.Bold = true;
 
           foreach (Linha item in linhas.GetQuery(Predicate.And(
-                                                     this.filter, 
+                                                     this.filter,
                                                      p => p.Classificacao == groupItem.Classificacao)
                                                  ).OrderBy(p => p.Id)) {
             row = table.AddRow();
@@ -160,7 +158,7 @@ namespace UI.Reports.Docs {
           // Subtotais do Grupo
           using Services<DemandaMod> pass = new Services<DemandaMod>();
           int month = pass.GetQuery(d => d.EmpresaId == companyId).Select(p => new { p.Ano, p.Mes }).Distinct().Count();
-          
+
           if (linhas.GetQuery(Predicate.And(this.filter, p => p.Classificacao == groupItem.Classificacao)).Count() > 1) {
             row = table.AddRow();
             row.Height = "0.8 cm";
@@ -244,22 +242,22 @@ namespace UI.Reports.Docs {
           if (aux != 0) {
             row.Cells[11].AddParagraph($"{aux:0.000}");
           }
+
+          int minYear = demands.GetQuery(d => d.EmpresaId == companyId).Min(p => p.Ano);
+          int maxYear = demands.GetQuery(d => d.EmpresaId == companyId).Max(p => p.Ano);
+          int[] times = new int[2] {
+              demands.GetQuery(d => d.EmpresaId == companyId && d.Ano == minYear).Min(p => p.Mes),
+              demands.GetQuery(d => d.EmpresaId == companyId && d.Ano == maxYear).Max(p => p.Mes)
+          };
+
+          Paragraph paragraph = document.LastSection.AddParagraph();
+          paragraph.Format.Alignment = ParagraphAlignment.Left;
+          paragraph.Format.SpaceBefore = "0.1 in";
+          paragraph.Format.Font.Name = "Lucida Console";
+          paragraph.Format.Font.Size = 9;
+          paragraph.Format.LeftIndent = "0.8 cm";
+          paragraph.AddFormattedText($"(*) {Resources.FooterNote} {Mes.Short[times[0]].ToLower()}/{minYear} e {Mes.Short[times[1]].ToLower()}/{maxYear}", TextFormat.Italic);
         }
-
-        int minYear = demands.GetQuery(d => d.EmpresaId == companyId).Min(p => p.Ano);
-        int maxYear = demands.GetQuery(d => d.EmpresaId == companyId).Max(p => p.Ano);
-        int[] times = new int[2] {
-            demands.GetQuery(d => d.EmpresaId == companyId && d.Ano == minYear).Min(p => p.Mes),
-            demands.GetQuery(d => d.EmpresaId == companyId && d.Ano == maxYear).Max(p => p.Mes)
-        };
-
-        Paragraph paragraph = document.LastSection.AddParagraph();
-        paragraph.Format.Alignment = ParagraphAlignment.Left;
-        paragraph.Format.SpaceBefore = "0.1 in";
-        paragraph.Format.Font.Name = "Lucida Console";
-        paragraph.Format.Font.Size = 9;
-        paragraph.Format.LeftIndent = "0.8 cm";
-        paragraph.AddFormattedText($"(*) {Resources.FooterNote} {Mes.Short[times[0]].ToLower()}/{minYear} e {Mes.Short[times[1]].ToLower()}/{maxYear}", TextFormat.Italic);
       }
 
       /*
@@ -309,7 +307,7 @@ namespace UI.Reports.Docs {
             row = table.AddRow();
             row.Height = "0.6 cm";
             row.Format.Font.Bold = true;
-          
+
             row.Cells[0].AddParagraph(Resources.Viagem);
             row.Cells[1].MergeRight = 2;
             row.Cells[1].AddParagraph(item.Viagem);
@@ -366,7 +364,7 @@ namespace UI.Reports.Docs {
           row.Cells[3].Format.Font.Bold = false;
 
           // Pontos Inicial e Final, AB e BA
-          for (int j = 0; j < Sentido.Items.Count; j++) {            
+          for (int j = 0; j < Sentido.Items.Count; j++) {
             row = table.AddRow();
             row.Height = "0.6 cm";
             row.Format.Font.Bold = true;
@@ -572,7 +570,7 @@ namespace UI.Reports.Docs {
           int[] tabelas = horarios.GetQuery(
                               q => q.LinhaId == item.Id, q => q.OrderBy(h => h.DiaId)
                           ).Select(h => h.DiaId).Distinct().ToArray();
-                    
+
           if (tabelas.Length > 0) {
             int aux = 0;
             int size = 6;
@@ -817,7 +815,7 @@ namespace UI.Reports.Docs {
 
               // Totais
               Expression<Func<Operacional, bool>> condition = q => q.LinhaId == item.Id;
-              decimal?[,] totais = new decimal?[3, 2] { 
+              decimal?[,] totais = new decimal?[3, 2] {
                   { operacionais.GetQuery(condition).Sum(p => p.ViagensUtil),
                     operacionais.GetQuery(condition).Sum(p => p.PercursoUtil) },
                   { operacionais.GetQuery(condition).Sum(p => p.ViagensSab),
@@ -1090,7 +1088,7 @@ namespace UI.Reports.Docs {
 
           /*
            * Mapas e Itinerarios da Linha e dos Atendimentos
-           */          
+           */
           using (Services<ItinerarioDistinct> roteiros = new Services<ItinerarioDistinct>()) {
             foreach (ItinerarioDistinct pItem in roteiros.GetQuery(q => q.LinhaId == item.Id)) {
               section.AddPageBreak();
@@ -1102,7 +1100,7 @@ namespace UI.Reports.Docs {
               if (mapas.Exists(where)) {
                 foreach (MapaLinha mapa in mapas.GetQuery(where, q => q.OrderBy(m => m.AtendimentoId)
                                                                        .ThenBy(m => m.Sentido))) {
-                  string fileName = $@"C:\Temp\Mapas\{mapa.Arquivo}";                 
+                  string fileName = $@"C:\Temp\Mapas\{mapa.Arquivo}";
                   if (File.Exists(fileName)) {
                     Image image = section.AddImage(fileName);
                     image.Height = "13 cm";
@@ -1150,7 +1148,7 @@ namespace UI.Reports.Docs {
                       }
                       string[] percurso = itinerarios.GetQuery(condition, q => q.OrderBy(e => e.Id))
                                               .Select(p => p.Percurso).ToArray();
-                      
+
                       int index = percurso.Length / 2 + percurso.Length % 2;
                       for (int i = 0; i < (percurso.Length / 2 + percurso.Length % 2); i++) {
                         row = table.AddRow();
@@ -1255,7 +1253,7 @@ namespace UI.Reports.Docs {
                       column = table.AddColumn(colSize[k]);
                       column.Format.Alignment = (k % 2) == 0 ? ParagraphAlignment.Right : ParagraphAlignment.Left;
                     }
-                    string[] percurso = itAtendimentos.GetQuery(q => (q.AtendimentoId == pItem.AtendimentoId) && 
+                    string[] percurso = itAtendimentos.GetQuery(q => (q.AtendimentoId == pItem.AtendimentoId) &&
                                                                       q.Sentido.Equals(pItem.Sentido),
                                                                 q => q.OrderBy(e => e.Id))
                                             .Select(p => p.Percurso).ToArray();
@@ -1393,7 +1391,7 @@ namespace UI.Reports.Docs {
                 row.Cells[++j].AddParagraph($"{(decimal?)demanda.GetQuery(whereAs)?.Average(p => p.Passageiros):#,##0}");
               }
 
-              int months = demanda.GetQuery(q => q.LinhaId == item.Id).Select(p => new { p.Ano, p.Mes } ).Distinct().Count();
+              int months = demanda.GetQuery(q => q.LinhaId == item.Id).Select(p => new { p.Ano, p.Mes }).Distinct().Count();
               total = new decimal[2] {
                     Math.Round(NumericExtensions.SafeDivision(
                                    (decimal)(demanda.GetQuery(q => q.LinhaId == item.Id)?.Sum(p => p.Passageiros) ?? 0), months), 0),
@@ -1545,7 +1543,7 @@ namespace UI.Reports.Docs {
       Style style = document.Styles[StyleNames.Header];
       style.ParagraphFormat.Font.Name = "Verdana";
       style.ParagraphFormat.Font.Size = 10;
-      
+
       string fileName = $@"C:\Temp\OptCo\{image}";
       if (File.Exists(fileName)) {
         Image logo = section.Headers.Primary.AddImage(fileName);

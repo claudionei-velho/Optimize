@@ -65,6 +65,7 @@
     <Compile Include="Lists\Semana.cs" />
     <Compile Include="Lists\Sentido.cs" />
     <Compile Include="Lists\Transmissao.cs" />
+    <Compile Include="Lists\Via.cs" />
     <Compile Include="Lists\Workday.cs" />
     <Compile Include="Models\AAbastece.cs" />
     <Compile Include="Models\AAdmin.cs" />
@@ -156,7 +157,7 @@
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Veiculo.cs" />
     <Compile Include="Models\VeiculoAtt.cs" />
-    <Compile Include="Models\Via.cs" />
+    <Compile Include="Models\Vetor.cs" />
     <Compile Include="Models\Viagem.cs" />
     <Compile Include="Models\ViagemHora.cs" />
     <Compile Include="Models\ViagemLinha.cs" />

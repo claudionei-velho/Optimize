@@ -11,13 +11,11 @@ using MigraDoc.DocumentObjectModel.Tables;
 
 using Bll;
 using Bll.Services;
-
 using Dto.Extensions;
+using Dto.Lists;
 using Dto.Models;
-
 using Reports;
 using UI.Properties;
-using Dto.Lists;
 
 namespace UI.Reports.Docs {
   public class FichaTecnica_v2 : ReportBase {
@@ -46,12 +44,13 @@ namespace UI.Reports.Docs {
                                       p => new { p.EmpresaId, p.Classificacao }).Distinct()) {
           using Services<Empresa> empresa = new Services<Empresa>();
           string companyName = empresa.GetById(groupItem.EmpresaId)?.Razao;
+          string companyLogo = empresa.GetById(groupItem.EmpresaId)?.Logo;
 
           using CLinhaService cLinha = new CLinhaService();
           string catName = cLinha.GetById(groupItem.Classificacao)?.ClassLinha.Denominacao;
 
           AddSection(Orientation.Landscape);
-          Header(this.section, new List<string>() { companyName, document.Info.Title });
+          Header(this.section, new List<string>() { companyName, document.Info.Title }, companyLogo);
           Footer(this.section);
           AddTable(this.section);
 
@@ -264,7 +263,7 @@ namespace UI.Reports.Docs {
           concat = new StringBuilder($"{Resources.LinhaId}: {item.Prefixo} - {item.Viagem}");
 
           AddSection(Orientation.Portrait);
-          Header(this.section, new List<string>() { item.Empresa.Razao, document.Info.Title });
+          Header(this.section, new List<string>() { item.Empresa.Razao, document.Info.Title }, item.Empresa.Logo);
           Footer(this.section, concat.ToString());
           AddTable(this.section);
 
@@ -1527,10 +1526,31 @@ namespace UI.Reports.Docs {
               }
             }
           }
-
         }
       }
       return this.document;
+    }
+
+    public override void Header(Section section, List<string> text, string image = null) {
+      Style style = document.Styles[StyleNames.Header];
+      style.ParagraphFormat.Font.Name = "Verdana";
+      style.ParagraphFormat.Font.Size = 10;
+
+      string fileName = $@"C:\Temp\OptCo\{image}";
+      if (File.Exists(fileName)) {
+        Image logo = section.Headers.Primary.AddImage(fileName);
+        logo.Height = "0.5 in";
+        logo.Width = "0.375 in";
+        logo.Top = ShapePosition.Top;
+        logo.Left = ShapePosition.Left;
+        logo.WrapFormat.Style = WrapStyle.Through;
+      }
+
+      for (int i = 0; i < text.Count; i++) {
+        Paragraph paragraph = section.Headers.Primary.AddParagraph();
+        paragraph.AddFormattedText(text[i], TextFormat.Bold);
+        paragraph.Format.Alignment = ParagraphAlignment.Center;
+      }
     }
   }
 }

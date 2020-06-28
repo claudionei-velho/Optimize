@@ -14,6 +14,5 @@ namespace Dto.Models {
 
     // Navigation Properties
     public virtual Tronco Tronco { get; set; }
-    public virtual Via Via { get; set; }
   }
 }

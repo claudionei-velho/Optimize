@@ -25,9 +25,6 @@ namespace Dal.Mapping {
       // Relationships
       this.HasRequired(t => t.Linha)
           .WithMany(t => t.Itinerarios).HasForeignKey(d => d.LinhaId).WillCascadeOnDelete(false);
-
-      this.HasOptional(t => t.Via)
-          .WithMany(t => t.Itinerarios).HasForeignKey(d => d.PavimentoId).WillCascadeOnDelete(false);
     }
   }
 }

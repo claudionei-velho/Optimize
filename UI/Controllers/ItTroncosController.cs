@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using AutoMapper;
 using PagedList;
 
-using Bll;
 using Bll.Services;
 using Dto.Lists;
 using Dto.Models;
@@ -19,8 +18,8 @@ namespace UI.Controllers {
   public class ItTroncosController : Controller {
     private ItTroncoService itTroncos = new ItTroncoService();
     private readonly IMapper mapper = new MapperConfiguration(cfg => {
-                                            cfg.CreateMap<ItTroncoViewModel, ItTronco>().ReverseMap();
-                                          }).CreateMapper();
+      cfg.CreateMap<ItTroncoViewModel, ItTronco>().ReverseMap();
+    }).CreateMapper();
 
     // GET: ItTroncos
     public async Task<ActionResult> Index(int? page) {
@@ -61,14 +60,12 @@ namespace UI.Controllers {
       using (TroncoService troncos = new TroncoService(user.ID)) {
         ViewBag.TroncoId = new SelectList(troncos.GetSelect(
             q => new {
-              Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
+              Id = q.Id.ToString(),
+              Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.TroncoId);
       }
       ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value");
-      using (Services<Via> vias = new Services<Via>()) {
-        ViewBag.PavimentoId = new SelectList(vias.GetSelect(
-            q => new { Id = q.Id.ToString(), Name = q.Denominacao }), "Id", "Name");
-      }
+      ViewBag.PavimentoId = new SelectList(Via.Items.Where(p => p.Key > 0).ToList(), "Key", "Value");
       ViewBag.CondicaoId = new SelectList(Condicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value");
 
       return View(viewModel);
@@ -82,14 +79,12 @@ namespace UI.Controllers {
       using (TroncoService troncos = new TroncoService(user.ID)) {
         ViewBag.TroncoId = new SelectList(await troncos.GetSelectAsync(
             q => new {
-              Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
+              Id = q.Id.ToString(),
+              Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.TroncoId);
       }
       ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value", viewModel.Sentido);
-      using (Services<Via> vias = new Services<Via>()) {
-        ViewBag.PavimentoId = new SelectList(await vias.GetSelectAsync(
-            q => new { Id = q.Id.ToString(), Name = q.Denominacao }), "Id", "Name", viewModel.PavimentoId);
-      }
+      ViewBag.PavimentoId = new SelectList(Via.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.PavimentoId);
       ViewBag.CondicaoId = new SelectList(Condicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.CondicaoId);
 
       try {
@@ -119,14 +114,12 @@ namespace UI.Controllers {
       using (TroncoService troncos = new TroncoService(user.ID)) {
         ViewBag.TroncoId = new SelectList(await troncos.GetSelectAsync(
             q => new {
-              Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
+              Id = q.Id.ToString(),
+              Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.TroncoId);
       }
       ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value", viewModel.Sentido);
-      using (Services<Via> vias = new Services<Via>()) {
-        ViewBag.PavimentoId = new SelectList(await vias.GetSelectAsync(
-            q => new { Id = q.Id.ToString(), Name = q.Denominacao }), "Id", "Name", viewModel.PavimentoId);
-      }
+      ViewBag.PavimentoId = new SelectList(Via.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.PavimentoId);
       ViewBag.CondicaoId = new SelectList(Condicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.CondicaoId);
 
       return View(viewModel);
@@ -140,14 +133,12 @@ namespace UI.Controllers {
       using (TroncoService troncos = new TroncoService(user.ID)) {
         ViewBag.TroncoId = new SelectList(await troncos.GetSelectAsync(
             q => new {
-              Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
+              Id = q.Id.ToString(),
+              Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.TroncoId);
       }
       ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value", viewModel.Sentido);
-      using (Services<Via> vias = new Services<Via>()) {
-        ViewBag.PavimentoId = new SelectList(await vias.GetSelectAsync(
-            q => new { Id = q.Id.ToString(), Name = q.Denominacao }), "Id", "Name", viewModel.PavimentoId);
-      }
+      ViewBag.PavimentoId = new SelectList(Via.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.PavimentoId);
       ViewBag.CondicaoId = new SelectList(Condicao.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.CondicaoId);
 
       try {

@@ -25,7 +25,7 @@ namespace Bll.Services {
                                       where companies.Contains(t.EmpresaId)
                                       orderby t.EmpresaId, i.TroncoId, i.Sentido, i.Id
                                       select i).AsNoTracking()
-                                          .Include(i => i.Tronco).Include(i => i.Via);
+                                          .Include(i => i.Tronco);
         if (filter != null) {
           query = query.Where(filter);
         }

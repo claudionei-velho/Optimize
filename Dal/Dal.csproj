@@ -145,7 +145,6 @@
     <Compile Include="Mapping\ViagemHoraMap.cs" />
     <Compile Include="Mapping\ViagemLinhaMap.cs" />
     <Compile Include="Mapping\ViagemMap.cs" />
-    <Compile Include="Mapping\ViaMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

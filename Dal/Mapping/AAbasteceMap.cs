@@ -18,9 +18,6 @@ namespace Dal.Mapping {
       // Foreign Keys (Relationships)
       this.HasRequired(a => a.EInstalacao)
           .WithMany(b => b.Abastecimentos).HasForeignKey(c => c.InstalacaoId).WillCascadeOnDelete(false);
-
-      this.HasRequired(a => a.Via)
-          .WithMany(b => b.Abastecimentos).HasForeignKey(c => c.PavimentoId).WillCascadeOnDelete(false);
     }
   }
 }

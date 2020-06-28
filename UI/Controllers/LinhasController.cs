@@ -242,13 +242,14 @@ namespace UI.Controllers {
     }
 
     public ActionResult PreviewFichaTecnica(int? id) {
-      Expression<Func<Linha, bool>> filter = q => (q.EmpresaId == 10); // && (q.EDominio.DominioId == 1);
+      Expression<Func<Linha, bool>> filter = q => (q.EmpresaId == 19); // && (q.EDominio.DominioId == 1);
       if (id.HasValue) {
         filter = q => q.Id == id.Value;
       }
 
       PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer {
         Document = new FichaTecnicaReport(filter).CreateDocument()
+        // Document = new FichaTecnica_v2(filter).CreateDocument()
       };
 
       string fileName = $"{Path.GetTempPath()}{Guid.NewGuid()}.pdf";

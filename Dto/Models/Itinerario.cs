@@ -13,6 +13,5 @@ namespace Dto.Models {
     public DateTime? Cadastro { get; set; }
 
     public virtual Linha Linha { get; set; }
-    public virtual Via Via { get; set; }
   }
 }
