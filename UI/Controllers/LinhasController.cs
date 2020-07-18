@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
@@ -19,11 +20,11 @@ using UI.Security;
 
 namespace UI.Controllers {
   [Authorize]
-  public class LinhasController : Controller {    
+  public class LinhasController : Controller {
     private LinhaService linhas = new LinhaService();
     private readonly IMapper mapper = new MapperConfiguration(cfg => {
-                                            cfg.CreateMap<LinhaViewModel, Linha>().ReverseMap();
-                                          }).CreateMapper();
+      cfg.CreateMap<LinhaViewModel, Linha>().ReverseMap();
+    }).CreateMapper();
 
     // GET: Linhas
     public async Task<ActionResult> Index(string currentFilter, string search, int? page) {
@@ -209,40 +210,25 @@ namespace UI.Controllers {
     }
 
     public JsonResult GetDominios(int id) {
-      HashSet<SelectBox> result = new HashSet<SelectBox>();
-
-      using (EDominioService eDominio = new EDominioService()) {
-        foreach (EDominio item in eDominio.GetQuery(q => q.EmpresaId == id)) {
-          result.Add(new SelectBox() { Id = item.Id.ToString(), Name = item.Dominio.Denominacao });
-        }
-      }
-      return Json(result, JsonRequestBehavior.AllowGet);
+      using EDominioService eDominio = new EDominioService();
+      return Json(eDominio.GetQuery(p => p.EmpresaId == id).Select(p => new { p.Id, p.Dominio.Denominacao })
+                      .ToDictionary(k => k.Id, k => k.Denominacao).ToList(), JsonRequestBehavior.AllowGet);
     }
 
     public JsonResult GetOperacoes(int id) {
-      HashSet<SelectBox> result = new HashSet<SelectBox>();
-
-      using (OperacaoService operacoes = new OperacaoService()) {
-        foreach (Operacao item in operacoes.GetQuery(q => q.EmpresaId == id)) {
-          result.Add(new SelectBox() { Id = item.Id.ToString(), Name = item.OperLinha.Denominacao });
-        }
-      }
-      return Json(result, JsonRequestBehavior.AllowGet);
+      using OperacaoService operacoes = new OperacaoService();
+      return Json(operacoes.GetQuery(q => q.EmpresaId == id).Select(p => new { p.Id, p.OperLinha.Denominacao })
+                      .ToDictionary(k => k.Id, k => k.Denominacao).ToList(), JsonRequestBehavior.AllowGet);
     }
 
     public JsonResult GetClasses(int id) {
-      HashSet<SelectBox> result = new HashSet<SelectBox>();
-
-      using (CLinhaService cLinhas = new CLinhaService()) {
-        foreach (CLinha item in cLinhas.GetQuery(q => q.EmpresaId == id)) {
-          result.Add(new SelectBox() { Id = item.Id.ToString(), Name = item.ClassLinha.Denominacao });
-        }
-      }
-      return Json(result, JsonRequestBehavior.AllowGet);
+      using CLinhaService cLinhas = new CLinhaService();
+      return Json(cLinhas.GetQuery(q => q.EmpresaId == id).Select(p => new { p.Id, p.ClassLinha.Denominacao })
+                      .ToDictionary(k => k.Id, k => k.Denominacao).ToList(), JsonRequestBehavior.AllowGet);
     }
 
     public ActionResult PreviewFichaTecnica(int? id) {
-      Expression<Func<Linha, bool>> filter = q => (q.EmpresaId == 19); // && (q.EDominio.DominioId == 1);
+      Expression<Func<Linha, bool>> filter = q => (q.EmpresaId == 19); // && (q.Operacao.OperLinhaId != 2);
       if (id.HasValue) {
         filter = q => q.Id == id.Value;
       }

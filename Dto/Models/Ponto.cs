@@ -9,6 +9,9 @@ namespace Dto.Models {
       this.PtOrigens = new HashSet<PtOrigem>();
       this.PtDestinos = new HashSet<PtDestino>();
       this.PtTroncos = new HashSet<PtTronco>();
+
+      this.PontosInicio = new HashSet<Referencia>();
+      this.PontosTermino = new HashSet<Referencia>();
     }
 
     public int Id { get; set; }
@@ -34,5 +37,7 @@ namespace Dto.Models {
     public virtual ICollection<PtOrigem> PtOrigens { get; set; }
     public virtual ICollection<PtDestino> PtDestinos { get; set; }
     public virtual ICollection<PtTronco> PtTroncos { get; set; }
+    public virtual ICollection<Referencia> PontosInicio { get; set; }
+    public virtual ICollection<Referencia> PontosTermino { get; set; }
   }
 }

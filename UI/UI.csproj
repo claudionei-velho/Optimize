@@ -189,6 +189,7 @@
     <Compile Include="Controllers\InstalacoesController.cs" />
     <Compile Include="Controllers\ISinoticosController.cs" />
     <Compile Include="Controllers\ItAtendimentosController.cs" />
+    <Compile Include="Controllers\ReferenciasController.cs" />
     <Compile Include="Controllers\ItinerariosController.cs" />
     <Compile Include="Controllers\ItTroncosController.cs" />
     <Compile Include="Controllers\LinhasController.cs" />
@@ -275,6 +276,7 @@
     <Compile Include="Models\PtAtendimentoViewModel.cs" />
     <Compile Include="Models\PtLinhaViewModel.cs" />
     <Compile Include="Models\PtTroncoViewModel.cs" />
+    <Compile Include="Models\ReferenciaViewModel.cs" />
     <Compile Include="Models\RenovacaoViewModel.cs" />
     <Compile Include="Models\SinoticoViewModel.cs" />
     <Compile Include="Models\SpecVeiculoViewModel.cs" />
@@ -737,6 +739,9 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Referencias\Index.cshtml" />
+    <Content Include="Views\Referencias\Details.cshtml" />
+    <Content Include="Views\Referencias\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,6 +17,7 @@ namespace Dto.Models {
       this.Ofertas = new HashSet<Oferta>();
       this.PrLinhas = new HashSet<PrLinha>();
       this.PtLinhas = new HashSet<PtLinha>();
+      this.Referencias = new HashSet<Referencia>();
       this.Renovacoes = new HashSet<Renovacao>();
       this.TotalViagens = new HashSet<TotalViagem>();
       this.Dimensionamentos = new HashSet<Dimensionamento>();
@@ -47,6 +48,7 @@ namespace Dto.Models {
     public bool Uteis { get; set; }
     public bool Sabados { get; set; }
     public bool Domingos { get; set; }
+    public bool Escolar { get; set; }
 
     [NotMapped]
     public string DiasOp {
@@ -118,6 +120,7 @@ namespace Dto.Models {
     public virtual ICollection<Oferta> Ofertas { get; set; }
     public virtual ICollection<PrLinha> PrLinhas { get; set; }
     public virtual ICollection<PtLinha> PtLinhas { get; set; }
+    public virtual ICollection<Referencia> Referencias { get; set; }
     public virtual ICollection<Renovacao> Renovacoes { get; set; }
     public virtual ICollection<TotalViagem> TotalViagens { get; set; }
     public virtual ICollection<Dimensionamento> Dimensionamentos { get; set; }

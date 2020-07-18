@@ -23,6 +23,7 @@ namespace Dal.Mapping {
       this.Property(t => t.Uteis).HasColumnName("Uteis");
       this.Property(t => t.Sabados).HasColumnName("Sabados");
       this.Property(t => t.Domingos).HasColumnName("Domingos");
+      this.Property(t => t.Escolar).HasColumnName("Escolar").IsRequired();
       this.Property(t => t.DominioId).HasColumnName("DominioId");
       this.Property(t => t.OperacaoId).HasColumnName("OperacaoId");
       this.Property(t => t.Classificacao).HasColumnName("Classificacao");

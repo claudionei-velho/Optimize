@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-using Dto.Lists;
 using Dto.Models;
 
 namespace UI.Models {
@@ -16,16 +15,6 @@ namespace UI.Models {
     [Display(Name = "EPeriodoId", ResourceType = typeof(Properties.Resources))]
     [Required(ErrorMessageResourceName = "EPeriodoIdError", ErrorMessageResourceType = typeof(Properties.Resources))]
     public int PeriodoId { get; set; }
-
-    [Display(Name = "DiaId", ResourceType = typeof(Properties.Resources))]
-    [Required(ErrorMessageResourceName = "DiaIdError", ErrorMessageResourceType = typeof(Properties.Resources))]
-    public int DiaId { get; set; }
-
-    public string DiaIdName {
-      get {
-        return Workday.Items[DiaId];
-      }
-    }
 
     [Display(Name = "HoraInicio", ResourceType = typeof(Properties.Resources))]
     [Required(ErrorMessageResourceName = "HoraInicioError", ErrorMessageResourceType = typeof(Properties.Resources))]

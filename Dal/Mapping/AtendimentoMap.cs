@@ -18,6 +18,7 @@ namespace Dal.Mapping {
       this.Property(t => t.Uteis).HasColumnName("Uteis").IsRequired();
       this.Property(t => t.Sabados).HasColumnName("Sabados").IsRequired();
       this.Property(t => t.Domingos).HasColumnName("Domingos").IsRequired();
+      this.Property(t => t.Escolar).HasColumnName("Escolar").IsRequired();
       this.Property(t => t.ExtensaoAB).HasColumnName("ExtensaoAB").HasPrecision(18, 3);
       this.Property(t => t.ExtensaoBA).HasColumnName("ExtensaoBA").HasPrecision(18, 3);
       this.Property(t => t.Cadastro).HasColumnName("Cadastro")

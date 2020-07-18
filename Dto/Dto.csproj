@@ -52,6 +52,7 @@
     <Compile Include="Extensions\NumericExtensions.cs" />
     <Compile Include="Extensions\Predicate.cs" />
     <Compile Include="Extensions\ReplaceParameterVisitor.cs" />
+    <Compile Include="Models\FuUtil.cs" />
     <Compile Include="IServices.cs" />
     <Compile Include="Lists\Categoria.cs" />
     <Compile Include="Lists\Condicao.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="Models\CLinha.cs" />
     <Compile Include="Models\Corredor.cs" />
     <Compile Include="Models\Custo.cs" />
-    <Compile Include="Models\CustomCalendar.cs" />
+    <Compile Include="Extensions\CustomCalendar.cs" />
     <Compile Include="Models\CustoMod.cs" />
     <Compile Include="Models\CVeiculo.cs" />
     <Compile Include="Models\CVeiculoAtt.cs" />
@@ -142,8 +143,8 @@
     <Compile Include="Models\PtLinha.cs" />
     <Compile Include="Models\PtOrigem.cs" />
     <Compile Include="Models\PtTronco.cs" />
+    <Compile Include="Models\Referencia.cs" />
     <Compile Include="Models\Renovacao.cs" />
-    <Compile Include="Models\SelectBox.cs" />
     <Compile Include="Models\Sinotico.cs" />
     <Compile Include="Models\SpecVeiculo.cs" />
     <Compile Include="Models\Tarifa.cs" />

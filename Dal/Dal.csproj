@@ -93,6 +93,7 @@
     <Compile Include="Mapping\FAjusteMap.cs" />
     <Compile Include="Mapping\FInstalacaoMap.cs" />
     <Compile Include="Mapping\FrotaEtariaMap.cs" />
+    <Compile Include="Mapping\FuUtilMap.cs" />
     <Compile Include="Mapping\FViagemMap.cs" />
     <Compile Include="Mapping\FxEtariaMap.cs" />
     <Compile Include="Mapping\HorarioMap.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Mapping\PtLinhaMap.cs" />
     <Compile Include="Mapping\PtOrigemMap.cs" />
     <Compile Include="Mapping\PtTroncoMap.cs" />
+    <Compile Include="Mapping\ReferenciaMap.cs" />
     <Compile Include="Mapping\RenovacaoMap.cs" />
     <Compile Include="Mapping\SinoticoMap.cs" />
     <Compile Include="Mapping\SpecVeiculoMap.cs" />

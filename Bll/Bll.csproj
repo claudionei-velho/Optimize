@@ -112,6 +112,7 @@
     <Compile Include="Services\PtAtendimentoService.cs" />
     <Compile Include="Services\PtLinhaService.cs" />
     <Compile Include="Services\PtTroncoService.cs" />
+    <Compile Include="Services\ReferenciaService.cs" />
     <Compile Include="Services\RenovacaoService.cs" />
     <Compile Include="Services\SinoticoService.cs" />
     <Compile Include="Services\SpecVeiculoService.cs" />

@@ -10,6 +10,7 @@ namespace Dto.Models {
       this.Horarios = new HashSet<Horario>();
       this.MapasLinha = new HashSet<MapaLinha>();
       this.PtAtendimentos = new HashSet<PtAtendimento>();
+      this.Referencias = new HashSet<Referencia>();
 
       // Reports (Database Views)
       this.Operacionais = new HashSet<Operacional>();
@@ -25,6 +26,7 @@ namespace Dto.Models {
     public bool Uteis { get; set; }
     public bool Sabados { get; set; }
     public bool Domingos { get; set; }
+    public bool Escolar { get; set; }
 
     [NotMapped]
     public string DiasOp {
@@ -65,6 +67,7 @@ namespace Dto.Models {
     public virtual ICollection<Horario> Horarios { get; set; }
     public virtual ICollection<MapaLinha> MapasLinha { get; set; }
     public virtual ICollection<PtAtendimento> PtAtendimentos { get; set; }
+    public virtual ICollection<Referencia> Referencias { get; set; }
 
     // Reports (Database Views)
     public virtual ICollection<Operacional> Operacionais { get; set; }

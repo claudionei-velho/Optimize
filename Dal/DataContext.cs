@@ -57,6 +57,7 @@ namespace Dal {
     public DbSet<PrLinha> PrLinhas { get; set; }    
     public DbSet<PtAtendimento> PtAtendimentos { get; set; }
     public DbSet<PtLinha> PtLinhas { get; set; }
+    public DbSet<Referencia> Referencias { get; set; }
     public DbSet<Renovacao> Renovacoes { get; set; }
     public DbSet<Tarifa> Tarifas { get; set; }
     public DbSet<TarifaMod> TarifaMods { get; set; }
@@ -99,6 +100,7 @@ namespace Dal {
     public DbSet<DiaTrabalho> DiasTrabalho { get; set; }
 
     // Reports (Database Views)
+    public DbSet<FuUtil> FuUteis { get; set; }
     public DbSet<Operacional> Operacionais { get; set; }
     public DbSet<PlanOperacional> PlanOperacionais { get; set; }
     public DbSet<PeriodoTipico> PeriodosTipicos { get; set; }

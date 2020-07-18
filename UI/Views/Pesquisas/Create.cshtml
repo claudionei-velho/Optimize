@@ -18,7 +18,7 @@
           $("#TerminalId").empty();
           $("#TerminalId").append("<option value=''></option>");
           $.each(data, function (index, row) {
-            $("#TerminalId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+            $("#TerminalId").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
           });
         });
 
@@ -26,7 +26,7 @@
           $("#TroncoId").empty();
           $("#TroncoId").append("<option value=''></option>");
           $.each(data, function (index, row) {
-            $("#TroncoId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+            $("#TroncoId").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
           });
         });
 
@@ -34,7 +34,7 @@
           $("#CorredorId").empty();
           $("#CorredorId").append("<option value=''></option>");
           $.each(data, function (index, row) {
-            $("#CorredorId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+            $("#CorredorId").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
           });
         });
 
@@ -42,7 +42,7 @@
           $("#OperacaoId").empty();
           $("#OperacaoId").append("<option value=''></option>");
           $.each(data, function (index, row) {
-            $("#OperacaoId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+            $("#OperacaoId").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
           });
         });
 
@@ -50,7 +50,7 @@
           $("#Classificacao").empty();
           $("#Classificacao").append("<option value=''></option>");
           $.each(data, function (index, row) {
-            $("#Classificacao").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+            $("#Classificacao").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
           });
         });
       });

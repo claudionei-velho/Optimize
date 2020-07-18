@@ -1,11 +1,14 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
+using Dto.Extensions;
+
 namespace Dto.Models {
   public class ViagemLinha {
     public int EmpresaId { get; set; }
     public int LinhaId { get; set; }
     public int? AtendimentoId { get; set; }
+    public bool Escolar { get; set; }
     public int DiaId { get; set; }
     public string Prefixo { get; set; }
 

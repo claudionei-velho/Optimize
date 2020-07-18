@@ -17,7 +17,7 @@
           $("#OrigemId").empty();
           $("#OrigemId").append("<option value=''></option>");
           $.each(data, function (index, row) {
-            $("#OrigemId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+            $("#OrigemId").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
           });
         });
 
@@ -25,7 +25,7 @@
           $("#DestinoId").empty();
           $("#DestinoId").append("<option value=''></option>");
           $.each(data, function (index, row) {
-            $("#DestinoId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+            $("#DestinoId").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
           });
         });
       });
@@ -35,7 +35,7 @@
           $("#OrigemId").empty();
           $("#OrigemId").append("<option value=''></option>");
           $.each(data, function (index, row) {
-            $("#OrigemId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+            $("#OrigemId").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
           });
         });
 
@@ -43,7 +43,7 @@
           $("#DestinoId").empty();
           $("#DestinoId").append("<option value=''></option>");
           $.each(data, function (index, row) {
-            $("#DestinoId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+            $("#DestinoId").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
           });
         });
       });

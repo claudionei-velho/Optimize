@@ -187,20 +187,13 @@ namespace UI.Controllers {
       return RedirectToAction(nameof(Index));
     }
 
-    public JsonResult GetLinhas(int id) {      
-      HashSet<SelectBox> result = new HashSet<SelectBox>();
-      using (Services<Corredor> corredores = new Services<Corredor>()) {
-        int empresaId = corredores.GetById(id).EmpresaId;
+    public JsonResult GetLinhas(int id) {
+      using Services<Corredor> corredores = new Services<Corredor>();
 
-        using Services<Linha> linhas = new Services<Linha>();
-        foreach (Linha item in linhas.GetQuery(q => q.EmpresaId == empresaId)) {
-          result.Add(new SelectBox() {
-            Id = item.Id.ToString(),
-            Name = item.Prefixo + " | " + item.Denominacao
-          });
-        }
-      }
-      return Json(result, JsonRequestBehavior.AllowGet);
+      using Services<Linha> linhas = new Services<Linha>();
+      return Json(linhas.GetQuery(q => q.EmpresaId == corredores.GetById(id).EmpresaId)
+                      .Select(p => new { p.Id, p.Prefixo, p.Denominacao })
+                      .ToDictionary(k => k.Id, k => $"{k.Prefixo} | {k.Denominacao}"), JsonRequestBehavior.AllowGet);
     }
 
     protected override void Dispose(bool disposing) {

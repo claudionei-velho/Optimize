@@ -156,14 +156,10 @@ namespace UI.Controllers {
     }
 
     public JsonResult GetAtendimentos(int id) {
-      HashSet<SelectBox> result = new HashSet<SelectBox>();
-
-      using (Services<Atendimento> atendimentos = new Services<Atendimento>()) {
-        foreach (Atendimento item in atendimentos.GetQuery(q => q.LinhaId == id, q => q.OrderBy(p => p.Id))) {
-          result.Add(new SelectBox() { Id = item.Id.ToString(), Name = item.Denominacao });
-        }
-      }
-      return Json(result, JsonRequestBehavior.AllowGet);
+      using Services<Atendimento> atendimentos = new Services<Atendimento>();
+      return Json(atendimentos.GetQuery(q => q.LinhaId == id,
+                                        q => q.OrderBy(p => p.Id)).Select(p => new { p.Id, p.Denominacao })
+                      .ToDictionary(k => k.Id, k => k.Denominacao), JsonRequestBehavior.AllowGet);
     }
 
     protected override void Dispose(bool disposing) {

@@ -13,7 +13,7 @@
       $.get("/LnTerminais/GetLinhas", { id: $(this).val() }, function (data) {
         $("#LinhaId").empty();
         $.each(data, function (index, row) {
-          $("#LinhaId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+          $("#LinhaId").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
         });
       });
     });

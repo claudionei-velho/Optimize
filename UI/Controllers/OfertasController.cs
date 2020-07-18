@@ -177,17 +177,13 @@ namespace UI.Controllers {
       return RedirectToAction(nameof(Index));
     }
 
-    public JsonResult GetTCategorias(int id) {      
-      HashSet<SelectBox> result = new HashSet<SelectBox>();
+    public JsonResult GetTCategorias(int id) {
+      using Services<Linha> linhas = new Services<Linha>();
 
-      using (Services<Linha> linhas = new Services<Linha>()) {
-        int empresaId = linhas.GetById(id).EmpresaId;
-        using Services<TCategoria> tCategorias = new Services<TCategoria>();
-        foreach (TCategoria item in tCategorias.GetQuery(q => q.EmpresaId == empresaId)) {
-          result.Add(new SelectBox() { Id = item.Id.ToString(), Name = item.Denominacao });
-        }
-      }
-      return Json(result, JsonRequestBehavior.AllowGet);
+      using Services<TCategoria> tCategorias = new Services<TCategoria>();
+      return Json(tCategorias.GetQuery(q => q.EmpresaId == linhas.GetById(id).EmpresaId)
+                      .Select(p => new { p.Id, p.Denominacao })
+                      .ToDictionary(k => k.Id, k => k.Denominacao), JsonRequestBehavior.AllowGet);
     }
 
     protected override void Dispose(bool disposing) {

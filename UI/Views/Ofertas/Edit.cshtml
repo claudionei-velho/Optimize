@@ -13,7 +13,7 @@
       $.get("/Ofertas/GetTCategorias", { id: $(this).val() }, function (data) {
         $("#Categoria").empty();
         $.each(data, function (index, row) {
-          $("#Categoria").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+          $("#Categoria").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
         });
       });
     });

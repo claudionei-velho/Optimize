@@ -31,33 +31,113 @@ namespace UI.Reports.Docs {
       StringBuilder concat = new StringBuilder();
 
       DefineStyles();
+      Paragraph paragraph;
+
+      /*
+       * Dimensionamento da Frota Operacional (Dias Uteis)
+       */
+      using LinhaService lines = new LinhaService();
+      int companyId = lines.GetFirst(this.filter).EmpresaId;
+
+      using Services<Empresa> empresa = new Services<Empresa>();
+      string companyName = empresa.GetById(companyId).Razao;
+      string companyLogo = empresa.GetById(companyId)?.Logo;
+
+      using (Services<FuUtil> utils = new Services<FuUtil>()) {
+        Expression<Func<FuUtil, bool>> filter = f => f.EmpresaId == companyId;
+
+        if (utils.Exists(filter)) {
+          AddSection(Orientation.Portrait);
+          Header(this.section, new List<string>() { companyName, document.Info.Title }, companyLogo);
+          Footer(this.section);
+          AddTable(this.section);
+
+          Unit[] colSize = new Unit[7] { "3.5 cm", "2.4 cm", "2.4 cm", "2.4 cm", "2.4 cm", "2.4 cm", "2.5 cm" };
+          Column column;
+          for (int k = 0; k < colSize.Length; k++) {
+            column = table.AddColumn(colSize[k]);
+            column.Format.Alignment = ParagraphAlignment.Center;
+          }
+
+          Row row = table.AddRow();
+          row.Height = "1 cm";
+          row.Format.Font.Bold = true;
+
+          row.Cells[0].AddParagraph(Resources.FaixaHoraria);
+          row.Cells[1].AddParagraph(Resources.LinhaCap);
+          row.Cells[2].AddParagraph(Resources.TotalViagens);
+          row.Cells[3].AddParagraph(Resources.ExtensaoCap);
+          row.Cells[4].AddParagraph(Resources.Veiculos);
+          row.Cells[5].AddParagraph(Resources.PercursoCap);
+          row.Cells[6].AddParagraph(Resources.VelocidadeComl);
+
+          foreach (FuUtil item in utils.GetQuery(filter)) {
+            row = table.AddRow();
+            row.Height = "0.75 cm";
+            row.Format.Font.Bold = item.Veiculos == utils.GetQuery(filter).Max(p => p.Veiculos);
+
+            row.Cells[0].AddParagraph(item.Faixa);
+            row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
+
+            row.Cells[1].AddParagraph($"{item.QtdLinhas:#,##0}");
+            row.Cells[2].AddParagraph($"{item.Viagens:#,##0}");
+            row.Cells[3].AddParagraph($"{item.Extensao:#,##0.00}");
+            row.Cells[4].AddParagraph($"{item.Veiculos:#,##0}");
+
+            row.Cells[5].AddParagraph($"{item.Percurso:#,##0.0}");
+            row.Cells[5].Format.Alignment = ParagraphAlignment.Right;
+
+            row.Cells[6].AddParagraph($"{$"{NumericExtensions.SafeDivision(item.Percurso, (decimal)item.Veiculos):#,##0.0}"} {Resources.SpeedCap}");
+            row.Cells[6].Format.Alignment = ParagraphAlignment.Right;
+          }
+          row = table.AddRow();
+          row.Height = "1 cm";
+          row.Format.Font.Bold = true;
+
+          row.Cells[1].AddParagraph($"{utils.GetQuery(filter).Max(p => p.QtdLinhas):#,##0}");
+          row.Cells[2].AddParagraph($"{utils.GetQuery(filter).Sum(p => p.Viagens):#,##0}");
+          row.Cells[3].AddParagraph($"{NumericExtensions.SafeDivision(utils.GetQuery(filter).Sum(p => p.Percurso), utils.GetQuery(filter).Sum(p => p.Viagens)):#,##0.00}");
+          row.Cells[4].AddParagraph($"{utils.GetQuery(filter).Max(p => p.Veiculos):#,##0}");
+
+          row.Cells[5].AddParagraph($"{utils.GetQuery(filter).Sum(p => p.Percurso):#,##0.0}");
+          row.Cells[5].Format.Alignment = ParagraphAlignment.Right;
+
+          decimal result = NumericExtensions.SafeDivision(utils.GetQuery(filter).Sum(p => p.Percurso),
+                                                          (decimal)utils.GetQuery(filter).Sum(p => p.Veiculos));
+          row.Cells[6].AddParagraph($"{$"{result:#,##0.0}"} {Resources.SpeedCap}");
+          row.Cells[6].Format.Alignment = ParagraphAlignment.Right;
+
+          result = NumericExtensions.SafeDivision(utils.GetQuery(filter).Sum(p => p.Veiculos),
+                                                  (decimal)utils.GetQuery(filter).Max(p => p.Veiculos));
+
+          paragraph = document.LastSection.AddParagraph();
+          paragraph.Format.Alignment = ParagraphAlignment.Left;
+          paragraph.Format.SpaceBefore = "0.1 in";
+          paragraph.Format.Font.Name = "Lucida Console";
+          paragraph.Format.Font.Size = 10;
+          paragraph.AddFormattedText($"{Resources.HorasOperacao}: {$"{result:#.00}"}", TextFormat.Bold);
+        }
+      }
 
       /*
        * Resumo Executivo do Sistema
        */
       using (LinhaService linhas = new LinhaService()) {
-        int companyId = linhas.GetFirst(this.filter).EmpresaId;
+        companyId = linhas.GetFirst(this.filter).EmpresaId;
         decimal?[,] values = new decimal?[3, 6] { { 0, 0, 0, 0, 0, 0 },
                                                   { 0, 0, 0, 0, 0, 0 },
                                                   { 0, 0, 0, 0, 0, 0 } };
 
         foreach (var groupItem in linhas.GetQuery(this.filter).Select(
                                       p => new { p.EmpresaId, p.Classificacao }).Distinct()) {
-          using Services<Empresa> empresa = new Services<Empresa>();
-          string companyName = empresa.GetById(groupItem.EmpresaId)?.Razao;
-          string companyLogo = empresa.GetById(groupItem.EmpresaId)?.Logo;
+          companyName = empresa.GetById(companyId).Razao;
+          companyLogo = empresa.GetById(companyId)?.Logo;
 
           using CLinhaService cLinha = new CLinhaService();
           string catName = cLinha.GetById(groupItem.Classificacao)?.ClassLinha.Denominacao;
 
-          List<string> header = new List<string>();
-          if (companyLogo == null) {
-            header.Add(companyName);
-          }
-          header.Add(document.Info.Title);
-
           AddSection(Orientation.Landscape);
-          Header(this.section, header, companyLogo);
+          Header(this.section, new List<string>() { companyName, document.Info.Title }, companyLogo);
           Footer(this.section);
           AddTable(this.section);
 
@@ -94,7 +174,7 @@ namespace UI.Reports.Docs {
           row.Cells[11].AddParagraph(Resources.IPKe);
 
           row = table.AddRow();
-          row.Height = "0.8 cm";
+          row.Height = "0.75 cm";
 
           row.Cells[0].MergeRight = 1;
           row.Cells[0].AddParagraph(catName);
@@ -106,7 +186,7 @@ namespace UI.Reports.Docs {
                                                      p => p.Classificacao == groupItem.Classificacao)
                                                  ).OrderBy(p => p.Id)) {
             row = table.AddRow();
-            row.Height = "0.8 cm";
+            row.Height = "0.75 cm";
 
             row.Cells[1].AddParagraph($"{item.Prefixo} - {item.Denominacao}");
             row.Cells[1].Format.Alignment = ParagraphAlignment.Left;
@@ -161,7 +241,7 @@ namespace UI.Reports.Docs {
 
           if (linhas.GetQuery(Predicate.And(this.filter, p => p.Classificacao == groupItem.Classificacao)).Count() > 1) {
             row = table.AddRow();
-            row.Height = "0.8 cm";
+            row.Height = "0.75 cm";
             row.Format.Font.Bold = true;
 
             row.Cells[1].AddParagraph($"{Resources.Subtotal}: {catName}");
@@ -208,7 +288,7 @@ namespace UI.Reports.Docs {
 
         if (linhas.GetQuery(this.filter).Select(p => new { p.EmpresaId, p.Classificacao }).Distinct().Count() > 1) {
           Row row = table.AddRow();
-          row.Height = "0.8 cm";
+          row.Height = "0.75 cm";
           row.Format.Font.Bold = true;
 
           row.Cells[1].AddParagraph(Resources.GranTotal);
@@ -243,20 +323,22 @@ namespace UI.Reports.Docs {
             row.Cells[11].AddParagraph($"{aux:0.000}");
           }
 
-          int minYear = demands.GetQuery(d => d.EmpresaId == companyId).Min(p => p.Ano);
-          int maxYear = demands.GetQuery(d => d.EmpresaId == companyId).Max(p => p.Ano);
-          int[] times = new int[2] {
-              demands.GetQuery(d => d.EmpresaId == companyId && d.Ano == minYear).Min(p => p.Mes),
-              demands.GetQuery(d => d.EmpresaId == companyId && d.Ano == maxYear).Max(p => p.Mes)
-          };
+          if (demands.Exists(d => d.EmpresaId == companyId)) {
+            int? minYear = demands.GetQuery(d => d.EmpresaId == companyId).Min(p => p.Ano);
+            int? maxYear = demands.GetQuery(d => d.EmpresaId == companyId).Max(p => p.Ano);
+            int[] times = new int[2] {
+                demands.GetQuery(d => d.EmpresaId == companyId && d.Ano == minYear).Min(p => p.Mes),
+                demands.GetQuery(d => d.EmpresaId == companyId && d.Ano == maxYear).Max(p => p.Mes)
+            };
 
-          Paragraph paragraph = document.LastSection.AddParagraph();
-          paragraph.Format.Alignment = ParagraphAlignment.Left;
-          paragraph.Format.SpaceBefore = "0.1 in";
-          paragraph.Format.Font.Name = "Lucida Console";
-          paragraph.Format.Font.Size = 9;
-          paragraph.Format.LeftIndent = "0.8 cm";
-          paragraph.AddFormattedText($"(*) {Resources.FooterNote} {Mes.Short[times[0]].ToLower()}/{minYear} e {Mes.Short[times[1]].ToLower()}/{maxYear}", TextFormat.Italic);
+            paragraph = document.LastSection.AddParagraph();
+            paragraph.Format.Alignment = ParagraphAlignment.Left;
+            paragraph.Format.SpaceBefore = "0.1 in";
+            paragraph.Format.Font.Name = "Lucida Console";
+            paragraph.Format.Font.Size = 9;
+            paragraph.Format.LeftIndent = "0.8 cm";
+            paragraph.AddFormattedText($"(*) {Resources.FooterNote} {Mes.Short[times[0]].ToLower()}/{minYear} e {Mes.Short[times[1]].ToLower()}/{maxYear}", TextFormat.Italic);
+          }
         }
       }
 
@@ -267,14 +349,8 @@ namespace UI.Reports.Docs {
         foreach (Linha item in linhas.GetQuery(this.filter, q => q.OrderBy(p => p.Id))) {
           concat = new StringBuilder($"{Resources.LinhaId}: {item.Prefixo} - {item.Denominacao}");
 
-          List<string> header = new List<string>();
-          if (item.Empresa.Logo == null) {
-            header.Add(item.Empresa.Razao);
-          }
-          header.Add(document.Info.Title);
-
           AddSection(Orientation.Portrait);
-          Header(this.section, header, item.Empresa.Logo);
+          Header(this.section, new List<string>() { item.Empresa.Razao, document.Info.Title }, item.Empresa.Logo);
           Footer(this.section, concat.ToString());
           AddTable(this.section);
 
@@ -405,13 +481,12 @@ namespace UI.Reports.Docs {
           /*
            * Atendimentos da Linha
            */
-          Paragraph paragraph = document.LastSection.AddParagraph();
-          paragraph.Format.Alignment = ParagraphAlignment.Left;
-          paragraph.Format.SpaceBefore = "0.4 cm";
-          paragraph.AddFormattedText(Resources.AtendimentoViewModel, TextFormat.Bold);
-
           using (Services<Atendimento> atendimentos = new Services<Atendimento>()) {
             if (atendimentos.Exists(q => q.LinhaId == item.Id)) {
+              paragraph = document.LastSection.AddParagraph();
+              paragraph.Format.Alignment = ParagraphAlignment.Left;
+              paragraph.Format.SpaceBefore = "0.4 cm";
+              paragraph.AddFormattedText(Resources.AtendimentoViewModel, TextFormat.Bold);
               AddTable(this.section);
 
               colSize = new Unit[6] { "1 cm", "2 cm", "7.5 cm", "2.5 cm", "2.5 cm", "2.5 cm" };
@@ -641,18 +716,18 @@ namespace UI.Reports.Docs {
 
           /*
            * Periodos Tipicos da Linha
-           *//*
-          paragraph = document.LastSection.AddParagraph();
-          paragraph.Format.Alignment = ParagraphAlignment.Left;
-          paragraph.Format.SpaceBefore = "0.4 cm";
-          paragraph.Format.SpaceAfter = "0.25 cm";
-          paragraph.AddFormattedText(Resources.PrLinhaViewModel, TextFormat.Bold);
-
+           */
           using (PeriodoTipicoService pTipicos = new PeriodoTipicoService()) {
             if (pTipicos.Exists(q => q.LinhaId == item.Id)) {
+              paragraph = document.LastSection.AddParagraph();
+              paragraph.Format.Alignment = ParagraphAlignment.Left;
+              paragraph.Format.SpaceBefore = "0.4 cm";
+              paragraph.Format.SpaceAfter = "0.25 cm";
+              paragraph.AddFormattedText(Resources.PrLinhaViewModel, TextFormat.Bold);
+
               AddTable(this.section);
 
-              colSize = new Unit[7] { "3 cm", "3 cm", "2.2 cm", "2.4 cm", "1.8 cm", "3.5 cm", "2.1 cm" };
+              colSize = new Unit[6] { "4 cm", "2.5 cm", "2.5 cm", "3 cm", "2.5 cm", "3.5 cm" };
               for (int k = 0; k < colSize.Length; k++) {
                 column = table.AddColumn(colSize[k]);
               }
@@ -663,51 +738,39 @@ namespace UI.Reports.Docs {
               row.VerticalAlignment = VerticalAlignment.Center;
               row.Format.Font.Bold = true;
 
-              row.Cells[0].AddParagraph(Resources.DiaId);
-              row.Cells[1].AddParagraph(Resources.PeriodoId);
-              row.Cells[2].AddParagraph(Resources.InicioPeriodo);
+              row.Cells[0].AddParagraph(Resources.PeriodoId);
+              row.Cells[1].AddParagraph(Resources.InicioPeriodo);
+              row.Cells[2].AddParagraph(Resources.TerminoPeriodo);
               row.Cells[3].AddParagraph(Resources.DuracaoPeriodo);
               row.Cells[4].AddParagraph(Resources.Viagens);
               row.Cells[5].AddParagraph(Resources.Ciclo);
-              row.Cells[6].AddParagraph(Resources.Veiculos);
 
-              int l = 0;
-              foreach (int hr in tabelas) {
-                int j = 0;
-                int[] total = { 0, 0, 0 };
-                foreach (PeriodoTipico pItem in pTipicos.GetQuery(
-                                                    q => (q.LinhaId == item.Id) && (q.DiaId == hr),
-                                                    q => q.OrderBy(e => e.PeriodoId))) {
-                  row = table.AddRow();
-                  row.Height = "0.55 cm";
-                  row.Format.Alignment = ParagraphAlignment.Center;
+              int[] total = { 0, 0 };
+              foreach (PeriodoTipico pItem in pTipicos.GetQuery(q => q.LinhaId == item.Id, 
+                                                                q => q.OrderBy(e => e.PeriodoId))) {
+                row = table.AddRow();
+                row.Height = "0.55 cm";
+                row.Format.Alignment = ParagraphAlignment.Center;
 
-                  if (j++ == 0) {
-                    row.Cells[0].AddParagraph(Workday.Data[pItem.DiaId]);
-                    row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
-                  }
+                row.Cells[0].AddParagraph(pItem.EPeriodo.Denominacao);
+                row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
 
-                  row.Cells[1].AddParagraph(pItem.EPeriodo.Denominacao);
-                  row.Cells[1].Format.Alignment = ParagraphAlignment.Left;
+                row.Cells[1].AddParagraph($"{pItem.Inicio:hh\\:mm}");
+                row.Cells[2].AddParagraph($"{pItem.Termino:hh\\:mm}");
 
-                  row.Cells[2].AddParagraph($@"{pItem.Inicio:hh\:mm}");
+                concat = new StringBuilder($"{$"{pItem.Duracao:#,##0}"} ({$"{pItem.Duracao / 60:#0}"}:{$"{pItem.Duracao % 60:00}"})");
+                row.Cells[3].AddParagraph(concat.ToString());
+                row.Cells[3].Format.Alignment = ParagraphAlignment.Right;
 
-                  concat = new StringBuilder($"{$"{pItem.Duracao:#,##0}"} ({$"{pItem.Duracao / 60:#0}"}:{$"{pItem.Duracao % 60:00}"})");
-                  row.Cells[3].AddParagraph(concat.ToString());
-                  row.Cells[3].Format.Alignment = ParagraphAlignment.Right;
+                row.Cells[4].AddParagraph($"{pItem.QtdViagens:#,##0}");
 
-                  row.Cells[4].AddParagraph($"{pItem.QtdViagens:#,##0}");
+                concat = new StringBuilder($"{$"{pItem.Ciclo / 60:#0}"}:{$"{pItem.Ciclo % 60:00}"} ({$"{pItem.CicloAB:#,#}"} + {$"{pItem.CicloBA:#,#}"})");
+                row.Cells[5].AddParagraph(concat.ToString());
 
-                  concat = new StringBuilder($"{$"{pItem.Ciclo / 60:#0}"}:{$"{pItem.Ciclo % 60:00}"} ({$"{pItem.CicloAB:#,#}"} + {$"{pItem.CicloBA:#,#}"})");
-                  row.Cells[5].AddParagraph(concat.ToString());
-                  row.Cells[6].AddParagraph($"{pItem.MaxVeiculos:#,##0}");
-
-                  total[0] += pItem.Duracao;
-                  total[1] += pItem.QtdViagens;
-                  if (pItem.MaxVeiculos.HasValue && (total[2] < pItem.MaxVeiculos.Value)) {
-                    total[2] = pItem.MaxVeiculos.Value;
-                  }
-                }
+                total[0] += pItem.Duracao;
+                total[1] += pItem.QtdViagens;
+              }
+              if (pTipicos.GetCount(q => q.LinhaId == item.Id) > 1) {
                 row = table.AddRow();
                 row.Height = "0.25 in";
                 row.Format.Alignment = ParagraphAlignment.Left;
@@ -720,16 +783,9 @@ namespace UI.Reports.Docs {
 
                 row.Cells[4].AddParagraph(total[1].ToString());
                 row.Cells[4].Format.Alignment = ParagraphAlignment.Center;
-
-                row.Cells[6].AddParagraph($"{total[2]:#,###}");
-                row.Cells[6].Format.Alignment = ParagraphAlignment.Center;
-
-                if (++l < tabelas.Length) {
-                  row = table.AddRow();
-                }
               }
             }
-          } */
+          }
 
           /*
            * Plano Operacional da Linha (Horarios)
@@ -1547,8 +1603,8 @@ namespace UI.Reports.Docs {
       string fileName = $@"C:\Temp\OptCo\{image}";
       if (File.Exists(fileName)) {
         Image logo = section.Headers.Primary.AddImage(fileName);
-        logo.Height = "0.4 in"; // "0.5 in";
-        logo.Width = "1.6 in"; // "0.625 in";
+        logo.Height = "0.5 in";
+        logo.Width = "0.625 in";
         logo.Top = ShapePosition.Top;
         logo.Left = ShapePosition.Left;
         logo.WrapFormat.Style = WrapStyle.Through;

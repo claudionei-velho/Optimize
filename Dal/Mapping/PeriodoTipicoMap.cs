@@ -13,7 +13,6 @@ namespace Dal.Mapping {
       this.Property(t => t.Id).HasColumnName("Id");
       this.Property(t => t.LinhaId).HasColumnName("LinhaId").IsRequired();
       this.Property(t => t.PeriodoId).HasColumnName("PeriodoId").IsRequired();
-      this.Property(t => t.DiaId).HasColumnName("DiaId").IsRequired();
       this.Property(t => t.Inicio).HasColumnName("Inicio");
       this.Property(t => t.Termino).HasColumnName("Termino");
       this.Property(t => t.QtdViagens).HasColumnName("QtdViagens");

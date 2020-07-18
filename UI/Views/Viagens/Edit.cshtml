@@ -26,7 +26,7 @@
           $("#HorarioId").empty();
           $("#HorarioId").append("<option value=''></option>");
           $.each(data, function (index, row) {
-            $("#HorarioId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+            $("#HorarioId").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
           });
         });
       });
@@ -36,7 +36,7 @@
           $("#HorarioId").empty();
           $("#HorarioId").append("<option value=''></option>");
           $.each(data, function (index, row) {
-            $("#HorarioId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+            $("#HorarioId").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
           });
         });
       });
@@ -46,7 +46,7 @@
           $("#HorarioId").empty();
           $("#HorarioId").append("<option value=''></option>");
           $.each(data, function (index, row) {
-            $("#HorarioId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+            $("#HorarioId").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
           });
         });
       });

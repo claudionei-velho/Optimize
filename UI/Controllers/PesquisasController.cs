@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -17,8 +18,8 @@ namespace UI.Controllers {
   public class PesquisasController : Controller {
     private PesquisaService pesquisas = new PesquisaService();
     private readonly IMapper mapper = new MapperConfiguration(cfg => {
-                                            cfg.CreateMap<PesquisaViewModel, Pesquisa>().ReverseMap();
-                                          }).CreateMapper();
+      cfg.CreateMap<PesquisaViewModel, Pesquisa>().ReverseMap();
+    }).CreateMapper();
 
     // GET: Pesquisas
     public async Task<ActionResult> Index(int? page) {
@@ -56,7 +57,8 @@ namespace UI.Controllers {
       using (TroncoService troncos = new TroncoService(user.ID)) {
         ViewBag.TroncoId = new SelectList(troncos.GetSelect(
             q => new {
-              Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
+              Id = q.Id.ToString(),
+              Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name");
       }
       using (CorredorService corredores = new CorredorService(user.ID)) {
@@ -90,7 +92,8 @@ namespace UI.Controllers {
       using (TroncoService troncos = new TroncoService(user.ID)) {
         ViewBag.TroncoId = new SelectList(await troncos.GetSelectAsync(
             q => new {
-              Id = q.Id.ToString(), Name = q.Prefixo + " | " + q.Denominacao
+              Id = q.Id.ToString(),
+              Name = q.Prefixo + " | " + q.Denominacao
             }), "Id", "Name", viewModel.TroncoId);
       }
       using (CorredorService corredores = new CorredorService(user.ID)) {
@@ -234,58 +237,35 @@ namespace UI.Controllers {
     }
 
     public JsonResult GetTerminais(int id) {
-      HashSet<SelectBox> result = new HashSet<SelectBox>();
-
-      using (Services<Terminal> terminais = new Services<Terminal>()) {
-        foreach (Terminal item in terminais.GetQuery(q => q.EmpresaId == id)) {
-          result.Add(new SelectBox() { Id = item.Id.ToString(), Name = item.Denominacao });
-        }
-      }
-      return Json(result, JsonRequestBehavior.AllowGet);
+      using Services<Terminal> terminais = new Services<Terminal>();
+      return Json(terminais.GetQuery(q => q.EmpresaId == id).Select(p => new { p.Id, p.Denominacao })
+                      .ToDictionary(k => k.Id, k => k.Denominacao), JsonRequestBehavior.AllowGet);
     }
 
     public JsonResult GetTroncos(int id) {
-      HashSet<SelectBox> result = new HashSet<SelectBox>();
-
-      using (Services<Tronco> troncos = new Services<Tronco>()) {
-        foreach (Tronco item in troncos.GetQuery(q => q.EmpresaId == id)) {
-          result.Add(new SelectBox() { Id = item.Id.ToString(), Name = item.Prefixo + " | " + item.Denominacao });
-        }
-      }
-      return Json(result, JsonRequestBehavior.AllowGet);
+      using Services<Tronco> troncos = new Services<Tronco>();
+      return Json(troncos.GetQuery(q => q.EmpresaId == id)
+                      .Select(p => new { p.Id, p.Prefixo, p.Denominacao })
+                      .ToDictionary(k => k.Id, k => $"{k.Prefixo} | {k.Denominacao}"), JsonRequestBehavior.AllowGet);
     }
 
     public JsonResult GetCorredores(int id) {
-      HashSet<SelectBox> result = new HashSet<SelectBox>();
-
-      using (Services<Corredor> corredores = new Services<Corredor>()) {
-        foreach (Corredor item in corredores.GetQuery(q => q.EmpresaId == id)) {
-          result.Add(new SelectBox() { Id = item.Id.ToString(), Name = item.Prefixo + " | " + item.Denominacao });
-        }
-      }
-      return Json(result, JsonRequestBehavior.AllowGet);
+      using Services<Corredor> corredores = new Services<Corredor>();
+      return Json(corredores.GetQuery(q => q.EmpresaId == id)
+                      .Select(p => new { p.Id, p.Prefixo, p.Denominacao })
+                      .ToDictionary(k => k.Id, k => $"{k.Prefixo} | {k.Denominacao}"), JsonRequestBehavior.AllowGet);
     }
 
     public JsonResult GetOperacoes(int id) {
-      HashSet<SelectBox> result = new HashSet<SelectBox>();
-
-      using (OperacaoService operacoes = new OperacaoService()) {
-        foreach (Operacao item in operacoes.GetQuery(q => q.EmpresaId == id)) {
-          result.Add(new SelectBox() { Id = item.Id.ToString(), Name = item.OperLinha.Denominacao });
-        }
-      }
-      return Json(result, JsonRequestBehavior.AllowGet);
+      using OperacaoService operacoes = new OperacaoService();
+      return Json(operacoes.GetQuery(q => q.EmpresaId == id).Select(p => new { p.Id, p.OperLinha.Denominacao })
+                      .ToDictionary(k => k.Id, k => k.Denominacao), JsonRequestBehavior.AllowGet);
     }
 
     public JsonResult GetClasses(int id) {
-      HashSet<SelectBox> result = new HashSet<SelectBox>();
-
-      using (CLinhaService cLinhas = new CLinhaService()) {
-        foreach (CLinha item in cLinhas.GetQuery(q => q.EmpresaId == id)) {
-          result.Add(new SelectBox() { Id = item.Id.ToString(), Name = item.ClassLinha.Denominacao });
-        }
-      }
-      return Json(result, JsonRequestBehavior.AllowGet);
+      using CLinhaService cLinhas = new CLinhaService();
+      return Json(cLinhas.GetQuery(q => q.EmpresaId == id).Select(p => new { p.Id, p.ClassLinha.Denominacao })
+                      .ToDictionary(k => k.Id, k => k.Denominacao), JsonRequestBehavior.AllowGet);
     }
 
     protected override void Dispose(bool disposing) {

@@ -11,6 +11,7 @@ using PagedList;
 
 using Bll;
 using Bll.Services;
+using Dto.Extensions;
 using Dto.Lists;
 using Dto.Models;
 using UI.Models;
@@ -245,39 +246,27 @@ namespace UI.Controllers {
     }
 
     public JsonResult GetOrigens(int id, string go, int? pk = null) {
-      HashSet<SelectBox> result = new HashSet<SelectBox>();
-
       Expression<Func<PtOrigem, bool>> applyFilter = q => (q.LinhaId == id) && q.Sentido.Equals(go);
       if (pk.HasValue) {
-        applyFilter = q => (q.LinhaId == id) && q.Sentido.Equals(go) && (q.Id != pk.Value);
+        applyFilter = Predicate.And(applyFilter, q => q.Id != pk.Value);
       }
 
-      using (Services<PtOrigem> ptOrigens = new Services<PtOrigem>()) {
-        foreach (PtOrigem item in ptOrigens.GetQuery(applyFilter, q => q.OrderBy(p => p.Id))) {
-          result.Add(new SelectBox() {
-            Id = item.Id.ToString(), Name = item.Prefixo + " | " + item.Identificacao
-          });
-        }
-      }
-      return Json(result, JsonRequestBehavior.AllowGet);
+      using Services<PtOrigem> ptOrigens = new Services<PtOrigem>();
+      return Json(ptOrigens.GetQuery(applyFilter, q => q.OrderBy(p => p.Id))
+                      .Select(p => new { p.Id, p.Prefixo, p.Identificacao })
+                      .ToDictionary(k => k.Id, k => $"{k.Prefixo} | {k.Identificacao}"), JsonRequestBehavior.AllowGet);
     }
 
     public JsonResult GetDestinos(int id, string go, int? pk = null) {
-      HashSet<SelectBox> result = new HashSet<SelectBox>();
-
       Expression<Func<PtDestino, bool>> applyFilter = q => (q.LinhaId == id) && q.Sentido.Equals(go);
       if (pk.HasValue) {
-        applyFilter = q => (q.LinhaId == id) && q.Sentido.Equals(go) && (q.Id != pk.Value);
+        applyFilter = Predicate.And(applyFilter, q => q.Id != pk.Value);
       }
 
-      using (Services<PtDestino> ptDestinos = new Services<PtDestino>()) {
-        foreach (PtDestino item in ptDestinos.GetQuery(applyFilter, q => q.OrderBy(p => p.Id))) {
-          result.Add(new SelectBox() {
-            Id = item.Id.ToString(), Name = item.Prefixo + " | " + item.Identificacao
-          });
-        }
-      }
-      return Json(result, JsonRequestBehavior.AllowGet);
+      using Services<PtDestino> ptDestinos = new Services<PtDestino>();
+      return Json(ptDestinos.GetQuery(applyFilter, q => q.OrderBy(p => p.Id))
+                      .Select(p => new { p.Id, p.Prefixo, p.Identificacao })
+                      .ToDictionary(k => k.Id, k => $"{k.Prefixo} | {k.Identificacao}"), JsonRequestBehavior.AllowGet);
     }
 
     protected override void Dispose(bool disposing) {

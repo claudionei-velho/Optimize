@@ -13,21 +13,21 @@
       $.get("/Linhas/GetDominios", { id: $("#EmpresaId").val() }, function (data) {
         $("#DominioId").empty();
         $.each(data, function (index, row) {
-          $("#DominioId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+          $("#DominioId").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
         });
       });
 
       $.get("/Linhas/GetOperacoes", { id: $("#EmpresaId").val() }, function (data) {
         $("#OperacaoId").empty();
         $.each(data, function (index, row) {
-          $("#OperacaoId").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+          $("#OperacaoId").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
         });
       });
 
       $.get("/Linhas/GetClasses", { id: $("#EmpresaId").val() }, function (data) {
         $("#Classificacao").empty();
         $.each(data, function (index, row) {
-          $("#Classificacao").append("<option value='" + row.Id + "'>" + row.Name + "</option>");
+          $("#Classificacao").append("<option value='" + row.Key + "'>" + row.Value + "</option>");
         });
       });
     });

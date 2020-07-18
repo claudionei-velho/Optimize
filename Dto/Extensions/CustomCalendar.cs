@@ -1,8 +1,9 @@
-﻿namespace Dto.Models {
+﻿namespace Dto.Extensions {
   public static class CustomCalendar {
     public static readonly int DaysPerWeek = 7;
     public static readonly int WeeksPerYear = 52;
     public static readonly int MonthsPerYear = 12;
+    public static readonly int SchoolDays = 200;
 
     public static int DaysPerYear(int year) {
       return (!IsLeapYear(year)) ? 365 : 366;

@@ -11,6 +11,7 @@ using PagedList;
 
 using Bll;
 using Bll.Services;
+using Dto.Extensions;
 using Dto.Lists;
 using Dto.Models;
 using UI.Models;
@@ -21,8 +22,8 @@ namespace UI.Controllers {
   public class ViagensController : Controller {
     private ViagemService viagens = new ViagemService();
     private readonly IMapper mapper = new MapperConfiguration(cfg => {
-                                            cfg.CreateMap<ViagemViewModel, Viagem>().ReverseMap();
-                                          }).CreateMapper();
+      cfg.CreateMap<ViagemViewModel, Viagem>().ReverseMap();
+    }).CreateMapper();
 
     // GET: Viagens
     public async Task<ActionResult> Index(int? page) {
@@ -59,13 +60,14 @@ namespace UI.Controllers {
       using (LnPesquisaService linhas = new LnPesquisaService(user.ID)) {
         ViewBag.LinhaId = new SelectList(linhas.GetSelect(
             q => new {
-              Id = q.Id.ToString(), Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao
+              Id = q.Id.ToString(),
+              Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao
             }), "Id", "Name");
       }
       ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value");
       using (HorarioService horarios = new HorarioService(user.ID)) {
         ViewBag.HorarioId = new SelectList(horarios.GetSelect(
-            q => new { Id = q.Id.ToString(), Name = q.Inicio }, 
+            q => new { Id = q.Id.ToString(), Name = q.Inicio },
             orderBy: q => q.OrderBy(h => h.Inicio)), "Id", "Name");
       }
       using (PtLinhaService pontos = new PtLinhaService(user.ID)) {
@@ -87,7 +89,8 @@ namespace UI.Controllers {
       using (LnPesquisaService linhas = new LnPesquisaService(user.ID)) {
         ViewBag.LinhaId = new SelectList(await linhas.GetSelectAsync(
             q => new {
-              Id = q.Id.ToString(), Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao
+              Id = q.Id.ToString(),
+              Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
       ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value", viewModel.Sentido);
@@ -136,8 +139,10 @@ namespace UI.Controllers {
         using LnPesquisaService linhas = new LnPesquisaService(user.ID);
         ViewBag.LinhaId = new SelectList(
                                   await linhas.GetSelectAsync(
-                                            q => new { Id = q.Id.ToString(), 
-                                                       Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao }
+                                            q => new {
+                                              Id = q.Id.ToString(),
+                                              Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao
+                                            }
                                         ), "Id", "Name", viewModel.LinhaId);
       }
       ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value", viewModel.Sentido);
@@ -162,14 +167,15 @@ namespace UI.Controllers {
     // POST: Viagens/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Edit(ViagemViewModel viewModel) {      
+    public async Task<ActionResult> Edit(ViagemViewModel viewModel) {
       int diaId = Workday.GetWorkday(viewModel.Data);
 
       MvcUser user = System.Web.HttpContext.Current.User as MvcUser;
       using (LnPesquisaService linhas = new LnPesquisaService(user.ID)) {
         ViewBag.LinhaId = new SelectList(await linhas.GetSelectAsync(
             q => new {
-              Id = q.Id.ToString(), Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao
+              Id = q.Id.ToString(),
+              Name = q.Linha.Prefixo + " | " + q.Linha.Denominacao
             }), "Id", "Name", viewModel.LinhaId);
       }
       ViewBag.Sentido = new SelectList(Sentido.Items.ToList(), "Key", "Value", viewModel.Sentido);
@@ -230,24 +236,20 @@ namespace UI.Controllers {
     }
 
     public JsonResult GetHorarios(int id, int? op = null, string go = null) {
-      HashSet<SelectBox> result = new HashSet<SelectBox>();
-
       using (Services<LnPesquisa> lnPesquisas = new Services<LnPesquisa>()) {
-        int linhaId = lnPesquisas.GetById(id).LinhaId;
-        Expression<Func<Horario, bool>> applyFilter = q => q.LinhaId == linhaId;
+        Expression<Func<Horario, bool>> applyFilter = q => q.LinhaId == lnPesquisas.GetById(id).LinhaId;
         if (op.HasValue) {
-          applyFilter = q => (q.LinhaId == linhaId) && (q.DiaId == op.Value);
+          applyFilter = Predicate.And(applyFilter, q => q.DiaId == op.Value);
         }
         if (!string.IsNullOrWhiteSpace(go)) {
-          applyFilter = q => (q.LinhaId == linhaId) && (q.DiaId == op) && q.Sentido.Equals(go);
+          applyFilter = Predicate.And(applyFilter, q => q.Sentido.Equals(go));
         }
 
-        using Services<Horario> horarios = new Services<Horario>();
-        foreach (Horario item in horarios.GetQuery(applyFilter, q => q.OrderBy(h => h.Inicio))) {
-          result.Add(new SelectBox() { Id = item.Id.ToString(), Name = item.Inicio.ToString(@"hh\:mm") });
+        using (Services<Horario> horarios = new Services<Horario>()) {
+          return Json(horarios.GetQuery(applyFilter, q => q.OrderBy(h => h.Inicio)).Select(p => new { p.Id, p.Inicio })
+                          .ToDictionary(k => k.Id, k => k.Inicio.ToString("hh\\:mm")).ToList(), JsonRequestBehavior.AllowGet);
         }
-      }    
-      return Json(result, JsonRequestBehavior.AllowGet);
+      }
     }
 
     protected override void Dispose(bool disposing) {

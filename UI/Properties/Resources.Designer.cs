@@ -1429,6 +1429,15 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extensão Média (km).
+        /// </summary>
+        public static string ExtensaoCap {
+            get {
+                return ResourceManager.GetString("ExtensaoCap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Extensão (km).
         /// </summary>
         public static string ExtensaoSentido {
@@ -1704,6 +1713,15 @@ namespace UI.Properties {
         public static string HorarioViewModel {
             get {
                 return ResourceManager.GetString("HorarioViewModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Média de Horas de Operação em Dias Úteis.
+        /// </summary>
+        public static string HorasOperacao {
+            get {
+                return ResourceManager.GetString("HorasOperacao", resourceCulture);
             }
         }
         
@@ -2073,6 +2091,15 @@ namespace UI.Properties {
         public static string LatitudeError {
             get {
                 return ResourceManager.GetString("LatitudeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linhas.
+        /// </summary>
+        public static string LinhaCap {
+            get {
+                return ResourceManager.GetString("LinhaCap", resourceCulture);
             }
         }
         
@@ -2689,6 +2716,15 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Percurso Total (km).
+        /// </summary>
+        public static string PercursoCap {
+            get {
+                return ResourceManager.GetString("PercursoCap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Percurso Domingo (km).
         /// </summary>
         public static string PercursoDom {
@@ -2793,6 +2829,24 @@ namespace UI.Properties {
         public static string PicoError {
             get {
                 return ResourceManager.GetString("PicoError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ponto Inicial.
+        /// </summary>
+        public static string PInicioId {
+            get {
+                return ResourceManager.GetString("PInicioId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Informe o Ponto Inicial.
+        /// </summary>
+        public static string PInicioIdError {
+            get {
+                return ResourceManager.GetString("PInicioIdError", resourceCulture);
             }
         }
         
@@ -3067,6 +3121,24 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ponto Final.
+        /// </summary>
+        public static string PTerminoId {
+            get {
+                return ResourceManager.GetString("PTerminoId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Informe o Ponto Final.
+        /// </summary>
+        public static string PTerminoIdError {
+            get {
+                return ResourceManager.GetString("PTerminoIdError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pontos da Linha.
         /// </summary>
         public static string PtLinhaViewModel {
@@ -3306,6 +3378,15 @@ namespace UI.Properties {
         public static string SinoticoViewModel {
             get {
                 return ResourceManager.GetString("SinoticoViewModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to km/h.
+        /// </summary>
+        public static string SpeedCap {
+            get {
+                return ResourceManager.GetString("SpeedCap", resourceCulture);
             }
         }
         
@@ -3670,7 +3751,7 @@ namespace UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nº Veículos.
+        ///   Looks up a localized string similar to Nº de Veículos.
         /// </summary>
         public static string Veiculos {
             get {
@@ -3711,6 +3792,15 @@ namespace UI.Properties {
         public static string Velocidade {
             get {
                 return ResourceManager.GetString("Velocidade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Velocidade Comercial.
+        /// </summary>
+        public static string VelocidadeComl {
+            get {
+                return ResourceManager.GetString("VelocidadeComl", resourceCulture);
             }
         }
         

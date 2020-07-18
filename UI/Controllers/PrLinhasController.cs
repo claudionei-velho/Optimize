@@ -99,7 +99,6 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Empresa.Fantasia + " | " + q.Denominacao
             }), "Id", "Name", viewModel.PeriodoId);
       }
-      ViewBag.DiaId = new SelectList(Workday.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.DiaId);
       using (Services<CVeiculo> cVeiculos = new Services<CVeiculo>()) {
         ViewBag.CVeiculoId = new SelectList(await cVeiculos.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Classe }), "Id", "Name", viewModel.CVeiculoId);
@@ -145,7 +144,6 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Empresa.Fantasia + " | " + q.Denominacao
             }), "Id", "Name", viewModel.PeriodoId);
       }
-      ViewBag.DiaId = new SelectList(Workday.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.DiaId);
       using (Services<CVeiculo> cVeiculos = new Services<CVeiculo>()) {
         ViewBag.CVeiculoId = new SelectList(await cVeiculos.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Classe }), "Id", "Name", viewModel.CVeiculoId);
@@ -174,7 +172,6 @@ namespace UI.Controllers {
               Id = q.Id.ToString(), Name = q.Empresa.Fantasia + " | " + q.Denominacao
             }), "Id", "Name", viewModel.PeriodoId);
       }
-      ViewBag.DiaId = new SelectList(Workday.Items.Where(p => p.Key > 0).ToList(), "Key", "Value", viewModel.DiaId);
       using (Services<CVeiculo> cVeiculos = new Services<CVeiculo>()) {
         ViewBag.CVeiculoId = new SelectList(await cVeiculos.GetSelectAsync(
             q => new { Id = q.Id.ToString(), Name = q.Classe }), "Id", "Name", viewModel.CVeiculoId);

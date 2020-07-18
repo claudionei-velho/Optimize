@@ -1,0 +1,58 @@
+﻿@model UI.Models.ReferenciaViewModel
+
+@{
+  ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+  <h4>ReferenciaViewModel</h4>
+  <hr />
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.LinhaId)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.LinhaId)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.AtendimentoId)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.AtendimentoId)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Sentido)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.Sentido)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.PInicioId)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.PInicioId)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.PTerminoId)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.PTerminoId)
+    </dd>
+
+  </dl>
+</div>
+<p>
+  @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+  @Html.ActionLink("Back to List", "Index")
+</p>

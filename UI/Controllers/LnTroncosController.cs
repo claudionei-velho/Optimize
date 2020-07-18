@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -171,19 +172,12 @@ namespace UI.Controllers {
     }
 
     public JsonResult GetLinhas(int id) {
-      HashSet<SelectBox> result = new HashSet<SelectBox>();
-      using (Services<Tronco> troncos = new Services<Tronco>()) {
-        int empresaId = troncos.GetById(id).EmpresaId;
+      using Services<Tronco> troncos = new Services<Tronco>();
 
-        using Services<Linha> linhas = new Services<Linha>();
-        foreach (Linha item in linhas.GetQuery(q => q.EmpresaId == empresaId)) {
-          result.Add(new SelectBox() {
-            Id = item.Id.ToString(),
-            Name = item.Prefixo + " | " + item.Denominacao
-          });
-        }
-      }
-      return Json(result, JsonRequestBehavior.AllowGet);
+      using Services<Linha> linhas = new Services<Linha>();
+      return Json(linhas.GetQuery(q => q.EmpresaId == troncos.GetById(id).EmpresaId)
+                      .Select(p => new { p.Id, p.Prefixo, p.Denominacao })
+                      .ToDictionary(k => k.Id, k => $"{k.Prefixo} | {k.Denominacao}"), JsonRequestBehavior.AllowGet);
     }
 
     protected override void Dispose(bool disposing) {

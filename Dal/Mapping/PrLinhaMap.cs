@@ -14,7 +14,6 @@ namespace Dal.Mapping {
       this.Property(t => t.Id).HasColumnName("Id");
       this.Property(t => t.LinhaId).HasColumnName("LinhaId");
       this.Property(t => t.PeriodoId).HasColumnName("PeriodoId");
-      this.Property(t => t.DiaId).HasColumnName("DiaId");
       this.Property(t => t.Inicio).HasColumnName("Inicio");
       this.Property(t => t.Termino).HasColumnName("Termino");
       this.Property(t => t.CicloAB).HasColumnName("CicloAB");

@@ -760,7 +760,7 @@
     <value>Informe o Custo Variável R$ (km)</value>
   </data>
   <data name="Veiculos" xml:space="preserve">
-    <value>Nº Veículos</value>
+    <value>Nº de Veículos</value>
   </data>
   <data name="VeiculosE" xml:space="preserve">
     <value>Qtd. Veículos (Estatístico)</value>
@@ -1373,5 +1373,35 @@
   </data>
   <data name="FooterNote" xml:space="preserve">
     <value>Passageiros transportados entre</value>
+  </data>
+  <data name="PInicioId" xml:space="preserve">
+    <value>Ponto Inicial</value>
+  </data>
+  <data name="PTerminoId" xml:space="preserve">
+    <value>Ponto Final</value>
+  </data>
+  <data name="PInicioIdError" xml:space="preserve">
+    <value>Informe o Ponto Inicial</value>
+  </data>
+  <data name="PTerminoIdError" xml:space="preserve">
+    <value>Informe o Ponto Final</value>
+  </data>
+  <data name="ExtensaoCap" xml:space="preserve">
+    <value>Extensão Média (km)</value>
+  </data>
+  <data name="HorasOperacao" xml:space="preserve">
+    <value>Média de Horas de Operação em Dias Úteis</value>
+  </data>
+  <data name="LinhaCap" xml:space="preserve">
+    <value>Linhas</value>
+  </data>
+  <data name="PercursoCap" xml:space="preserve">
+    <value>Percurso Total (km)</value>
+  </data>
+  <data name="SpeedCap" xml:space="preserve">
+    <value>km/h</value>
+  </data>
+  <data name="VelocidadeComl" xml:space="preserve">
+    <value>Velocidade Comercial</value>
   </data>
 </root>

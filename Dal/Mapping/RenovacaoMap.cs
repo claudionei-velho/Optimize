@@ -8,15 +8,8 @@ namespace Dal.Mapping {
     public RenovacaoMap() {
       // Primary Key
       this.HasKey(t => t.Id);
-
-      // Properties
-      this.Property(t => t.Referencia)
-          .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
-
-      this.Property(t => t.Cadastro)
-          .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
-
-      // Table & Column Mappings
+          
+      // Table, Properties & Column Mappings
       this.ToTable("Renovacao", "opc");
       this.Property(t => t.Id).HasColumnName("Id");
       this.Property(t => t.LinhaId).HasColumnName("LinhaId");
@@ -24,8 +17,11 @@ namespace Dal.Mapping {
       this.Property(t => t.Mes).HasColumnName("Mes");
       this.Property(t => t.DiaId).HasColumnName("DiaId");
       this.Property(t => t.Indice).HasColumnName("Indice");
-      this.Property(t => t.Referencia).HasColumnName("Referencia");
-      this.Property(t => t.Cadastro).HasColumnName("Cadastro");
+      this.Property(t => t.Referencia).HasColumnName("Referencia")
+          .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
+
+      this.Property(t => t.Cadastro).HasColumnName("Cadastro")
+          .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
 
       // Relationships
       this.HasRequired(t => t.Linha)

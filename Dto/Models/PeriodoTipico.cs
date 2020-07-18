@@ -5,7 +5,6 @@ namespace Dto.Models {
   public class PeriodoTipico {
     public int Id { get; set; }
     public int LinhaId { get; set; }
-    public int DiaId { get; set; }
     public int PeriodoId { get; set; }
     public TimeSpan Inicio { get; set; }
     public TimeSpan Termino { get; set; }
