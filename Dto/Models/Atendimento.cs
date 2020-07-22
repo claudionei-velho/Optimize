@@ -9,6 +9,7 @@ namespace Dto.Models {
       this.ItAtendimentos = new HashSet<ItAtendimento>();
       this.Horarios = new HashSet<Horario>();
       this.MapasLinha = new HashSet<MapaLinha>();
+      this.PrLinhas = new HashSet<PrLinha>();
       this.PtAtendimentos = new HashSet<PtAtendimento>();
       this.Referencias = new HashSet<Referencia>();
 
@@ -66,6 +67,7 @@ namespace Dto.Models {
     public virtual ICollection<ItAtendimento> ItAtendimentos { get; set; }
     public virtual ICollection<Horario> Horarios { get; set; }
     public virtual ICollection<MapaLinha> MapasLinha { get; set; }
+    public virtual ICollection<PrLinha> PrLinhas { get; set; }
     public virtual ICollection<PtAtendimento> PtAtendimentos { get; set; }
     public virtual ICollection<Referencia> Referencias { get; set; }
 

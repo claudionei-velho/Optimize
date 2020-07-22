@@ -37,25 +37,5 @@ namespace Bll.Services {
         throw new Exception(ex.Message);
       }
     }
-
-    public string GetPontoInicial(int id, string ab) {
-      Expression<Func<ItAtendimento, bool>> filter = q => (q.AtendimentoId == id) && q.Sentido.Equals(ab);
-      using (Services<ItAtendimento> itinerarios = new Services<ItAtendimento>()) {
-        if (itinerarios.Exists(filter)) {
-          return itinerarios.GetFirst(filter).Percurso;
-        }
-      }
-      return string.Empty;
-    }
-
-    public string GetPontoFinal(int id, string ab) {
-      Expression<Func<ItAtendimento, bool>> filter = q => (q.AtendimentoId == id) && q.Sentido.Equals(ab);
-      using (Services<ItAtendimento> itinerarios = new Services<ItAtendimento>()) {
-        if (itinerarios.Exists(filter)) {
-          return itinerarios.GetById(itinerarios.GetQuery(filter).Max(p => p.Id)).Percurso;
-        }
-      }
-      return string.Empty;
-    }
   }
 }

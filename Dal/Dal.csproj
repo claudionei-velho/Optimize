@@ -110,6 +110,7 @@
     <Compile Include="Mapping\LnTroncoMap.cs" />
     <Compile Include="Mapping\LoteMap.cs" />
     <Compile Include="Mapping\MapaLinhaMap.cs" />
+    <Compile Include="Mapping\MatrizHMap.cs" />
     <Compile Include="Mapping\MotorMap.cs" />
     <Compile Include="Mapping\MunicipioMap.cs" />
     <Compile Include="Mapping\OcupacaoMap.cs" />
@@ -144,6 +145,8 @@
     <Compile Include="Mapping\UsuarioMap.cs" />
     <Compile Include="Mapping\VeiculoAttMap.cs" />
     <Compile Include="Mapping\VeiculoMap.cs" />
+    <Compile Include="Mapping\VetorHMap.cs" />
+    <Compile Include="Mapping\VetorMap.cs" />
     <Compile Include="Mapping\ViagemHoraMap.cs" />
     <Compile Include="Mapping\ViagemLinhaMap.cs" />
     <Compile Include="Mapping\ViagemMap.cs" />

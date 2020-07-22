@@ -1296,17 +1296,11 @@
   <data name="MapaLinhaViewModel" xml:space="preserve">
     <value>Mapas da Linha</value>
   </data>
-  <data name="PontoFinalAB" xml:space="preserve">
-    <value>Ponto Final AB</value>
+  <data name="PontoFinal" xml:space="preserve">
+    <value>Ponto Final</value>
   </data>
-  <data name="PontoFinalBA" xml:space="preserve">
-    <value>Ponto Final BA</value>
-  </data>
-  <data name="PontoInicialAB" xml:space="preserve">
-    <value>Ponto Inicial AB</value>
-  </data>
-  <data name="PontoInicialBA" xml:space="preserve">
-    <value>Ponto Inicial BA</value>
+  <data name="PontoInicial" xml:space="preserve">
+    <value>Ponto Inicial</value>
   </data>
   <data name="HelpHint" xml:space="preserve">
     <value>Clique para mais informações!</value>

@@ -18,8 +18,8 @@ namespace UI.Controllers {
   public class ItinerariosController : Controller {
     private ItinerarioService itinerarios = new ItinerarioService();
     private readonly IMapper mapper = new MapperConfiguration(cfg => {
-      cfg.CreateMap<ItinerarioViewModel, Itinerario>().ReverseMap();
-    }).CreateMapper();
+                                              cfg.CreateMap<ItinerarioViewModel, Itinerario>().ReverseMap();
+                                          }).CreateMapper();
 
     // GET: Itinerarios
     public async Task<ActionResult> Index(int? page) {

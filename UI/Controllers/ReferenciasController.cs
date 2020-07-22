@@ -16,16 +16,13 @@ using UI.Security;
 namespace UI.Controllers {
   [Authorize]
   public class ReferenciasController : Controller {
-    private ReferenciaService referencias = new ReferenciaService();
+    private readonly ReferenciaService referencias = new ReferenciaService();
     private readonly IMapper mapper = new MapperConfiguration(cfg => {
                                               cfg.CreateMap<ReferenciaViewModel, Referencia>().ReverseMap();
                                           }).CreateMapper();
 
     // GET: Referencias
     public async Task<ActionResult> Index(int? page) {
-      MvcUser user = System.Web.HttpContext.Current.User as MvcUser;
-      this.referencias = new ReferenciaService(user.ID);
-
       var viewModel = mapper.Map<IEnumerable<ReferenciaViewModel>>(await referencias.GetAllAsync());
       return View(viewModel.ToPagedList(page ?? 1, 16));
     }

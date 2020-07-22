@@ -123,6 +123,7 @@
     <Compile Include="Models\LnTronco.cs" />
     <Compile Include="Models\Lote.cs" />
     <Compile Include="Models\MapaLinha.cs" />
+    <Compile Include="Models\MatrizH.cs" />
     <Compile Include="Models\Motor.cs" />
     <Compile Include="Models\Municipio.cs" />
     <Compile Include="Models\Ocupacao.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Models\Veiculo.cs" />
     <Compile Include="Models\VeiculoAtt.cs" />
     <Compile Include="Models\Vetor.cs" />
+    <Compile Include="Models\VetorH.cs" />
     <Compile Include="Models\Viagem.cs" />
     <Compile Include="Models\ViagemHora.cs" />
     <Compile Include="Models\ViagemLinha.cs" />

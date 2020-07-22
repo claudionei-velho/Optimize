@@ -13,6 +13,9 @@ namespace UI.Models {
     [Required(ErrorMessageResourceName = "LinhaIdError", ErrorMessageResourceType = typeof(Properties.Resources))]
     public int LinhaId { get; set; }
 
+    [Display(Name = "AtendimentoId", ResourceType = typeof(Properties.Resources))]
+    public int? AtendimentoId { get; set; }
+
     [Display(Name = "DiaId", ResourceType = typeof(Properties.Resources))]
     [Required(ErrorMessageResourceName = "DiaIdError", ErrorMessageResourceType = typeof(Properties.Resources))]
     public int DiaId { get; set; }
@@ -22,6 +25,9 @@ namespace UI.Models {
         return Workday.Items[DiaId];
       }
     }
+
+    [Display(Name = "Item", ResourceType = typeof(Properties.Resources))]
+    public int? Item { get; set; }
 
     [Display(Name = "Sentido", ResourceType = typeof(Properties.Resources))]
     [Required(ErrorMessageResourceName = "SentidoError",
@@ -33,15 +39,12 @@ namespace UI.Models {
     [DataType(DataType.Time)]
     public TimeSpan Inicio { get; set; }
 
-    [Display(Name = "AtendimentoId", ResourceType = typeof(Properties.Resources))]
-    public int? AtendimentoId { get; set; }
+    [Display(Name = "PeriodoId", ResourceType = typeof(Properties.Resources))]
+    public int? PeriodoId { get; set; }
 
     [Display(Name = "Extensao", ResourceType = typeof(Properties.Resources))]
     [DisplayFormat(DataFormatString = "{0:#,##0.0##}", ApplyFormatInEditMode = true)]
     public decimal? Extensao { get; set; }
-
-    [Display(Name = "PeriodoId", ResourceType = typeof(Properties.Resources))]
-    public int? PeriodoId { get; set; }
 
     [ScaffoldColumn(false)]
     public DateTime? Cadastro { get; set; }

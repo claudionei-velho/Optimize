@@ -440,24 +440,24 @@ namespace UI.Reports.Docs {
           row.Cells[3].Format.Font.Bold = false;
 
           // Pontos Inicial e Final, AB e BA
-          for (int j = 0; j < Sentido.Items.Count; j++) {
-            row = table.AddRow();
-            row.Height = "0.6 cm";
-            row.Format.Font.Bold = true;
-            if (j == 0) {
-              row.Cells[0].AddParagraph(Resources.PontoInicialAB);
-              row.Cells[2].AddParagraph(Resources.PontoFinalAB);
+          foreach (KeyValuePair<string, string> way in Sentido.Items) {
+            using ReferenciaService referencias = new ReferenciaService();
+            Expression<Func<Referencia, bool>> locate =
+                p => (p.LinhaId == item.Id) && (!p.AtendimentoId.HasValue) && p.Sentido.Equals(way.Key);
+            if (referencias.GetFirst(locate) == null) {
+              continue;
             }
-            else {
-              row.Cells[0].AddParagraph(Resources.PontoInicialBA);
-              row.Cells[2].AddParagraph(Resources.PontoFinalBA);
-            }
-            string ab = (j == 0) ? "AB" : "BA";
 
-            row.Cells[1].AddParagraph(linhas.GetPontoInicial(item.Id, ab));
+            row = table.AddRow();
+            row.Height = "0.8 cm";
+            row.Format.Font.Bold = true;
+
+            row.Cells[0].AddParagraph($"{Resources.PontoInicial} {way.Key}");            
+            row.Cells[1].AddParagraph(referencias.GetFirst(locate).PInicio.Endereco);
             row.Cells[1].Format.Font.Bold = false;
 
-            row.Cells[3].AddParagraph(linhas.GetPontoFinal(item.Id, ab));
+            row.Cells[2].AddParagraph($"{Resources.PontoFinal} {way.Key}");
+            row.Cells[3].AddParagraph(referencias.GetFirst(locate).PTermino.Endereco);
             row.Cells[3].Format.Font.Bold = false;
           }
 
@@ -745,7 +745,6 @@ namespace UI.Reports.Docs {
               row.Cells[4].AddParagraph(Resources.Viagens);
               row.Cells[5].AddParagraph(Resources.Ciclo);
 
-              int[] total = { 0, 0 };
               foreach (PeriodoTipico pItem in pTipicos.GetQuery(q => q.LinhaId == item.Id, 
                                                                 q => q.OrderBy(e => e.PeriodoId))) {
                 row = table.AddRow();
@@ -766,23 +765,6 @@ namespace UI.Reports.Docs {
 
                 concat = new StringBuilder($"{$"{pItem.Ciclo / 60:#0}"}:{$"{pItem.Ciclo % 60:00}"} ({$"{pItem.CicloAB:#,#}"} + {$"{pItem.CicloBA:#,#}"})");
                 row.Cells[5].AddParagraph(concat.ToString());
-
-                total[0] += pItem.Duracao;
-                total[1] += pItem.QtdViagens;
-              }
-              if (pTipicos.GetCount(q => q.LinhaId == item.Id) > 1) {
-                row = table.AddRow();
-                row.Height = "0.25 in";
-                row.Format.Alignment = ParagraphAlignment.Left;
-                row.VerticalAlignment = VerticalAlignment.Center;
-                row.Format.Font.Bold = true;
-
-                concat = new StringBuilder($"({$"{total[0] / 60:#0}"}:{$"{total[0] % 60:00}"})");
-                row.Cells[3].AddParagraph(concat.ToString());
-                row.Cells[3].Format.Alignment = ParagraphAlignment.Right;
-
-                row.Cells[4].AddParagraph(total[1].ToString());
-                row.Cells[4].Format.Alignment = ParagraphAlignment.Center;
               }
             }
           }

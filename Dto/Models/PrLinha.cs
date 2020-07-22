@@ -13,6 +13,7 @@ namespace Dto.Models {
 
     public int Id { get; set; }
     public int LinhaId { get; set; }
+    public int? AtendimentoId { get; set; }
     public int PeriodoId { get; set; }
     public TimeSpan Inicio { get; set; }
     public TimeSpan Termino { get; set; }
@@ -41,6 +42,7 @@ namespace Dto.Models {
     public DateTime? Cadastro { get; set; }
 
     // Navigation Properties
+    public virtual Atendimento Atendimento { get; set; }
     public virtual CVeiculo CVeiculo { get; set; }
     public virtual EPeriodo EPeriodo { get; set; }
     public virtual Linha Linha { get; set; }

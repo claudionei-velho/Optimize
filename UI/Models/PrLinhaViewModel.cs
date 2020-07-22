@@ -12,6 +12,9 @@ namespace UI.Models {
     [Required(ErrorMessageResourceName = "LinhaIdError", ErrorMessageResourceType = typeof(Properties.Resources))]
     public int LinhaId { get; set; }
 
+    [Display(Name = "AtendimentoId", ResourceType = typeof(Properties.Resources))]
+    public int? AtendimentoId { get; set; }
+
     [Display(Name = "EPeriodoId", ResourceType = typeof(Properties.Resources))]
     [Required(ErrorMessageResourceName = "EPeriodoIdError", ErrorMessageResourceType = typeof(Properties.Resources))]
     public int PeriodoId { get; set; }
@@ -42,6 +45,7 @@ namespace UI.Models {
     public DateTime? Cadastro { get; set; }
 
     // Navigation Properties
+    public virtual Atendimento Atendimento { get; set; }
     public virtual CVeiculo CVeiculo { get; set; }
     public virtual EPeriodo EPeriodo { get; set; }
     public virtual Linha Linha { get; set; }

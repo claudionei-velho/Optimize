@@ -47,6 +47,7 @@ namespace Dal {
     public DbSet<LnCorredor> LnCorredores { get; set; }
     public DbSet<LnPesquisa> LnPesquisas { get; set; }
     public DbSet<Lote> Lotes { get; set; }
+    public DbSet<MatrizH> MatrizesH { get; set; }
     public DbSet<Motor> Motores { get; set; }
     public DbSet<Municipio> Municipios { get; set; }
     public DbSet<Ocupacao> Ocupacoes { get; set; }
@@ -66,6 +67,8 @@ namespace Dal {
     public DbSet<TServico> TServicos { get; set; }
     public DbSet<Veiculo> Veiculos { get; set; }
     public DbSet<VeiculoAtt> VeiculosAtt { get; set; }
+    public DbSet<Vetor> Vetores { get; set; }
+    public DbSet<VetorH> VetoresH { get; set; }
     public DbSet<Viagem> Viagens { get; set; }
     public DbSet<FAjuste> FAjustes { get; set; }
     public DbSet<TotalViagem> TotalViagens { get; set; }

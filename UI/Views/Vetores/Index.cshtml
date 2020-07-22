@@ -1,0 +1,63 @@
+﻿@model IEnumerable<UI.Models.VetorViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmpresaId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiaId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Inicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PInicioId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Termino)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PTerminoId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpresaId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiaId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Inicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PInicioId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Termino)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PTerminoId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

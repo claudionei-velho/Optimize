@@ -21,6 +21,7 @@ namespace Dto.Models {
       this.Tarifas = new HashSet<Tarifa>();
       this.TCategorias = new HashSet<TCategoria>();
       this.Terminais = new HashSet<Terminal>();
+      this.Vetores = new HashSet<Vetor>();
       this.Veiculos = new HashSet<Veiculo>();
       this.TarifaMods = new HashSet<TarifaMod>();
       this.Troncos = new HashSet<Tronco>();
@@ -71,6 +72,7 @@ namespace Dto.Models {
     public virtual ICollection<Tarifa> Tarifas { get; set; }
     public virtual ICollection<TCategoria> TCategorias { get; set; }
     public virtual ICollection<Terminal> Terminais { get; set; }
+    public virtual ICollection<Vetor> Vetores { get; set; }
     public virtual ICollection<Veiculo> Veiculos { get; set; }
     public virtual ICollection<TarifaMod> TarifaMods { get; set; }
     public virtual ICollection<Tronco> Troncos { get; set; }

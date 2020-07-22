@@ -2905,20 +2905,11 @@ namespace UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ponto Final AB.
+        ///   Looks up a localized string similar to Ponto Final.
         /// </summary>
-        public static string PontoFinalAB {
+        public static string PontoFinal {
             get {
-                return ResourceManager.GetString("PontoFinalAB", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ponto Final BA.
-        /// </summary>
-        public static string PontoFinalBA {
-            get {
-                return ResourceManager.GetString("PontoFinalBA", resourceCulture);
+                return ResourceManager.GetString("PontoFinal", resourceCulture);
             }
         }
         
@@ -2950,20 +2941,11 @@ namespace UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ponto Inicial AB.
+        ///   Looks up a localized string similar to Ponto Inicial.
         /// </summary>
-        public static string PontoInicialAB {
+        public static string PontoInicial {
             get {
-                return ResourceManager.GetString("PontoInicialAB", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ponto Inicial BA.
-        /// </summary>
-        public static string PontoInicialBA {
-            get {
-                return ResourceManager.GetString("PontoInicialBA", resourceCulture);
+                return ResourceManager.GetString("PontoInicial", resourceCulture);
             }
         }
         

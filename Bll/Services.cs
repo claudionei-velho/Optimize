@@ -164,7 +164,7 @@ namespace Bll {
           context.Set<TEntity>().Add(obj);
           await context.SaveChangesAsync();
         }
-        catch (Exception ex) {
+        catch (DbException ex) {
           throw new Exception(ex.Message);
         }
       }
@@ -176,7 +176,7 @@ namespace Bll {
           context.Entry(obj).State = EntityState.Modified;
           await context.SaveChangesAsync();
         }
-        catch (Exception ex) {
+        catch (DbException ex) {
           throw new Exception(ex.Message);
         }
       }
@@ -188,7 +188,7 @@ namespace Bll {
           context.Set<TEntity>().Remove(obj);
           await context.SaveChangesAsync();
         }
-        catch (Exception ex) {
+        catch (DbException ex) {
           throw new Exception(ex.Message);
         }
       }

@@ -13,6 +13,7 @@ namespace Dal.Mapping {
       this.ToTable("PrLinhas", "opc");
       this.Property(t => t.Id).HasColumnName("Id");
       this.Property(t => t.LinhaId).HasColumnName("LinhaId");
+      this.Property(t => t.AtendimentoId).HasColumnName("AtendimentoId");
       this.Property(t => t.PeriodoId).HasColumnName("PeriodoId");
       this.Property(t => t.Inicio).HasColumnName("Inicio");
       this.Property(t => t.Termino).HasColumnName("Termino");
@@ -24,17 +25,25 @@ namespace Dal.Mapping {
           .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
 
       // Foreign Keys (Relationships)
-      this.HasOptional(t => t.CVeiculo)
-          .WithMany(t => t.PrLinhas).HasForeignKey(d => d.CVeiculoId).WillCascadeOnDelete(false);
-
       this.HasRequired(t => t.EPeriodo)
-          .WithMany(t => t.PrLinhas).HasForeignKey(d => d.PeriodoId).WillCascadeOnDelete(false);
+          .WithMany(t => t.PrLinhas).HasForeignKey(d => d.PeriodoId)
+          .WillCascadeOnDelete(false);
 
       this.HasRequired(t => t.Linha)
-          .WithMany(t => t.PrLinhas).HasForeignKey(d => d.LinhaId).WillCascadeOnDelete(false);
+          .WithMany(t => t.PrLinhas).HasForeignKey(d => d.LinhaId)
+          .WillCascadeOnDelete(false);
+
+      this.HasOptional(t => t.Atendimento)
+          .WithMany(t => t.PrLinhas).HasForeignKey(d => d.AtendimentoId)
+          .WillCascadeOnDelete(false);
+
+      this.HasOptional(t => t.CVeiculo)
+          .WithMany(t => t.PrLinhas).HasForeignKey(d => d.CVeiculoId)
+          .WillCascadeOnDelete(false);
 
       this.HasOptional(t => t.Ocupacao)
-          .WithMany(t => t.PrLinhas).HasForeignKey(d => d.OcupacaoId).WillCascadeOnDelete(false);
+          .WithMany(t => t.PrLinhas).HasForeignKey(d => d.OcupacaoId)
+          .WillCascadeOnDelete(false);
     }
   }
 }
