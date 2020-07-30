@@ -313,6 +313,15 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bruta.
+        /// </summary>
+        public static string Bruta {
+            get {
+                return ResourceManager.GetString("Bruta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data de Cadastro.
         /// </summary>
         public static string Cadastro {
@@ -610,6 +619,15 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coeficiente.
+        /// </summary>
+        public static string Coeficiente {
+            get {
+                return ResourceManager.GetString("Coeficiente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Empresa.
         /// </summary>
         public static string Company {
@@ -763,6 +781,24 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custo R$.
+        /// </summary>
+        public static string Custo {
+            get {
+                return ResourceManager.GetString("Custo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custo Operacional.
+        /// </summary>
+        public static string CustoCo {
+            get {
+                return ResourceManager.GetString("CustoCo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custo Total R$ (km).
         /// </summary>
         public static string CustoTotal {
@@ -876,6 +912,15 @@ namespace UI.Properties {
         public static string Decreto {
             get {
                 return ResourceManager.GetString("Decreto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Déficit no Período.
+        /// </summary>
+        public static string Deficit {
+            get {
+                return ResourceManager.GetString("Deficit", resourceCulture);
             }
         }
         
@@ -1119,6 +1164,24 @@ namespace UI.Properties {
         public static string DominioViewModel {
             get {
                 return ResourceManager.GetString("DominioViewModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Demonstrativo de Resultado da Operação.
+        /// </summary>
+        public static string DROReport {
+            get {
+                return ResourceManager.GetString("DROReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Demonstrativo de Resultado da Linha.
+        /// </summary>
+        public static string DROReportLn {
+            get {
+                return ResourceManager.GetString("DROReportLn", resourceCulture);
             }
         }
         
@@ -1780,6 +1843,15 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Impostos.
+        /// </summary>
+        public static string Impostos {
+            get {
+                return ResourceManager.GetString("Impostos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inscrição Municipal.
         /// </summary>
         public static string IMunicipal {
@@ -2127,6 +2199,15 @@ namespace UI.Properties {
         public static string LinhaViewModel {
             get {
                 return ResourceManager.GetString("LinhaViewModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Líquida.
+        /// </summary>
+        public static string Liquida {
+            get {
+                return ResourceManager.GetString("Liquida", resourceCulture);
             }
         }
         
@@ -2752,6 +2833,15 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Percurso Médio Mensal.
+        /// </summary>
+        public static string PercursoMedio {
+            get {
+                return ResourceManager.GetString("PercursoMedio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Percurso Sábado (km).
         /// </summary>
         public static string PercursoSab {
@@ -3193,6 +3283,24 @@ namespace UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Receita.
+        /// </summary>
+        public static string Receita {
+            get {
+                return ResourceManager.GetString("Receita", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Receita Operacional.
+        /// </summary>
+        public static string ReceitasCo {
+            get {
+                return ResourceManager.GetString("ReceitasCo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nº da Carroceria.
         /// </summary>
         public static string Referencia {
@@ -3378,6 +3486,15 @@ namespace UI.Properties {
         public static string Subtotal {
             get {
                 return ResourceManager.GetString("Subtotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Superávit no Período.
+        /// </summary>
+        public static string Superavit {
+            get {
+                return ResourceManager.GetString("Superavit", resourceCulture);
             }
         }
         

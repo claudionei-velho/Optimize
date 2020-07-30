@@ -163,12 +163,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AGaragensController.cs" />
+    <Compile Include="Controllers\ArcosController.cs" />
     <Compile Include="Controllers\AtendimentosController.cs" />
     <Compile Include="Controllers\CarroceriasController.cs" />
     <Compile Include="Controllers\ChassisController.cs" />
     <Compile Include="Controllers\ClassLinhasController.cs" />
     <Compile Include="Controllers\CLinhasController.cs" />
     <Compile Include="Controllers\CorredoresController.cs" />
+    <Compile Include="Controllers\CustosCoController.cs" />
     <Compile Include="Controllers\CustosController.cs" />
     <Compile Include="Controllers\CVeiculosController.cs" />
     <Compile Include="Controllers\DimensionamentosController.cs" />
@@ -230,6 +232,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AGaragemViewModel.cs" />
+    <Compile Include="Models\ArcoViewModel.cs" />
     <Compile Include="Models\AtendimentoViewModel.cs" />
     <Compile Include="Models\CarroceriaViewModel.cs" />
     <Compile Include="Models\ChassiViewModel.cs" />
@@ -299,6 +302,7 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Reports\Docs\DROReport.cs" />
     <Compile Include="Reports\Docs\FichaTecnicaReport.cs" />
     <Compile Include="Reports\Docs\FichaTecnica_v2.cs" />
     <Compile Include="Reports\ReportBase.cs" />
@@ -744,9 +748,11 @@
     <Content Include="Views\Referencias\Details.cshtml" />
     <Content Include="Views\Referencias\Create.cshtml" />
     <Content Include="Views\Vetores\Index.cshtml" />
+    <Content Include="Views\Arcos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\CustosCo\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace UI.Models {
-  public class VetorViewModel {
+  public class ArcoViewModel {
     public int Id { get; set; }
     public int EmpresaId { get; set; }
     public int DiaId { get; set; }

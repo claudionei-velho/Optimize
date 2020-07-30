@@ -4,13 +4,13 @@ using System.Data.Entity.ModelConfiguration;
 using Dto.Models;
 
 namespace Dal.Mapping {
-  internal class VetorMap : EntityTypeConfiguration<Vetor> {
-    public VetorMap() {
+  internal class ArcoMap : EntityTypeConfiguration<Arco> {
+    public ArcoMap() {
       // Primary Key
       this.HasKey(t => t.Id);
 
       // Table, Properties & Column Mappings
-      this.ToTable("MatrizVetores", "opc");
+      this.ToTable("Arcos", "opc");
       this.Property(t => t.Id).HasColumnName("Id");
       this.Property(t => t.EmpresaId).HasColumnName("EmpresaId").IsRequired();
       this.Property(t => t.DiaId).HasColumnName("DiaId").IsRequired();
@@ -26,11 +26,11 @@ namespace Dal.Mapping {
 
       // Foreign keys (Relationships)
       this.HasRequired(t => t.PInicio)
-          .WithMany(f => f.VetoresInicio).HasForeignKey(k => k.PInicioId)
+          .WithMany(f => f.ArcosInicio).HasForeignKey(k => k.PInicioId)
           .WillCascadeOnDelete(false);
 
       this.HasRequired(t => t.PTermino)
-          .WithMany(f => f.VetoresTermino).HasForeignKey(k => k.PTerminoId)
+          .WithMany(f => f.ArcosTermino).HasForeignKey(k => k.PTerminoId)
           .WillCascadeOnDelete(false);
     }
   }

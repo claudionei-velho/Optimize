@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 
 namespace Dto.Models {
-  public class Vetor {
-    public Vetor() {
-      this.VetoresH = new HashSet<VetorH>();
+  public class Arco {
+    public Arco() {
       this.ArcosV = new HashSet<ArcoV>();
     }
 
@@ -22,7 +21,6 @@ namespace Dto.Models {
     public virtual Ponto PInicio { get; set; }
     public virtual Ponto PTermino { get; set; }
 
-    public virtual ICollection<VetorH> VetoresH { get; set; }
     public virtual ICollection<ArcoV> ArcosV { get; set; }
   }
 }

@@ -59,6 +59,7 @@
     <Compile Include="Mapping\AAbasteceMap.cs" />
     <Compile Include="Mapping\AAdminMap.cs" />
     <Compile Include="Mapping\AAlmoxMap.cs" />
+    <Compile Include="Mapping\AdjacenciaMap.cs" />
     <Compile Include="Mapping\AEstacionaMap.cs" />
     <Compile Include="Mapping\AFunilariaMap.cs" />
     <Compile Include="Mapping\AGaragemMap.cs" />
@@ -74,6 +75,8 @@
     <Compile Include="Mapping\ClassLinhaMap.cs" />
     <Compile Include="Mapping\CLinhaMap.cs" />
     <Compile Include="Mapping\CorredorMap.cs" />
+    <Compile Include="Mapping\CustoLnMap.cs" />
+    <Compile Include="Mapping\CustoCoMap.cs" />
     <Compile Include="Mapping\CustoMap.cs" />
     <Compile Include="Mapping\CustoModMap.cs" />
     <Compile Include="Mapping\CVeiculoAttMap.cs" />
@@ -124,14 +127,18 @@
     <Compile Include="Mapping\PeriodoTipicoMap.cs" />
     <Compile Include="Mapping\PesquisaMap.cs" />
     <Compile Include="Mapping\PontoMap.cs" />
+    <Compile Include="Mapping\PremissaMap.cs" />
     <Compile Include="Mapping\PrLinhaMap.cs" />
     <Compile Include="Mapping\PtAtendimentoMap.cs" />
     <Compile Include="Mapping\PtDestinoMap.cs" />
     <Compile Include="Mapping\PtLinhaMap.cs" />
     <Compile Include="Mapping\PtOrigemMap.cs" />
     <Compile Include="Mapping\PtTroncoMap.cs" />
+    <Compile Include="Mapping\ReceitaLnMap.cs" />
+    <Compile Include="Mapping\ReceitaCoMap.cs" />
     <Compile Include="Mapping\ReferenciaMap.cs" />
     <Compile Include="Mapping\RenovacaoMap.cs" />
+    <Compile Include="Mapping\RubricaMap.cs" />
     <Compile Include="Mapping\SinoticoMap.cs" />
     <Compile Include="Mapping\SpecVeiculoMap.cs" />
     <Compile Include="Mapping\TarifaMap.cs" />
@@ -145,7 +152,9 @@
     <Compile Include="Mapping\UsuarioMap.cs" />
     <Compile Include="Mapping\VeiculoAttMap.cs" />
     <Compile Include="Mapping\VeiculoMap.cs" />
+    <Compile Include="Mapping\ArcoVMap.cs" />
     <Compile Include="Mapping\VetorHMap.cs" />
+    <Compile Include="Mapping\ArcoMap.cs" />
     <Compile Include="Mapping\VetorMap.cs" />
     <Compile Include="Mapping\ViagemHoraMap.cs" />
     <Compile Include="Mapping\ViagemLinhaMap.cs" />

@@ -60,6 +60,7 @@
     <Compile Include="Services\AAbasteceService.cs" />
     <Compile Include="Services\AAdminService.cs" />
     <Compile Include="Services\AAlmoxService.cs" />
+    <Compile Include="Services\AdjacenciaService.cs" />
     <Compile Include="Services\AEstacionaService.cs" />
     <Compile Include="Services\AFunilariaService.cs" />
     <Compile Include="Services\AGaragemService.cs" />
@@ -74,6 +75,8 @@
     <Compile Include="Services\ChassiService.cs" />
     <Compile Include="Services\CLinhaService.cs" />
     <Compile Include="Services\CorredorService.cs" />
+    <Compile Include="Services\CustoCoService.cs" />
+    <Compile Include="Services\CustoLnService.cs" />
     <Compile Include="Services\CustoService.cs" />
     <Compile Include="Services\DemandaAnoService.cs" />
     <Compile Include="Services\DemandaMesService.cs" />
@@ -125,6 +128,7 @@
     <Compile Include="Services\TServicoService.cs" />
     <Compile Include="Services\VeiculoAttService.cs" />
     <Compile Include="Services\VeiculoService.cs" />
+    <Compile Include="Services\ArcoService.cs" />
     <Compile Include="Services\VetorService.cs" />
     <Compile Include="Services\ViagemLinhaService.cs" />
     <Compile Include="Services\ViagemService.cs" />

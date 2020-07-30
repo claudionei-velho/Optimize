@@ -82,20 +82,21 @@ namespace Reports {
 
       Row row = table.AddRow();
       row.Height = "0.25 in";
+      row.VerticalAlignment = VerticalAlignment.Center;
       row.Borders.Top.Visible = true;
 
       Paragraph paragraph = row.Cells[0].AddParagraph();
-      paragraph.Format.SpaceBefore = "0.2 cm";
+      paragraph.Format.SpaceBefore = "0.01 in";
       paragraph.AddText(Resources.AppName);
 
       paragraph = row.Cells[1].AddParagraph();
-      paragraph.Format.SpaceBefore = "0.2 cm";
+      paragraph.Format.SpaceBefore = "0.01 in";
       if (!string.IsNullOrWhiteSpace(text)) {
         paragraph.AddText(text);
       }
 
       paragraph = row.Cells[2].AddParagraph();
-      paragraph.Format.SpaceBefore = "0.2 cm";
+      paragraph.Format.SpaceBefore = "0.01 in";
       AddPageNumber(paragraph);
     }
 
@@ -113,7 +114,7 @@ namespace Reports {
       return this.table;
     }
 
-    private void ReportSettings(PageFormat pageFormat, Orientation orientation, string title = null) {
+    protected void ReportSettings(PageFormat pageFormat, Orientation orientation, string title = null) {
       this.document = new Document();
       document.Info.Title = title;
       document.Info.Author = Resources.AppName;
@@ -126,7 +127,7 @@ namespace Reports {
       document.DefaultPageSetup.BottomMargin = "1 in";
     }
 
-    private void DefaultFooter(Section section) {
+    protected void DefaultFooter(Section section) {
       Unit[,] colSize = new Unit[2, 3] { { "4.5 cm", "9.1 cm", "4.5 cm" }, 
                                          { "6.7 cm", "13.4 cm", "6.7 cm" } };
       int index = (int)section.PageSetup.Orientation;
@@ -143,7 +144,7 @@ namespace Reports {
       column.Format.Alignment = ParagraphAlignment.Right;
     }
 
-    private void AddPageNumber(Paragraph paragraph) {
+    protected void AddPageNumber(Paragraph paragraph) {
       paragraph.AddText(Resources.Page);
       paragraph.AddPageField();
       paragraph.AddText("/");

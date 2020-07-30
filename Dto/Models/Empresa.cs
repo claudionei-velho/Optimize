@@ -4,6 +4,8 @@ using System.Collections.Generic;
 namespace Dto.Models {
   public class Empresa {
     public Empresa() {
+      this.Adjacencias = new HashSet<Adjacencia>();
+      this.Arcos = new HashSet<Arco>();
       this.CLinhas = new HashSet<CLinha>();
       this.Corredores = new HashSet<Corredor>();
       this.Custos = new HashSet<Custo>();
@@ -54,7 +56,10 @@ namespace Dto.Models {
     // Navigation Properties
     public virtual Municipio Cidade { get; set; }
     public virtual Pais Pais { get; set; }
+    public virtual Premissa Premissa { get; set; }
 
+    public virtual ICollection<Adjacencia> Adjacencias { get; set; }
+    public virtual ICollection<Arco> Arcos { get; set; }
     public virtual ICollection<CLinha> CLinhas { get; set; }
     public virtual ICollection<Corredor> Corredores { get; set; }
     public virtual ICollection<Custo> Custos { get; set; }

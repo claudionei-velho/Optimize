@@ -1398,4 +1398,43 @@
   <data name="VelocidadeComl" xml:space="preserve">
     <value>Velocidade Comercial</value>
   </data>
+  <data name="Coeficiente" xml:space="preserve">
+    <value>Coeficiente</value>
+  </data>
+  <data name="Custo" xml:space="preserve">
+    <value>Custo R$</value>
+  </data>
+  <data name="DROReport" xml:space="preserve">
+    <value>Demonstrativo de Resultado da Operação</value>
+  </data>
+  <data name="Impostos" xml:space="preserve">
+    <value>Impostos</value>
+  </data>
+  <data name="PercursoMedio" xml:space="preserve">
+    <value>Percurso Médio Mensal</value>
+  </data>
+  <data name="Receita" xml:space="preserve">
+    <value>Receita</value>
+  </data>
+  <data name="ReceitasCo" xml:space="preserve">
+    <value>Receita Operacional</value>
+  </data>
+  <data name="Bruta" xml:space="preserve">
+    <value>Bruta</value>
+  </data>
+  <data name="CustoCo" xml:space="preserve">
+    <value>Custo Operacional</value>
+  </data>
+  <data name="Deficit" xml:space="preserve">
+    <value>Déficit no Período</value>
+  </data>
+  <data name="DROReportLn" xml:space="preserve">
+    <value>Demonstrativo de Resultado da Linha</value>
+  </data>
+  <data name="Liquida" xml:space="preserve">
+    <value>Líquida</value>
+  </data>
+  <data name="Superavit" xml:space="preserve">
+    <value>Superávit no Período</value>
+  </data>
 </root>

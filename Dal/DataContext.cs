@@ -16,6 +16,9 @@ namespace Dal {
 
     public DataContext() : base("Name=DataContext") { }
 
+    public DbSet<Adjacencia> Adjacencias { get; set; }
+    public DbSet<Arco> Arcos { get; set; }
+    public DbSet<ArcoV> ArcosV { get; set; }
     public DbSet<Bacia> Bacias { get; set; }
     public DbSet<ClassLinha> ClassLinhas { get; set; }
     public DbSet<Dominio> Dominios { get; set; }
@@ -33,6 +36,8 @@ namespace Dal {
     public DbSet<Chassi> Chassis { get; set; }
     public DbSet<CLinha> CLinhas { get; set; }
     public DbSet<Corredor> Corredores { get; set; }
+    public DbSet<CustoCo> CustosCo { get; set; }
+    public DbSet<CustoLn> CustosLn { get; set; }
     public DbSet<CVeiculo> CVeiculos { get; set; }
     public DbSet<CVeiculoAtt> CVeiculosAtts { get; set; }
     public DbSet<ECVeiculo> ECVeiculos { get; set; }
@@ -55,11 +60,15 @@ namespace Dal {
     public DbSet<Operacao> Operacoes { get; set; }
     public DbSet<Pesquisa> Pesquisas { get; set; }
     public DbSet<Ponto> Pontos { get; set; }
+    public DbSet<Premissa> Premissas { get; set; }
     public DbSet<PrLinha> PrLinhas { get; set; }    
     public DbSet<PtAtendimento> PtAtendimentos { get; set; }
     public DbSet<PtLinha> PtLinhas { get; set; }
+    public DbSet<ReceitaCo> ReceitasCo { get; set; }
+    public DbSet<ReceitaLn> ReceitasLn { get; set; }
     public DbSet<Referencia> Referencias { get; set; }
     public DbSet<Renovacao> Renovacoes { get; set; }
+    public DbSet<Rubrica> Rubricas { get; set; }
     public DbSet<Tarifa> Tarifas { get; set; }
     public DbSet<TarifaMod> TarifaMods { get; set; }
     public DbSet<TCategoria> TCategorias { get; set; }
@@ -115,6 +124,14 @@ namespace Dal {
 
     protected override void OnModelCreating(DbModelBuilder modelBuilder) {
       modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
+
+      // Ignore Properties
+      modelBuilder.Entity<ReceitaCo>().Ignore(p => p.Impostos);
+      modelBuilder.Entity<ReceitaCo>().Ignore(p => p.Liquida);
+
+      modelBuilder.Entity<ReceitaLn>().Ignore(p => p.Impostos);
+      modelBuilder.Entity<ReceitaLn>().Ignore(p => p.Liquida);
+
       base.OnModelCreating(modelBuilder);
     }
 

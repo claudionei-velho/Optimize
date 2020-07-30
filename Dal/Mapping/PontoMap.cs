@@ -22,6 +22,7 @@ namespace Dal.Mapping {
       this.Property(t => t.Municipio).HasColumnName("Municipio").IsRequired().HasMaxLength(32);
       this.Property(t => t.UfId).HasColumnName("UfId").IsRequired().IsFixedLength().HasMaxLength(2);
       this.Property(t => t.Intercambio).HasColumnName("Intercambio");
+      this.Property(t => t.Garagem).HasColumnName("Garagem");
       this.Property(t => t.Latitude).HasColumnName("Latitude").HasPrecision(24, 12);
       this.Property(t => t.Longitude).HasColumnName("Longitude").HasPrecision(24, 12);
       this.Property(t => t.Cadastro).HasColumnName("Cadastro")

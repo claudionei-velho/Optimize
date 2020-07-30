@@ -4,6 +4,8 @@ using System.Collections.Generic;
 namespace Dto.Models {
   public class Ponto {
     public Ponto() {
+      this.Referentes = new HashSet<Adjacencia>();
+      this.Adjacentes = new HashSet<Adjacencia>();
       this.PInicioMatriz = new HashSet<MatrizH>();
       this.PTerminoMatriz = new HashSet<MatrizH>();
       this.PtAtendimentos = new HashSet<PtAtendimento>();
@@ -16,6 +18,8 @@ namespace Dto.Models {
       this.PontosTermino = new HashSet<Referencia>();
       this.VetoresInicio = new HashSet<Vetor>();
       this.VetoresTermino = new HashSet<Vetor>();
+      this.ArcosInicio = new HashSet<Arco>();
+      this.ArcosTermino = new HashSet<Arco>();
     }
 
     public int Id { get; set; }
@@ -29,6 +33,7 @@ namespace Dto.Models {
     public string Municipio { get; set; }
     public string UfId { get; set; }
     public bool Intercambio { get; set; }
+    public bool Garagem { get; set; }
     public decimal? Latitude { get; set; }
     public decimal? Longitude { get; set; }
     public DateTime? Cadastro { get; set; }
@@ -36,6 +41,8 @@ namespace Dto.Models {
     // Navigation Properties
     public virtual Empresa Empresa { get; set; }
 
+    public virtual ICollection<Adjacencia> Referentes { get; set; }
+    public virtual ICollection<Adjacencia> Adjacentes { get; set; }
     public virtual ICollection<MatrizH> PInicioMatriz { get; set; }
     public virtual ICollection<MatrizH> PTerminoMatriz { get; set; }
     public virtual ICollection<PtAtendimento> PtAtendimentos { get; set; }
@@ -47,5 +54,7 @@ namespace Dto.Models {
     public virtual ICollection<Referencia> PontosTermino { get; set; }
     public virtual ICollection<Vetor> VetoresInicio { get; set; }
     public virtual ICollection<Vetor> VetoresTermino { get; set; }
+    public virtual ICollection<Arco> ArcosInicio { get; set; }
+    public virtual ICollection<Arco> ArcosTermino { get; set; }
   }
 }
