@@ -10,77 +10,117 @@ using Dto.Models;
 
 namespace Bll.Services {
   public class VetorService : Services<Vetor> {
-    protected override IQueryable<Vetor> Get(Expression<Func<Vetor, bool>> filter = null, 
+    protected override IQueryable<Vetor> Get(Expression<Func<Vetor, bool>> filter = null,
         Func<IQueryable<Vetor>, IOrderedQueryable<Vetor>> orderBy = null) {
       return base.Get(filter, orderBy).Include(v => v.PInicio).Include(v => v.PTermino);
     }
 
     public async Task DoArcs(int companyId) {
       using Services<Premissa> premissas = new Services<Premissa>();
-      Premissa premissa = await premissas.GetFirstAsync(p => p.EmpresaId == companyId);
+      Premissa premissa = premissas.GetFirst(p => p.EmpresaId == companyId);
       if (premissa == null) {
         return;
       }
-      int interval = (int)Math.Ceiling(premissa.JornadaDia * 60 * premissa.VetorPadrao);
       int jornada = (int)Math.Ceiling(premissa.JornadaDia * 60);
+      int breaktime = (int)Math.Ceiling(premissa.IntraJornadaMin * 60);
+      int interval = premissa.VetorPadrao;
 
       IQueryable<Vetor> query;
-      while (await (query = Get(q => q.EmpresaId == companyId,
-                                q => q.OrderBy(m => m.DiaId).ThenBy(m => m.Inicio))).CountAsync() > 0) {
-        Vetor next = await query.FirstAsync();
+      while ((query = Get(q => q.EmpresaId == companyId, 
+                          q => q.OrderBy(m => m.DiaId).ThenBy(m => m.Id))).Count() > 0) {
+        Vetor next = query.First();
         Arco arco = new Arco() {
-            EmpresaId = next.EmpresaId, DiaId = next.DiaId,
-            Inicio = next.Inicio, PInicioId = next.PInicioId,
-            Termino = next.Termino, PTerminoId = next.PTerminoId
-        };
+            EmpresaId = next.EmpresaId, DiaId = next.DiaId, Inicio = next.Inicio,
+            PInicioId = next.PInicioId, Termino = next.Termino, PTerminoId = next.PTerminoId
+        };        
 
         int itemId = 0;
         using (Services<Arco> service = new Services<Arco>()) {
           await service.Insert(arco);
 
-          using Services<ArcoV> hArco = new Services<ArcoV>();
-          await hArco.Insert(new ArcoV() {
-              ArcoId = arco.Id, Item = ++itemId, VetorId = next.Id
+          using Services<ArcoV> arcoV = new Services<ArcoV>();
+          await arcoV.Insert(new ArcoV() {
+              Item = ++itemId, ArcoId = arco.Id, VetorId = next.Id
           });
         }
-        int runtime = CustomCalendar.Runtime(arco.Inicio, arco.Termino);
-        if (runtime >= jornada) {
-          continue;
-        }
-        int period = runtime;
+        bool hasBreak = false;
+        int runtime = next.Duracao.Value;
 
-        if (period >= interval) {
-          arco.Termino = arco.Termino.Add(TimeSpan.FromMinutes((int)premissa.IntraJornadaMin * 60));
-          period = 0;
-        }
-        TimeSpan toStart = arco.Termino.Add(TimeSpan.FromMinutes((int)premissa.Deslocamento));
-        if (toStart.Days > arco.Termino.Days) {
-          toStart = arco.Termino;
-        }
+        Expression<Func<Vetor, bool>> condition = q => (q.EmpresaId == companyId) && (q.DiaId == next.DiaId);
+        TimeSpan maxInicio;
+        if (runtime < interval) {
+          if (next.Termino.Add(TimeSpan.FromMinutes(premissa.Deslocamento.Value)).Days > next.Termino.Days) {
+            next.Termino = new TimeSpan();
+          }
+          maxInicio = next.Termino.Add(TimeSpan.FromMinutes(premissa.Deslocamento.Value));
+          
+          if ((query = Get(Predicate.And(condition, 
+                                         q => (q.Inicio >= next.Termino) && (q.Inicio <= maxInicio) && 
+                                              (q.PInicioId == next.PTerminoId)),
+                           q => q.OrderBy(p => p.Inicio).ThenBy(p => p.Duracao))).Count() == 0) {
+            if (next.Termino.Add(TimeSpan.FromMinutes(breaktime * 0.5)).Days > next.Termino.Days) {
+              next.Termino = new TimeSpan();
+            }
+            maxInicio = next.Termino.Add(TimeSpan.FromMinutes(breaktime * 0.5));
 
-        IList<int> pontos = new List<int>();
-        using Services<Adjacencia> adjacentes = new Services<Adjacencia>();
-        if (await adjacentes.ExistsAsync(p => p.PontoId == next.PTerminoId)) {
-          if (toStart.Add(TimeSpan.FromMinutes((int)premissa.Deslocamento)).Days > toStart.Days) {
+            IList<int> pontos = new List<int>();
+            using (Services<Adjacencia> adjacentes = new Services<Adjacencia>()) {
+              pontos = adjacentes.GetQuery(q => q.PontoId == next.PTerminoId)
+                           .Select(q => q.AdjacenteId).Distinct().ToList();
+            }
+            pontos.Add(next.PTerminoId.Value);
+            query = (from m in context.Vetores
+                     where m.EmpresaId == companyId && m.DiaId == next.DiaId &&
+                           m.Inicio >= next.Termino && m.Inicio <= maxInicio && pontos.Contains(m.PInicioId.Value)
+                     orderby m.Inicio, m.Duracao
+                     select m);
+          }
+        }
+        else {
+          int addInterval = (!hasBreak) ? breaktime : premissa.Deslocamento.Value;
+          if (next.Termino.Add(TimeSpan.FromMinutes(addInterval)).Days != next.Termino.Days) {
             continue;
           }
-          next.Termino = toStart;
-          toStart = next.Termino.Add(TimeSpan.FromMinutes((int)premissa.Deslocamento));
-          pontos = await adjacentes.GetQuery(q => q.PontoId == next.PTerminoId)
-                             .Select(q => q.AdjacenteId).Distinct().ToListAsync();
-        }
-        pontos.Add((int)next.PTerminoId);
+          else {
+            if (!hasBreak) {
+              next.Termino = next.Termino.Add(TimeSpan.FromMinutes(breaktime));
+            }
+            if (next.Termino.Add(TimeSpan.FromMinutes(addInterval)).Days == next.Termino.Days) {
+              maxInicio = next.Termino.Add(TimeSpan.FromMinutes(addInterval));
+            }
+            else {
+              maxInicio = new TimeSpan().Subtract(TimeSpan.FromSeconds(1));
+            }
+            
+            if ((query = Get(Predicate.And(condition,
+                                           q => (q.Inicio >= next.Termino) && (q.Inicio <= maxInicio) &&
+                                                (q.PInicioId == next.PTerminoId)),
+                             q => q.OrderBy(p => p.Inicio).ThenBy(p => p.Duracao))).Count() == 0) {
+              if (maxInicio.Add(TimeSpan.FromMinutes(breaktime * 0.5)).Days == maxInicio.Days) {
+                maxInicio = maxInicio.Add(TimeSpan.FromMinutes(breaktime * 0.5));
+              }
 
-        while (await (query = (from v in context.Vetores
-                               where v.EmpresaId == companyId && v.DiaId == next.DiaId &&
-                                     v.Inicio >= next.Termino && v.Inicio <= toStart &&
-                                     pontos.Contains((int)v.PInicioId)
-                               orderby v.Inicio, v.Duracao descending
-                               select v).Include(v => v.PInicio).Include(v => v.PTermino)).CountAsync() > 0) {
-          next = await query.FirstAsync();
-          using Services<ArcoV> hArco = new Services<ArcoV>();
-          await hArco.Insert(new ArcoV {
-            ArcoId = arco.Id, Item = ++itemId, VetorId = next.Id
+              IList<int> pontos = new List<int>();
+              using (Services<Adjacencia> adjacentes = new Services<Adjacencia>()) {
+                pontos = adjacentes.GetQuery(q => (q.EmpresaId == companyId) && (q.PontoId != next.PTerminoId))
+                             .Select(q => q.AdjacenteId).Distinct().ToList();
+              }
+              pontos.Add(next.PTerminoId.Value);
+              query = (from m in context.Vetores
+                       where m.EmpresaId == companyId && m.DiaId == next.DiaId &&
+                             m.Inicio >= next.Termino && m.Inicio <= maxInicio && pontos.Contains(m.PInicioId.Value)
+                       orderby m.Inicio, m.Duracao
+                       select m);
+            }
+          }
+          hasBreak = true;
+        }
+
+        while ((query.Count() > 0) && (runtime < jornada)) {
+          next = query.First();
+          using Services<ArcoV> arcoV = new Services<ArcoV>();
+          await arcoV.Insert(new ArcoV {
+              Item = ++itemId, ArcoId = arco.Id, VetorId = next.Id
           });
 
           arco.Termino = next.Termino;
@@ -88,31 +128,75 @@ namespace Bll.Services {
           using (Services<Arco> service = new Services<Arco>()) {
             await service.Update(arco);
           }
-          runtime += CustomCalendar.Runtime(arco.Inicio, arco.Termino);          
-          if (runtime >= jornada) {
-            break;
-          }
+          runtime += next.Duracao.Value;
 
-          period += CustomCalendar.Runtime(arco.Inicio, arco.Termino);
-          if (period >= interval) {
-            arco.Termino = arco.Termino.Add(TimeSpan.FromMinutes((int)premissa.IntraJornadaMin * 60));
-          }
-          toStart = arco.Termino.Add(TimeSpan.FromMinutes((int)premissa.Deslocamento));
-          if (toStart.Days > arco.Termino.Days) {
-            toStart = arco.Termino;
-          }
+          if (runtime < interval) {
+            if (next.Termino.Add(TimeSpan.FromMinutes(premissa.Deslocamento.Value)).Days > next.Termino.Days) {
+              next.Termino = new TimeSpan();
+            }
+            maxInicio = next.Termino.Add(TimeSpan.FromMinutes(premissa.Deslocamento.Value));
+              
+            if ((query = Get(Predicate.And(condition,
+                                           q => (q.Inicio >= next.Termino) && (q.Inicio <= maxInicio) &&
+                                                (q.PInicioId == next.PTerminoId)),
+                             q => q.OrderBy(p => p.Inicio).ThenBy(p => p.Duracao))).Count() == 0) {
+              if (next.Termino.Add(TimeSpan.FromMinutes(breaktime * 0.5)).Days > next.Termino.Days) {
+                next.Termino = new TimeSpan();
+              }
+              maxInicio = next.Termino.Add(TimeSpan.FromMinutes(breaktime * 0.5));
 
-          pontos.Clear();
-          if (await adjacentes.ExistsAsync(p => p.PontoId == next.PTerminoId)) {
-            if (toStart.Add(TimeSpan.FromMinutes((int)premissa.Deslocamento)).Days > toStart.Days) {
+              IList<int> pontos = new List<int>();
+              using (Services<Adjacencia> adjacentes = new Services<Adjacencia>()) {
+                pontos = adjacentes.GetQuery(q => q.PontoId == next.PTerminoId)
+                             .Select(q => q.AdjacenteId).Distinct().ToList();
+              }
+              pontos.Add(next.PTerminoId.Value);
+              query = (from m in context.Vetores
+                       where m.EmpresaId == companyId && m.DiaId == next.DiaId &&
+                             m.Inicio >= next.Termino && m.Inicio <= maxInicio && pontos.Contains(m.PInicioId.Value)
+                       orderby m.Inicio, m.Duracao
+                       select m);
+            }
+          }
+          else {
+            int addInterval = (!hasBreak) ? breaktime : premissa.Deslocamento.Value;
+            if (next.Termino.Add(TimeSpan.FromMinutes(addInterval)).Days != next.Termino.Days) {
               break;
             }
-            next.Termino = toStart;
-            toStart = next.Termino.Add(TimeSpan.FromMinutes((int)premissa.Deslocamento));
-            pontos = await adjacentes.GetQuery(q => q.PontoId == next.PTerminoId)
-                               .Select(q => q.AdjacenteId).Distinct().ToListAsync();
-          }
-          pontos.Add((int)next.PTerminoId);
+            else {
+              if (!hasBreak) {
+                next.Termino = next.Termino.Add(TimeSpan.FromMinutes(breaktime));
+              }
+              if (next.Termino.Add(TimeSpan.FromMinutes(addInterval)).Days == next.Termino.Days) {
+                maxInicio = next.Termino.Add(TimeSpan.FromMinutes(addInterval));
+              }
+              else {
+                maxInicio = new TimeSpan().Subtract(TimeSpan.FromSeconds(1));
+              }
+                
+              if ((query = Get(Predicate.And(condition,
+                                             q => (q.Inicio >= next.Termino) && (q.Inicio <= maxInicio) &&
+                                                  (q.PInicioId == next.PTerminoId)),
+                               q => q.OrderBy(p => p.Inicio).ThenBy(p => p.Duracao))).Count() == 0) {
+                if (maxInicio.Add(TimeSpan.FromMinutes(breaktime * 0.5)).Days == maxInicio.Days) {
+                  maxInicio = maxInicio.Add(TimeSpan.FromMinutes(breaktime * 0.5));
+                }
+
+                IList<int> pontos = new List<int>();
+                using (Services<Adjacencia> adjacentes = new Services<Adjacencia>()) {
+                  pontos = adjacentes.GetQuery(q => (q.EmpresaId == companyId) && (q.PontoId != next.PTerminoId))
+                               .Select(q => q.AdjacenteId).Distinct().ToList();
+                }
+                pontos.Add(next.PTerminoId.Value);
+                query = (from m in context.Vetores
+                         where m.EmpresaId == companyId && m.DiaId == next.DiaId &&
+                               m.Inicio >= next.Termino && m.Inicio <= maxInicio && pontos.Contains(m.PInicioId.Value)
+                         orderby m.Inicio, m.Duracao
+                         select m);
+              }
+              hasBreak = true;
+            }
+          }         
         }
       }
     }

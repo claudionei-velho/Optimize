@@ -31,9 +31,7 @@ namespace Dal.Mapping {
 
       this.Property(t => t.DeslocaInicial).HasColumnName("DeslocaInicial");
       this.Property(t => t.Deslocamento).HasColumnName("Deslocamento");
-      this.Property(t => t.VetorPadrao).HasColumnName("VetorPadrao")
-          .IsRequired().HasPrecision(6, 3);
-
+      this.Property(t => t.VetorPadrao).HasColumnName("VetorPadrao").IsRequired();
       this.Property(t => t.NoturnoInicio).HasColumnName("NoturnoInicio").IsRequired();
       this.Property(t => t.NoturnoTermino).HasColumnName("NoturnoTermino").IsRequired();
 

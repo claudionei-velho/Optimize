@@ -11,7 +11,7 @@ namespace Dto.Models {
     public decimal IntraJornadaMax { get; set; }
     public int? DeslocaInicial { get; set; }
     public int? Deslocamento { get; set; }
-    public decimal VetorPadrao { get; set; }
+    public int VetorPadrao { get; set; }
     public TimeSpan NoturnoInicio { get; set; }
     public TimeSpan NoturnoTermino { get; set; }
 
