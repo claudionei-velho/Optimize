@@ -6,6 +6,7 @@ namespace Dto.Models {
     public CLinha() {
       this.Linhas = new HashSet<Linha>();
       this.Pesquisas = new HashSet<Pesquisa>();
+      this.Tecnicals = new HashSet<Tecnical>();
     }
 
     public int Id { get; set; }
@@ -19,5 +20,6 @@ namespace Dto.Models {
 
     public virtual ICollection<Linha> Linhas { get; set; }
     public virtual ICollection<Pesquisa> Pesquisas { get; set; }
+    public virtual ICollection<Tecnical> Tecnicals { get; set; }
   }
 }

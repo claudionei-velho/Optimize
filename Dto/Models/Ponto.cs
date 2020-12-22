@@ -34,6 +34,7 @@ namespace Dto.Models {
     public string UfId { get; set; }
     public bool Intercambio { get; set; }
     public bool Garagem { get; set; }
+    public decimal? Distancia { get; set; }
     public decimal? Latitude { get; set; }
     public decimal? Longitude { get; set; }
     public DateTime? Cadastro { get; set; }

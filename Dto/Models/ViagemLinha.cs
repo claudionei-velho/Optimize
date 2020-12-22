@@ -28,7 +28,7 @@ namespace Dto.Models {
     public int? ViagensSemana {
       get {
         try {
-          return this.ViagensAno.Value / CustomCalendar.WeeksPerYear;
+          return (int)Math.Round((decimal)this.ViagensAno.Value / CustomCalendar.WeeksPerYear);
         }
         catch (DivideByZeroException) {
           return null;
@@ -52,7 +52,7 @@ namespace Dto.Models {
     public int? ViagensMes {
       get {
         try {
-          return this.ViagensAno.Value / CustomCalendar.MonthsPerYear;
+          return (int)Math.Round((decimal)this.ViagensAno.Value / CustomCalendar.MonthsPerYear);
         }
         catch (DivideByZeroException) {
           return null;

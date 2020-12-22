@@ -52,6 +52,9 @@ namespace UI.Models {
     [Display(Name = "Intercambio", ResourceType = typeof(Properties.Resources))]
     public bool Intercambio { get; set; }
 
+    public bool Garagem { get; set; }
+    public decimal? Distancia { get; set; }
+
     [Display(Name = "Latitude", ResourceType = typeof(Properties.Resources))]
     [Latitude(-90, 90), DisplayFormat(DataFormatString = "{0:##0.0000######}", ApplyFormatInEditMode = true)]
     public decimal? Latitude { get; set; }

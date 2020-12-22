@@ -19,9 +19,9 @@ using UI.Properties;
 
 namespace UI.Reports.Docs {
   public class FichaTecnicaReport : ReportBase {
-    private readonly Expression<Func<Linha, bool>> filter;
+    private readonly Expression<Func<Tecnical, bool>> filter;
 
-    public FichaTecnicaReport(Expression<Func<Linha, bool>> _filter) : base(Resources.FichaTecnicaPreview) {
+    public FichaTecnicaReport(Expression<Func<Tecnical, bool>> _filter) : base(Resources.FichaTecnicaPreview) {
       this.filter = _filter;
     }
 
@@ -36,13 +36,13 @@ namespace UI.Reports.Docs {
       /*
        * Dimensionamento da Frota Operacional (Dias Uteis)
        */
-      using LinhaService lines = new LinhaService();
+      using TecnicalService lines = new TecnicalService();
       int companyId = lines.GetFirst(this.filter).EmpresaId;
 
       using Services<Empresa> empresa = new Services<Empresa>();
       string companyName = empresa.GetById(companyId).Razao;
       string companyLogo = empresa.GetById(companyId)?.Logo;
-
+/*
       using (Services<FuUtil> utils = new Services<FuUtil>()) {
         Expression<Func<FuUtil, bool>> filter = f => f.EmpresaId == companyId;
 
@@ -117,12 +117,12 @@ namespace UI.Reports.Docs {
           paragraph.Format.Font.Size = 10;
           paragraph.AddFormattedText($"{Resources.HorasOperacao}: {$"{result:#.00}"}", TextFormat.Bold);
         }
-      }
+      } */
 
       /*
        * Resumo Executivo do Sistema
        */
-      using (LinhaService linhas = new LinhaService()) {
+      using (TecnicalService linhas = new TecnicalService()) {
         companyId = linhas.GetFirst(this.filter).EmpresaId;
         decimal?[,] values = new decimal?[3, 6] { { 0, 0, 0, 0, 0, 0 },
                                                   { 0, 0, 0, 0, 0, 0 },
@@ -181,10 +181,10 @@ namespace UI.Reports.Docs {
           row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
           row.Cells[0].Format.Font.Bold = true;
 
-          foreach (Linha item in linhas.GetQuery(Predicate.And(
-                                                     this.filter,
-                                                     p => p.Classificacao == groupItem.Classificacao)
-                                                 ).OrderBy(p => p.Id)) {
+          foreach (Tecnical item in linhas.GetQuery(Predicate.And(
+                                                        this.filter,
+                                                        p => p.Classificacao == groupItem.Classificacao)
+                                                    ).OrderBy(p => p.Id)) {
             row = table.AddRow();
             row.Height = "0.75 cm";
 
@@ -345,8 +345,8 @@ namespace UI.Reports.Docs {
       /*
        * Identificacao e Qualificacao da Linha
        */
-      using (LinhaService linhas = new LinhaService()) {
-        foreach (Linha item in linhas.GetQuery(this.filter, q => q.OrderBy(p => p.Id))) {
+      using (TecnicalService linhas = new TecnicalService()) {
+        foreach (Tecnical item in linhas.GetQuery(this.filter, q => q.OrderBy(p => p.Id))) {
           concat = new StringBuilder($"{Resources.LinhaId}: {item.Prefixo} - {item.Denominacao}");
 
           AddSection(Orientation.Portrait);
@@ -1093,13 +1093,13 @@ namespace UI.Reports.Docs {
 
               row.Cells[2].AddParagraph(Resources.Total);
               try {
-                row.Cells[3].AddParagraph($"{vgTotal.Value / CustomCalendar.WeeksPerYear:#,###}");
+                row.Cells[3].AddParagraph($"{Math.Round((decimal)vgTotal.Value / CustomCalendar.WeeksPerYear):#,###}");
                 row.Cells[4].AddParagraph($"{kmTotal.Value / CustomCalendar.WeeksPerYear:#,##0.0}");
               }
               catch (DivideByZeroException) { }
 
               try {
-                row.Cells[5].AddParagraph($"{vgTotal.Value / CustomCalendar.MonthsPerYear:#,###}");
+                row.Cells[5].AddParagraph($"{Math.Round((decimal)vgTotal.Value / CustomCalendar.MonthsPerYear):#,###}");
                 row.Cells[6].AddParagraph($"{kmTotal.Value / CustomCalendar.MonthsPerYear:#,##0.0}");
               }
               catch (DivideByZeroException) { }

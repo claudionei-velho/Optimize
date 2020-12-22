@@ -160,6 +160,7 @@
     <Compile Include="Models\Tarifa.cs" />
     <Compile Include="Models\TarifaMod.cs" />
     <Compile Include="Models\TCategoria.cs" />
+    <Compile Include="Models\Tecnical.cs" />
     <Compile Include="Models\Terminal.cs" />
     <Compile Include="Models\TotalViagem.cs" />
     <Compile Include="Models\Tronco.cs" />

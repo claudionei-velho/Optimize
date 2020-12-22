@@ -10,7 +10,7 @@ namespace Dal.Mapping {
       this.HasKey(t => t.Id);
 
       // Table, Properties & Column Mappings
-      this.ToTable("Horarios", "opc");
+      this.ToTable("Tabelas_Horarias", "opc");
       this.Property(t => t.Id).HasColumnName("Id");
       this.Property(t => t.LinhaId).HasColumnName("LinhaId").IsRequired();
       this.Property(t => t.AtendimentoId).HasColumnName("AtendimentoId");

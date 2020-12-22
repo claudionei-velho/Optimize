@@ -5,6 +5,7 @@ namespace Dto.Models {
   public class EDominio {
     public EDominio() {
       this.Linhas = new HashSet<Linha>();
+      this.Tecnicals = new HashSet<Tecnical>();
     }
 
     public int Id { get; set; }
@@ -16,5 +17,6 @@ namespace Dto.Models {
     public virtual Empresa Empresa { get; set; }
 
     public virtual ICollection<Linha> Linhas { get; set; }
+    public virtual ICollection<Tecnical> Tecnicals { get; set; }
   }
 }

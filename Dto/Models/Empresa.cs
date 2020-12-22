@@ -29,6 +29,7 @@ namespace Dto.Models {
       this.Troncos = new HashSet<Tronco>();
       this.SpecVeiculos = new HashSet<SpecVeiculo>();
       this.FrotaEtarias = new HashSet<FrotaEtaria>();
+      this.Tecnicals = new HashSet<Tecnical>();
     }
 
     public int Id { get; set; }
@@ -83,5 +84,6 @@ namespace Dto.Models {
     public virtual ICollection<Tronco> Troncos { get; set; }
     public virtual ICollection<SpecVeiculo> SpecVeiculos { get; set; }
     public virtual ICollection<FrotaEtaria> FrotaEtarias { get; set; }
+    public virtual ICollection<Tecnical> Tecnicals { get; set; }
   }
 }

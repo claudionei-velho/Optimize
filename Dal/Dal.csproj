@@ -106,6 +106,7 @@
     <Compile Include="Mapping\ItinerarioDistinctMap.cs" />
     <Compile Include="Mapping\ItinerarioMap.cs" />
     <Compile Include="Mapping\ItTroncoMap.cs" />
+    <Compile Include="Mapping\TecnicalMap.cs" />
     <Compile Include="Mapping\LinhaMap.cs" />
     <Compile Include="Mapping\LnCorredorMap.cs" />
     <Compile Include="Mapping\LnPesquisaMap.cs" />

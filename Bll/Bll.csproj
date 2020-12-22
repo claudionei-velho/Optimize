@@ -96,6 +96,7 @@
     <Compile Include="Services\ItAtendimentoService.cs" />
     <Compile Include="Services\ItinerarioService.cs" />
     <Compile Include="Services\ItTroncoService.cs" />
+    <Compile Include="Services\TecnicalService.cs" />
     <Compile Include="Services\LinhaService.cs" />
     <Compile Include="Services\LnCorredorService.cs" />
     <Compile Include="Services\LnPesquisaService.cs" />

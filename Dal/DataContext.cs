@@ -121,6 +121,7 @@ namespace Dal {
     public DbSet<DemandaMes> DemandasMes { get; set; }
     public DbSet<DemandaMod> DemandasMod { get; set; }
     public DbSet<DemandaAno> DemandasAno { get; set; }
+    public DbSet<Tecnical> Tecnicals { get; set; }
 
     protected override void OnModelCreating(DbModelBuilder modelBuilder) {
       modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
