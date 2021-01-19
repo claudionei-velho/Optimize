@@ -3,6 +3,13 @@ using System.Collections.Generic;
 
 namespace Dto.Lists {
   public static class Workday {
+    private enum _workDays : int
+        {
+            Util = 1,
+            Sabado = 2,
+            Domingo = 3
+        };
+
     public static IDictionary<int, string> Items = new Dictionary<int, string> {
         { 0, string.Empty },
         { 1, "Dias Úteis" },
