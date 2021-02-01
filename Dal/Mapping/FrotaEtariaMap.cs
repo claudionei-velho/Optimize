@@ -20,7 +20,8 @@ namespace Dal.Mapping {
       this.Property(t => t.Especial).HasColumnName("Especial");
       this.Property(t => t.Articulado).HasColumnName("Articulado");
       this.Property(t => t.BiArticulado).HasColumnName("BiArticulado");      
-      this.Property(t => t.Frota).HasColumnName("Frota");
+      this.Property(t => t.Frota).HasColumnName("Frota").IsRequired();
+      this.Property(t => t.Ratio).HasColumnName("Ratio");
       this.Property(t => t.EqvIdade).HasColumnName("EqvIdade");
 
       // Foreign Keys (Relationships)

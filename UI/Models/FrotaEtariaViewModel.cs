@@ -49,7 +49,8 @@ namespace UI.Models {
     [DisplayFormat(DataFormatString = "{0:#,##0}")]
     public int? Frota { get; set; }
 
-    public int? EqvIdade { get; set; }
+    public decimal? Ratio { get; set; }
+    public decimal? EqvIdade { get; set; }
 
     // Navigation Properties
     public virtual Empresa Empresa { get; set; }

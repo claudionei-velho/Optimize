@@ -88,7 +88,7 @@ namespace UI.Controllers {
 
         using var memoryStream = new MemoryStream();
         Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-        Response.AddHeader("content-disposition", $"attachment; filename={Guid.NewGuid().ToString()}.xlsx");
+        Response.AddHeader("content-disposition", $"attachment; filename={Guid.NewGuid()}.xlsx");
         excel.SaveAs(memoryStream);
         memoryStream.WriteTo(Response.OutputStream);
         Response.Flush();

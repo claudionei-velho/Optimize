@@ -10,8 +10,9 @@
     public int? Especial { get; set; }
     public int? Articulado { get; set; }
     public int? BiArticulado { get; set; }    
-    public int? Frota { get; set; }
-    public int? EqvIdade { get; set; }
+    public int Frota { get; set; }
+    public decimal? Ratio { get; set; }
+    public decimal? EqvIdade { get; set; }
 
     // Navigation Properties
     public virtual Empresa Empresa { get; set; }

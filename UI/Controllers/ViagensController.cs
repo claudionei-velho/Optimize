@@ -247,7 +247,7 @@ namespace UI.Controllers {
 
         using (Services<Horario> horarios = new Services<Horario>()) {
           return Json(horarios.GetQuery(applyFilter, q => q.OrderBy(h => h.Inicio)).Select(p => new { p.Id, p.Inicio })
-                          .ToDictionary(k => k.Id, k => k.Inicio.ToString("hh\\:mm")).ToList(), JsonRequestBehavior.AllowGet);
+                          .ToDictionary(k => k.Id, k => k.Inicio.ToString(@"hh\:mm")).ToList(), JsonRequestBehavior.AllowGet);
         }
       }
     }

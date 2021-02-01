@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace Dto.Lists {
   public static class Workday {
-    private enum _workDays : int
-        {
-            Util = 1,
-            Sabado = 2,
-            Domingo = 3
-        };
+    [Flags]
+    public enum WorkDays : int {
+      Util = 1,
+      Sabado = 2,
+      Domingo = 3
+    };
 
     public static IDictionary<int, string> Items = new Dictionary<int, string> {
         { 0, string.Empty },
@@ -25,10 +25,10 @@ namespace Dto.Lists {
 
     public static int GetWorkday(DateTime dateRef) {
       return dateRef.DayOfWeek switch {
-                 DayOfWeek.Sunday => 3,
-                 DayOfWeek.Saturday => 2,
-                 _ => 1,
-             };
+        DayOfWeek.Sunday => 3,
+        DayOfWeek.Saturday => 2,
+        _ => 1,
+      };
     }
   }
 }
